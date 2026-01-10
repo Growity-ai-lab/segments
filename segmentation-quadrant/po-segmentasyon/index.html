@@ -16,8 +16,11 @@
         .logo-text { font-size: 13px; font-weight: 700; }
         .btn { padding: 5px 10px; border: none; border-radius: 4px; font-size: 9px; font-weight: 600; cursor: pointer; }
         .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; }
-        .main-container { display: flex; height: calc(100vh - 44px); }
-        .left-panel { width: 220px; background: rgba(255,255,255,0.02); border-right: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; }
+        
+        .main-wrapper { display: flex; flex-direction: column; height: calc(100vh - 44px); overflow: hidden; }
+        .top-section { display: flex; flex: 1; min-height: 0; overflow: hidden; }
+        
+        .left-panel { width: 200px; background: rgba(255,255,255,0.02); border-right: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; }
         .panel-header { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .panel-title { font-size: 10px; font-weight: 600; }
         .filter-row { display: flex; gap: 2px; flex-wrap: wrap; margin-top: 5px; }
@@ -37,6 +40,7 @@
         .tier-t2 { background: #2196f3; color: #fff; }
         .tier-t3 { background: #ff9800; color: #fff; }
         .tier-t4 { background: #f44336; color: #fff; }
+        
         .center-panel { flex: 1; display: flex; flex-direction: column; padding: 8px; min-width: 0; }
         .canvas-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
         .canvas-title { font-size: 11px; font-weight: 600; }
@@ -46,60 +50,88 @@
         .canvas-wrap { flex: 1; background: rgba(255,255,255,0.02); border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); position: relative; }
         #quadrantCanvas { width: 100%; height: 100%; }
         .tooltip { position: fixed; background: rgba(0,0,0,0.95); padding: 8px 10px; border-radius: 5px; font-size: 9px; pointer-events: none; z-index: 1000; display: none; max-width: 220px; }
-        .right-panel { width: 300px; background: rgba(255,255,255,0.02); border-left: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; overflow: hidden; }
-        .right-panel-content { flex: 1; overflow-y: auto; }
+        
+        .right-panel { width: 260px; background: rgba(255,255,255,0.02); border-left: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; overflow-y: auto; }
         .detail-section { padding: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .detail-title { font-size: 8px; font-weight: 600; color: #888; text-transform: uppercase; margin-bottom: 5px; }
         .detail-header { display: flex; align-items: center; gap: 6px; }
         .detail-name { font-size: 11px; font-weight: 600; }
         .detail-parent { font-size: 8px; color: #888; }
-        .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
-        .metric-box { background: rgba(255,255,255,0.03); border-radius: 4px; padding: 5px 2px; text-align: center; }
-        .metric-value { font-size: 13px; font-weight: 700; color: #e31e24; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+        .metric-box { background: rgba(255,255,255,0.03); border-radius: 3px; padding: 4px 2px; text-align: center; }
+        .metric-value { font-size: 12px; font-weight: 700; color: #e31e24; }
         .metric-label { font-size: 6px; color: #888; }
         .info-text { font-size: 9px; line-height: 1.4; color: #aaa; }
         .info-text.highlight { color: #4fc3f7; }
-        .bht-category { margin-bottom: 6px; }
-        .bht-category-title { font-size: 8px; font-weight: 600; margin-bottom: 3px; padding: 3px 5px; border-radius: 3px; }
-        .bht-category-title.awareness { background: rgba(156,39,176,0.2); color: #ce93d8; }
-        .bht-category-title.consideration { background: rgba(255,152,0,0.2); color: #ffb74d; }
-        .bht-category-title.conversion { background: rgba(76,175,80,0.2); color: #81c784; }
-        .bht-question { display: flex; align-items: flex-start; gap: 4px; padding: 3px 4px; border-radius: 2px; cursor: pointer; font-size: 8px; }
-        .bht-question:hover { background: rgba(255,255,255,0.05); }
-        .bht-question.selected { background: rgba(227,30,36,0.1); }
-        .bht-question.recommended { border-left: 2px solid #e31e24; }
-        .bht-checkbox { width: 11px; height: 11px; border: 1px solid rgba(255,255,255,0.3); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 7px; flex-shrink: 0; }
-        .bht-checkbox.checked { background: #e31e24; border-color: #e31e24; color: #fff; }
-        .bht-tag { font-size: 6px; padding: 1px 4px; border-radius: 6px; background: rgba(227,30,36,0.2); color: #e31e24; margin-left: 3px; }
-        .bht-tag.new { background: rgba(76,175,80,0.2); color: #81c784; }
-        .distribution-bar-container { display: flex; height: 18px; border-radius: 4px; overflow: hidden; margin-bottom: 6px; }
-        .distribution-bar { display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 600; }
-        .distribution-bar.awareness { background: linear-gradient(135deg, #9c27b0, #7b1fa2); }
-        .distribution-bar.consideration { background: linear-gradient(135deg, #ff9800, #f57c00); }
-        .distribution-bar.conversion { background: linear-gradient(135deg, #4caf50, #388e3c); }
-        .recommendation-box { padding: 6px; background: rgba(227,30,36,0.1); border-radius: 4px; border-left: 2px solid #e31e24; font-size: 8px; color: #aaa; }
-        .platform-tabs { display: flex; gap: 3px; margin-bottom: 6px; }
-        .platform-tab { padding: 4px 8px; border-radius: 4px; font-size: 8px; font-weight: 600; cursor: pointer; border: 1px solid transparent; }
-        .platform-tab.meta { background: rgba(24,119,242,0.1); color: #4a90d9; }
-        .platform-tab.meta.active { border-color: #1877f2; }
-        .platform-tab.tiktok { background: rgba(0,0,0,0.3); color: #00f2ea; }
-        .platform-tab.tiktok.active { border-color: #00f2ea; }
-        .platform-tab.youtube { background: rgba(255,0,0,0.1); color: #ff4444; }
-        .platform-tab.youtube.active { border-color: #ff0000; }
-        .platform-tab.dv360 { background: rgba(52,168,83,0.1); color: #34a853; }
-        .platform-tab.dv360.active { border-color: #34a853; }
-        .platform-content { display: none; }
-        .platform-content.active { display: block; }
-        .targeting-table { width: 100%; font-size: 8px; }
-        .targeting-table th { background: rgba(255,255,255,0.05); padding: 4px; text-align: left; font-size: 7px; color: #888; }
-        .targeting-table td { padding: 4px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .bht-badge { padding: 1px 4px; border-radius: 6px; font-size: 6px; font-weight: 600; }
-        .bht-badge.awareness { background: rgba(156,39,176,0.2); color: #ce93d8; }
-        .bht-badge.consideration { background: rgba(255,152,0,0.2); color: #ffb74d; }
-        .bht-badge.conversion { background: rgba(76,175,80,0.2); color: #81c784; }
-        .kpi-tag { color: #4fc3f7; }
+        
+        /* Bottom Panel */
+        .bottom-panel { background: rgba(20,20,40,0.98); border-top: 2px solid #e31e24; height: 0; overflow: hidden; transition: height 0.3s; position: relative; z-index: 100; }
+        .bottom-panel.active { height: 340px; overflow-y: auto; }
+        .bottom-content { padding: 12px 16px; }
+        .bottom-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .bottom-title { font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .bottom-subtitle { font-size: 10px; color: #888; }
+        
+        .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        
+        /* BHT Impact Section */
+        .bht-impact-section { background: rgba(255,255,255,0.02); border-radius: 8px; padding: 12px; }
+        .bht-impact-title { font-size: 10px; font-weight: 600; margin-bottom: 10px; color: #4fc3f7; }
+        .bht-category { margin-bottom: 8px; }
+        .bht-category-header { font-size: 9px; font-weight: 600; padding: 4px 6px; border-radius: 4px; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; }
+        .bht-category-header.awareness { background: rgba(156,39,176,0.2); color: #ce93d8; }
+        .bht-category-header.consideration { background: rgba(255,152,0,0.2); color: #ffb74d; }
+        .bht-category-header.conversion { background: rgba(76,175,80,0.2); color: #81c784; }
+        .bht-impact-value { font-size: 11px; font-weight: 700; }
+        .bht-questions-list { font-size: 8px; color: #aaa; padding-left: 8px; }
+        .bht-question-item { padding: 2px 0; display: flex; align-items: center; gap: 4px; }
+        .bht-question-item.recommended { color: #fff; }
+        .bht-question-item.recommended::before { content: '★'; color: #e31e24; }
+        
+        /* Platform Targeting */
+        .platform-section { background: rgba(255,255,255,0.02); border-radius: 8px; padding: 12px; }
+        .platform-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+        .platform-card { background: rgba(255,255,255,0.03); border-radius: 6px; overflow: hidden; }
+        .platform-header { padding: 6px 8px; font-size: 9px; font-weight: 600; display: flex; align-items: center; gap: 5px; }
+        .platform-header.meta { background: rgba(24,119,242,0.2); color: #4a90d9; border-bottom: 2px solid #1877f2; }
+        .platform-header.x { background: rgba(0,0,0,0.5); color: #fff; border-bottom: 2px solid #000; }
+        .platform-header.tiktok { background: rgba(0,0,0,0.4); color: #00f2ea; border-bottom: 2px solid #00f2ea; }
+        .platform-header.youtube { background: rgba(255,0,0,0.15); color: #ff6666; border-bottom: 2px solid #ff0000; }
+        .platform-header.dv360 { background: rgba(52,168,83,0.2); color: #34a853; border-bottom: 2px solid #34a853; }
+        .platform-body { padding: 6px; }
+        .targeting-row { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 8px; }
+        .targeting-row:last-child { border-bottom: none; }
+        .targeting-type { color: #888; }
+        .targeting-value { color: #fff; text-align: right; max-width: 60%; }
+        .bht-mini { font-size: 6px; padding: 1px 3px; border-radius: 4px; margin-left: 3px; }
+        .bht-mini.aw { background: rgba(156,39,176,0.3); color: #ce93d8; }
+        .bht-mini.co { background: rgba(255,152,0,0.3); color: #ffb74d; }
+        .bht-mini.cv { background: rgba(76,175,80,0.3); color: #81c784; }
+        
         .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #555; text-align: center; padding: 20px; }
-        .empty-icon { font-size: 32px; margin-bottom: 8px; }
+        .empty-icon { font-size: 28px; margin-bottom: 6px; }
+        
+        .extra-targeting-card { background: rgba(255,255,255,0.03); border-radius: 6px; overflow: hidden; }
+        .extra-targeting-header { padding: 6px 8px; font-size: 9px; font-weight: 600; background: rgba(255,255,255,0.05); color: #4fc3f7; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .extra-targeting-body { padding: 6px 8px; }
+        .extra-item { display: flex; align-items: center; gap: 6px; padding: 3px 0; font-size: 8px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .extra-item:last-child { border-bottom: none; }
+        .app-icon { width: 18px; height: 18px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: bold; }
+        .app-getir { background: #5c3d9e; }
+        .app-migros { background: #ff6600; }
+        .app-yemeksepeti { background: #fa0050; }
+        .app-starbucks { background: #00704A; }
+        .app-trendyol { background: #f27a1a; }
+        .app-hepsiburada { background: #ff6000; }
+        .app-a101 { background: #e30613; }
+        .app-bim { background: #ed1c24; }
+        .app-nike { background: #111; }
+        .app-calm { background: #7eb8da; }
+        .app-nefis { background: #e91e63; }
+        .app-moov { background: #00a651; }
+        .app-obilet { background: #1a73e8; }
+        .tv-item { color: #ce93d8; }
+        .food-item { color: #ffb74d; font-size: 7px; }
     </style>
 </head>
 <body>
@@ -117,118 +149,555 @@
             <button class="btn btn-secondary" onclick="exportExcel()">📊 Excel</button>
         </div>
     </header>
-    <div class="main-container">
-        <div class="left-panel">
-            <div class="panel-header">
-                <div class="panel-title">📊 40 Segment</div>
-                <div class="filter-row">
-                    <button class="filter-btn active" data-tier="all" onclick="filterTier('all')">Tümü</button>
-                    <button class="filter-btn" data-tier="super" onclick="filterTier('super')">⭐</button>
-                    <button class="filter-btn" data-tier="t1" onclick="filterTier('t1')">T1</button>
-                    <button class="filter-btn" data-tier="t2" onclick="filterTier('t2')">T2</button>
-                    <button class="filter-btn" data-tier="t3" onclick="filterTier('t3')">T3</button>
-                    <button class="filter-btn" data-tier="t4" onclick="filterTier('t4')">T4</button>
+    
+    <div class="main-wrapper">
+        <div class="top-section">
+            <div class="left-panel">
+                <div class="panel-header">
+                    <div class="panel-title">📊 40 Segment</div>
+                    <div class="filter-row">
+                        <button class="filter-btn active" data-tier="all" onclick="filterTier('all')">Tümü</button>
+                        <button class="filter-btn" data-tier="super" onclick="filterTier('super')">⭐</button>
+                        <button class="filter-btn" data-tier="t1" onclick="filterTier('t1')">T1</button>
+                        <button class="filter-btn" data-tier="t2" onclick="filterTier('t2')">T2</button>
+                        <button class="filter-btn" data-tier="t3" onclick="filterTier('t3')">T3</button>
+                        <button class="filter-btn" data-tier="t4" onclick="filterTier('t4')">T4</button>
+                    </div>
+                </div>
+                <div class="segment-list" id="segmentList"></div>
+            </div>
+            
+            <div class="center-panel">
+                <div class="canvas-header">
+                    <div class="canvas-title">Segment Quadrant</div>
+                    <div class="view-toggle">
+                        <button class="view-btn active" onclick="setView('all')">Tümü</button>
+                        <button class="view-btn" onclick="setView('Aile Seyahat Planlayıcıları')">Aile</button>
+                        <button class="view-btn" onclick="setView('Deneyim Odaklı Şehirli Premiumlar')">Urban</button>
+                        <button class="view-btn" onclick="setView('Değer Odaklı Hızlı Alışverişçiler')">Değer</button>
+                        <button class="view-btn" onclick="setView('Erişilebilir Premium Tüketiciler')">Premium</button>
+                    </div>
+                </div>
+                <div class="canvas-wrap"><canvas id="quadrantCanvas"></canvas></div>
+            </div>
+            
+            <div class="right-panel">
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-icon">👆</div>
+                    <div style="font-size:11px;color:#888;">Segment Seçin</div>
+                </div>
+                <div id="detailPanel" style="display:none;">
+                    <div class="detail-section">
+                        <div class="detail-header">
+                            <div class="tier-badge" id="detailTier">T1</div>
+                            <div><div class="detail-name" id="detailName">Segment</div><div class="detail-parent" id="detailParent">Parent</div></div>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-title">Metrikler</div>
+                        <div class="metrics-grid">
+                            <div class="metric-box"><div class="metric-value" id="metricX">50</div><div class="metric-label" id="metricXLabel">X</div></div>
+                            <div class="metric-box"><div class="metric-value" id="metricY">50</div><div class="metric-label" id="metricYLabel">Y</div></div>
+                            <div class="metric-box"><div class="metric-value" id="metricSize">50</div><div class="metric-label" id="metricSizeLabel">Boyut</div></div>
+                            <div class="metric-box"><div class="metric-value" id="metricTier">T1</div><div class="metric-label">Öncelik</div></div>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-title">Strateji</div>
+                        <div class="info-text" id="detailReason" style="margin-bottom:4px;"></div>
+                        <div class="info-text highlight" id="detailStrategy"></div>
+                    </div>
                 </div>
             </div>
-            <div class="segment-list" id="segmentList"></div>
         </div>
-        <div class="center-panel">
-            <div class="canvas-header">
-                <div class="canvas-title">Segment Quadrant</div>
-                <div class="view-toggle">
-                    <button class="view-btn active" onclick="setView('all')">Tümü</button>
-                    <button class="view-btn" onclick="setView('Aile Seyahat Planlayıcıları')">Aile</button>
-                    <button class="view-btn" onclick="setView('Deneyim Odaklı Şehirli Premiumlar')">Urban</button>
-                    <button class="view-btn" onclick="setView('Değer Odaklı Hızlı Alışverişçiler')">Değer</button>
-                    <button class="view-btn" onclick="setView('Erişilebilir Premium Tüketiciler')">Premium</button>
-                </div>
-            </div>
-            <div class="canvas-wrap"><canvas id="quadrantCanvas"></canvas></div>
-        </div>
-        <div class="right-panel">
-            <div id="emptyState" class="empty-state">
-                <div class="empty-icon">👆</div>
-                <div style="font-size:12px;color:#888;">Segment Seçin</div>
-                <div style="font-size:9px;margin-top:4px;">Detayları görmek için listeden veya grafikten segment seçin</div>
-            </div>
-            <div id="detailPanel" class="right-panel-content" style="display:none;">
-                <div class="detail-section">
-                    <div class="detail-header">
-                        <div class="tier-badge" id="detailTier">T1</div>
-                        <div><div class="detail-name" id="detailName">Segment</div><div class="detail-parent" id="detailParent">Parent</div></div>
+        
+        <!-- Bottom Panel -->
+        <div class="bottom-panel" id="bottomPanel">
+            <div class="bottom-content">
+                <div class="bottom-header">
+                    <div class="bottom-title">
+                        <span id="bottomSegName">Segment</span>
+                        <span class="bottom-subtitle" id="bottomSegParent"></span>
                     </div>
                 </div>
-                <div class="detail-section">
-                    <div class="detail-title">Metrikler</div>
-                    <div class="metrics-grid">
-                        <div class="metric-box"><div class="metric-value" id="metricX">50</div><div class="metric-label" id="metricXLabel">X</div></div>
-                        <div class="metric-box"><div class="metric-value" id="metricY">50</div><div class="metric-label" id="metricYLabel">Y</div></div>
-                        <div class="metric-box"><div class="metric-value" id="metricSize">50</div><div class="metric-label" id="metricSizeLabel">Boyut</div></div>
-                        <div class="metric-box"><div class="metric-value" id="metricTier">T1</div><div class="metric-label">Öncelik</div></div>
+                <div class="bottom-grid">
+                    <!-- BHT Impact -->
+                    <div class="bht-impact-section">
+                        <div class="bht-impact-title">📊 Tahmini BHT Etki Analizi</div>
+                        <div class="bht-category">
+                            <div class="bht-category-header awareness">
+                                <span>🎯 Awareness</span>
+                                <span class="bht-impact-value" id="awImpact">+12%</span>
+                            </div>
+                            <div class="bht-questions-list" id="awQuestions"></div>
+                        </div>
+                        <div class="bht-category">
+                            <div class="bht-category-header consideration">
+                                <span>💭 Consideration</span>
+                                <span class="bht-impact-value" id="coImpact">+8%</span>
+                            </div>
+                            <div class="bht-questions-list" id="coQuestions"></div>
+                        </div>
+                        <div class="bht-category">
+                            <div class="bht-category-header conversion">
+                                <span>✅ Conversion</span>
+                                <span class="bht-impact-value" id="cvImpact">+5%</span>
+                            </div>
+                            <div class="bht-questions-list" id="cvQuestions"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="detail-section">
-                    <div class="detail-title">Strateji</div>
-                    <div class="info-text" id="detailReason" style="margin-bottom:4px;"></div>
-                    <div class="info-text highlight" id="detailStrategy"></div>
-                </div>
-                <div class="detail-section">
-                    <div class="detail-title">🎯 BHT Hedefleri</div>
-                    <div class="bht-category"><div class="bht-category-title awareness">Awareness</div><div id="awarenessQ"></div></div>
-                    <div class="bht-category"><div class="bht-category-title consideration">Consideration</div><div id="considerationQ"></div></div>
-                    <div class="bht-category"><div class="bht-category-title conversion">Conversion</div><div id="conversionQ"></div></div>
-                    <div style="margin-top:8px;">
-                        <div class="detail-title">Funnel Dağılımı</div>
-                        <div class="distribution-bar-container" id="distBar"></div>
-                        <div class="recommendation-box" id="recBox">Segment seçin</div>
+                    
+                    <!-- Platform Targeting -->
+                    <div class="platform-section">
+                        <div class="bht-impact-title">🎯 Platform Hedefleme Önerileri</div>
+                        <div class="platform-grid">
+                            <div class="platform-card">
+                                <div class="platform-header meta">📘 Meta</div>
+                                <div class="platform-body" id="metaTargeting"></div>
+                            </div>
+                            <div class="platform-card">
+                                <div class="platform-header x">𝕏 X</div>
+                                <div class="platform-body" id="xTargeting"></div>
+                            </div>
+                            <div class="platform-card">
+                                <div class="platform-header tiktok">🎵 TikTok</div>
+                                <div class="platform-body" id="tiktokTargeting"></div>
+                            </div>
+                            <div class="platform-card">
+                                <div class="platform-header youtube">▶️ YouTube</div>
+                                <div class="platform-body" id="youtubeTargeting"></div>
+                            </div>
+                            <div class="platform-card">
+                                <div class="platform-header dv360">📊 DV360</div>
+                                <div class="platform-body" id="dv360Targeting"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Ek Hedefleme Detayları -->
+                        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;">
+                            <div class="extra-targeting-card">
+                                <div class="extra-targeting-header">📱 App Hedefleme</div>
+                                <div class="extra-targeting-body" id="appTargeting"></div>
+                            </div>
+                            <div class="extra-targeting-card">
+                                <div class="extra-targeting-header">📺 TV & Video İlgi Alanları</div>
+                                <div class="extra-targeting-body" id="tvTargeting"></div>
+                            </div>
+                            <div class="extra-targeting-card">
+                                <div class="extra-targeting-header">🍔 Food & Drink Kategorileri</div>
+                                <div class="extra-targeting-body" id="foodTargeting"></div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="detail-section">
-                    <div class="detail-title">🎯 Platform Hedefleme</div>
-                    <div class="platform-tabs">
-                        <div class="platform-tab meta active" onclick="switchPlatform('meta')">Meta</div>
-                        <div class="platform-tab tiktok" onclick="switchPlatform('tiktok')">TikTok</div>
-                        <div class="platform-tab youtube" onclick="switchPlatform('youtube')">YouTube</div>
-                        <div class="platform-tab dv360" onclick="switchPlatform('dv360')">DV360</div>
-                    </div>
-                    <div class="platform-content active" id="platform-meta"><table class="targeting-table"><thead><tr><th>Tip</th><th>Hedef</th><th>BHT</th><th>KPI</th></tr></thead><tbody id="metaT"></tbody></table></div>
-                    <div class="platform-content" id="platform-tiktok"><table class="targeting-table"><thead><tr><th>Tip</th><th>Hedef</th><th>BHT</th><th>KPI</th></tr></thead><tbody id="tiktokT"></tbody></table></div>
-                    <div class="platform-content" id="platform-youtube"><table class="targeting-table"><thead><tr><th>Tip</th><th>Hedef</th><th>BHT</th><th>KPI</th></tr></thead><tbody id="youtubeT"></tbody></table></div>
-                    <div class="platform-content" id="platform-dv360"><table class="targeting-table"><thead><tr><th>Tip</th><th>Hedef</th><th>BHT</th><th>KPI</th></tr></thead><tbody id="dv360T"></tbody></table></div>
                 </div>
             </div>
         </div>
     </div>
+    
     <div class="tooltip" id="tooltip"></div>
+    
     <script>
-        const bhtQ={awareness:[{id:'aw1',text:'"Premium Market" konseptini duydum',isNew:true},{id:'aw2',text:'PO market hizmeti sunduğunu biliyorum',isNew:true},{id:'aw3',text:'Kaliteli atıştırmalık bulabileceğimi biliyorum',isNew:true},{id:'aw4',text:'Güvenilir bir marka',isNew:false},{id:'aw5',text:'Modern ve yenilikçi',isNew:false},{id:'aw6',text:'Lider marka',isNew:false}],consideration:[{id:'co1',text:'Yol üstü atıştırmalık için PO tercih ederim',isNew:true},{id:'co2',text:'Premium ürünler bulabileceğimi düşünüyorum',isNew:true},{id:'co3',text:'Hızlı kahve için uğrarım',isNew:true},{id:'co4',text:'Diğer istasyonlardan daha iyi',isNew:true},{id:'co5',text:'Müşterisini anlar',isNew:false},{id:'co6',text:'İstasyonları aydınlık ve güvenli',isNew:false},{id:'co7',text:'Teknolojik çözümler sunar',isNew:false},{id:'co8',text:'İşimi hızlı halledebilirim',isNew:false}],conversion:[{id:'cv1',text:'Son 1 ayda alışveriş yaptım',isNew:true},{id:'cv2',text:'Sadece market için gittim',isNew:true},{id:'cv3',text:'Tavsiye ederim',isNew:true},{id:'cv4',text:'Ürünler beklentimi karşıladı',isNew:true},{id:'cv5',text:'Yolumu değiştiririm',isNew:false},{id:'cv6',text:'Olmasa eksikliğini hissederim',isNew:false}]};
-        const segBhtRec={'Aile Seyahat Planlayıcıları':['aw2','aw3','co1','co3','cv1'],'Deneyim Odaklı Şehirli Premiumlar':['aw1','aw5','co2','co4','cv4'],'Değer Odaklı Hızlı Alışverişçiler':['aw3','co1','co8','cv1','cv2'],'Erişilebilir Premium Tüketiciler':['aw1','aw3','co2','co3','co4','cv1','cv3','cv4']};
-        const targetT={'Aile Seyahat Planlayıcıları':{meta:[{type:'Interest',target:'Seyahat, Aile tatili',bht:'Awareness',kpi:'Reach'},{type:'Behavior',target:'Sık seyahat edenler',bht:'Consideration',kpi:'Engagement'},{type:'Demographic',target:'Ebeveynler 30-50',bht:'Consideration',kpi:'LP Views'},{type:'Custom',target:'PO app users',bht:'Conversion',kpi:'Store Visit'},{type:'Lookalike',target:'Yakıt kartı LAL 1-3%',bht:'Conversion',kpi:'Conv.'}],tiktok:[{type:'Interest',target:'Aile, Seyahat',bht:'Awareness',kpi:'Views'},{type:'Hashtag',target:'#aileiletatil',bht:'Awareness',kpi:'Reach'},{type:'Creator',target:'Aile influencerları',bht:'Consideration',kpi:'Follows'},{type:'Retargeting',target:'Video 50%+',bht:'Conversion',kpi:'Clicks'}],youtube:[{type:'Affinity',target:'Aile odaklı, Seyahat',bht:'Awareness',kpi:'CPV'},{type:'In-Market',target:'Aile tatili',bht:'Consideration',kpi:'VTR'},{type:'Custom Intent',target:'aile tatili rotası',bht:'Consideration',kpi:'Clicks'},{type:'Remarketing',target:'Video izleyiciler',bht:'Conversion',kpi:'Conv.'}],dv360:[{type:'Affinity',target:'Travel Buffs, Family',bht:'Awareness',kpi:'Reach'},{type:'In-Market',target:'Travel, Auto',bht:'Consideration',kpi:'Visits'},{type:'Custom Intent',target:'aile tatili',bht:'Consideration',kpi:'CTR'},{type:'Remarketing',target:'Site visitors',bht:'Conversion',kpi:'Conv.'}]},'Deneyim Odaklı Şehirli Premiumlar':{meta:[{type:'Interest',target:'Wellness, Fitness',bht:'Awareness',kpi:'Reach'},{type:'Behavior',target:'Health conscious',bht:'Consideration',kpi:'Engagement'},{type:'Demographic',target:'Şehirli 25-45',bht:'Consideration',kpi:'LP Views'},{type:'Custom',target:'Spor salonu üyeleri',bht:'Conversion',kpi:'Store Visit'},{type:'Lookalike',target:'Premium LAL 1-2%',bht:'Conversion',kpi:'ROAS'}],tiktok:[{type:'Interest',target:'Wellness, Lifestyle',bht:'Awareness',kpi:'Views'},{type:'Hashtag',target:'#wellness',bht:'Awareness',kpi:'Reach'},{type:'Creator',target:'Wellness creators',bht:'Consideration',kpi:'Follows'},{type:'Retargeting',target:'Engaged 7d',bht:'Conversion',kpi:'Conv.'}],youtube:[{type:'Affinity',target:'Health & Fitness',bht:'Awareness',kpi:'CPV'},{type:'In-Market',target:'Premium Food',bht:'Consideration',kpi:'VTR'},{type:'Custom Intent',target:'premium kahve',bht:'Consideration',kpi:'Clicks'},{type:'Remarketing',target:'High-value',bht:'Conversion',kpi:'ROAS'}],dv360:[{type:'Affinity',target:'Health, Foodies',bht:'Awareness',kpi:'Reach'},{type:'In-Market',target:'Health Food',bht:'Consideration',kpi:'CTR'},{type:'Custom Intent',target:'specialty coffee',bht:'Consideration',kpi:'Visits'},{type:'Remarketing',target:'High-value',bht:'Conversion',kpi:'ROAS'}]},'Değer Odaklı Hızlı Alışverişçiler':{meta:[{type:'Interest',target:'Fırsatlar, İndirimler',bht:'Awareness',kpi:'Reach'},{type:'Behavior',target:'Deal seekers',bht:'Consideration',kpi:'CTR'},{type:'Custom',target:'Sadakat üyeleri',bht:'Conversion',kpi:'Redemption'},{type:'Retargeting',target:'Promo visitors',bht:'Conversion',kpi:'Conv.'}],tiktok:[{type:'Interest',target:'Deals, Tasarruf',bht:'Awareness',kpi:'Views'},{type:'Hashtag',target:'#indirim #fırsat',bht:'Awareness',kpi:'Reach'},{type:'Creator',target:'Fırsat avcıları',bht:'Consideration',kpi:'Shares'},{type:'Retargeting',target:'Profile visitors',bht:'Conversion',kpi:'Downloads'}],youtube:[{type:'Affinity',target:'Bargain Hunters',bht:'Awareness',kpi:'CPV'},{type:'In-Market',target:'Coupons & Deals',bht:'Consideration',kpi:'VTR'},{type:'Custom Intent',target:'indirim kampanya',bht:'Consideration',kpi:'Clicks'},{type:'Remarketing',target:'Deal viewers',bht:'Conversion',kpi:'Conv.'}],dv360:[{type:'Affinity',target:'Bargain Hunters',bht:'Awareness',kpi:'Reach'},{type:'In-Market',target:'Deals',bht:'Consideration',kpi:'Clicks'},{type:'Custom Intent',target:'indirim',bht:'Consideration',kpi:'Visits'},{type:'Remarketing',target:'Cart abandoners',bht:'Conversion',kpi:'Conv.'}]},'Erişilebilir Premium Tüketiciler':{meta:[{type:'Interest',target:'Self-care, Premium, Kahve',bht:'Awareness',kpi:'Reach'},{type:'Behavior',target:'Impulse buyers',bht:'Consideration',kpi:'Engagement'},{type:'Demographic',target:'Şehirli 25-45',bht:'Consideration',kpi:'LP Views'},{type:'Custom',target:'Kahve müdavimleri',bht:'Conversion',kpi:'Store Visit'},{type:'Lookalike',target:'Premium LAL 1-3%',bht:'Conversion',kpi:'Value'}],tiktok:[{type:'Interest',target:'Self-care, Kahve',bht:'Awareness',kpi:'Views'},{type:'Hashtag',target:'#kendinişımart',bht:'Awareness',kpi:'Reach'},{type:'Creator',target:'Lifestyle creators',bht:'Consideration',kpi:'Follows'},{type:'Retargeting',target:'High-intent',bht:'Conversion',kpi:'Conv.'}],youtube:[{type:'Affinity',target:'Coffee Lovers',bht:'Awareness',kpi:'CPV'},{type:'In-Market',target:'Coffee, Snacks',bht:'Consideration',kpi:'VTR'},{type:'Custom Intent',target:'premium kahve',bht:'Consideration',kpi:'Clicks'},{type:'Remarketing',target:'Converters',bht:'Conversion',kpi:'Repeat'}],dv360:[{type:'Affinity',target:'Coffee, Treats',bht:'Awareness',kpi:'Reach'},{type:'In-Market',target:'Premium Snacks',bht:'Consideration',kpi:'CTR'},{type:'Custom Intent',target:'grab go',bht:'Consideration',kpi:'Visits'},{type:'Remarketing',target:'High-value',bht:'Conversion',kpi:'ROAS'}]}};
-        const segments=[{parent:'Aile Seyahat Planlayıcıları',name:'Hafta Sonu Kaçamakçıları',x:65,y:90,size:95,tier:'T1',reason:'Her hafta sonu yola çıkıyor.',strategy:'"Hafta Sonu Paketi" combo'},{parent:'Aile Seyahat Planlayıcıları',name:'Aile Yol Gezisi Tutkunları',x:55,y:70,size:90,tier:'T1',reason:'Uzun yol = çoklu durak.',strategy:'"Yol Arkadaşı" seti'},{parent:'Aile Seyahat Planlayıcıları',name:'Güvenlik Öncelikli Maceracılar',x:75,y:65,size:75,tier:'T2',reason:'Premium ödemeye hazır.',strategy:'Kalite vurgulu ürünler'},{parent:'Aile Seyahat Planlayıcıları',name:'Tema Parkı Meraklıları',x:45,y:60,size:70,tier:'T2',reason:'Sık seyahat eden aile.',strategy:'Aile paketi promoları'},{parent:'Aile Seyahat Planlayıcıları',name:'Aile Kamp Planlayıcıları',x:40,y:55,size:65,tier:'T2',reason:'Pratik ürün ihtiyacı.',strategy:'"Kamp Essentials"'},{parent:'Aile Seyahat Planlayıcıları',name:'Sezonluk Tatilciler',x:50,y:25,size:60,tier:'T3',reason:'Yılda 1-2 kez.',strategy:'Sezonsal kampanyalar'},{parent:'Aile Seyahat Planlayıcıları',name:'Çok Kuşaklı Planlayıcılar',x:60,y:35,size:55,tier:'T3',reason:'Büyük aile = büyük basket.',strategy:'Aile boyu paketler'},{parent:'Aile Seyahat Planlayıcıları',name:'Eğitici Gezi Arayanlar',x:55,y:30,size:45,tier:'T3',reason:'Niş kitle.',strategy:'Kültür rotaları'},{parent:'Aile Seyahat Planlayıcıları',name:'Seyahat Puanı Optimizecileri',x:30,y:75,size:50,tier:'T4',reason:'Sadakat düşük.',strategy:'Puan çarpanı'},{parent:'Aile Seyahat Planlayıcıları',name:'Bütçe Dostu Aile Tatilcileri',x:20,y:45,size:55,tier:'T4',reason:'Çok fiyat hassas.',strategy:'Private label'},{parent:'Deneyim Odaklı Şehirli Premiumlar',name:'Şehirli Wellness Arayanlar',x:85,y:70,size:90,tier:'T1',reason:'Günlük premium kahve.',strategy:'Protein bar, cold-pressed'},{parent:'Deneyim Odaklı Şehirli Premiumlar',name:'Premium Teknoloji Öncüleri',x:80,y:75,size:75,tier:'T1',reason:'Hız odaklı grab & go.',strategy:'Specialty coffee, şarj'},{parent:'Deneyim Odaklı Şehirli Premiumlar',name:'Lüks Macera Gezginleri',x:75,y:85,size:65,tier:'T2',reason:'Kaliteli ürün arar.',strategy:'Trail mix, premium su'},{parent:'Deneyim Odaklı Şehirli Premiumlar',name:'Premium Seyahat Ustaları',x:70,y:90,size:55,tier:'T2',reason:'Yüksek kalite beklentisi.',strategy:'Gourmet, artisan'},{parent:'Deneyim Odaklı Şehirli Premiumlar',name:'Kültürel Deneyim Koleksiyoncuları',x:50,y:65,size:55,tier:'T2',reason:'Kültür turları.',strategy:'Yerel lezzetler'},{parent:'Deneyim Odaklı Şehirli Premiumlar',name:'Fine Dining Tutkunları',x:45,y:85,size:50,tier:'T3',reason:'Convenience değil.',strategy:'Artisan snack'},{parent:'Deneyim Odaklı Şehirli Premiumlar',name:'Lüks Yaşam Tarzı Meraklıları',x:55,y:95,size:45,tier:'T3',reason:'Özel kanal tercihi.',strategy:'Premium imaj'},{parent:'Deneyim Odaklı Şehirli Premiumlar',name:'Butik Moda Takipçileri',x:40,y:70,size:40,tier:'T4',reason:'Market düşük öncelik.',strategy:'Düşük potansiyel'},{parent:'Deneyim Odaklı Şehirli Premiumlar',name:'Sanat & Tiyatro Hamileri',x:35,y:60,size:45,tier:'T4',reason:'Rutin alışveriş az.',strategy:'Düşük potansiyel'},{parent:'Deneyim Odaklı Şehirli Premiumlar',name:'Yat & Country Club Üyeleri',x:30,y:95,size:30,tier:'T4',reason:'Kapalı ekosistem.',strategy:'Ulaşılamaz'},{parent:'Değer Odaklı Hızlı Alışverişçiler',name:'Flash İndirim Tutkunları',x:75,y:90,size:85,tier:'T1',reason:'Anlık fırsat = alır.',strategy:'Günlük flash deal'},{parent:'Değer Odaklı Hızlı Alışverişçiler',name:'Puan & Ödül Koleksiyoncuları',x:55,y:85,size:80,tier:'T1',reason:'Program sadakati.',strategy:'Puan çarpanı'},{parent:'Değer Odaklı Hızlı Alışverişçiler',name:'Fırsat Avcısı Alışverişçiler',x:80,y:75,size:75,tier:'T2',reason:'Aktif fırsat arayışı.',strategy:'Haftalık insert'},{parent:'Değer Odaklı Hızlı Alışverişçiler',name:'Sadece Temel İhtiyaç Alıcıları',x:60,y:65,size:75,tier:'T2',reason:'Düzenli ihtiyaç.',strategy:'Fiyat liderliği'},{parent:'Değer Odaklı Hızlı Alışverişçiler',name:'İndirim Maksimizecileri',x:85,y:70,size:70,tier:'T2',reason:'Promosyon takipçisi.',strategy:'Çoklu al kampanyaları'},{parent:'Değer Odaklı Hızlı Alışverişçiler',name:'Jenerik Marka Seçiciler',x:90,y:60,size:65,tier:'T3',reason:'Private label sadık.',strategy:'PO özel marka'},{parent:'Değer Odaklı Hızlı Alışverişçiler',name:'İndirim Köşesi Gezginleri',x:85,y:45,size:50,tier:'T3',reason:'İndirim köşesi avcısı.',strategy:'Endcap'},{parent:'Değer Odaklı Hızlı Alışverişçiler',name:'Toplu Alım Yapanlar',x:70,y:35,size:55,tier:'T4',reason:'Format uyumsuz.',strategy:'Düşük öncelik'},{parent:'Değer Odaklı Hızlı Alışverişçiler',name:'Fiyat Eşleme Talep Edenler',x:95,y:50,size:45,tier:'T4',reason:'Operasyonel yük.',strategy:'Yüksek efor'},{parent:'Değer Odaklı Hızlı Alışverişçiler',name:'İkinci El Alışverişçiler',x:80,y:30,size:35,tier:'T4',reason:'Yeni ürün düşük.',strategy:'Hedef dışı'},{parent:'Erişilebilir Premium Tüketiciler',name:'Kolaylık Premium Arayanlar',x:90,y:80,size:95,tier:'Süper',reason:'Hız + kalite. Biçilmiş kaftan.',strategy:'"2 Dakika Garantisi"'},{parent:'Erişilebilir Premium Tüketiciler',name:'Kendine Ödül Verenler',x:95,y:70,size:90,tier:'Süper',reason:'"Bunu hak ettim" anı.',strategy:'"Bugün Senin Günün"'},{parent:'Erişilebilir Premium Tüketiciler',name:'Günlük Premium Yükseltmeciler',x:75,y:75,size:85,tier:'T1',reason:'Her gün küçük upgrade.',strategy:'"Upgrade Your Day"'},{parent:'Erişilebilir Premium Tüketiciler',name:'Premium Kahve Tutkunları',x:70,y:85,size:85,tier:'T1',reason:'Kahve = günlük ritüel.',strategy:'"6. Kahve Bedava"'},{parent:'Erişilebilir Premium Tüketiciler',name:'Son Dakika Premium Ödeyiciler',x:85,y:75,size:80,tier:'T1',reason:'Acil ihtiyaçta premium öder.',strategy:'"İhtiyaç Anında"'},{parent:'Erişilebilir Premium Tüketiciler',name:'Talep Üzerine Yaşam Tarzı',x:80,y:70,size:75,tier:'T2',reason:'Hız > fiyat.',strategy:'"Pre-Order & Pick"'},{parent:'Erişilebilir Premium Tüketiciler',name:'Kalite Bilinçli Dürtüsel Alıcılar',x:85,y:80,size:70,tier:'T2',reason:'Kalite filtreli impuls.',strategy:'"Haftanın Keşfi"'},{parent:'Erişilebilir Premium Tüketiciler',name:'Organik & Doğal Seçiciler',x:55,y:85,size:60,tier:'T2',reason:'Sağlık bilinçli.',strategy:'"Clean Label Corner"'},{parent:'Erişilebilir Premium Tüketiciler',name:'Artisan Ürün Destekçileri',x:50,y:90,size:45,tier:'T3',reason:'Çok seçici.',strategy:'"Yerel Lezzet"'},{parent:'Erişilebilir Premium Tüketiciler',name:'Abonelik Servisi Benimseyenler',x:40,y:70,size:55,tier:'T4',reason:'Abonelik odaklı.',strategy:'Düşük potansiyel'}];
-        const parentColors={'Aile Seyahat Planlayıcıları':{bg:'rgba(33,150,243,0.25)',border:'#2196f3'},'Deneyim Odaklı Şehirli Premiumlar':{bg:'rgba(156,39,176,0.25)',border:'#9c27b0'},'Değer Odaklı Hızlı Alışverişçiler':{bg:'rgba(255,152,0,0.25)',border:'#ff9800'},'Erişilebilir Premium Tüketiciler':{bg:'rgba(76,175,80,0.25)',border:'#4caf50'}};
-        const tierCfg={'Süper':{icon:'⭐',class:'tier-super'},'T1':{icon:'T1',class:'tier-t1'},'T2':{icon:'T2',class:'tier-t2'},'T3':{icon:'T3',class:'tier-t3'},'T4':{icon:'T4',class:'tier-t4'}};
-        const axisL={'Aile Seyahat Planlayıcıları':{x:'Premium Açıklık',y:'Frekans',s:'Potansiyel'},'Deneyim Odaklı Şehirli Premiumlar':{x:'Convenience',y:'Premium Kapasite',s:'Pazar'},'Değer Odaklı Hızlı Alışverişçiler':{x:'Fiyat Odaklılık',y:'Alışveriş Frekansı',s:'Hacim'},'Erişilebilir Premium Tüketiciler':{x:'Dürtüsellik',y:'Premium İstek',s:'Değer'}};
-        let canvas,ctx,selectedSeg=null,currentFilter='all',currentView='all',selectedBht=new Set();
-        const pad=45;
-        function init(){canvas=document.getElementById('quadrantCanvas');ctx=canvas.getContext('2d');resizeCanvas();window.addEventListener('resize',resizeCanvas);canvas.addEventListener('mousemove',handleMouseMove);canvas.addEventListener('click',handleClick);canvas.addEventListener('mouseleave',()=>document.getElementById('tooltip').style.display='none');renderSegmentList();draw();}
-        function resizeCanvas(){const c=canvas.parentElement;canvas.width=c.clientWidth;canvas.height=c.clientHeight;draw();}
-        function renderSegmentList(){const groups={};segments.forEach((s,i)=>{if(!groups[s.parent])groups[s.parent]=[];groups[s.parent].push({...s,index:i});});const list=document.getElementById('segmentList');list.innerHTML='';Object.entries(groups).forEach(([parent,segs])=>{const colors=parentColors[parent];const div=document.createElement('div');div.className='segment-group';div.innerHTML=`<div class="segment-group-header" style="border-left-color:${colors.border};" onclick="toggleGroup(this)"><span>${parent.split(' ').slice(0,2).join(' ')}</span><span>▼</span></div><div class="segment-items open">${segs.map(s=>`<div class="segment-item ${selectedSeg===s.index?'selected':''}" onclick="selectSegment(${s.index})"><div class="tier-badge ${tierCfg[s.tier].class}">${tierCfg[s.tier].icon}</div><span>${s.name}</span></div>`).join('')}</div>`;list.appendChild(div);});}
-        function toggleGroup(h){const i=h.nextElementSibling;i.classList.toggle('open');h.querySelector('span:last-child').textContent=i.classList.contains('open')?'▼':'▶';}
-        function getFiltered(){let f=segments;if(currentFilter!=='all'){const m={'super':'Süper','t1':'T1','t2':'T2','t3':'T3','t4':'T4'};f=f.filter(s=>s.tier===m[currentFilter]);}if(currentView!=='all')f=f.filter(s=>s.parent===currentView);return f;}
-        function draw(){const w=canvas.width,h=canvas.height;ctx.fillStyle='#0f0f1a';ctx.fillRect(0,0,w,h);const cw=w-pad*2,ch=h-pad*2,cx=pad+cw/2,cy=pad+ch/2;ctx.fillStyle='rgba(255,152,0,0.04)';ctx.fillRect(pad,pad,cw/2,ch/2);ctx.fillStyle='rgba(76,175,80,0.06)';ctx.fillRect(cx,pad,cw/2,ch/2);ctx.fillStyle='rgba(244,67,54,0.04)';ctx.fillRect(pad,cy,cw/2,ch/2);ctx.fillStyle='rgba(33,150,243,0.04)';ctx.fillRect(cx,cy,cw/2,ch/2);ctx.strokeStyle='rgba(255,255,255,0.05)';ctx.lineWidth=1;for(let i=0;i<=10;i++){ctx.beginPath();ctx.moveTo(pad+(cw/10)*i,pad);ctx.lineTo(pad+(cw/10)*i,h-pad);ctx.stroke();ctx.beginPath();ctx.moveTo(pad,pad+(ch/10)*i);ctx.lineTo(w-pad,pad+(ch/10)*i);ctx.stroke();}ctx.strokeStyle='rgba(255,255,255,0.2)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx,pad);ctx.lineTo(cx,h-pad);ctx.stroke();ctx.beginPath();ctx.moveTo(pad,cy);ctx.lineTo(w-pad,cy);ctx.stroke();ctx.font='8px Segoe UI';ctx.fillStyle='rgba(255,255,255,0.4)';ctx.textAlign='center';ctx.fillText('YATIRIM',pad+cw/4,pad+12);ctx.fillText('🎯 ÖNCELİK',cx+cw/4,pad+12);const filtered=getFiltered();filtered.forEach(seg=>{const ri=segments.indexOf(seg),x=pad+(seg.x/100)*cw,y=pad+((100-seg.y)/100)*ch,size=(seg.size/100)*22+6,colors=parentColors[seg.parent];if(selectedSeg===ri){ctx.beginPath();ctx.arc(x,y,size+4,0,Math.PI*2);ctx.fillStyle='rgba(227,30,36,0.3)';ctx.fill();}ctx.beginPath();ctx.arc(x,y,size,0,Math.PI*2);ctx.fillStyle=colors.bg;ctx.fill();ctx.strokeStyle=colors.border;ctx.lineWidth=selectedSeg===ri?3:1.5;ctx.stroke();ctx.fillStyle=tierCfg[seg.tier].class==='tier-super'?'#ffd700':'#fff';ctx.font=`bold ${size>16?8:6}px Segoe UI`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(tierCfg[seg.tier].icon,x,y);});}
-        function handleMouseMove(e){const rect=canvas.getBoundingClientRect(),mx=e.clientX-rect.left,my=e.clientY-rect.top,cw=canvas.width-pad*2,ch=canvas.height-pad*2;let found=null;getFiltered().forEach(seg=>{const x=pad+(seg.x/100)*cw,y=pad+((100-seg.y)/100)*ch,size=(seg.size/100)*22+6;if(Math.sqrt((mx-x)**2+(my-y)**2)<size)found=seg;});const tt=document.getElementById('tooltip');if(found){canvas.style.cursor='pointer';const l=axisL[found.parent];tt.innerHTML=`<div style="font-weight:600;">${found.name}</div><div style="color:#888;font-size:8px;margin:3px 0;">${found.parent}</div><div style="font-size:8px;">${l.x}: <b style="color:#e31e24;">${found.x}</b> | ${l.y}: <b style="color:#e31e24;">${found.y}</b> | Tier: <b>${found.tier}</b></div>`;tt.style.display='block';tt.style.left=(e.clientX+12)+'px';tt.style.top=(e.clientY+12)+'px';}else{canvas.style.cursor='default';tt.style.display='none';}}
-        function handleClick(e){const rect=canvas.getBoundingClientRect(),mx=e.clientX-rect.left,my=e.clientY-rect.top,cw=canvas.width-pad*2,ch=canvas.height-pad*2;let found=null;getFiltered().forEach(seg=>{const ri=segments.indexOf(seg),x=pad+(seg.x/100)*cw,y=pad+((100-seg.y)/100)*ch,size=(seg.size/100)*22+6;if(Math.sqrt((mx-x)**2+(my-y)**2)<size)found=ri;});selectSegment(found);}
-        function selectSegment(idx){selectedSeg=idx;renderSegmentList();draw();document.getElementById('emptyState').style.display=idx===null?'flex':'none';document.getElementById('detailPanel').style.display=idx===null?'none':'block';if(idx!==null){const seg=segments[idx],l=axisL[seg.parent],tier=tierCfg[seg.tier];document.getElementById('detailTier').className='tier-badge '+tier.class;document.getElementById('detailTier').textContent=tier.icon;document.getElementById('detailName').textContent=seg.name;document.getElementById('detailParent').textContent=seg.parent;document.getElementById('metricX').textContent=seg.x;document.getElementById('metricY').textContent=seg.y;document.getElementById('metricSize').textContent=seg.size;document.getElementById('metricTier').textContent=seg.tier;document.getElementById('metricXLabel').textContent=l.x;document.getElementById('metricYLabel').textContent=l.y;document.getElementById('metricSizeLabel').textContent=l.s;document.getElementById('detailReason').textContent=seg.reason;document.getElementById('detailStrategy').textContent=seg.strategy;renderBht(seg.parent);renderPlatform(seg.parent);}}
-        function renderBht(parent){const recs=segBhtRec[parent]||[];selectedBht=new Set(recs);['awareness','consideration','conversion'].forEach(cat=>{document.getElementById(cat+'Q').innerHTML=bhtQ[cat].map(q=>{const isRec=recs.includes(q.id),isSel=selectedBht.has(q.id);return`<div class="bht-question ${isSel?'selected':''} ${isRec?'recommended':''}" onclick="toggleBht('${q.id}')"><div class="bht-checkbox ${isSel?'checked':''}">${isSel?'✓':''}</div><div style="flex:1;">${q.text}</div>${isRec?'<span class="bht-tag">Önerilen</span>':''}${q.isNew?'<span class="bht-tag new">Yeni</span>':''}</div>`;}).join('');});updateDist();}
-        function toggleBht(id){if(selectedBht.has(id))selectedBht.delete(id);else selectedBht.add(id);if(selectedSeg!==null)renderBht(segments[selectedSeg].parent);}
-        function updateDist(){let aw=0,co=0,cv=0;selectedBht.forEach(q=>{if(q.startsWith('aw'))aw++;else if(q.startsWith('co'))co++;else if(q.startsWith('cv'))cv++;});const total=aw+co+cv;if(total===0){document.getElementById('distBar').innerHTML='<div style="width:100%;text-align:center;color:#666;padding:4px;font-size:8px;">Soru seçin</div>';document.getElementById('recBox').textContent='BHT soruları seçin';return;}const awP=Math.round((aw/total)*100),coP=Math.round((co/total)*100),cvP=100-awP-coP;document.getElementById('distBar').innerHTML=(awP>0?`<div class="distribution-bar awareness" style="width:${awP}%">${awP}%</div>`:'')+(coP>0?`<div class="distribution-bar consideration" style="width:${coP}%">${coP}%</div>`:'')+(cvP>0?`<div class="distribution-bar conversion" style="width:${cvP}%">${cvP}%</div>`:'');let rec=awP>=50?'Awareness ağırlıklı → Video/Reach':coP>=50?'Consideration ağırlıklı → Engagement/Trafik':cvP>=50?'Conversion ağırlıklı → Retargeting/Store Visit':'Dengeli → Full-funnel';document.getElementById('recBox').textContent=rec;}
-        function renderPlatform(parent){const t=targetT[parent]||targetT['Erişilebilir Premium Tüketiciler'];['meta','tiktok','youtube','dv360'].forEach(p=>{document.getElementById(p+'T').innerHTML=(t[p]||[]).map(r=>`<tr><td>${r.type}</td><td>${r.target}</td><td><span class="bht-badge ${r.bht.toLowerCase()}">${r.bht.substring(0,3)}</span></td><td class="kpi-tag">${r.kpi}</td></tr>`).join('');});}
-        function switchPlatform(p){document.querySelectorAll('.platform-tab').forEach(t=>t.classList.toggle('active',t.classList.contains(p)));document.querySelectorAll('.platform-content').forEach(c=>c.classList.toggle('active',c.id==='platform-'+p));}
-        function filterTier(t){currentFilter=t;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.tier===t));draw();}
-        function setView(v){currentView=v;document.querySelectorAll('.view-btn').forEach(b=>{const isA=(v==='all'&&b.textContent==='Tümü')||(v==='Aile Seyahat Planlayıcıları'&&b.textContent==='Aile')||(v==='Deneyim Odaklı Şehirli Premiumlar'&&b.textContent==='Urban')||(v==='Değer Odaklı Hızlı Alışverişçiler'&&b.textContent==='Değer')||(v==='Erişilebilir Premium Tüketiciler'&&b.textContent==='Premium');b.classList.toggle('active',isA);});draw();}
-        function exportPNG(){const l=document.createElement('a');l.download='po-quadrant.png';l.href=canvas.toDataURL('image/png');l.click();}
-        function exportExcel(){let h='<html><head><meta charset="UTF-8"></head><body><table border="1"><tr><th>Ana</th><th>Alt</th><th>X</th><th>Y</th><th>Size</th><th>Tier</th><th>Gerekçe</th><th>Strateji</th></tr>';segments.forEach(s=>{h+=`<tr><td>${s.parent}</td><td>${s.name}</td><td>${s.x}</td><td>${s.y}</td><td>${s.size}</td><td>${s.tier}</td><td>${s.reason}</td><td>${s.strategy}</td></tr>`;});h+='</table></body></html>';const b=new Blob([h],{type:'application/vnd.ms-excel'}),l=document.createElement('a');l.href=URL.createObjectURL(b);l.download='po-segments.xls';l.click();}
-        window.onload=init;
+        const bhtQ = {
+            awareness: [
+                { id: 'aw1', text: '"Premium Market" konseptini duydum', isNew: true, impact: 15 },
+                { id: 'aw2', text: 'PO market hizmeti sunuyor biliyorum', isNew: true, impact: 12 },
+                { id: 'aw3', text: 'Kaliteli atıştırmalık bulabilirim', isNew: true, impact: 10 },
+                { id: 'aw4', text: 'Güvenilir bir marka', isNew: false, impact: 5 },
+                { id: 'aw5', text: 'Modern ve yenilikçi', isNew: false, impact: 8 },
+                { id: 'aw6', text: 'Lider marka', isNew: false, impact: 4 }
+            ],
+            consideration: [
+                { id: 'co1', text: 'Yol üstü atıştırmalık için tercih', isNew: true, impact: 12 },
+                { id: 'co2', text: 'Premium ürünler bulabilirim', isNew: true, impact: 10 },
+                { id: 'co3', text: 'Hızlı kahve için uğrarım', isNew: true, impact: 14 },
+                { id: 'co4', text: 'Diğer istasyonlardan daha iyi', isNew: true, impact: 8 },
+                { id: 'co5', text: 'Müşterisini anlar', isNew: false, impact: 5 },
+                { id: 'co6', text: 'İstasyonları aydınlık ve güvenli', isNew: false, impact: 6 },
+                { id: 'co7', text: 'Teknolojik çözümler sunar', isNew: false, impact: 7 },
+                { id: 'co8', text: 'İşimi hızlı halledebilirim', isNew: false, impact: 9 }
+            ],
+            conversion: [
+                { id: 'cv1', text: 'Son 1 ayda alışveriş yaptım', isNew: true, impact: 18 },
+                { id: 'cv2', text: 'Sadece market için gittim', isNew: true, impact: 20 },
+                { id: 'cv3', text: 'Tavsiye ederim', isNew: true, impact: 15 },
+                { id: 'cv4', text: 'Ürünler beklentimi karşıladı', isNew: true, impact: 12 },
+                { id: 'cv5', text: 'Yolumu değiştiririm', isNew: false, impact: 10 },
+                { id: 'cv6', text: 'Olmasa eksikliğini hissederim', isNew: false, impact: 8 }
+            ]
+        };
+
+        const segBhtRec = {
+            'Aile Seyahat Planlayıcıları': ['aw2', 'aw3', 'co1', 'co3', 'cv1'],
+            'Deneyim Odaklı Şehirli Premiumlar': ['aw1', 'aw5', 'co2', 'co4', 'cv4'],
+            'Değer Odaklı Hızlı Alışverişçiler': ['aw3', 'co1', 'co8', 'cv1', 'cv2'],
+            'Erişilebilir Premium Tüketiciler': ['aw1', 'aw3', 'co2', 'co3', 'co4', 'cv1', 'cv3', 'cv4']
+        };
+
+        const targetT = {
+            'Aile Seyahat Planlayıcıları': {
+                meta: [
+                    { type: 'Interest', target: 'Seyahat, Aile tatili, Kamp', bht: 'aw' },
+                    { type: 'Behavior', target: 'Sık seyahat edenler', bht: 'co' },
+                    { type: 'Custom', target: 'PO app users', bht: 'cv' }
+                ],
+                x: [
+                    { type: 'Trend Takeover', target: '#HaftaSonuKaçamağı', bht: 'aw' },
+                    { type: 'Timeline Takeover', target: 'İlk 24 saat görünürlük', bht: 'aw' },
+                    { type: 'Keyword', target: 'tatil, yolculuk, gezi', bht: 'co' },
+                    { type: 'Follower LA', target: '@KulturYollari @obiabordam', bht: 'co' },
+                    { type: 'Engagement', target: 'Video görüntüleyenler', bht: 'cv' }
+                ],
+                tiktok: [
+                    { type: 'Hashtag', target: '#aileiletatil #yolculuk', bht: 'aw' },
+                    { type: 'Creator', target: 'Aile/seyahat influencer', bht: 'co' },
+                    { type: 'Retarget', target: 'Video %50+ izleyenler', bht: 'cv' }
+                ],
+                youtube: [
+                    { type: 'Affinity', target: 'Travel Buffs, Family-Focused', bht: 'aw' },
+                    { type: 'In-Market', target: 'Family Vacations, Auto Fuel', bht: 'co' },
+                    { type: 'Remarketing', target: 'Kanal aboneleri', bht: 'cv' }
+                ],
+                dv360: [
+                    { type: 'Affinity', target: 'Travel Buffs, Family-Focused, Outdoor Enthusiasts', bht: 'aw' },
+                    { type: 'In-Market', target: 'Travel/Hotels, Auto Fuel & Charging', bht: 'co' },
+                    { type: 'Custom Intent', target: 'aile tatili rotası, yol gezisi', bht: 'cv' }
+                ],
+                apps: ['Getir', 'Migros', 'Yemeksepeti', 'Moov by Garanti', 'Obilet'],
+                tvCategories: ['TV Family-Oriented Shows', 'TV Reality Shows', 'TV Talent & Variety Shows'],
+                foodCategories: ['/Food & Drink/Restaurants/Fast Food', '/Food & Drink/Beverages/Soft Drinks', '/Food & Drink/Food/Candy & Sweets']
+            },
+            'Deneyim Odaklı Şehirli Premiumlar': {
+                meta: [
+                    { type: 'Interest', target: 'Wellness, Fitness, Organik', bht: 'aw' },
+                    { type: 'Behavior', target: 'Health conscious, Early adopters', bht: 'co' },
+                    { type: 'Lookalike', target: 'Premium müşteri LAL %1-2', bht: 'cv' }
+                ],
+                x: [
+                    { type: 'Trend Takeover', target: '#PremiumAnlar', bht: 'aw' },
+                    { type: 'Timeline Takeover', target: 'Sabah saatleri (07-10)', bht: 'aw' },
+                    { type: 'Keyword', target: 'kahve, wellness, premium', bht: 'co' },
+                    { type: 'Follower LA', target: '@Starbucks_TR @Nike', bht: 'co' },
+                    { type: 'Website Retarget', target: 'Premium sayfa ziyaretçileri', bht: 'cv' }
+                ],
+                tiktok: [
+                    { type: 'Hashtag', target: '#wellness #sağlıklıyaşam', bht: 'aw' },
+                    { type: 'Creator', target: 'Lifestyle/wellness creators', bht: 'co' },
+                    { type: 'Retarget', target: 'Engaged users 7 gün', bht: 'cv' }
+                ],
+                youtube: [
+                    { type: 'Affinity', target: 'Health & Fitness Buffs, Foodies', bht: 'aw' },
+                    { type: 'In-Market', target: 'Health Food, Premium Beverages', bht: 'co' },
+                    { type: 'Remarketing', target: 'High-value viewers', bht: 'cv' }
+                ],
+                dv360: [
+                    { type: 'Affinity', target: 'Coffee Shop Regulars, Health & Fitness Buffs, Foodies', bht: 'aw' },
+                    { type: 'In-Market', target: 'Health Food, Coffee, Organic Products', bht: 'co' },
+                    { type: 'Custom Intent', target: 'specialty coffee, organik ürün', bht: 'cv' }
+                ],
+                apps: ['Starbucks', 'Nefis Yemek Tarifleri', 'Nike Training', 'Calm', 'Headspace'],
+                tvCategories: ['TV Talk Shows', 'TV Sci-Fi & Fantasy Shows', 'TV Comedies'],
+                foodCategories: ['/Food & Drink/Beverages/Energy Drinks', '/Food & Drink/Beverages/Nutrition Drinks & Shakes', '/Food & Drink/Food/Grains & Pasta']
+            },
+            'Değer Odaklı Hızlı Alışverişçiler': {
+                meta: [
+                    { type: 'Interest', target: 'Fırsatlar, İndirimler, Kuponlar', bht: 'aw' },
+                    { type: 'Behavior', target: 'Deal seekers, Coupon users', bht: 'co' },
+                    { type: 'Custom', target: 'Sadakat programı üyeleri', bht: 'cv' }
+                ],
+                x: [
+                    { type: 'Trend Takeover', target: '#FlashFırsat #Kampanya', bht: 'aw' },
+                    { type: 'Amplify Pre-roll', target: 'Haber & gündem içerikleri', bht: 'aw' },
+                    { type: 'Keyword', target: 'indirim, kampanya, fırsat', bht: 'co' },
+                    { type: 'Follower LA', target: '@A101 @BIM_Magazalari', bht: 'co' },
+                    { type: 'Engagement', target: 'Kupon RT yapanlar', bht: 'cv' }
+                ],
+                tiktok: [
+                    { type: 'Hashtag', target: '#indirim #fırsat #tasarruf', bht: 'aw' },
+                    { type: 'Creator', target: 'Fırsat/para biriktirme creators', bht: 'co' },
+                    { type: 'Retarget', target: 'Profil ziyaretçileri', bht: 'cv' }
+                ],
+                youtube: [
+                    { type: 'Affinity', target: 'Bargain Hunters, Value Shoppers', bht: 'aw' },
+                    { type: 'In-Market', target: 'Coupons & Discount Offers', bht: 'co' },
+                    { type: 'Remarketing', target: 'Deal sayfası izleyicileri', bht: 'cv' }
+                ],
+                dv360: [
+                    { type: 'Affinity', target: 'Bargain Hunters, Value Shoppers, Coupon Savers', bht: 'aw' },
+                    { type: 'In-Market', target: 'Coupons & Discounts, Convenience Stores', bht: 'co' },
+                    { type: 'Custom Intent', target: 'indirim kampanya fırsat', bht: 'cv' }
+                ],
+                apps: ['Getir', 'Trendyol', 'Hepsiburada', 'A101', 'BİM'],
+                tvCategories: ['TV Game Shows', 'TV Reality Shows', 'TV Soap Operas'],
+                foodCategories: ['/Food & Drink/Restaurants/Fast Food', '/Food & Drink/Food/Candy & Sweets', '/Food & Drink/Beverages/Soft Drinks']
+            },
+            'Erişilebilir Premium Tüketiciler': {
+                meta: [
+                    { type: 'Interest', target: 'Self-care, Premium kahve, Treats', bht: 'aw' },
+                    { type: 'Behavior', target: 'Impulse buyers, Upgraders', bht: 'co' },
+                    { type: 'Lookalike', target: 'Premium alıcılar LAL %1-3', bht: 'cv' }
+                ],
+                x: [
+                    { type: 'Trend Takeover', target: '#KendineÖdül #GününKeyfi', bht: 'aw' },
+                    { type: 'Timeline Takeover', target: 'Öğle molası (12-14)', bht: 'aw' },
+                    { type: 'Keyword', target: 'kahve keyfi, mola, şımartmak', bht: 'co' },
+                    { type: 'Follower LA', target: '@Starbucks_TR @PetrolOfisi', bht: 'co' },
+                    { type: 'Website Retarget', target: 'Market sayfası ziyaretçileri', bht: 'cv' }
+                ],
+                tiktok: [
+                    { type: 'Hashtag', target: '#kendinişımart #kahvekeyfi', bht: 'aw' },
+                    { type: 'Creator', target: 'Lifestyle/kahve creators', bht: 'co' },
+                    { type: 'Retarget', target: 'High-intent viewers', bht: 'cv' }
+                ],
+                youtube: [
+                    { type: 'Affinity', target: 'Coffee Shop Regulars, Foodies', bht: 'aw' },
+                    { type: 'In-Market', target: 'Coffee, Premium Snacks', bht: 'co' },
+                    { type: 'Remarketing', target: 'Converters', bht: 'cv' }
+                ],
+                dv360: [
+                    { type: 'Affinity', target: 'Coffee Shop Regulars, Foodies, Fast Food Cravers', bht: 'aw' },
+                    { type: 'In-Market', target: 'Coffee, Snack Foods, Convenience Stores', bht: 'co' },
+                    { type: 'Custom Intent', target: 'premium kahve grab and go', bht: 'cv' }
+                ],
+                apps: ['Starbucks', 'Getir', 'Yemeksepeti', 'Migros', 'Nefis Yemek Tarifleri'],
+                tvCategories: ['TV Comedies', 'TV Talk Shows', 'TV Talent & Variety Shows'],
+                foodCategories: ['/Food & Drink/Beverages/Energy Drinks', '/Food & Drink/Food/Candy & Sweets', '/Food & Drink/Restaurants/Street Food']
+            }
+        };
+
+        const segments = [
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Hafta Sonu Kaçamakçıları', x: 65, y: 90, size: 95, tier: 'T1', reason: 'Her hafta sonu yola çıkıyor.', strategy: '"Hafta Sonu Paketi" combo' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Aile Yol Gezisi Tutkunları', x: 55, y: 70, size: 90, tier: 'T1', reason: 'Uzun yol = çoklu durak.', strategy: '"Yol Arkadaşı" seti' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Güvenlik Öncelikli Maceracılar', x: 75, y: 65, size: 75, tier: 'T2', reason: 'Premium ödemeye hazır.', strategy: 'Kalite vurgulu' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Tema Parkı Meraklıları', x: 45, y: 60, size: 70, tier: 'T2', reason: 'Sık seyahat.', strategy: 'Aile paketi' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Aile Kamp Planlayıcıları', x: 40, y: 55, size: 65, tier: 'T2', reason: 'Pratik ürün.', strategy: '"Kamp Essentials"' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Sezonluk Tatilciler', x: 50, y: 25, size: 60, tier: 'T3', reason: 'Yılda 1-2 kez.', strategy: 'Sezonsal' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Çok Kuşaklı Planlayıcılar', x: 60, y: 35, size: 55, tier: 'T3', reason: 'Büyük aile.', strategy: 'Aile boyu' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Eğitici Gezi Arayanlar', x: 55, y: 30, size: 45, tier: 'T3', reason: 'Niş kitle.', strategy: 'Kültür rotaları' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Seyahat Puanı Optimizecileri', x: 30, y: 75, size: 50, tier: 'T4', reason: 'Sadakat düşük.', strategy: 'Puan çarpanı' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Bütçe Dostu Aile Tatilcileri', x: 20, y: 45, size: 55, tier: 'T4', reason: 'Fiyat hassas.', strategy: 'Private label' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Şehirli Wellness Arayanlar', x: 85, y: 70, size: 90, tier: 'T1', reason: 'Günlük premium kahve.', strategy: 'Protein, cold-press' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Premium Teknoloji Öncüleri', x: 80, y: 75, size: 75, tier: 'T1', reason: 'Grab & go.', strategy: 'Specialty coffee' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Lüks Macera Gezginleri', x: 75, y: 85, size: 65, tier: 'T2', reason: 'Kaliteli ürün.', strategy: 'Trail mix' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Premium Seyahat Ustaları', x: 70, y: 90, size: 55, tier: 'T2', reason: 'Yüksek kalite.', strategy: 'Gourmet' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Kültürel Deneyim Koleksiyoncuları', x: 50, y: 65, size: 55, tier: 'T2', reason: 'Kültür turları.', strategy: 'Yerel lezzet' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Fine Dining Tutkunları', x: 45, y: 85, size: 50, tier: 'T3', reason: 'Convenience değil.', strategy: 'Artisan' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Lüks Yaşam Tarzı Meraklıları', x: 55, y: 95, size: 45, tier: 'T3', reason: 'Özel kanal.', strategy: 'Premium imaj' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Butik Moda Takipçileri', x: 40, y: 70, size: 40, tier: 'T4', reason: 'Düşük öncelik.', strategy: 'Düşük' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Sanat & Tiyatro Hamileri', x: 35, y: 60, size: 45, tier: 'T4', reason: 'Rutin az.', strategy: 'Düşük' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Yat & Country Club Üyeleri', x: 30, y: 95, size: 30, tier: 'T4', reason: 'Kapalı.', strategy: 'Ulaşılamaz' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'Flash İndirim Tutkunları', x: 75, y: 90, size: 85, tier: 'T1', reason: 'Anlık alır.', strategy: 'Flash deal' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'Puan & Ödül Koleksiyoncuları', x: 55, y: 85, size: 80, tier: 'T1', reason: 'Program sadık.', strategy: 'Puan çarpanı' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'Fırsat Avcısı Alışverişçiler', x: 80, y: 75, size: 75, tier: 'T2', reason: 'Aktif fırsat.', strategy: 'Haftalık insert' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'Sadece Temel İhtiyaç Alıcıları', x: 60, y: 65, size: 75, tier: 'T2', reason: 'Düzenli.', strategy: 'Fiyat liderliği' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'İndirim Maksimizecileri', x: 85, y: 70, size: 70, tier: 'T2', reason: 'Promosyon.', strategy: 'Çoklu al' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'Jenerik Marka Seçiciler', x: 90, y: 60, size: 65, tier: 'T3', reason: 'Private label.', strategy: 'PO özel marka' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'İndirim Köşesi Gezginleri', x: 85, y: 45, size: 50, tier: 'T3', reason: 'Köşe avcısı.', strategy: 'Endcap' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'Toplu Alım Yapanlar', x: 70, y: 35, size: 55, tier: 'T4', reason: 'Format uyumsuz.', strategy: 'Düşük' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'Fiyat Eşleme Talep Edenler', x: 95, y: 50, size: 45, tier: 'T4', reason: 'Yüksek efor.', strategy: 'Düşük' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'İkinci El Alışverişçiler', x: 80, y: 30, size: 35, tier: 'T4', reason: 'Hedef dışı.', strategy: 'Düşük' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Kolaylık Premium Arayanlar', x: 90, y: 80, size: 95, tier: 'Süper', reason: 'Hız + kalite. Biçilmiş kaftan.', strategy: '"2 Dakika Garantisi"' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Kendine Ödül Verenler', x: 95, y: 70, size: 90, tier: 'Süper', reason: '"Bunu hak ettim" anı.', strategy: '"Bugün Senin Günün"' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Günlük Premium Yükseltmeciler', x: 75, y: 75, size: 85, tier: 'T1', reason: 'Her gün upgrade.', strategy: '"Upgrade Your Day"' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Premium Kahve Tutkunları', x: 70, y: 85, size: 85, tier: 'T1', reason: 'Kahve = ritüel.', strategy: '"6. Kahve Bedava"' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Son Dakika Premium Ödeyiciler', x: 85, y: 75, size: 80, tier: 'T1', reason: 'Acil = premium.', strategy: '"İhtiyaç Anında"' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Talep Üzerine Yaşam Tarzı', x: 80, y: 70, size: 75, tier: 'T2', reason: 'Hız > fiyat.', strategy: '"Pre-Order & Pick"' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Kalite Bilinçli Dürtüsel Alıcılar', x: 85, y: 80, size: 70, tier: 'T2', reason: 'Kalite filtreli.', strategy: '"Haftanın Keşfi"' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Organik & Doğal Seçiciler', x: 55, y: 85, size: 60, tier: 'T2', reason: 'Sağlık bilinçli.', strategy: '"Clean Label"' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Artisan Ürün Destekçileri', x: 50, y: 90, size: 45, tier: 'T3', reason: 'Çok seçici.', strategy: '"Yerel Lezzet"' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Abonelik Servisi Benimseyenler', x: 40, y: 70, size: 55, tier: 'T4', reason: 'Abonelik odaklı.', strategy: 'Düşük' }
+        ];
+
+        const parentColors = {
+            'Aile Seyahat Planlayıcıları': { bg: 'rgba(33,150,243,0.25)', border: '#2196f3' },
+            'Deneyim Odaklı Şehirli Premiumlar': { bg: 'rgba(156,39,176,0.25)', border: '#9c27b0' },
+            'Değer Odaklı Hızlı Alışverişçiler': { bg: 'rgba(255,152,0,0.25)', border: '#ff9800' },
+            'Erişilebilir Premium Tüketiciler': { bg: 'rgba(76,175,80,0.25)', border: '#4caf50' }
+        };
+        const tierCfg = { 'Süper': { icon: '⭐', class: 'tier-super' }, 'T1': { icon: 'T1', class: 'tier-t1' }, 'T2': { icon: 'T2', class: 'tier-t2' }, 'T3': { icon: 'T3', class: 'tier-t3' }, 'T4': { icon: 'T4', class: 'tier-t4' } };
+        const axisL = {
+            'Aile Seyahat Planlayıcıları': { x: 'Premium Açıklık', y: 'Frekans', s: 'Potansiyel' },
+            'Deneyim Odaklı Şehirli Premiumlar': { x: 'Convenience', y: 'Premium Kapasite', s: 'Pazar' },
+            'Değer Odaklı Hızlı Alışverişçiler': { x: 'Fiyat Odaklılık', y: 'Alışveriş Frekansı', s: 'Hacim' },
+            'Erişilebilir Premium Tüketiciler': { x: 'Dürtüsellik', y: 'Premium İstek', s: 'Değer' }
+        };
+
+        let canvas, ctx, selectedSeg = null, currentFilter = 'all', currentView = 'all';
+        const pad = 45;
+
+        function init() {
+            canvas = document.getElementById('quadrantCanvas');
+            ctx = canvas.getContext('2d');
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            canvas.addEventListener('mousemove', handleMouseMove);
+            canvas.addEventListener('click', handleClick);
+            canvas.addEventListener('mouseleave', () => document.getElementById('tooltip').style.display = 'none');
+            renderSegmentList();
+            draw();
+        }
+
+        function resizeCanvas() { const c = canvas.parentElement; canvas.width = c.clientWidth; canvas.height = c.clientHeight; draw(); }
+
+        function renderSegmentList() {
+            const groups = {};
+            segments.forEach((s, i) => { if (!groups[s.parent]) groups[s.parent] = []; groups[s.parent].push({ ...s, index: i }); });
+            const list = document.getElementById('segmentList');
+            list.innerHTML = '';
+            Object.entries(groups).forEach(([parent, segs]) => {
+                const colors = parentColors[parent];
+                const div = document.createElement('div');
+                div.className = 'segment-group';
+                div.innerHTML = `<div class="segment-group-header" style="border-left-color:${colors.border};" onclick="toggleGroup(this)"><span>${parent.split(' ').slice(0, 2).join(' ')}</span><span>▼</span></div><div class="segment-items open">${segs.map(s => `<div class="segment-item ${selectedSeg === s.index ? 'selected' : ''}" onclick="selectSegment(${s.index})"><div class="tier-badge ${tierCfg[s.tier].class}">${tierCfg[s.tier].icon}</div><span>${s.name}</span></div>`).join('')}</div>`;
+                list.appendChild(div);
+            });
+        }
+
+        function toggleGroup(h) { const i = h.nextElementSibling; i.classList.toggle('open'); h.querySelector('span:last-child').textContent = i.classList.contains('open') ? '▼' : '▶'; }
+        function getFiltered() {
+            let f = segments;
+            if (currentFilter !== 'all') { const m = { 'super': 'Süper', 't1': 'T1', 't2': 'T2', 't3': 'T3', 't4': 'T4' }; f = f.filter(s => s.tier === m[currentFilter]); }
+            if (currentView !== 'all') f = f.filter(s => s.parent === currentView);
+            return f;
+        }
+
+        function draw() {
+            const w = canvas.width, h = canvas.height;
+            ctx.fillStyle = '#0f0f1a'; ctx.fillRect(0, 0, w, h);
+            const cw = w - pad * 2, ch = h - pad * 2, cx = pad + cw / 2, cy = pad + ch / 2;
+            ctx.fillStyle = 'rgba(255,152,0,0.04)'; ctx.fillRect(pad, pad, cw / 2, ch / 2);
+            ctx.fillStyle = 'rgba(76,175,80,0.06)'; ctx.fillRect(cx, pad, cw / 2, ch / 2);
+            ctx.fillStyle = 'rgba(244,67,54,0.04)'; ctx.fillRect(pad, cy, cw / 2, ch / 2);
+            ctx.fillStyle = 'rgba(33,150,243,0.04)'; ctx.fillRect(cx, cy, cw / 2, ch / 2);
+            ctx.strokeStyle = 'rgba(255,255,255,0.05)'; ctx.lineWidth = 1;
+            for (let i = 0; i <= 10; i++) { ctx.beginPath(); ctx.moveTo(pad + (cw / 10) * i, pad); ctx.lineTo(pad + (cw / 10) * i, h - pad); ctx.stroke(); ctx.beginPath(); ctx.moveTo(pad, pad + (ch / 10) * i); ctx.lineTo(w - pad, pad + (ch / 10) * i); ctx.stroke(); }
+            ctx.strokeStyle = 'rgba(255,255,255,0.2)'; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(cx, pad); ctx.lineTo(cx, h - pad); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(pad, cy); ctx.lineTo(w - pad, cy); ctx.stroke();
+            ctx.font = '9px Segoe UI'; ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.textAlign = 'center';
+            ctx.fillText('Planlı & Lifestyle', pad + cw / 4, pad + 14);
+            ctx.fillText('Dürtüsel & Lifestyle', cx + cw / 4, pad + 14);
+            ctx.fillText('Planlı & Fonksiyonel', pad + cw / 4, h - pad - 8);
+            ctx.fillText('Dürtüsel & Fonksiyonel', cx + cw / 4, h - pad - 8);
+            const filtered = getFiltered();
+            filtered.forEach(seg => {
+                const ri = segments.indexOf(seg), x = pad + (seg.x / 100) * cw, y = pad + ((100 - seg.y) / 100) * ch, size = (seg.size / 100) * 22 + 6, colors = parentColors[seg.parent];
+                if (selectedSeg === ri) { ctx.beginPath(); ctx.arc(x, y, size + 4, 0, Math.PI * 2); ctx.fillStyle = 'rgba(227,30,36,0.3)'; ctx.fill(); }
+                ctx.beginPath(); ctx.arc(x, y, size, 0, Math.PI * 2); ctx.fillStyle = colors.bg; ctx.fill(); ctx.strokeStyle = colors.border; ctx.lineWidth = selectedSeg === ri ? 3 : 1.5; ctx.stroke();
+                ctx.fillStyle = tierCfg[seg.tier].class === 'tier-super' ? '#ffd700' : '#fff'; ctx.font = `bold ${size > 16 ? 8 : 6}px Segoe UI`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(tierCfg[seg.tier].icon, x, y);
+            });
+        }
+
+        function handleMouseMove(e) {
+            const rect = canvas.getBoundingClientRect(), mx = e.clientX - rect.left, my = e.clientY - rect.top, cw = canvas.width - pad * 2, ch = canvas.height - pad * 2;
+            let found = null;
+            getFiltered().forEach(seg => { const x = pad + (seg.x / 100) * cw, y = pad + ((100 - seg.y) / 100) * ch, size = (seg.size / 100) * 22 + 6; if (Math.sqrt((mx - x) ** 2 + (my - y) ** 2) < size) found = seg; });
+            const tt = document.getElementById('tooltip');
+            if (found) { canvas.style.cursor = 'pointer'; const l = axisL[found.parent]; tt.innerHTML = `<div style="font-weight:600;">${found.name}</div><div style="color:#888;font-size:8px;margin:3px 0;">${found.parent}</div><div style="font-size:8px;">${l.x}: <b style="color:#e31e24;">${found.x}</b> | ${l.y}: <b style="color:#e31e24;">${found.y}</b></div>`; tt.style.display = 'block'; tt.style.left = (e.clientX + 12) + 'px'; tt.style.top = (e.clientY + 12) + 'px'; }
+            else { canvas.style.cursor = 'default'; tt.style.display = 'none'; }
+        }
+
+        function handleClick(e) {
+            const rect = canvas.getBoundingClientRect(), mx = e.clientX - rect.left, my = e.clientY - rect.top, cw = canvas.width - pad * 2, ch = canvas.height - pad * 2;
+            let found = null;
+            getFiltered().forEach(seg => { const ri = segments.indexOf(seg), x = pad + (seg.x / 100) * cw, y = pad + ((100 - seg.y) / 100) * ch, size = (seg.size / 100) * 22 + 6; if (Math.sqrt((mx - x) ** 2 + (my - y) ** 2) < size) found = ri; });
+            selectSegment(found);
+        }
+
+        function selectSegment(idx) {
+            selectedSeg = idx;
+            renderSegmentList();
+            draw();
+            document.getElementById('emptyState').style.display = idx === null ? 'flex' : 'none';
+            document.getElementById('detailPanel').style.display = idx === null ? 'none' : 'block';
+            document.getElementById('bottomPanel').classList.toggle('active', idx !== null);
+            
+            if (idx !== null) {
+                const seg = segments[idx], l = axisL[seg.parent], tier = tierCfg[seg.tier];
+                document.getElementById('detailTier').className = 'tier-badge ' + tier.class;
+                document.getElementById('detailTier').textContent = tier.icon;
+                document.getElementById('detailName').textContent = seg.name;
+                document.getElementById('detailParent').textContent = seg.parent;
+                document.getElementById('metricX').textContent = seg.x;
+                document.getElementById('metricY').textContent = seg.y;
+                document.getElementById('metricSize').textContent = seg.size;
+                document.getElementById('metricTier').textContent = seg.tier;
+                document.getElementById('metricXLabel').textContent = l.x;
+                document.getElementById('metricYLabel').textContent = l.y;
+                document.getElementById('metricSizeLabel').textContent = l.s;
+                document.getElementById('detailReason').textContent = seg.reason;
+                document.getElementById('detailStrategy').textContent = seg.strategy;
+                
+                document.getElementById('bottomSegName').textContent = seg.name;
+                document.getElementById('bottomSegParent').textContent = '/ ' + seg.parent;
+                
+                renderBhtImpact(seg.parent);
+                renderPlatformTargeting(seg.parent);
+            }
+        }
+
+        function renderBhtImpact(parent) {
+            const recs = segBhtRec[parent] || [];
+            
+            ['awareness', 'consideration', 'conversion'].forEach(cat => {
+                const questions = bhtQ[cat];
+                const catRecs = recs.filter(r => questions.find(q => q.id === r));
+                let totalImpact = 0;
+                
+                const html = questions.map(q => {
+                    const isRec = recs.includes(q.id);
+                    if (isRec) totalImpact += q.impact;
+                    return `<div class="bht-question-item ${isRec ? 'recommended' : ''}">${q.text}</div>`;
+                }).join('');
+                
+                const prefix = cat === 'awareness' ? 'aw' : cat === 'consideration' ? 'co' : 'cv';
+                document.getElementById(prefix + 'Questions').innerHTML = html;
+                document.getElementById(prefix + 'Impact').textContent = '+' + totalImpact + '%';
+            });
+        }
+
+        function renderPlatformTargeting(parent) {
+            const t = targetT[parent] || targetT['Erişilebilir Premium Tüketiciler'];
+            
+            ['meta', 'x', 'tiktok', 'youtube', 'dv360'].forEach(p => {
+                const data = t[p] || [];
+                document.getElementById(p + 'Targeting').innerHTML = data.map(r => `
+                    <div class="targeting-row">
+                        <span class="targeting-type">${r.type}</span>
+                        <span class="targeting-value">${r.target}<span class="bht-mini ${r.bht}">${r.bht.toUpperCase()}</span></span>
+                    </div>
+                `).join('');
+            });
+            
+            // App Targeting
+            const appColors = {
+                'Getir': 'getir', 'Migros': 'migros', 'Yemeksepeti': 'yemeksepeti', 
+                'Starbucks': 'starbucks', 'Trendyol': 'trendyol', 'Hepsiburada': 'hepsiburada',
+                'A101': 'a101', 'BİM': 'bim', 'Nike Training': 'nike', 'Calm': 'calm',
+                'Nefis Yemek Tarifleri': 'nefis', 'Moov by Garanti': 'moov', 'Obilet': 'obilet', 'Headspace': 'calm'
+            };
+            document.getElementById('appTargeting').innerHTML = (t.apps || []).map(app => `
+                <div class="extra-item">
+                    <div class="app-icon app-${appColors[app] || 'getir'}">${app.charAt(0)}</div>
+                    <span>${app}</span>
+                </div>
+            `).join('');
+            
+            // TV Categories
+            document.getElementById('tvTargeting').innerHTML = (t.tvCategories || []).map(cat => `
+                <div class="extra-item tv-item">📺 ${cat}</div>
+            `).join('');
+            
+            // Food Categories
+            document.getElementById('foodTargeting').innerHTML = (t.foodCategories || []).map(cat => `
+                <div class="extra-item food-item">🍔 ${cat}</div>
+            `).join('');
+        }
+
+        function filterTier(t) { currentFilter = t; document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.tier === t)); draw(); }
+        function setView(v) { currentView = v; document.querySelectorAll('.view-btn').forEach(b => { const isA = (v === 'all' && b.textContent === 'Tümü') || (v === 'Aile Seyahat Planlayıcıları' && b.textContent === 'Aile') || (v === 'Deneyim Odaklı Şehirli Premiumlar' && b.textContent === 'Urban') || (v === 'Değer Odaklı Hızlı Alışverişçiler' && b.textContent === 'Değer') || (v === 'Erişilebilir Premium Tüketiciler' && b.textContent === 'Premium'); b.classList.toggle('active', isA); }); draw(); }
+        function exportPNG() { const l = document.createElement('a'); l.download = 'po-quadrant.png'; l.href = canvas.toDataURL('image/png'); l.click(); }
+        function exportExcel() { let h = '<html><head><meta charset="UTF-8"></head><body><table border="1"><tr><th>Ana</th><th>Alt</th><th>X</th><th>Y</th><th>Size</th><th>Tier</th><th>Gerekçe</th><th>Strateji</th></tr>'; segments.forEach(s => { h += `<tr><td>${s.parent}</td><td>${s.name}</td><td>${s.x}</td><td>${s.y}</td><td>${s.size}</td><td>${s.tier}</td><td>${s.reason}</td><td>${s.strategy}</td></tr>`; }); h += '</table></body></html>'; const b = new Blob([h], { type: 'application/vnd.ms-excel' }), l = document.createElement('a'); l.href = URL.createObjectURL(b); l.download = 'po-segments.xls'; l.click(); }
+        window.onload = init;
     </script>
 </body>
 </html>
