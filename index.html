@@ -13,6 +13,8 @@
         .logo { font-size: 20px; font-weight: 700; color: #4fc3f7; display: flex; align-items: center; gap: 10px; }
         .logo-sub { font-size: 11px; color: #666; font-weight: 400; }
         .header-right { display: flex; align-items: center; gap: 16px; }
+        .po-btn { display: flex; align-items: center; justify-content: center; width: 40px; height: 32px; background: rgba(227,30,36,0.15); border: 1px solid rgba(227,30,36,0.4); border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+        .po-btn:hover { background: rgba(227,30,36,0.3); transform: scale(1.05); }
         .selected-count { background: rgba(79,195,247,0.2); padding: 8px 16px; border-radius: 20px; font-size: 13px; color: #4fc3f7; }
         .selected-count strong { color: #fff; }
         .btn { padding: 12px 24px; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 8px; }
@@ -122,6 +124,9 @@
             <span class="logo-sub">by Time & Growity</span>
         </div>
         <div class="header-right">
+            <a href="segmentation-quadrant/po-segmentasyon/" class="po-btn" title="Petrol Ofisi Premium Market">
+                <svg viewBox="0 0 100 70" width="32" height="22"><path d="M50 0 L95 50 L80 50 L80 70 L20 70 L20 50 L5 50 Z" fill="#e31e24"/><path d="M30 25 Q25 20 20 25 L5 50 L20 50 L30 35 Z" fill="#e31e24"/></svg>
+            </a>
             <div class="selected-count">
                 <strong id="selectedCount">0</strong> segment seçildi
             </div>
