@@ -12,6 +12,8 @@
         .header-left { display: flex; align-items: center; gap: 16px; }
         .back-btn { padding: 8px 16px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; background: transparent; color: #fff; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; text-decoration: none; }
         .back-btn:hover { background: rgba(255,255,255,0.1); }
+        .po-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 28px; background: rgba(227,30,36,0.15); border: 1px solid rgba(227,30,36,0.4); border-radius: 6px; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+        .po-btn:hover { background: rgba(227,30,36,0.3); transform: scale(1.05); }
         .logo { font-size: 18px; font-weight: 700; color: #4fc3f7; }
         .header-actions { display: flex; gap: 8px; }
         .btn { padding: 8px 16px; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
@@ -124,6 +126,9 @@
             <div class="logo">🎯 Segment Analizi</div>
         </div>
         <div class="header-actions">
+            <a href="po-segmentasyon/" class="po-btn" title="Petrol Ofisi Premium Market">
+                <svg viewBox="0 0 100 70" width="28" height="20"><path d="M50 0 L95 50 L80 50 L80 70 L20 70 L20 50 L5 50 Z" fill="#e31e24"/><path d="M30 25 Q25 20 20 25 L5 50 L20 50 L30 35 Z" fill="#e31e24"/></svg>
+            </a>
             <button class="btn btn-secondary" onclick="exportPNG()">📥 PNG</button>
             <button class="btn btn-secondary" onclick="exportExcel()">📊 Excel</button>
         </div>
