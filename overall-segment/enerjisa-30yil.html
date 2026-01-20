@@ -192,13 +192,14 @@
         <div class="top-section">
             <div class="left-panel">
                 <div class="panel-header">
-                    <div class="panel-title">17 Segment • 30. Yıl Kampanyası</div>
+                    <div class="panel-title">28 Segment • 30. Yıl Kampanyası</div>
                     <div class="filter-row">
                         <button class="filter-btn active" data-tier="all" onclick="filterTier('all')">Tümü</button>
                         <button class="filter-btn" data-tier="super" onclick="filterTier('super')">⭐</button>
                         <button class="filter-btn" data-tier="t1" onclick="filterTier('t1')">T1</button>
                         <button class="filter-btn" data-tier="t2" onclick="filterTier('t2')">T2</button>
                         <button class="filter-btn" data-tier="t3" onclick="filterTier('t3')">T3</button>
+                        <button class="filter-btn" data-tier="t4" onclick="filterTier('t4')">T4</button>
                     </div>
                 </div>
                 <div class="segment-list" id="segmentList"></div>
@@ -208,7 +209,7 @@
                     <div class="canvas-title">⚡ 30. Yıl Segment Quadrant</div>
                     <div class="view-toggle">
                         <button class="view-btn active" onclick="setView('all')">Tümü</button>
-                        <button class="view-btn" onclick="setView('Influencer (Etkileyiciler)')">B2C</button>
+                        <button class="view-btn" onclick="setView('Influencers (Etkileyiciler)')">Influencers</button>
                         <button class="view-btn" onclick="setView('Gatekeepers (Kapı Bekçileri)')">Gatekeepers</button>
                         <button class="view-btn" onclick="setView('Decision Makers (Karar Vericiler)')">Decision</button>
                     </div>
@@ -333,14 +334,14 @@
 
         // Segment BHT Önerileri
         const segBhtRec = {
-            'Influencer (Etkileyiciler)': ['aw1', 'aw2', 'aw3', 'co1', 'co2', 'cv1', 'cv2'],
+            'Influencers (Etkileyiciler)': ['aw1', 'aw2', 'aw3', 'co1', 'co2', 'cv1', 'cv2'],
             'Gatekeepers (Kapı Bekçileri)': ['aw1', 'aw4', 'aw5', 'co4', 'co5', 'cv4'],
             'Decision Makers (Karar Vericiler)': ['aw1', 'aw4', 'aw6', 'co5', 'co6', 'cv3', 'cv4']
         };
 
         // Platform Hedefleme
         const targetT = {
-            'Influencer (Etkileyiciler)': {
+            'Influencers (Etkileyiciler)': {
                 meta: [{ type: 'Interest', target: 'Ev, Aile, Teknoloji', bht: 'aw' }, { type: 'Behavior', target: 'Mobile app users', bht: 'co' }, { type: 'LAL', target: 'Mevcut müşteriler %1-3', bht: 'cv' }],
                 linkedin: [{ type: 'Job Title', target: 'Business Owner, Manager', bht: 'aw' }, { type: 'Industry', target: 'Retail, Manufacturing', bht: 'co' }],
                 tiktok: [{ type: 'Interest', target: 'Home, Technology', bht: 'aw' }, { type: 'Hashtag', target: '#enerji #tasarruf', bht: 'co' }],
@@ -353,25 +354,25 @@
             },
             'Gatekeepers (Kapı Bekçileri)': {
                 meta: [{ type: 'Interest', target: 'Local Government, Community', bht: 'aw' }, { type: 'Behavior', target: 'Public sector', bht: 'co' }],
-                linkedin: [{ type: 'Job Title', target: 'Mayor, Director, Manager', bht: 'aw' }, { type: 'Industry', target: 'Government, NGO', bht: 'co' }, { type: 'Seniority', target: 'Director+', bht: 'cv' }],
+                linkedin: [{ type: 'Job Title', target: 'Mayor, Director, Manager', bht: 'aw' }, { type: 'Industry', target: 'Government, NGO, Media', bht: 'co' }, { type: 'Seniority', target: 'Director+', bht: 'cv' }],
                 tiktok: [{ type: 'Interest', target: 'Community, Sustainability', bht: 'aw' }],
                 youtube: [{ type: 'Affinity', target: 'News & Politics', bht: 'aw' }, { type: 'Custom', target: 'Local news channels', bht: 'co' }],
-                dv360: [{ type: 'Contextual', target: 'Government sites', bht: 'aw' }, { type: 'Affinity', target: 'Sustainability', bht: 'co' }],
-                reach: { meta: 55, youtube: 48, tiktok: 25, linkedin: 85, dv360: 62 },
-                lifestyle: ['Community Leaders', 'Public Servants', 'Sustainability Advocates', 'Local Influencers'],
-                affinity: ['News Junkies', 'Political Engaged', 'Community Builders', 'Environmental Conscious'],
-                inmarket: ['Government Services', 'B2B Services', 'Professional Development', 'Sustainability Solutions']
+                dv360: [{ type: 'Contextual', target: 'Government sites, News', bht: 'aw' }, { type: 'Affinity', target: 'Sustainability', bht: 'co' }],
+                reach: { meta: 55, youtube: 58, tiktok: 35, linkedin: 85, dv360: 68 },
+                lifestyle: ['Community Leaders', 'Public Servants', 'Sustainability Advocates', 'Media Professionals', 'Academic Researchers'],
+                affinity: ['News Junkies', 'Political Engaged', 'Community Builders', 'Environmental Conscious', 'Business Journalists'],
+                inmarket: ['Government Services', 'B2B Services', 'Professional Development', 'Sustainability Solutions', 'Media & Publishing']
             },
             'Decision Makers (Karar Vericiler)': {
                 meta: [{ type: 'Interest', target: 'Finance, Investment, ESG', bht: 'aw' }, { type: 'Behavior', target: 'Business decision makers', bht: 'co' }],
-                linkedin: [{ type: 'Job Title', target: 'CEO, CFO, Board Member', bht: 'aw' }, { type: 'Industry', target: 'Energy, Finance, Utilities', bht: 'co' }, { type: 'Company Size', target: '500+', bht: 'cv' }],
-                tiktok: [{ type: 'Note', target: 'Düşük öncelik', bht: 'aw' }],
+                linkedin: [{ type: 'Job Title', target: 'CEO, CFO, Fund Manager', bht: 'aw' }, { type: 'Industry', target: 'Energy, Finance, Utilities', bht: 'co' }, { type: 'Company Size', target: '500+', bht: 'cv' }],
+                tiktok: [{ type: 'Note', target: 'Düşük öncelik - Finans içerik', bht: 'aw' }],
                 youtube: [{ type: 'Affinity', target: 'Business News', bht: 'aw' }, { type: 'In-Market', target: 'Financial Services', bht: 'co' }],
                 dv360: [{ type: 'Contextual', target: 'Finance sites, Bloomberg', bht: 'aw' }, { type: 'Affinity', target: 'Investors', bht: 'co' }],
-                reach: { meta: 42, youtube: 55, tiktok: 15, linkedin: 95, dv360: 68 },
-                lifestyle: ['C-Suite Executives', 'Institutional Investors', 'Policy Makers', 'Strategic Partners'],
-                affinity: ['Business Leaders', 'Financial Experts', 'Energy Sector Professionals', 'ESG Investors'],
-                inmarket: ['Investment Services', 'B2B Energy Solutions', 'Corporate Partnerships', 'ESG Investments']
+                reach: { meta: 48, youtube: 55, tiktok: 22, linkedin: 95, dv360: 72 },
+                lifestyle: ['C-Suite Executives', 'Institutional Investors', 'Policy Makers', 'Strategic Partners', 'Retail Traders'],
+                affinity: ['Business Leaders', 'Financial Experts', 'Energy Sector Professionals', 'ESG Investors', 'Stock Market Enthusiasts'],
+                inmarket: ['Investment Services', 'B2B Energy Solutions', 'Corporate Partnerships', 'ESG Investments', 'Trading Platforms']
             }
         };
 
@@ -472,41 +473,125 @@
                 text: 'İş ortaklarına 30 yıllık başarılı işbirliği örnekleri. Enerji dönüşümünde ortak projeler ve win-win yaklaşımı.', 
                 reason: 'Stratejik ortaklar için uzun vadeli değer ve karşılıklı fayda kritik.', 
                 tags: ['Strategic Partnership', 'Joint Ventures', 'Win-Win', 'Long-term Value'] 
+            },
+            'Sosyal Medya Takipçileri': { 
+                title: 'Viral 30. Yıl İçerikleri', 
+                text: 'Geniş sosyal medya kitlesine 30. yıl temalı eğlenceli ve paylaşılabilir içerikler. Challenge\'lar, kullanıcı içerikleri ve influencer işbirlikleri.', 
+                reason: 'Yüksek erişim potansiyeli ancak düşük dönüşüm. Marka bilinirliği için ideal.', 
+                tags: ['Social Media', 'Viral Content', 'UGC', 'Brand Awareness'] 
+            },
+            'Fiyat Odaklı Tüketiciler': { 
+                title: '30 Yıl Tasarruf Bilinci', 
+                text: 'Fiyat hassasiyeti yüksek segmente tasarruf odaklı mesajlar. Enerji verimliliği ipuçları, karşılaştırmalı maliyet analizi ve promosyonlar.', 
+                reason: 'Geniş hacim ancak düşük LTV. Retention kampanyaları ile değer artırılabilir.', 
+                tags: ['Price Sensitive', 'Savings Tips', 'Promotions', 'Volume Play'] 
+            },
+            'Medya Kuruluşları': { 
+                title: '30 Yıl Hikaye Kaynağı', 
+                text: 'Gazeteciler ve medya profesyonellerine 30 yıllık başarı hikayeleri, veri ve görsel içerik paketi. Basın bültenleri ve özel röportaj fırsatları.', 
+                reason: 'Earned media potansiyeli yüksek. PR değeri ile reklam eşdeğeri yaratır.', 
+                tags: ['Media Relations', 'Press Kit', 'Earned Media', 'Story Angles'] 
+            },
+            'Enerji Sektörü Analistleri': { 
+                title: '30 Yıl Sektör Liderliği', 
+                text: 'Sektör analistlerine detaylı performans verileri, gelecek projeksiyonları ve stratejik yol haritası. Analist günleri ve özel brifingler.', 
+                reason: 'Düşünce liderleri üzerinden dolaylı etki. Yatırımcı kararlarını etkiler.', 
+                tags: ['Analyst Relations', 'Industry Leadership', 'Data Sharing', 'Expert Briefings'] 
+            },
+            'Yerel Ticaret Odaları': { 
+                title: '30 Yıl Yerel Ekonomi Katkısı', 
+                text: 'Ticaret odalarına yerel ekonomiye katkı verileri ve KOBİ destek programları. Ortak etkinlikler ve networking fırsatları.', 
+                reason: 'B2B ağı genişletme potansiyeli. Yerel işletmelere ulaşım kanalı.', 
+                tags: ['Local Economy', 'SME Support', 'Networking', 'B2B Channel'] 
+            },
+            'Tüketici Dernekleri': { 
+                title: '30 Yıl Tüketici Hakları', 
+                text: 'Tüketici derneklerine şeffaf fiyatlandırma, müşteri hakları ve şikayet çözüm süreçleri hakkında bilgilendirme. Proaktif iletişim.', 
+                reason: 'Potansiyel kriz önleme ve güven inşası. Negatif algı yönetimi.', 
+                tags: ['Consumer Rights', 'Transparency', 'Crisis Prevention', 'Trust Building'] 
+            },
+            'Çevre Aktivistleri': { 
+                title: '30 Yıl Yeşil Dönüşüm', 
+                text: 'Çevre aktivistlerine somut sürdürülebilirlik verileri ve yeşil enerji yatırım planları. Diyalog ve işbirliği fırsatları.', 
+                reason: 'Potansiyel eleştirmenleri destekçiye dönüştürme. ESG algısı güçlendirme.', 
+                tags: ['Environmental', 'Green Transition', 'Stakeholder Dialogue', 'ESG'] 
+            },
+            'Finans Kuruluşları': { 
+                title: '30 Yıl Finansal Güç', 
+                text: 'Bankalar ve finans kuruluşlarına 30 yıllık finansal stabilite ve kredi performansı. Proje finansmanı ve yeşil tahvil fırsatları.', 
+                reason: 'Finansman maliyeti optimizasyonu ve yeni kaynak erişimi kritik.', 
+                tags: ['Project Finance', 'Green Bonds', 'Credit Rating', 'Banking Relations'] 
+            },
+            'Uluslararası Enerji Fonları': { 
+                title: '30 Yıl Global Standartlar', 
+                text: 'Uluslararası fonlara ESG uyumu, global standartlar ve Türkiye enerji piyasası fırsatları. IR roadshow ve konferans katılımları.', 
+                reason: 'Yabancı yatırımcı çekmek için kritik. Hisse değeri üzerinde doğrudan etki.', 
+                tags: ['International IR', 'ESG Compliance', 'Global Standards', 'Foreign Investment'] 
+            },
+            'Borsa Analistleri': { 
+                title: '30 Yıl Değer Analizi', 
+                text: 'Borsa analistlerine detaylı finansal modeller, sektör karşılaştırmaları ve hedef fiyat destekleyici veriler.', 
+                reason: 'Analist raporları bireysel yatırımcı kararlarını direkt etkiler.', 
+                tags: ['Equity Research', 'Financial Models', 'Valuation', 'Target Price'] 
+            },
+            'Finans Medyası': { 
+                title: '30 Yıl Finansal Hikaye', 
+                text: 'Finans medyasına özel içerikler, CEO röportajları ve breaking news fırsatları. Bloomberg, Reuters ve yerel finans medyası odaklı.', 
+                reason: 'Yüksek erişim, düşük kontrol. Haber döngüsünde yer almak kritik.', 
+                tags: ['Financial Media', 'CEO Visibility', 'News Flow', 'Media Relations'] 
+            },
+            'Perakende Yatırımcı Toplulukları': { 
+                title: '30 Yıl Yatırımcı Topluluğu', 
+                text: 'Reddit, Ekşi Sözlük, Discord gibi platformlardaki yatırımcı topluluklarına erişim. AMA oturumları ve şeffaf iletişim.', 
+                reason: 'Viral potansiyel yüksek, kontrol düşük. Genç yatırımcı segmentine erişim.', 
+                tags: ['Retail Community', 'Social Trading', 'AMA', 'Transparent Communication'] 
             }
         };
         const defaultStrategy = { title: '30. Yıl Stratejisi', text: 'Bu segment için 30. yıl temasına uygun özelleştirilmiş kampanya stratejisi geliştirin. Segmentin temel motivasyonlarını ve davranış kalıplarını analiz ederek hedefe yönelik mesajlaşma oluşturun.', reason: '30. yıl teması ile segment karakteristiğini birleştirerek etki oluşturun.', tags: ['30th Anniversary', 'Targeted', 'Data-Driven'] };
 
         // Segment Verileri - Enerjisa 30. Yıl
         const segments = [
-            // B2C - Influencer
-            { parent: 'Influencer (Etkileyiciler)', name: 'Hane Halkları - Kesintisiz Enerji', x: 85, y: 90, size: 95, tier: 'Süper' },
-            { parent: 'Influencer (Etkileyiciler)', name: 'Güven Odaklı Tüketiciler', x: 80, y: 85, size: 90, tier: 'Süper' },
-            { parent: 'Influencer (Etkileyiciler)', name: 'Hane Halkları - Dijital Müşteri', x: 90, y: 75, size: 80, tier: 'T1' },
-            { parent: 'Influencer (Etkileyiciler)', name: 'Mobil Kullanıcılar', x: 95, y: 65, size: 85, tier: 'T1' },
-            { parent: 'Influencer (Etkileyiciler)', name: 'Küçük İşletmeler', x: 65, y: 80, size: 70, tier: 'T1' },
-            { parent: 'Influencer (Etkileyiciler)', name: 'Enerjisa Çalışanları', x: 50, y: 95, size: 40, tier: 'T2' },
-            // Gatekeepers
-            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Yerel Yönetimler', x: 40, y: 85, size: 55, tier: 'T1' },
-            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Muhtarlar', x: 35, y: 70, size: 60, tier: 'T2' },
-            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'STK ve Sivil Toplum', x: 45, y: 75, size: 50, tier: 'T2' },
-            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Akademik Kurumlar', x: 30, y: 80, size: 45, tier: 'T3' },
-            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Sürdürülebilirlik Partnerleri', x: 50, y: 65, size: 48, tier: 'T2' },
-            // Decision Makers
-            { parent: 'Decision Makers (Karar Vericiler)', name: 'Kurumsal Yatırımcılar', x: 25, y: 95, size: 50, tier: 'T1' },
-            { parent: 'Decision Makers (Karar Vericiler)', name: 'Stratejik İş Ortakları', x: 35, y: 90, size: 55, tier: 'T1' },
-            { parent: 'Decision Makers (Karar Vericiler)', name: 'Bireysel Yatırımcılar', x: 55, y: 60, size: 65, tier: 'T2' },
-            { parent: 'Decision Makers (Karar Vericiler)', name: 'Devlet Kurumları', x: 15, y: 90, size: 35, tier: 'T2' },
-            { parent: 'Decision Makers (Karar Vericiler)', name: 'Regülatörler', x: 20, y: 85, size: 30, tier: 'T3' }
+            // Influencers (Etkileyiciler)
+            { parent: 'Influencers (Etkileyiciler)', name: 'Hane Halkları - Kesintisiz Enerji', x: 85, y: 90, size: 95, tier: 'Süper' },
+            { parent: 'Influencers (Etkileyiciler)', name: 'Güven Odaklı Tüketiciler', x: 80, y: 85, size: 90, tier: 'Süper' },
+            { parent: 'Influencers (Etkileyiciler)', name: 'Hane Halkları - Dijital Müşteri', x: 90, y: 75, size: 80, tier: 'T1' },
+            { parent: 'Influencers (Etkileyiciler)', name: 'Mobil Kullanıcılar', x: 95, y: 65, size: 85, tier: 'T1' },
+            { parent: 'Influencers (Etkileyiciler)', name: 'Küçük İşletmeler', x: 65, y: 80, size: 70, tier: 'T1' },
+            { parent: 'Influencers (Etkileyiciler)', name: 'Enerjisa Çalışanları', x: 50, y: 95, size: 40, tier: 'T2' },
+            { parent: 'Influencers (Etkileyiciler)', name: 'Sosyal Medya Takipçileri', x: 92, y: 35, size: 75, tier: 'T3' },
+            { parent: 'Influencers (Etkileyiciler)', name: 'Fiyat Odaklı Tüketiciler', x: 88, y: 25, size: 80, tier: 'T4' },
+            // Gatekeepers (Kapı Bekçileri)
+            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Yerel Yönetimler', x: 40, y: 92, size: 55, tier: 'Süper' },
+            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Muhtarlar', x: 70, y: 45, size: 70, tier: 'T2' },
+            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'STK ve Sivil Toplum', x: 45, y: 75, size: 50, tier: 'T1' },
+            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Akademik Kurumlar', x: 30, y: 80, size: 45, tier: 'T1' },
+            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Sürdürülebilirlik Partnerleri', x: 50, y: 70, size: 48, tier: 'T2' },
+            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Medya Kuruluşları', x: 75, y: 55, size: 60, tier: 'T2' },
+            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Enerji Sektörü Analistleri', x: 35, y: 85, size: 35, tier: 'T2' },
+            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Yerel Ticaret Odaları', x: 60, y: 40, size: 55, tier: 'T3' },
+            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Tüketici Dernekleri', x: 65, y: 30, size: 45, tier: 'T3' },
+            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Çevre Aktivistleri', x: 55, y: 35, size: 40, tier: 'T4' },
+            // Decision Makers (Karar Vericiler)
+            { parent: 'Decision Makers (Karar Vericiler)', name: 'Kurumsal Yatırımcılar', x: 25, y: 95, size: 50, tier: 'Süper' },
+            { parent: 'Decision Makers (Karar Vericiler)', name: 'Stratejik İş Ortakları', x: 35, y: 90, size: 55, tier: 'Süper' },
+            { parent: 'Decision Makers (Karar Vericiler)', name: 'Devlet Kurumları', x: 15, y: 92, size: 40, tier: 'T1' },
+            { parent: 'Decision Makers (Karar Vericiler)', name: 'Regülatörler (EPDK)', x: 20, y: 88, size: 35, tier: 'T1' },
+            { parent: 'Decision Makers (Karar Vericiler)', name: 'Bireysel Yatırımcılar', x: 70, y: 40, size: 65, tier: 'T2' },
+            { parent: 'Decision Makers (Karar Vericiler)', name: 'Finans Kuruluşları', x: 30, y: 75, size: 50, tier: 'T2' },
+            { parent: 'Decision Makers (Karar Vericiler)', name: 'Uluslararası Enerji Fonları', x: 18, y: 85, size: 38, tier: 'T2' },
+            { parent: 'Decision Makers (Karar Vericiler)', name: 'Borsa Analistleri', x: 55, y: 50, size: 45, tier: 'T3' },
+            { parent: 'Decision Makers (Karar Vericiler)', name: 'Finans Medyası', x: 80, y: 35, size: 55, tier: 'T3' },
+            { parent: 'Decision Makers (Karar Vericiler)', name: 'Perakende Yatırımcı Toplulukları', x: 85, y: 25, size: 60, tier: 'T4' }
         ];
 
         const parentColors = { 
-            'Influencer (Etkileyiciler)': { bg: 'rgba(255,193,7,0.2)', border: '#ffc107' }, 
+            'Influencers (Etkileyiciler)': { bg: 'rgba(255,193,7,0.2)', border: '#ffc107' }, 
             'Gatekeepers (Kapı Bekçileri)': { bg: 'rgba(20,184,166,0.2)', border: '#14b8a6' }, 
             'Decision Makers (Karar Vericiler)': { bg: 'rgba(99,102,241,0.2)', border: '#6366f1' }
         };
-        const tierCfg = { 'Süper': { icon: '⭐', class: 'tier-super' }, 'T1': { icon: 'T1', class: 'tier-t1' }, 'T2': { icon: 'T2', class: 'tier-t2' }, 'T3': { icon: 'T3', class: 'tier-t3' } };
+        const tierCfg = { 'Süper': { icon: '⭐', class: 'tier-super' }, 'T1': { icon: 'T1', class: 'tier-t1' }, 'T2': { icon: 'T2', class: 'tier-t2' }, 'T3': { icon: 'T3', class: 'tier-t3' }, 'T4': { icon: 'T4', class: 'tier-t4' } };
         const axisL = { 
-            'Influencer (Etkileyiciler)': { x: 'Dijital Erişim', y: 'Engagement Pot.', s: 'Hacim' }, 
+            'Influencers (Etkileyiciler)': { x: 'Dijital Erişim', y: 'Engagement Pot.', s: 'Hacim' }, 
             'Gatekeepers (Kapı Bekçileri)': { x: 'Erişilebilirlik', y: 'Etki Gücü', s: 'Kapsam' }, 
             'Decision Makers (Karar Vericiler)': { x: 'İletişim Kolaylığı', y: 'Karar Etkisi', s: 'Önem' }
         };
@@ -545,7 +630,7 @@
         function toggleGroup(h) { const i = h.nextElementSibling; i.classList.toggle('open'); h.querySelector('span:last-child').textContent = i.classList.contains('open') ? '▼' : '▶'; }
         function filterTier(tier) { currentFilter = tier; document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.tier === tier)); draw(); }
         function setView(view) { currentView = view; document.querySelectorAll('.view-btn').forEach(b => b.classList.toggle('active', b.textContent === (view === 'all' ? 'Tümü' : view.split(' ')[0]))); draw(); }
-        function getFiltered() { let f = segments; if (currentFilter !== 'all') { const m = { 'super': 'Süper', 't1': 'T1', 't2': 'T2', 't3': 'T3' }; f = f.filter(s => s.tier === m[currentFilter]); } if (currentView !== 'all') f = f.filter(s => s.parent === currentView); return f; }
+        function getFiltered() { let f = segments; if (currentFilter !== 'all') { const m = { 'super': 'Süper', 't1': 'T1', 't2': 'T2', 't3': 'T3', 't4': 'T4' }; f = f.filter(s => s.tier === m[currentFilter]); } if (currentView !== 'all') f = f.filter(s => s.parent === currentView); return f; }
         
         function draw() { 
             const w = canvas.width, h = canvas.height; 
