@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petrol Ofisi Premium Market - Segment Analizi | Time & Growity</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #1a1a24; --accent-blue: #00d4ff; --accent-purple: #7c3aed; --accent-orange: #ff6b35; --accent-green: #10b981; --accent-yellow: #f59e0b; --accent-pink: #ec4899; --accent-red: #e31e24; --text-primary: #f0f0f5; --text-secondary: #8888a0; --border-color: #2a2a3a; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Sora', sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; overflow-x: hidden; }
+        .bg-grid { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(227, 30, 36, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(227, 30, 36, 0.02) 1px, transparent 1px); background-size: 50px 50px; pointer-events: none; z-index: 0; }
+        .header { background: rgba(10,10,15,0.95); border-bottom: 1px solid var(--border-color); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 10; backdrop-filter: blur(20px); }
+        .header-left { display: flex; align-items: center; gap: 16px; }
+        .nav-btn { padding: 8px 14px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-card); color: var(--text-primary); font-size: 12px; font-family: 'Sora', sans-serif; cursor: pointer; text-decoration: none; transition: all 0.3s; }
+        .nav-btn:hover { border-color: var(--accent-blue); background: rgba(0,212,255,0.1); }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-icon { width: 44px; height: 44px; }
+        .logo-text h1 { font-size: 18px; font-weight: 600; background: linear-gradient(90deg, #E91E8C, #7B2D8E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo-text .version-line { display: flex; align-items: center; gap: 8px; }
+        .logo-text .version { font-size: 10px; color: var(--text-secondary); font-family: 'Space Mono', monospace; }
+        .logo-text .update-date { font-size: 10px; color: var(--text-secondary); font-family: 'Space Mono', monospace; opacity: 0.7; }
+        .po-badge { display: flex; align-items: center; gap: 8px; background: rgba(227,30,36,0.15); border: 1px solid rgba(227,30,36,0.4); padding: 8px 14px; border-radius: 10px; margin-left: 16px; }
+        .po-icon { width: 28px; height: 28px; background: linear-gradient(135deg, #e31e24, #c41e24); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10px; font-family: 'Space Mono', monospace; }
+        .po-text { font-size: 13px; font-weight: 600; color: #fff; }
+        .header-actions { display: flex; gap: 10px; align-items: center; }
+        .btn { padding: 10px 16px; border: none; border-radius: 8px; font-size: 11px; font-weight: 600; font-family: 'Sora', sans-serif; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 6px; }
+        .btn-secondary { background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); }
+        .btn-secondary:hover { border-color: var(--accent-red); background: rgba(227,30,36,0.1); }
+        .main-wrapper { display: flex; flex-direction: column; height: calc(100vh - 68px); overflow: hidden; position: relative; z-index: 1; }
+        .top-section { display: flex; flex: 1; min-height: 0; overflow: hidden; }
+        .left-panel { width: 220px; background: rgba(26,26,36,0.8); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; backdrop-filter: blur(10px); }
+        .panel-header { padding: 14px; border-bottom: 1px solid var(--border-color); }
+        .panel-title { font-size: 12px; font-weight: 600; margin-bottom: 10px; }
+        .filter-row { display: flex; gap: 4px; flex-wrap: wrap; }
+        .filter-btn { padding: 5px 8px; border: 1px solid var(--border-color); border-radius: 6px; background: var(--bg-card); color: var(--text-secondary); font-size: 10px; font-family: 'Space Mono', monospace; cursor: pointer; transition: all 0.2s; }
+        .filter-btn:hover { border-color: var(--accent-red); color: var(--text-primary); }
+        .filter-btn.active { background: rgba(227,30,36,0.2); border-color: var(--accent-red); color: var(--accent-red); }
+        .segment-list { flex: 1; overflow-y: auto; padding: 8px; }
+        .segment-group { margin-bottom: 6px; }
+        .segment-group-header { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: var(--bg-card); border-radius: 8px; cursor: pointer; font-size: 10px; font-weight: 600; border-left: 3px solid #666; transition: all 0.2s; }
+        .segment-group-header:hover { background: rgba(255,255,255,0.05); }
+        .segment-items { max-height: 0; overflow: hidden; transition: max-height 0.3s; }
+        .segment-items.open { max-height: 400px; }
+        .segment-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 6px; cursor: pointer; margin-top: 4px; font-size: 10px; transition: all 0.2s; background: var(--bg-secondary); }
+        .segment-item:hover { background: rgba(0,212,255,0.05); }
+        .segment-item.selected { background: rgba(227,30,36,0.15); border: 1px solid rgba(227,30,36,0.3); }
+        .tier-badge { min-width: 20px; height: 16px; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-size: 8px; font-weight: bold; font-family: 'Space Mono', monospace; }
+        .tier-super { background: linear-gradient(135deg, #ffd700, #ffaa00); color: #000; }
+        .tier-t1 { background: var(--accent-green); color: #fff; }
+        .tier-t2 { background: var(--accent-blue); color: #000; }
+        .tier-t3 { background: var(--accent-orange); color: #000; }
+        .tier-t4 { background: var(--accent-red); color: #fff; }
+        .center-panel { flex: 1; display: flex; flex-direction: column; padding: 12px; min-width: 0; }
+        .canvas-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .canvas-title { font-size: 13px; font-weight: 600; font-family: 'Space Mono', monospace; }
+        .view-toggle { display: flex; background: var(--bg-card); border-radius: 8px; padding: 3px; border: 1px solid var(--border-color); }
+        .view-btn { padding: 6px 10px; border: none; background: transparent; color: var(--text-secondary); font-size: 9px; font-family: 'Sora', sans-serif; cursor: pointer; border-radius: 5px; transition: all 0.2s; }
+        .view-btn:hover { color: var(--text-primary); }
+        .view-btn.active { background: rgba(227,30,36,0.3); color: #fff; }
+        .canvas-wrap { flex: 1; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--border-color); position: relative; }
+        #quadrantCanvas { width: 100%; height: 100%; }
+        .right-panel { width: 320px; background: rgba(26,26,36,0.8); border-left: 1px solid var(--border-color); display: flex; flex-direction: column; overflow-y: auto; backdrop-filter: blur(10px); }
+        .detail-section { padding: 14px; border-bottom: 1px solid var(--border-color); }
+        .detail-title { font-size: 10px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 10px; font-family: 'Space Mono', monospace; letter-spacing: 1px; }
+        .detail-header { display: flex; align-items: center; gap: 10px; }
+        .detail-name { font-size: 14px; font-weight: 600; }
+        .detail-parent { font-size: 10px; color: var(--text-secondary); }
+        .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .metric-box { background: var(--bg-secondary); border-radius: 8px; padding: 8px 4px; text-align: center; border: 1px solid var(--border-color); }
+        .metric-value { font-size: 14px; font-weight: 700; color: var(--accent-red); font-family: 'Space Mono', monospace; }
+        .metric-label { font-size: 8px; color: var(--text-secondary); margin-top: 2px; }
+        .strategy-card { background: var(--bg-secondary); border-radius: 10px; padding: 12px; border: 1px solid var(--border-color); margin-bottom: 10px; }
+        .strategy-title { font-size: 11px; font-weight: 600; color: var(--accent-green); margin-bottom: 8px; }
+        .strategy-text { font-size: 11px; line-height: 1.5; color: var(--text-primary); }
+        .strategy-reason { font-size: 10px; color: var(--text-secondary); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-color); }
+        .strategy-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+        .strategy-tag { font-size: 9px; padding: 3px 8px; border-radius: 12px; background: rgba(0,212,255,0.15); color: var(--accent-blue); font-family: 'Space Mono', monospace; }
+        .platform-reach-section { margin-top: 6px; }
+        .reach-bars { display: flex; flex-direction: column; gap: 6px; }
+        .reach-item { display: flex; align-items: center; gap: 8px; }
+        .reach-platform { font-size: 9px; color: var(--text-secondary); width: 55px; font-family: 'Space Mono', monospace; }
+        .reach-bar-wrap { flex: 1; height: 14px; background: var(--bg-card); border-radius: 7px; overflow: hidden; position: relative; }
+        .reach-bar { height: 100%; border-radius: 7px; transition: width 0.5s ease; }
+        .reach-bar.meta { background: linear-gradient(90deg, #1877f2, #4a90d9); }
+        .reach-bar.youtube { background: linear-gradient(90deg, #ff0000, #ff6666); }
+        .reach-bar.tiktok { background: linear-gradient(90deg, #00f2ea, #ff0050); }
+        .reach-bar.x { background: linear-gradient(90deg, #333, #666); }
+        .reach-bar.dv360 { background: linear-gradient(90deg, #34a853, #4ade80); }
+        .reach-value { font-size: 10px; font-weight: 600; color: var(--text-primary); width: 36px; text-align: right; font-family: 'Space Mono', monospace; }
+        .bottom-panel { background: rgba(20,20,35,0.98); border-top: 2px solid var(--accent-red); height: 0; overflow: hidden; transition: height 0.3s; position: relative; z-index: 100; }
+        .bottom-panel.active { height: 380px; overflow-y: auto; }
+        .bottom-content { padding: 16px 20px; }
+        .bottom-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .bottom-title { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+        .bottom-subtitle { font-size: 11px; color: var(--text-secondary); font-family: 'Space Mono', monospace; }
+        .close-btn { width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-secondary); font-size: 14px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+        .close-btn:hover { border-color: var(--accent-red); color: var(--accent-red); background: rgba(227,30,36,0.1); }
+        .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .bht-impact-section { background: var(--bg-card); border-radius: 12px; padding: 16px; border: 1px solid var(--border-color); }
+        .bht-impact-title { font-size: 12px; font-weight: 600; margin-bottom: 14px; color: var(--accent-blue); font-family: 'Space Mono', monospace; }
+        .bht-category { margin-bottom: 12px; }
+        .bht-category-header { font-size: 11px; font-weight: 600; padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+        .bht-category-header.awareness { background: rgba(124,58,237,0.2); color: #a78bfa; }
+        .bht-category-header.consideration { background: rgba(245,158,11,0.2); color: #fbbf24; }
+        .bht-category-header.conversion { background: rgba(16,185,129,0.2); color: #34d399; }
+        .bht-impact-value { font-size: 13px; font-weight: 700; font-family: 'Space Mono', monospace; }
+        .bht-questions-list { font-size: 10px; color: var(--text-secondary); padding-left: 10px; }
+        .bht-question-item { padding: 4px 0; display: flex; align-items: center; gap: 6px; }
+        .bht-question-item.recommended { color: var(--text-primary); }
+        .bht-question-item.recommended::before { content: '★'; color: var(--accent-red); }
+        .platform-section { background: var(--bg-card); border-radius: 12px; padding: 16px; border: 1px solid var(--border-color); }
+        .platform-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+        .platform-card { background: var(--bg-secondary); border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color); }
+        .platform-header { padding: 8px 10px; font-size: 10px; font-weight: 600; font-family: 'Space Mono', monospace; }
+        .platform-header.meta { background: rgba(24,119,242,0.2); color: #60a5fa; border-bottom: 2px solid #1877f2; }
+        .platform-header.x { background: rgba(255,255,255,0.1); color: #fff; border-bottom: 2px solid #fff; }
+        .platform-header.tiktok { background: rgba(0,242,234,0.15); color: #00f2ea; border-bottom: 2px solid #00f2ea; }
+        .platform-header.youtube { background: rgba(255,0,0,0.15); color: #f87171; border-bottom: 2px solid #ff0000; }
+        .platform-header.dv360 { background: rgba(52,168,83,0.2); color: #4ade80; border-bottom: 2px solid #34a853; }
+        .platform-body { padding: 8px; }
+        .targeting-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 9px; }
+        .targeting-row:last-child { border-bottom: none; }
+        .targeting-type { color: var(--text-secondary); }
+        .targeting-value { color: var(--text-primary); text-align: right; max-width: 65%; }
+        .bht-mini { font-size: 7px; padding: 2px 4px; border-radius: 4px; margin-left: 4px; font-family: 'Space Mono', monospace; }
+        .bht-mini.aw { background: rgba(124,58,237,0.3); color: #a78bfa; }
+        .bht-mini.co { background: rgba(245,158,11,0.3); color: #fbbf24; }
+        .bht-mini.cv { background: rgba(16,185,129,0.3); color: #34d399; }
+        .extra-targeting-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+        .extra-targeting-card { background: var(--bg-secondary); border-radius: 10px; overflow: hidden; border: 1px solid var(--border-color); }
+        .extra-targeting-header { padding: 8px 10px; font-size: 10px; font-weight: 600; background: rgba(255,255,255,0.05); color: var(--accent-blue); border-bottom: 1px solid var(--border-color); font-family: 'Space Mono', monospace; }
+        .extra-targeting-body { padding: 8px 10px; }
+        .extra-item { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 10px; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .extra-item:last-child { border-bottom: none; }
+        .extra-item-icon { width: 6px; height: 6px; border-radius: 50%; }
+        .extra-item-icon.lifestyle { background: var(--accent-purple); }
+        .extra-item-icon.affinity { background: var(--accent-green); }
+        .extra-item-icon.inmarket { background: var(--accent-orange); }
+        .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text-secondary); text-align: center; padding: 24px; }
+        .empty-icon { font-size: 36px; margin-bottom: 10px; opacity: 0.5; }
+        .tooltip { position: fixed; background: rgba(26,26,36,0.98); padding: 12px 16px; border-radius: 10px; font-size: 11px; pointer-events: none; z-index: 1000; display: none; max-width: 260px; border: 1px solid var(--border-color); backdrop-filter: blur(20px); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-red); }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <header class="header">
+        <div class="header-left">
+            <a href="index.html" class="nav-btn">← Kütüphane</a>
+            <a href="segmentation-quadrant.html" class="nav-btn">Quadrant</a>
+            <a href="enerjisa-30yil.html" class="nav-btn" style="border-color: rgba(255,193,7,0.4); color: #ffc107;">⚡ Enerjisa</a>
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 44 44" width="44" height="44">
+                        <circle cx="15" cy="22" r="11" fill="none" stroke="#E91E8C" stroke-width="4"/>
+                        <circle cx="29" cy="22" r="11" fill="none" stroke="#7B2D8E" stroke-width="4"/>
+                        <path d="M15 11 A11 11 0 0 0 15 33" fill="none" stroke="#E91E8C" stroke-width="4"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>Time & Growity</h1>
+                    <div class="version-line">
+                        <span class="version">PO Segment Tool v7.8</span>
+                        <span class="update-date">• Ocak 2026</span>
+                    </div>
+                </div>
+            </div>
+            <div class="po-badge">
+                <div class="po-icon">PO</div>
+                <span class="po-text">Premium Market</span>
+            </div>
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-secondary" onclick="exportPNG()">PNG</button>
+            <button class="btn btn-secondary" onclick="exportExcel()">Excel</button>
+        </div>
+    </header>
+    <div class="main-wrapper">
+        <div class="top-section">
+            <div class="left-panel">
+                <div class="panel-header">
+                    <div class="panel-title">40 Segment</div>
+                    <div class="filter-row">
+                        <button class="filter-btn active" data-tier="all" onclick="filterTier('all')">Tümü</button>
+                        <button class="filter-btn" data-tier="super" onclick="filterTier('super')">⭐</button>
+                        <button class="filter-btn" data-tier="t1" onclick="filterTier('t1')">T1</button>
+                        <button class="filter-btn" data-tier="t2" onclick="filterTier('t2')">T2</button>
+                        <button class="filter-btn" data-tier="t3" onclick="filterTier('t3')">T3</button>
+                        <button class="filter-btn" data-tier="t4" onclick="filterTier('t4')">T4</button>
+                    </div>
+                </div>
+                <div class="segment-list" id="segmentList"></div>
+            </div>
+            <div class="center-panel">
+                <div class="canvas-header">
+                    <div class="canvas-title">Segment Quadrant</div>
+                    <div class="view-toggle">
+                        <button class="view-btn active" onclick="setView('all')">Tümü</button>
+                        <button class="view-btn" onclick="setView('Aile Seyahat Planlayıcıları')">Aile</button>
+                        <button class="view-btn" onclick="setView('Deneyim Odaklı Şehirli Premiumlar')">Urban</button>
+                        <button class="view-btn" onclick="setView('Değer Odaklı Hızlı Alışverişçiler')">Değer</button>
+                        <button class="view-btn" onclick="setView('Erişilebilir Premium Tüketiciler')">Premium</button>
+                    </div>
+                </div>
+                <div class="canvas-wrap"><canvas id="quadrantCanvas"></canvas></div>
+            </div>
+            <div class="right-panel">
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-icon">👆</div>
+                    <div style="font-size:12px;color:var(--text-secondary);">Segment Seçin</div>
+                    <div style="font-size:10px;color:var(--text-secondary);margin-top:6px;">Detayları görmek için bir segment tıklayın</div>
+                </div>
+                <div id="detailPanel" style="display:none;">
+                    <div class="detail-section">
+                        <div class="detail-header">
+                            <div class="tier-badge" id="detailTier">T1</div>
+                            <div>
+                                <div class="detail-name" id="detailName">Segment</div>
+                                <div class="detail-parent" id="detailParent">Parent</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-title">Metrikler</div>
+                        <div class="metrics-grid">
+                            <div class="metric-box"><div class="metric-value" id="metricX">50</div><div class="metric-label" id="metricXLabel">X</div></div>
+                            <div class="metric-box"><div class="metric-value" id="metricY">50</div><div class="metric-label" id="metricYLabel">Y</div></div>
+                            <div class="metric-box"><div class="metric-value" id="metricSize">50</div><div class="metric-label" id="metricSizeLabel">Boyut</div></div>
+                            <div class="metric-box"><div class="metric-value" id="metricTier">T1</div><div class="metric-label">Öncelik</div></div>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-title">Strateji Önerisi</div>
+                        <div class="strategy-card">
+                            <div class="strategy-title" id="strategyTitle">Kampanya Stratejisi</div>
+                            <div class="strategy-text" id="strategyText">Strateji açıklaması burada görünecek.</div>
+                            <div class="strategy-reason" id="strategyReason">Neden bu strateji?</div>
+                            <div class="strategy-tags" id="strategyTags"></div>
+                        </div>
+                    </div>
+                    <div class="detail-section">
+                        <div class="detail-title">Platform Ulaşılabilirlik</div>
+                        <div class="platform-reach-section">
+                            <div class="reach-bars" id="reachBars"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-panel" id="bottomPanel">
+            <div class="bottom-content">
+                <div class="bottom-header">
+                    <div class="bottom-title">
+                        <span id="bottomSegName">Segment</span>
+                        <span class="bottom-subtitle" id="bottomSegParent"></span>
+                    </div>
+                    <button class="close-btn" onclick="closeBottomPanel()">✕</button>
+                </div>
+                <div class="bottom-grid">
+                    <div class="bht-impact-section">
+                        <div class="bht-impact-title">Tahmini BHT Etki Analizi</div>
+                        <div class="bht-category">
+                            <div class="bht-category-header awareness"><span>Awareness</span><span class="bht-impact-value" id="awImpact">+12%</span></div>
+                            <div class="bht-questions-list" id="awQuestions"></div>
+                        </div>
+                        <div class="bht-category">
+                            <div class="bht-category-header consideration"><span>Consideration</span><span class="bht-impact-value" id="coImpact">+8%</span></div>
+                            <div class="bht-questions-list" id="coQuestions"></div>
+                        </div>
+                        <div class="bht-category">
+                            <div class="bht-category-header conversion"><span>Conversion</span><span class="bht-impact-value" id="cvImpact">+5%</span></div>
+                            <div class="bht-questions-list" id="cvQuestions"></div>
+                        </div>
+                    </div>
+                    <div class="platform-section">
+                        <div class="bht-impact-title">Platform Hedefleme Önerileri</div>
+                        <div class="platform-grid">
+                            <div class="platform-card"><div class="platform-header meta">Meta</div><div class="platform-body" id="metaTargeting"></div></div>
+                            <div class="platform-card"><div class="platform-header x">X</div><div class="platform-body" id="xTargeting"></div></div>
+                            <div class="platform-card"><div class="platform-header tiktok">TikTok</div><div class="platform-body" id="tiktokTargeting"></div></div>
+                            <div class="platform-card"><div class="platform-header youtube">YouTube</div><div class="platform-body" id="youtubeTargeting"></div></div>
+                            <div class="platform-card"><div class="platform-header dv360">DV360</div><div class="platform-body" id="dv360Targeting"></div></div>
+                        </div>
+                        <div class="extra-targeting-grid">
+                            <div class="extra-targeting-card"><div class="extra-targeting-header">Lifestyle Segments</div><div class="extra-targeting-body" id="lifestyleTargeting"></div></div>
+                            <div class="extra-targeting-card"><div class="extra-targeting-header">Affinity Audiences</div><div class="extra-targeting-body" id="affinityTargeting"></div></div>
+                            <div class="extra-targeting-card"><div class="extra-targeting-header">In-Market Segments</div><div class="extra-targeting-body" id="inmarketTargeting"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tooltip" id="tooltip"></div>
+    <script>
+        const bhtQ = {
+            awareness: [
+                { id: 'aw1', text: '"Premium Market" konseptini duydum', isNew: true, impact: 15 },
+                { id: 'aw2', text: 'PO market hizmeti sunuyor biliyorum', isNew: true, impact: 12 },
+                { id: 'aw3', text: 'Kaliteli atıştırmalık bulabilirim', isNew: true, impact: 10 },
+                { id: 'aw4', text: 'Güvenilir bir marka', isNew: false, impact: 5 },
+                { id: 'aw5', text: 'Modern ve yenilikçi', isNew: false, impact: 8 },
+                { id: 'aw6', text: 'Lider marka', isNew: false, impact: 4 }
+            ],
+            consideration: [
+                { id: 'co1', text: 'Yol üstü atıştırmalık için tercih', isNew: true, impact: 12 },
+                { id: 'co2', text: 'Premium ürünler bulabilirim', isNew: true, impact: 10 },
+                { id: 'co3', text: 'Hızlı kahve için uğrarım', isNew: true, impact: 14 },
+                { id: 'co4', text: 'Diğer istasyonlardan daha iyi', isNew: true, impact: 8 },
+                { id: 'co5', text: 'Müşterisini anlar', isNew: false, impact: 5 },
+                { id: 'co6', text: 'İstasyonları aydınlık ve güvenli', isNew: false, impact: 6 },
+                { id: 'co7', text: 'Teknolojik çözümler sunar', isNew: false, impact: 7 },
+                { id: 'co8', text: 'İşimi hızlı halledebilirim', isNew: false, impact: 9 }
+            ],
+            conversion: [
+                { id: 'cv1', text: 'Son 1 ayda alışveriş yaptım', isNew: true, impact: 18 },
+                { id: 'cv2', text: 'Sadece market için gittim', isNew: true, impact: 20 },
+                { id: 'cv3', text: 'Tavsiye ederim', isNew: true, impact: 15 },
+                { id: 'cv4', text: 'Ürünler beklentimi karşıladı', isNew: true, impact: 12 },
+                { id: 'cv5', text: 'Yolumu değiştiririm', isNew: false, impact: 10 },
+                { id: 'cv6', text: 'Olmasa eksikliğini hissederim', isNew: false, impact: 8 }
+            ]
+        };
+        const segBhtRec = {
+            'Aile Seyahat Planlayıcıları': ['aw2', 'aw3', 'co1', 'co3', 'cv1'],
+            'Deneyim Odaklı Şehirli Premiumlar': ['aw1', 'aw5', 'co2', 'co4', 'cv4'],
+            'Değer Odaklı Hızlı Alışverişçiler': ['aw3', 'co1', 'co8', 'cv1', 'cv2'],
+            'Erişilebilir Premium Tüketiciler': ['aw1', 'aw3', 'co2', 'co3', 'co4', 'cv1', 'cv3', 'cv4']
+        };
+        const targetT = {
+            'Aile Seyahat Planlayıcıları': {
+                meta: [{ type: 'Interest', target: 'Seyahat, Aile tatili', bht: 'aw' }, { type: 'Behavior', target: 'Sık seyahat edenler', bht: 'co' }, { type: 'Custom', target: 'PO app users', bht: 'cv' }],
+                x: [{ type: 'Trend', target: '#HaftaSonuKaçamağı', bht: 'aw' }, { type: 'Keyword', target: 'tatil, yolculuk', bht: 'co' }],
+                tiktok: [{ type: 'Hashtag', target: '#aileiletatil', bht: 'aw' }, { type: 'Creator', target: 'Aile influencer', bht: 'co' }],
+                youtube: [{ type: 'Affinity', target: 'Travel Buffs', bht: 'aw' }, { type: 'In-Market', target: 'Family Vacations', bht: 'co' }],
+                dv360: [{ type: 'Affinity', target: 'Travel Buffs', bht: 'aw' }, { type: 'In-Market', target: 'Auto Fuel', bht: 'co' }],
+                reach: { meta: 78, youtube: 65, tiktok: 45, x: 32, dv360: 72 },
+                lifestyle: ['Family-First Planners', 'Weekend Adventurers', 'Road Trip Enthusiasts', 'Budget-Conscious Families'],
+                affinity: ['Travel Buffs', 'Family-Focused', 'Outdoor Enthusiasts', 'Auto Enthusiasts'],
+                inmarket: ['Family Vacations', 'Auto Fuel & Charging', 'Camping Gear', 'Road Trip Essentials']
+            },
+            'Deneyim Odaklı Şehirli Premiumlar': {
+                meta: [{ type: 'Interest', target: 'Wellness, Fitness', bht: 'aw' }, { type: 'Behavior', target: 'Health conscious', bht: 'co' }, { type: 'LAL', target: 'Premium %1-2', bht: 'cv' }],
+                x: [{ type: 'Trend', target: '#PremiumAnlar', bht: 'aw' }, { type: 'Keyword', target: 'kahve, wellness', bht: 'co' }],
+                tiktok: [{ type: 'Hashtag', target: '#wellness', bht: 'aw' }, { type: 'Creator', target: 'Lifestyle creators', bht: 'co' }],
+                youtube: [{ type: 'Affinity', target: 'Health & Fitness', bht: 'aw' }, { type: 'In-Market', target: 'Health Food', bht: 'co' }],
+                dv360: [{ type: 'Affinity', target: 'Coffee Shop Regulars', bht: 'aw' }, { type: 'In-Market', target: 'Organic Products', bht: 'co' }],
+                reach: { meta: 82, youtube: 58, tiktok: 62, x: 48, dv360: 68 },
+                lifestyle: ['Urban Wellness Seekers', 'Premium Experience Hunters', 'Health-Conscious Pros', 'Mindful Consumers'],
+                affinity: ['Health & Fitness Buffs', 'Coffee Shop Regulars', 'Foodies', 'Green Living Enthusiasts'],
+                inmarket: ['Health Food', 'Premium Beverages', 'Organic Products', 'Specialty Coffee']
+            },
+            'Değer Odaklı Hızlı Alışverişçiler': {
+                meta: [{ type: 'Interest', target: 'Fırsatlar, İndirimler', bht: 'aw' }, { type: 'Behavior', target: 'Deal seekers', bht: 'co' }, { type: 'Custom', target: 'Sadakat üyeleri', bht: 'cv' }],
+                x: [{ type: 'Trend', target: '#FlashFırsat', bht: 'aw' }, { type: 'Keyword', target: 'indirim, kampanya', bht: 'co' }],
+                tiktok: [{ type: 'Hashtag', target: '#indirim #fırsat', bht: 'aw' }, { type: 'Creator', target: 'Fırsat creators', bht: 'co' }],
+                youtube: [{ type: 'Affinity', target: 'Bargain Hunters', bht: 'aw' }, { type: 'In-Market', target: 'Coupons', bht: 'co' }],
+                dv360: [{ type: 'Affinity', target: 'Value Shoppers', bht: 'aw' }, { type: 'In-Market', target: 'Convenience Stores', bht: 'co' }],
+                reach: { meta: 85, youtube: 72, tiktok: 55, x: 28, dv360: 78 },
+                lifestyle: ['Smart Shoppers', 'Deal Hunters', 'Price-Conscious Families', 'Loyalty Program Fans'],
+                affinity: ['Bargain Hunters', 'Value Shoppers', 'Coupon Savers', 'Fast Food Lovers'],
+                inmarket: ['Coupons & Discounts', 'Convenience Stores', 'Grocery Deals', 'Loyalty Programs']
+            },
+            'Erişilebilir Premium Tüketiciler': {
+                meta: [{ type: 'Interest', target: 'Self-care, Premium kahve', bht: 'aw' }, { type: 'Behavior', target: 'Impulse buyers', bht: 'co' }, { type: 'LAL', target: 'Premium alıcılar %1-3', bht: 'cv' }],
+                x: [{ type: 'Trend', target: '#KendineÖdül', bht: 'aw' }, { type: 'Keyword', target: 'kahve keyfi, mola', bht: 'co' }],
+                tiktok: [{ type: 'Hashtag', target: '#kendinişımart', bht: 'aw' }, { type: 'Creator', target: 'Kahve creators', bht: 'co' }],
+                youtube: [{ type: 'Affinity', target: 'Coffee Shop Regulars', bht: 'aw' }, { type: 'In-Market', target: 'Premium Snacks', bht: 'co' }],
+                dv360: [{ type: 'Affinity', target: 'Foodies', bht: 'aw' }, { type: 'In-Market', target: 'Convenience Stores', bht: 'co' }],
+                reach: { meta: 88, youtube: 62, tiktok: 68, x: 38, dv360: 75 },
+                lifestyle: ['Self-Reward Seekers', 'Convenience Premium Buyers', 'Daily Upgraders', 'Impulse Treat Lovers'],
+                affinity: ['Coffee Shop Regulars', 'Foodies', 'Fast Food Cravers', 'Snack Enthusiasts'],
+                inmarket: ['Premium Coffee', 'Snack Foods', 'Convenience Stores', 'Quick Service Restaurants']
+            }
+        };
+        const strategyData = {
+            'Hafta Sonu Kaçamakçıları': { title: 'Hafta Sonu Paketi Combo', text: 'Her hafta sonu düzenli yola çıkan bu kitle için "Hafta Sonu Kaçamak Paketi" oluşturun. Kahve + sandviç + atıştırmalık combo, Cuma-Pazar özel fiyat. Lokasyon bazlı push notification.', reason: 'Yüksek frekans (haftalık) ve düzenli rota = tahmin edilebilir davranış. Combo teklifleri sepet ortalamasını %35 artırır.', tags: ['Combo Deal', 'Weekend Push', 'Location-Based', 'High Frequency'] },
+            'Aile Yol Gezisi Tutkunları': { title: 'Yol Arkadaşı Aile Seti', text: 'Uzun yolculuklarda çoklu mola = çoklu satış fırsatı. "Yol Arkadaşı Aile Seti" ile çocuklara özel atıştırmalık, ebeveynlere kahve. Rota üzerindeki tüm PO\'larda geçerli puan sistemi.', reason: 'Uzun yol = 3-4 mola = 3-4x satış potansiyeli. Aile boyutu sepet değerini 2.5x artırır.', tags: ['Family Pack', 'Multi-Stop', 'Loyalty Points', 'Road Trip'] },
+            'Güvenlik Öncelikli Maceracılar': { title: 'Premium Kalite Güvencesi', text: 'Güvenlik ve kalite öncelikli segment için ürün menşei, kalite sertifikaları ve hijyen standartlarını ön plana çıkarın. "Premium Market Kalite Garantisi" sertifikası.', reason: 'Premium ödeme kapasitesi yüksek, fiyat hassasiyeti düşük. Güven = sadakat = CLV artışı.', tags: ['Quality Seal', 'Trust Building', 'Premium Pricing', 'Cross-Sell'] },
+            'Şehirli Wellness Arayanlar': { title: 'Günlük Wellness Ritüeli', text: 'Sabah rutinine entegre: Protein bar + cold-press juice + specialty coffee "Wellness Start" paketi. Günlük alışkanlık için subscription modeli. İstasyonlarda "Wellness Corner".', reason: 'Günlük ritüel = günlük gelir. Wellness trendi = premium fiyatlama. Subscription LTV\'yi 4x artırır.', tags: ['Daily Ritual', 'Subscription', 'Wellness Corner', 'Morning Routine'] },
+            'Premium Teknoloji Öncüleri': { title: 'Grab & Go Premium Experience', text: 'Hız + kalite dengesi kritik. Mobile pre-order ile sıfır bekleme, ödeme entegrasyonu, kişiselleştirilmiş sipariş geçmişi. Specialty coffee + premium snack pairing önerileri app üzerinden.', reason: 'Zaman = para bu segment için. Teknoloji adaptasyonu yüksek, mobile conversion %40+ beklenir.', tags: ['Mobile First', 'Pre-Order', 'Zero Wait', 'Personalization'] },
+            'Flash İndirim Tutkunları': { title: 'Flash Deal Notification', text: 'Anlık karar vericiler için real-time flash deal sistemi. Stok fazlası ürünlerde %50+ indirim, 2 saatlik pencere, push notification. Gamification: "İlk 50 kişiye ekstra indirim".', reason: 'Dürtüsel satın alma = yüksek conversion hızı. Flash deal\'lar dead stock maliyetini minimize eder.', tags: ['Flash Sale', 'Push Notification', 'Gamification', 'FOMO'] },
+            'Puan & Ödül Koleksiyoncuları': { title: 'Sadakat Puan Çarpanı', text: 'Sadakat programını güçlendirin: Premium Market alışverişlerinde 2x puan, özel günlerde 5x puan, referral bonus. Puan = Premium Market ürün indirimi. VIP tier sistemi.', reason: 'Program sadakati = marka sadakati. 2x puan kampanyaları traffic %65 artırır. VIP\'ler 3x fazla harcar.', tags: ['2x Points', 'VIP Tiers', 'Referral Bonus', 'Loyalty Loop'] },
+            'Kolaylık Premium Arayanlar': { title: '2 Dakika Garantisi', text: 'Süper segment! "2 Dakika Garantisi" ile giriş-çıkış süresini taahhüt edin. Express kasa, hazır paketler, pre-order pick-up noktası. Hız + kalite vaadini vurgulayın.', reason: 'Biçilmiş kaftan: Hız istiyorlar, premium ödüyorlar. En yüksek LTV ve en düşük churn riski.', tags: ['Speed Guarantee', 'Express Lane', 'Pre-Order', 'Premium Experience'] },
+            'Kendine Ödül Verenler': { title: 'Bugün Senin Günün', text: '"Bunu hak ettim" anını yakalayın. Öğle molası, iş çıkışı gibi reward moment\'larda hedefe yönelik mesaj. Premium treat\'lerde "Kendine Ödül" etiketi. Packaging\'de motivasyonel mesaj.', reason: 'Duygusal satın alma = premium pricing acceptance. Doğru zamanlama ile conversion %80+ mümkün.', tags: ['Reward Moment', 'Emotional Trigger', 'Premium Treat', 'Self-Care'] },
+            'Günlük Premium Yükseltmeciler': { title: 'Upgrade Your Day', text: 'Her gün bir upgrade: Normal kahve yerine specialty, standart sandviç yerine gourmet. "+5₺ ile Premium" upsell tüm ürünlerde. Günlük upgrade streak\'leri için badge sistemi.', reason: 'Küçük upgrade\'ler büyük marjlar. +5₺ upsell kabul oranı %45, margin artışı 3x.', tags: ['Daily Upgrade', '+5₺ Upsell', 'Streak Rewards', 'Premium Swap'] }
+        };
+        const defaultStrategy = { title: 'Segment Stratejisi', text: 'Bu segment için özelleştirilmiş kampanya stratejisi geliştirin. Segmentin temel motivasyonlarını ve davranış kalıplarını analiz ederek hedefe yönelik mesajlaşma oluşturun.', reason: 'Segment karakteristiğine uygun strateji ile conversion oranlarını artırın.', tags: ['Targeted', 'Data-Driven'] };
+        const segments = [
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Hafta Sonu Kaçamakçıları', x: 65, y: 90, size: 95, tier: 'T1' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Aile Yol Gezisi Tutkunları', x: 55, y: 70, size: 90, tier: 'T1' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Güvenlik Öncelikli Maceracılar', x: 75, y: 65, size: 75, tier: 'T2' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Tema Parkı Meraklıları', x: 45, y: 60, size: 70, tier: 'T2' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Aile Kamp Planlayıcıları', x: 40, y: 55, size: 65, tier: 'T2' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Sezonluk Tatilciler', x: 50, y: 25, size: 60, tier: 'T3' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Çok Kuşaklı Planlayıcılar', x: 60, y: 35, size: 55, tier: 'T3' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Eğitici Gezi Arayanlar', x: 55, y: 30, size: 45, tier: 'T3' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Seyahat Puanı Optimizecileri', x: 30, y: 75, size: 50, tier: 'T4' },
+            { parent: 'Aile Seyahat Planlayıcıları', name: 'Bütçe Dostu Aile Tatilcileri', x: 20, y: 45, size: 55, tier: 'T4' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Şehirli Wellness Arayanlar', x: 85, y: 70, size: 90, tier: 'T1' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Premium Teknoloji Öncüleri', x: 80, y: 75, size: 75, tier: 'T1' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Lüks Macera Gezginleri', x: 75, y: 85, size: 65, tier: 'T2' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Premium Seyahat Ustaları', x: 70, y: 90, size: 55, tier: 'T2' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Kültürel Deneyim Koleksiyoncuları', x: 50, y: 65, size: 55, tier: 'T2' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Fine Dining Tutkunları', x: 45, y: 85, size: 50, tier: 'T3' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Lüks Yaşam Tarzı Meraklıları', x: 55, y: 95, size: 45, tier: 'T3' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Butik Moda Takipçileri', x: 40, y: 70, size: 40, tier: 'T4' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Sanat & Tiyatro Hamileri', x: 35, y: 60, size: 45, tier: 'T4' },
+            { parent: 'Deneyim Odaklı Şehirli Premiumlar', name: 'Yat & Country Club Üyeleri', x: 30, y: 95, size: 30, tier: 'T4' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'Flash İndirim Tutkunları', x: 75, y: 90, size: 85, tier: 'T1' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'Puan & Ödül Koleksiyoncuları', x: 55, y: 85, size: 80, tier: 'T1' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'Fırsat Avcısı Alışverişçiler', x: 80, y: 75, size: 75, tier: 'T2' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'Sadece Temel İhtiyaç Alıcıları', x: 60, y: 65, size: 75, tier: 'T2' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'İndirim Maksimizecileri', x: 85, y: 70, size: 70, tier: 'T2' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'Jenerik Marka Seçiciler', x: 90, y: 60, size: 65, tier: 'T3' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'İndirim Köşesi Gezginleri', x: 85, y: 45, size: 50, tier: 'T3' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'Toplu Alım Yapanlar', x: 70, y: 35, size: 55, tier: 'T4' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'Fiyat Eşleme Talep Edenler', x: 95, y: 50, size: 45, tier: 'T4' },
+            { parent: 'Değer Odaklı Hızlı Alışverişçiler', name: 'İkinci El Alışverişçiler', x: 80, y: 30, size: 35, tier: 'T4' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Kolaylık Premium Arayanlar', x: 90, y: 80, size: 95, tier: 'Süper' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Kendine Ödül Verenler', x: 95, y: 70, size: 90, tier: 'Süper' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Günlük Premium Yükseltmeciler', x: 75, y: 75, size: 85, tier: 'T1' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Premium Kahve Tutkunları', x: 70, y: 85, size: 85, tier: 'T1' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Son Dakika Premium Ödeyiciler', x: 85, y: 75, size: 80, tier: 'T1' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Talep Üzerine Yaşam Tarzı', x: 80, y: 70, size: 75, tier: 'T2' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Kalite Bilinçli Dürtüsel Alıcılar', x: 85, y: 80, size: 70, tier: 'T2' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Organik & Doğal Seçiciler', x: 55, y: 85, size: 60, tier: 'T2' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Artisan Ürün Destekçileri', x: 50, y: 90, size: 45, tier: 'T3' },
+            { parent: 'Erişilebilir Premium Tüketiciler', name: 'Abonelik Servisi Benimseyenler', x: 40, y: 70, size: 55, tier: 'T4' }
+        ];
+        const parentColors = { 'Aile Seyahat Planlayıcıları': { bg: 'rgba(0,212,255,0.2)', border: '#00d4ff' }, 'Deneyim Odaklı Şehirli Premiumlar': { bg: 'rgba(124,58,237,0.2)', border: '#7c3aed' }, 'Değer Odaklı Hızlı Alışverişçiler': { bg: 'rgba(255,107,53,0.2)', border: '#ff6b35' }, 'Erişilebilir Premium Tüketiciler': { bg: 'rgba(16,185,129,0.2)', border: '#10b981' } };
+        const tierCfg = { 'Süper': { icon: '⭐', class: 'tier-super' }, 'T1': { icon: 'T1', class: 'tier-t1' }, 'T2': { icon: 'T2', class: 'tier-t2' }, 'T3': { icon: 'T3', class: 'tier-t3' }, 'T4': { icon: 'T4', class: 'tier-t4' } };
+        const axisL = { 'Aile Seyahat Planlayıcıları': { x: 'Premium Açıklık', y: 'Frekans', s: 'Potansiyel' }, 'Deneyim Odaklı Şehirli Premiumlar': { x: 'Convenience', y: 'Premium Kapasite', s: 'Pazar' }, 'Değer Odaklı Hızlı Alışverişçiler': { x: 'Fiyat Odaklılık', y: 'Alışveriş Frekansı', s: 'Hacim' }, 'Erişilebilir Premium Tüketiciler': { x: 'Dürtüsellik', y: 'Premium İstek', s: 'Değer' } };
+        let canvas, ctx, selectedSeg = null, currentFilter = 'all', currentView = 'all';
+        const pad = 55;
+        function init() { canvas = document.getElementById('quadrantCanvas'); ctx = canvas.getContext('2d'); resizeCanvas(); window.addEventListener('resize', resizeCanvas); canvas.addEventListener('mousemove', handleMouseMove); canvas.addEventListener('click', handleClick); canvas.addEventListener('mouseleave', () => document.getElementById('tooltip').style.display = 'none'); renderSegmentList(); draw(); }
+        function resizeCanvas() { const c = canvas.parentElement; canvas.width = c.clientWidth; canvas.height = c.clientHeight; draw(); }
+        function renderSegmentList() { const groups = {}; segments.forEach((s, i) => { if (!groups[s.parent]) groups[s.parent] = []; groups[s.parent].push({ ...s, index: i }); }); const list = document.getElementById('segmentList'); list.innerHTML = ''; Object.entries(groups).forEach(([parent, segs]) => { const colors = parentColors[parent]; const div = document.createElement('div'); div.className = 'segment-group'; div.innerHTML = '<div class="segment-group-header" style="border-left-color:'+colors.border+';" onclick="toggleGroup(this)"><span>'+parent.split(' ').slice(0, 2).join(' ')+'</span><span>▼</span></div><div class="segment-items open">'+segs.map(s => '<div class="segment-item '+(selectedSeg === s.index ? 'selected' : '')+'" onclick="selectSegment('+s.index+')"><div class="tier-badge '+tierCfg[s.tier].class+'">'+tierCfg[s.tier].icon+'</div><span>'+s.name+'</span></div>').join('')+'</div>'; list.appendChild(div); }); }
+        function toggleGroup(h) { const i = h.nextElementSibling; i.classList.toggle('open'); h.querySelector('span:last-child').textContent = i.classList.contains('open') ? '▼' : '▶'; }
+        function filterTier(tier) { currentFilter = tier; document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.tier === tier)); draw(); }
+        function setView(view) { currentView = view; document.querySelectorAll('.view-btn').forEach(b => b.classList.toggle('active', b.textContent === (view === 'all' ? 'Tümü' : view.split(' ')[0]))); draw(); }
+        function getFiltered() { let f = segments; if (currentFilter !== 'all') { const m = { 'super': 'Süper', 't1': 'T1', 't2': 'T2', 't3': 'T3', 't4': 'T4' }; f = f.filter(s => s.tier === m[currentFilter]); } if (currentView !== 'all') f = f.filter(s => s.parent === currentView); return f; }
+        function draw() { const w = canvas.width, h = canvas.height; ctx.fillStyle = '#0a0a0f'; ctx.fillRect(0, 0, w, h); const cw = w - pad * 2, ch = h - pad * 2, cx = pad + cw / 2, cy = pad + ch / 2; ctx.fillStyle = 'rgba(255,107,53,0.03)'; ctx.fillRect(pad, pad, cw / 2, ch / 2); ctx.fillStyle = 'rgba(16,185,129,0.05)'; ctx.fillRect(cx, pad, cw / 2, ch / 2); ctx.fillStyle = 'rgba(239,68,68,0.03)'; ctx.fillRect(pad, cy, cw / 2, ch / 2); ctx.fillStyle = 'rgba(0,212,255,0.03)'; ctx.fillRect(cx, cy, cw / 2, ch / 2); ctx.strokeStyle = 'rgba(255,255,255,0.04)'; ctx.lineWidth = 1; for (let i = 0; i <= 10; i++) { ctx.beginPath(); ctx.moveTo(pad + (cw / 10) * i, pad); ctx.lineTo(pad + (cw / 10) * i, h - pad); ctx.stroke(); ctx.beginPath(); ctx.moveTo(pad, pad + (ch / 10) * i); ctx.lineTo(w - pad, pad + (ch / 10) * i); ctx.stroke(); } ctx.strokeStyle = 'rgba(255,255,255,0.15)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(cx, pad); ctx.lineTo(cx, h - pad); ctx.stroke(); ctx.beginPath(); ctx.moveTo(pad, cy); ctx.lineTo(w - pad, cy); ctx.stroke(); ctx.font = '10px Sora'; ctx.fillStyle = 'rgba(255,255,255,0.4)'; ctx.textAlign = 'center'; ctx.fillText('Planlı & Lifestyle', pad + cw / 4, pad + 16); ctx.fillText('Dürtüsel & Lifestyle', cx + cw / 4, pad + 16); ctx.fillText('Planlı & Fonksiyonel', pad + cw / 4, h - pad - 8); ctx.fillText('Dürtüsel & Fonksiyonel', cx + cw / 4, h - pad - 8); const filtered = getFiltered(); filtered.forEach(seg => { const ri = segments.indexOf(seg), x = pad + (seg.x / 100) * cw, y = pad + ((100 - seg.y) / 100) * ch, size = (seg.size / 100) * 24 + 8, colors = parentColors[seg.parent]; if (selectedSeg === ri) { ctx.beginPath(); ctx.arc(x, y, size + 6, 0, Math.PI * 2); ctx.fillStyle = colors.border + '40'; ctx.fill(); } ctx.beginPath(); ctx.arc(x, y, size, 0, Math.PI * 2); ctx.fillStyle = colors.bg; ctx.fill(); ctx.strokeStyle = colors.border; ctx.lineWidth = selectedSeg === ri ? 3 : 2; ctx.stroke(); ctx.fillStyle = tierCfg[seg.tier].class === 'tier-super' ? '#ffd700' : '#fff'; ctx.font = 'bold ' + (size > 18 ? 10 : 8) + 'px Space Mono'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(tierCfg[seg.tier].icon, x, y); }); }
+        function handleMouseMove(e) { const rect = canvas.getBoundingClientRect(), mx = e.clientX - rect.left, my = e.clientY - rect.top, cw = canvas.width - pad * 2, ch = canvas.height - pad * 2; let found = null; getFiltered().forEach(seg => { const x = pad + (seg.x / 100) * cw, y = pad + ((100 - seg.y) / 100) * ch, size = (seg.size / 100) * 24 + 8; if (Math.sqrt((mx - x) ** 2 + (my - y) ** 2) < size) found = seg; }); const tt = document.getElementById('tooltip'); if (found) { canvas.style.cursor = 'pointer'; const l = axisL[found.parent]; tt.innerHTML = '<div style="font-weight:600;">'+found.name+'</div><div style="color:var(--text-secondary);font-size:10px;margin:4px 0;">'+found.parent+'</div><div style="font-size:10px;">'+l.x+': <b style="color:var(--accent-red);">'+found.x+'</b> | '+l.y+': <b style="color:var(--accent-red);">'+found.y+'</b></div>'; tt.style.display = 'block'; tt.style.left = (e.clientX + 14) + 'px'; tt.style.top = (e.clientY + 14) + 'px'; } else { canvas.style.cursor = 'default'; tt.style.display = 'none'; } }
+        function handleClick(e) { const rect = canvas.getBoundingClientRect(), mx = e.clientX - rect.left, my = e.clientY - rect.top, cw = canvas.width - pad * 2, ch = canvas.height - pad * 2; getFiltered().forEach((seg, fi) => { const ri = segments.indexOf(seg), x = pad + (seg.x / 100) * cw, y = pad + ((100 - seg.y) / 100) * ch, size = (seg.size / 100) * 24 + 8; if (Math.sqrt((mx - x) ** 2 + (my - y) ** 2) < size) selectSegment(ri); }); }
+        function selectSegment(idx) { selectedSeg = idx; const seg = segments[idx], l = axisL[seg.parent]; document.getElementById('emptyState').style.display = 'none'; document.getElementById('detailPanel').style.display = 'block'; document.getElementById('detailTier').textContent = tierCfg[seg.tier].icon; document.getElementById('detailTier').className = 'tier-badge ' + tierCfg[seg.tier].class; document.getElementById('detailName').textContent = seg.name; document.getElementById('detailParent').textContent = seg.parent; document.getElementById('metricX').textContent = seg.x; document.getElementById('metricXLabel').textContent = l.x; document.getElementById('metricY').textContent = seg.y; document.getElementById('metricYLabel').textContent = l.y; document.getElementById('metricSize').textContent = seg.size; document.getElementById('metricSizeLabel').textContent = l.s; document.getElementById('metricTier').textContent = seg.tier; const strat = strategyData[seg.name] || defaultStrategy; document.getElementById('strategyTitle').textContent = strat.title; document.getElementById('strategyText').textContent = strat.text; document.getElementById('strategyReason').textContent = strat.reason; document.getElementById('strategyTags').innerHTML = strat.tags.map(t => '<span class="strategy-tag">' + t + '</span>').join(''); const t = targetT[seg.parent]; if (t && t.reach) { const platforms = ['meta', 'youtube', 'tiktok', 'x', 'dv360']; document.getElementById('reachBars').innerHTML = platforms.map(p => '<div class="reach-item"><span class="reach-platform">' + p.charAt(0).toUpperCase() + p.slice(1) + '</span><div class="reach-bar-wrap"><div class="reach-bar ' + p + '" style="width:' + t.reach[p] + '%"></div></div><span class="reach-value">' + t.reach[p] + '%</span></div>').join(''); } document.getElementById('bottomPanel').classList.add('active'); document.getElementById('bottomSegName').textContent = seg.name; document.getElementById('bottomSegParent').textContent = seg.parent; updateBhtPanel(seg.parent); updateTargetingPanel(seg.parent); renderSegmentList(); draw(); }
+        function updateBhtPanel(parent) { const rec = segBhtRec[parent] || []; let awImp = 0, coImp = 0, cvImp = 0; ['awareness', 'consideration', 'conversion'].forEach(cat => { const el = document.getElementById(cat === 'awareness' ? 'awQuestions' : cat === 'consideration' ? 'coQuestions' : 'cvQuestions'); el.innerHTML = bhtQ[cat].map(q => { const isRec = rec.includes(q.id); if (isRec) { if (cat === 'awareness') awImp += q.impact; else if (cat === 'consideration') coImp += q.impact; else cvImp += q.impact; } return '<div class="bht-question-item ' + (isRec ? 'recommended' : '') + '">' + q.text + '</div>'; }).join(''); }); document.getElementById('awImpact').textContent = '+' + awImp + '%'; document.getElementById('coImpact').textContent = '+' + coImp + '%'; document.getElementById('cvImpact').textContent = '+' + cvImp + '%'; }
+        function updateTargetingPanel(parent) { const t = targetT[parent]; if (!t) return; ['meta', 'x', 'tiktok', 'youtube', 'dv360'].forEach(plat => { const el = document.getElementById(plat + 'Targeting'); el.innerHTML = (t[plat] || []).map(r => '<div class="targeting-row"><span class="targeting-type">' + r.type + '</span><span class="targeting-value">' + r.target + '<span class="bht-mini ' + r.bht + '">' + r.bht.toUpperCase() + '</span></span></div>').join(''); }); document.getElementById('lifestyleTargeting').innerHTML = (t.lifestyle || []).map(l => '<div class="extra-item"><div class="extra-item-icon lifestyle"></div><span>' + l + '</span></div>').join(''); document.getElementById('affinityTargeting').innerHTML = (t.affinity || []).map(a => '<div class="extra-item"><div class="extra-item-icon affinity"></div><span>' + a + '</span></div>').join(''); document.getElementById('inmarketTargeting').innerHTML = (t.inmarket || []).map(i => '<div class="extra-item"><div class="extra-item-icon inmarket"></div><span>' + i + '</span></div>').join(''); }
+        function exportPNG() { const link = document.createElement('a'); link.download = 'po-segment-quadrant.png'; link.href = canvas.toDataURL('image/png'); link.click(); }
+        function closeBottomPanel() { document.getElementById('bottomPanel').classList.remove('active'); selectedSeg = null; renderSegmentList(); draw(); }
+        function exportExcel() { let html = '<html><head><meta charset="UTF-8"></head><body><table border="1"><tr><th>Segment</th><th>Parent</th><th>X</th><th>Y</th><th>Size</th><th>Tier</th></tr>'; segments.forEach(s => { html += '<tr><td>' + s.name + '</td><td>' + s.parent + '</td><td>' + s.x + '</td><td>' + s.y + '</td><td>' + s.size + '</td><td>' + s.tier + '</td></tr>'; }); html += '</table></body></html>'; const blob = new Blob([html], { type: 'application/vnd.ms-excel' }); const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'po-segments.xls'; link.click(); }
+        init();
+    </script>
+</body>
+</html>
