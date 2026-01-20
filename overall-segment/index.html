@@ -6,360 +6,216 @@
     <title>Segment Kütüphanesi | Time & Growity</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: #1a1a24;
-            --accent-blue: #00d4ff;
-            --accent-purple: #7c3aed;
-            --accent-orange: #ff6b35;
-            --accent-green: #10b981;
-            --accent-yellow: #f59e0b;
-            --accent-pink: #ec4899;
-            --accent-red: #ef4444;
-            --accent-teal: #14b8a6;
-            --text-primary: #f0f0f5;
-            --text-secondary: #8888a0;
-            --border-color: #2a2a3a;
-        }
-
+        :root { --bg-primary: #0a0a0f; --bg-secondary: #12121a; --bg-card: #1a1a24; --accent-blue: #00d4ff; --accent-purple: #7c3aed; --accent-green: #10b981; --accent-yellow: #f59e0b; --text-primary: #f0f0f5; --text-secondary: #8888a0; --border-color: #2a2a3a; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Sora', sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .bg-grid {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: 
-                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .container {
-            max-width: 1500px;
-            margin: 0 auto;
-            padding: 20px 24px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .logo { display: flex; align-items: center; gap: 16px; }
-        .logo-icon { width: 52px; height: 52px; }
-        .logo-text h1 { font-size: 24px; font-weight: 600; background: linear-gradient(90deg, #E91E8C, #7B2D8E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .logo-text .version-line { display: flex; align-items: center; gap: 12px; margin-top: 2px; }
-        .logo-text .version { font-size: 12px; color: var(--text-secondary); font-family: 'Space Mono', monospace; letter-spacing: 1px; }
-        .logo-text .update-date { font-size: 11px; color: var(--text-secondary); font-family: 'Space Mono', monospace; opacity: 0.7; }
-
-        .header-actions { display: flex; gap: 12px; align-items: center; }
-        .badge { background: var(--bg-card); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 20px; font-size: 12px; color: var(--accent-blue); font-family: 'Space Mono', monospace; }
-
-        /* Hero - Kompakt */
-        .hero { text-align: center; padding: 24px 20px 20px; }
-        .hero-title { font-size: 36px; font-weight: 700; margin-bottom: 8px; background: linear-gradient(135deg, #fff 0%, var(--accent-blue) 50%, var(--accent-purple) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-subtitle { font-size: 15px; color: var(--text-secondary); max-width: 500px; margin: 0 auto; line-height: 1.5; }
-
-        /* Top Bar - Stats + Funnel */
-        .top-bar { display: flex; gap: 20px; margin-bottom: 20px; }
-        
-        .stats-bar { display: flex; gap: 12px; flex: 1; }
-        .stat-card { background: var(--bg-card); border: 1px solid var(--border-color); padding: 12px 16px; border-radius: 10px; display: flex; align-items: center; gap: 10px; transition: all 0.3s; flex: 1; }
-        .stat-card:hover { border-color: var(--accent-blue); }
-        .stat-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        body { font-family: 'Sora', sans-serif; background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; }
+        .bg-grid { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px); background-size: 50px 50px; pointer-events: none; z-index: 0; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px 24px; position: relative; z-index: 1; }
+        .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border-color); }
+        .logo { display: flex; align-items: center; gap: 14px; }
+        .logo-icon { width: 48px; height: 48px; }
+        .logo-text h1 { font-size: 22px; font-weight: 600; background: linear-gradient(90deg, #E91E8C, #7B2D8E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo-text .version { font-size: 11px; color: var(--text-secondary); font-family: 'Space Mono', monospace; }
+        .header-nav { display: flex; gap: 10px; }
+        .nav-link { padding: 10px 16px; border: 1px solid var(--border-color); border-radius: 10px; background: var(--bg-card); color: var(--text-primary); font-size: 12px; text-decoration: none; transition: all 0.3s; }
+        .nav-link:hover { border-color: var(--accent-blue); }
+        .nav-link.po { border-color: rgba(227,30,36,0.4); color: #e31e24; }
+        .nav-link.enerjisa { border-color: rgba(255,193,7,0.4); color: #ffc107; }
+        .onboarding-toggle { display: none; padding: 10px 16px; background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(124,58,237,0.1)); border: 1px solid rgba(0,212,255,0.3); border-radius: 10px; color: var(--accent-blue); font-size: 12px; cursor: pointer; margin-bottom: 16px; }
+        .onboarding-toggle.visible { display: inline-flex; align-items: center; gap: 8px; }
+        .onboarding { background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(124,58,237,0.08)); border: 1px solid rgba(0,212,255,0.2); border-radius: 16px; padding: 24px; margin-bottom: 24px; }
+        .onboarding.hidden { display: none; }
+        .onboarding-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .onboarding-title { font-size: 18px; font-weight: 600; }
+        .onboarding-title span { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .onboarding-dismiss { padding: 6px 12px; background: transparent; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-secondary); font-size: 11px; cursor: pointer; }
+        .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .step { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 18px; position: relative; }
+        .step.active { border-color: var(--accent-green); background: rgba(16,185,129,0.1); }
+        .step-number { position: absolute; top: -10px; left: 18px; width: 24px; height: 24px; background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+        .step.active .step-number { background: linear-gradient(135deg, var(--accent-green), #059669); }
+        .step-icon { font-size: 24px; margin-bottom: 10px; }
+        .step-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+        .step-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
+        .step-check { position: absolute; top: 12px; right: 12px; width: 20px; height: 20px; background: var(--accent-green); border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 12px; }
+        .step.completed .step-check { display: flex; }
+        .quick-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+        .quick-action { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .quick-action:hover { border-color: var(--accent-blue); transform: translateY(-2px); }
+        .quick-action-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin: 0 auto 12px; }
+        .quick-action-icon.awareness { background: rgba(124,58,237,0.2); }
+        .quick-action-icon.consideration { background: rgba(245,158,11,0.2); }
+        .quick-action-icon.conversion { background: rgba(16,185,129,0.2); }
+        .quick-action-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+        .quick-action-count { font-size: 11px; color: var(--text-secondary); font-family: 'Space Mono', monospace; }
+        .quick-action.active { border-color: var(--accent-green); background: rgba(16,185,129,0.1); }
+        .meta-panel { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
+        .meta-panel-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+        .meta-panel-title { font-size: 13px; font-weight: 600; color: var(--accent-blue); display: flex; align-items: center; gap: 8px; }
+        .meta-status { font-size: 10px; padding: 4px 10px; border-radius: 12px; font-family: 'Space Mono', monospace; background: rgba(255,255,255,0.05); color: var(--text-secondary); }
+        .meta-status.connected { background: rgba(52,211,153,0.15); color: #34d399; }
+        .meta-status.loading { background: rgba(251,191,36,0.15); color: #fbbf24; }
+        .meta-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .meta-input { padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-secondary); color: var(--text-primary); font-size: 12px; width: 200px; }
+        .meta-input:focus { outline: none; border-color: var(--accent-blue); }
+        .meta-btn { padding: 8px 14px; background: linear-gradient(135deg, #1877f2, #0d65d9); border: none; border-radius: 8px; color: white; font-size: 11px; font-weight: 500; cursor: pointer; }
+        .meta-btn:hover { transform: translateY(-1px); }
+        .meta-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .meta-btn.purple { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
+        .meta-btn.green { background: linear-gradient(135deg, #10b981, #059669); }
+        .meta-count { font-size: 10px; color: var(--text-secondary); font-family: 'Space Mono', monospace; }
+        #interestResults { display: none; margin-top: 16px; padding: 16px; background: var(--bg-secondary); border-radius: 12px; max-height: 400px; overflow-y: auto; border: 1px solid var(--border-color); }
+        .ai-suggestions { display: none; margin-top: 16px; background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(236,72,153,0.1)); border: 1px solid rgba(124,58,237,0.3); border-radius: 12px; padding: 16px; }
+        .ai-suggestions.visible { display: block; }
+        .ai-suggestions-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px; }
+        .ai-suggestions-title { font-size: 13px; font-weight: 600; color: var(--accent-purple); display: flex; align-items: center; gap: 8px; }
+        .ai-suggestions-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .suggestions-list { display: flex; flex-direction: column; gap: 8px; max-height: 300px; overflow-y: auto; }
+        .suggestion-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; gap: 10px; }
+        .suggestion-item.accepted { border-color: var(--accent-green); background: rgba(16,185,129,0.1); }
+        .suggestion-item.loading { opacity: 0.6; }
+        .suggestion-left { display: flex; align-items: center; gap: 10px; flex: 1; flex-wrap: wrap; }
+        .suggestion-segment { font-size: 12px; font-weight: 500; min-width: 150px; }
+        .suggestion-arrow { color: var(--text-secondary); }
+        .suggestion-interest { font-size: 12px; color: var(--accent-blue); }
+        .suggestion-size { font-size: 10px; color: var(--accent-green); font-family: 'Space Mono', monospace; }
+        .suggestion-actions { display: flex; gap: 6px; }
+        .suggestion-btn { padding: 6px 12px; border: none; border-radius: 6px; font-size: 10px; font-weight: 500; cursor: pointer; }
+        .suggestion-btn.accept { background: var(--accent-green); color: white; }
+        .suggestion-btn.skip { background: var(--bg-secondary); color: var(--text-secondary); border: 1px solid var(--border-color); }
+        .suggestion-status { font-size: 10px; color: var(--accent-green); font-weight: 500; }
+        .meta-reach { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; background: linear-gradient(135deg, rgba(24,119,242,0.15), rgba(24,119,242,0.05)); border: 1px solid rgba(24,119,242,0.25); border-radius: 10px; font-size: 9px; font-family: 'Space Mono', monospace; color: #60a5fa; }
+        .meta-reach.loaded { color: #34d399; border-color: rgba(52,211,153,0.3); background: linear-gradient(135deg, rgba(52,211,153,0.15), rgba(52,211,153,0.05)); }
+        .meta-live { width: 6px; height: 6px; background: #34d399; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+        .stat-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+        .stat-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
         .stat-icon.blue { background: rgba(0,212,255,0.15); }
         .stat-icon.purple { background: rgba(124,58,237,0.15); }
         .stat-icon.green { background: rgba(16,185,129,0.15); }
         .stat-icon.orange { background: rgba(255,107,53,0.15); }
-        .stat-value { font-size: 20px; font-weight: 700; font-family: 'Space Mono', monospace; color: var(--accent-blue); }
-        .stat-label { font-size: 10px; color: var(--text-secondary); }
-
-        /* Meta API Badge */
-        .meta-reach {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 3px 8px;
-            background: linear-gradient(135deg, rgba(24,119,242,0.15), rgba(24,119,242,0.05));
-            border: 1px solid rgba(24,119,242,0.25);
-            border-radius: 10px;
-            font-size: 9px;
-            font-family: 'Space Mono', monospace;
-            color: #60a5fa;
-            cursor: help;
-            transition: all 0.3s;
-        }
-        .meta-reach:hover {
-            background: linear-gradient(135deg, rgba(24,119,242,0.25), rgba(24,119,242,0.1));
-            border-color: rgba(24,119,242,0.4);
-        }
-        .meta-reach.loaded {
-            color: #34d399;
-            border-color: rgba(52,211,153,0.3);
-            background: linear-gradient(135deg, rgba(52,211,153,0.15), rgba(52,211,153,0.05));
-        }
-        .meta-reach.error {
-            color: #f87171;
-            border-color: rgba(248,113,113,0.3);
-        }
-        .meta-live {
-            width: 6px;
-            height: 6px;
-            background: #34d399;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-        }
-        
-        /* Meta Panel */
-        .meta-panel {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 14px 18px;
-            margin-bottom: 20px;
-        }
-        .meta-panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        .meta-panel-title {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--accent-blue);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .meta-status {
-            font-size: 10px;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-family: 'Space Mono', monospace;
-        }
-        .meta-status.connected { background: rgba(52,211,153,0.15); color: #34d399; }
-        .meta-status.loading { background: rgba(251,191,36,0.15); color: #fbbf24; }
-        .meta-status.error { background: rgba(248,113,113,0.15); color: #f87171; }
-        .meta-btn {
-            padding: 8px 16px;
-            background: linear-gradient(135deg, #1877f2, #0d65d9);
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-size: 11px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .meta-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(24,119,242,0.3); }
-        .meta-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-        /* Funnel Section */
-        .funnel-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px 18px; min-width: 380px; }
-        .funnel-title { font-size: 10px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 10px; font-family: 'Space Mono', monospace; letter-spacing: 1px; }
-        .funnel-btns { display: flex; gap: 8px; }
-        .funnel-btn { flex: 1; padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-secondary); color: var(--text-secondary); font-size: 11px; font-family: 'Sora', sans-serif; cursor: pointer; transition: all 0.2s; text-align: center; }
-        .funnel-btn:hover { border-color: var(--accent-purple); color: var(--text-primary); }
-        .funnel-btn.awareness { border-left: 3px solid #7c3aed; }
-        .funnel-btn.consideration { border-left: 3px solid #f59e0b; }
-        .funnel-btn.conversion { border-left: 3px solid #10b981; }
-        .funnel-btn.active { background: rgba(124,58,237,0.15); border-color: var(--accent-purple); color: var(--accent-purple); }
-        .funnel-btn.active.awareness { background: rgba(124,58,237,0.2); border-color: #7c3aed; color: #a78bfa; }
-        .funnel-btn.active.consideration { background: rgba(245,158,11,0.2); border-color: #f59e0b; color: #fbbf24; }
-        .funnel-btn.active.conversion { background: rgba(16,185,129,0.2); border-color: #10b981; color: #34d399; }
-        .funnel-count { font-size: 9px; opacity: 0.7; display: block; margin-top: 2px; font-family: 'Space Mono', monospace; }
-
-        .controls { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
-        .search-box { flex: 1; min-width: 280px; position: relative; }
-        .search-input { width: 100%; padding: 12px 16px 12px 44px; border: 1px solid var(--border-color); border-radius: 10px; background: var(--bg-card); color: var(--text-primary); font-size: 14px; font-family: 'Sora', sans-serif; transition: all 0.3s; }
-        .search-input::placeholder { color: var(--text-secondary); }
-        .search-input:focus { outline: none; border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(0,212,255,0.1); }
-        .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 16px; color: var(--text-secondary); }
+        .stat-value { font-size: 22px; font-weight: 700; font-family: 'Space Mono', monospace; color: var(--accent-blue); }
+        .stat-label { font-size: 10px; color: var(--text-secondary); text-transform: uppercase; }
+        .controls { display: flex; gap: 16px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; }
+        .search-box { flex: 1; max-width: 350px; position: relative; }
+        .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--text-secondary); }
+        .search-input { width: 100%; padding: 12px 14px 12px 42px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-primary); font-size: 13px; }
+        .search-input:focus { outline: none; border-color: var(--accent-blue); }
         .filter-btns { display: flex; gap: 8px; flex-wrap: wrap; }
-        .filter-btn { padding: 12px 16px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-card); color: var(--text-secondary); font-size: 12px; font-family: 'Sora', sans-serif; cursor: pointer; transition: all 0.2s; }
-        .filter-btn:hover { border-color: var(--accent-blue); color: var(--text-primary); }
-        .filter-btn.active { background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(124,58,237,0.2)); border-color: var(--accent-blue); color: var(--accent-blue); }
-
-        .segment-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 24px; }
-
-        .parent-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; transition: all 0.3s; }
-        .parent-card:hover { border-color: rgba(0,212,255,0.3); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
-        .parent-header { padding: 20px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border-bottom: 1px solid var(--border-color); transition: background 0.2s; }
-        .parent-header:hover { background: rgba(255,255,255,0.02); }
-        .parent-info { display: flex; align-items: center; gap: 14px; }
-        .parent-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
-        .parent-name { font-size: 16px; font-weight: 600; }
-        .parent-count { font-size: 12px; color: var(--text-secondary); font-family: 'Space Mono', monospace; margin-top: 2px; }
-        .parent-actions { display: flex; align-items: center; gap: 12px; }
-        .select-all-btn { padding: 8px 14px; border: 1px solid var(--border-color); border-radius: 8px; background: transparent; color: var(--text-secondary); font-size: 11px; font-family: 'Space Mono', monospace; cursor: pointer; transition: all 0.2s; }
-        .select-all-btn:hover { background: rgba(0,212,255,0.1); border-color: var(--accent-blue); color: var(--accent-blue); }
-        .expand-icon { font-size: 14px; color: var(--text-secondary); transition: transform 0.3s; }
+        .filter-btn { padding: 10px 16px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-secondary); font-size: 12px; cursor: pointer; }
+        .filter-btn.active { background: rgba(0,212,255,0.15); border-color: var(--accent-blue); color: var(--accent-blue); }
+        .segment-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin-bottom: 100px; }
+        .parent-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; overflow: hidden; animation: fadeIn 0.3s ease; }
+        .parent-card.has-selected { border-color: var(--accent-green); box-shadow: 0 0 0 1px var(--accent-green); }
+        .parent-header { padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; border-bottom: 1px solid transparent; }
+        .parent-card.expanded .parent-header { border-bottom-color: var(--border-color); }
+        .parent-left { display: flex; align-items: center; gap: 12px; }
+        .parent-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; background: rgba(255,255,255,0.05); }
+        .parent-name { font-size: 14px; font-weight: 600; }
+        .parent-count { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+        .parent-actions { display: flex; align-items: center; gap: 10px; }
+        .select-all-btn { padding: 6px 12px; background: transparent; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-secondary); font-size: 10px; cursor: pointer; }
+        .expand-icon { color: var(--text-secondary); font-size: 12px; transition: transform 0.3s; }
         .parent-card.expanded .expand-icon { transform: rotate(180deg); }
-
-        .sub-segments { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-        .parent-card.expanded .sub-segments { max-height: 1000px; }
-        .sub-segment { display: flex; align-items: center; gap: 14px; padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.03); cursor: pointer; transition: all 0.2s; }
-        .sub-segment:hover { background: rgba(0,212,255,0.05); }
+        .sub-segments { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .parent-card.expanded .sub-segments { max-height: 800px; }
+        .sub-segment { padding: 12px 18px; display: flex; align-items: center; gap: 12px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.03); }
         .sub-segment:last-child { border-bottom: none; }
-        .sub-segment.selected { background: rgba(0,212,255,0.1); }
-        .checkbox { width: 22px; height: 22px; border: 2px solid var(--border-color); border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; }
-        .checkbox.checked { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); border-color: var(--accent-blue); }
-        .checkbox.checked::after { content: '✓'; color: #fff; font-size: 12px; font-weight: bold; }
+        .sub-segment:hover { background: rgba(0,212,255,0.05); }
+        .sub-segment.selected { background: rgba(16,185,129,0.1); }
+        .checkbox { width: 20px; height: 20px; border: 2px solid var(--border-color); border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .checkbox.checked { background: var(--accent-green); border-color: var(--accent-green); }
+        .checkbox.checked::after { content: '✓'; color: white; font-size: 12px; font-weight: bold; }
         .sub-info { flex: 1; }
-        .sub-name { font-size: 14px; font-weight: 500; }
-        .sub-desc { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
-        .sub-meta { display: flex; gap: 8px; }
-        .meta-tag { padding: 4px 10px; border-radius: 20px; font-size: 10px; font-family: 'Space Mono', monospace; background: rgba(255,255,255,0.05); color: var(--text-secondary); }
-
-        .theme-blue .parent-icon { background: rgba(0,212,255,0.15); color: var(--accent-blue); }
-        .theme-purple .parent-icon { background: rgba(124,58,237,0.15); color: var(--accent-purple); }
-        .theme-green .parent-icon { background: rgba(16,185,129,0.15); color: var(--accent-green); }
-        .theme-orange .parent-icon { background: rgba(255,107,53,0.15); color: var(--accent-orange); }
-        .theme-pink .parent-icon { background: rgba(236,72,153,0.15); color: var(--accent-pink); }
-        .theme-yellow .parent-icon { background: rgba(245,158,11,0.15); color: var(--accent-yellow); }
-        .theme-red .parent-icon { background: rgba(239,68,68,0.15); color: var(--accent-red); }
-        .theme-teal .parent-icon { background: rgba(20,184,166,0.15); color: var(--accent-teal); }
-        .theme-cyan .parent-icon { background: rgba(6,182,212,0.15); color: #06b6d4; }
-        .theme-indigo .parent-icon { background: rgba(99,102,241,0.15); color: #6366f1; }
-
-        .empty-state { text-align: center; padding: 80px 20px; color: var(--text-secondary); }
-        .empty-state-icon { font-size: 72px; margin-bottom: 20px; opacity: 0.5; }
-
-        .footer-actions { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,10,15,0.95); border-top: 1px solid var(--border-color); padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; backdrop-filter: blur(20px); transform: translateY(100%); transition: transform 0.3s; z-index: 100; }
+        .sub-name { font-size: 13px; font-weight: 500; }
+        .sub-desc { font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+        .sub-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+        .meta-tag { padding: 4px 8px; background: rgba(0,212,255,0.1); border-radius: 6px; font-size: 10px; color: var(--accent-blue); font-family: 'Space Mono', monospace; }
+        .footer-actions { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(18,18,26,0.95); backdrop-filter: blur(20px); border-top: 1px solid var(--border-color); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; transform: translateY(100%); transition: transform 0.3s ease; z-index: 100; }
         .footer-actions.visible { transform: translateY(0); }
         .footer-left { display: flex; align-items: center; gap: 16px; }
-        .selected-chips { display: flex; gap: 8px; flex-wrap: wrap; max-width: 600px; }
-        .selected-chip { background: rgba(0,212,255,0.15); border: 1px solid rgba(0,212,255,0.3); padding: 6px 12px; border-radius: 20px; font-size: 12px; display: flex; align-items: center; gap: 6px; }
+        .footer-count { font-size: 14px; color: var(--text-secondary); }
+        .footer-count strong { color: var(--accent-blue); font-family: 'Space Mono', monospace; }
+        .selected-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+        .selected-chip { padding: 6px 12px; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); border-radius: 20px; font-size: 11px; color: var(--accent-green); display: flex; align-items: center; gap: 6px; }
         .chip-remove { cursor: pointer; opacity: 0.7; }
-        .chip-remove:hover { opacity: 1; }
-
-        .btn { padding: 14px 28px; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; font-family: 'Sora', sans-serif; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 8px; text-decoration: none; }
-        .btn-primary { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); color: #fff; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,212,255,0.3); }
+        .footer-right { display: flex; gap: 12px; }
+        .btn { padding: 12px 20px; border: none; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; }
         .btn-secondary { background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); }
-        .btn-secondary:hover { border-color: var(--accent-blue); }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
-        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent-blue); }
+        .btn-primary { background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); color: white; }
+        .empty-state { grid-column: 1 / -1; text-align: center; padding: 60px 20px; }
+        .empty-state-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
+        @media (max-width: 1200px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .steps { grid-template-columns: 1fr; } .quick-actions { grid-template-columns: 1fr; } .stats-row { grid-template-columns: repeat(2, 1fr); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
     </style>
 </head>
 <body>
     <div class="bg-grid"></div>
-    
     <div class="container">
         <header class="header">
             <div class="logo">
-                <div class="logo-icon">
-                    <svg viewBox="0 0 52 52" width="52" height="52">
-                        <!-- Pink ring (left, behind) -->
-                        <circle cx="18" cy="26" r="14" fill="none" stroke="#E91E8C" stroke-width="5"/>
-                        <!-- Purple ring (right, in front) with mask for interlock -->
-                        <defs>
-                            <mask id="interlockMask">
-                                <rect width="100%" height="100%" fill="white"/>
-                                <path d="M18 12 A14 14 0 0 1 18 40" fill="black"/>
-                            </mask>
-                        </defs>
-                        <circle cx="34" cy="26" r="14" fill="none" stroke="#7B2D8E" stroke-width="5"/>
-                        <!-- Pink arc that goes over purple (the interlock part) -->
-                        <path d="M18 12 A14 14 0 0 0 18 40" fill="none" stroke="#E91E8C" stroke-width="5"/>
-                    </svg>
-                </div>
-                <div class="logo-text">
-                    <h1>Time & Growity</h1>
-                    <div class="version-line">
-                        <span class="version">Segment Kütüphanesi v7.8</span>
-                        <span class="update-date">• Ocak 2026</span>
-                    </div>
-                </div>
+                <div class="logo-icon"><svg viewBox="0 0 48 48" width="48" height="48"><circle cx="16" cy="24" r="12" fill="none" stroke="#E91E8C" stroke-width="4"/><circle cx="32" cy="24" r="12" fill="none" stroke="#7B2D8E" stroke-width="4"/></svg></div>
+                <div class="logo-text"><h1>Time & Growity</h1><span class="version">Segment Kütüphanesi v8.2 • Ocak 2026</span></div>
             </div>
-            <div class="header-actions">
-                <span class="badge">56 SEGMENT</span>
-                <a href="po-segmentasyon.html" class="btn btn-secondary" style="border-color: rgba(227,30,36,0.4); color: #e31e24;">🎯 PO Premium Market</a>
-                <a href="enerjisa-30yil.html" class="btn btn-secondary" style="border-color: rgba(255,193,7,0.4); color: #ffc107;">⚡ Enerjisa 30. Yıl</a>
-            </div>
+            <nav class="header-nav">
+                <a href="segmentation-quadrant.html" class="nav-link">📊 Quadrant</a>
+                <a href="po-segmentasyon.html" class="nav-link po">🎯 PO Premium</a>
+                <a href="enerjisa-30yil.html" class="nav-link enerjisa">⚡ Enerjisa</a>
+            </nav>
         </header>
-
-        <section class="hero">
-            <h1 class="hero-title">Segment Kütüphanesi</h1>
-            <p class="hero-subtitle">TDY Lifestyle segmentlerini keşfedin, analiz edin ve medya planlamanızı optimize edin.</p>
+        <button class="onboarding-toggle" id="onboardingToggle" onclick="toggleOnboarding()">👋 Kullanım Rehberini Göster</button>
+        <section class="onboarding" id="onboarding">
+            <div class="onboarding-header">
+                <div class="onboarding-title">👋 <span>Hoş Geldiniz!</span> Segment seçimine başlayın</div>
+                <button class="onboarding-dismiss" onclick="toggleOnboarding()">Gizle ✕</button>
+            </div>
+            <div class="steps">
+                <div class="step active" id="step1"><div class="step-number">1</div><div class="step-check">✓</div><div class="step-icon">🎯</div><div class="step-title">Hedef Belirleyin</div><div class="step-desc">Awareness, Consideration veya Conversion funnel'ından birini seçin</div></div>
+                <div class="step" id="step2"><div class="step-number">2</div><div class="step-check">✓</div><div class="step-icon">✅</div><div class="step-title">Segment Seçin</div><div class="step-desc">İlgili kategorileri açıp hedef segmentleri işaretleyin</div></div>
+                <div class="step" id="step3"><div class="step-number">3</div><div class="step-check">✓</div><div class="step-icon">📊</div><div class="step-title">Analiz Edin</div><div class="step-desc">Seçimleri Quadrant'a göndererek görselleştirin</div></div>
+                <div class="step" id="step4"><div class="step-number">4</div><div class="step-check">✓</div><div class="step-icon">📥</div><div class="step-title">Dışa Aktarın</div><div class="step-desc">CSV veya PNG olarak planlama ekibinizle paylaşın</div></div>
+            </div>
         </section>
-
-        <div class="top-bar">
-            <div class="stats-bar">
-                <div class="stat-card">
-                    <div class="stat-icon blue">👥</div>
-                    <div><div class="stat-value">56</div><div class="stat-label">Toplam Segment</div></div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon purple">📊</div>
-                    <div><div class="stat-value">13</div><div class="stat-label">Ana Kategori</div></div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon green">✓</div>
-                    <div><div class="stat-value" id="selectedCount">0</div><div class="stat-label">Seçili Segment</div></div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon orange">📈</div>
-                    <div><div class="stat-value" id="totalReach">0%</div><div class="stat-label">Tahmini Reach</div></div>
-                </div>
-            </div>
-            <div class="funnel-section">
-                <div class="funnel-title">Funnel Seçimi</div>
-                <div class="funnel-btns">
-                    <button class="funnel-btn awareness" onclick="selectFunnel('awareness')">Awareness<span class="funnel-count">18 segment</span></button>
-                    <button class="funnel-btn consideration" onclick="selectFunnel('consideration')">Consideration<span class="funnel-count">20 segment</span></button>
-                    <button class="funnel-btn conversion" onclick="selectFunnel('conversion')">Conversion<span class="funnel-count">14 segment</span></button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Meta API Panel -->
+        <section class="quick-actions">
+            <div class="quick-action" onclick="selectFunnel('awareness')" id="funnel-awareness"><div class="quick-action-icon awareness">🔔</div><div class="quick-action-title">Awareness</div><div class="quick-action-count">18 segment otomatik seç</div></div>
+            <div class="quick-action" onclick="selectFunnel('consideration')" id="funnel-consideration"><div class="quick-action-icon consideration">🤔</div><div class="quick-action-title">Consideration</div><div class="quick-action-count">20 segment otomatik seç</div></div>
+            <div class="quick-action" onclick="selectFunnel('conversion')" id="funnel-conversion"><div class="quick-action-icon conversion">💰</div><div class="quick-action-title">Conversion</div><div class="quick-action-count">16 segment otomatik seç</div></div>
+        </section>
         <div class="meta-panel">
             <div class="meta-panel-header">
-                <div class="meta-panel-title">
-                    <span>📊</span> Meta Audience Data
-                    <span class="meta-status" id="metaStatus">Bağlantı bekleniyor</span>
-                </div>
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <input type="text" id="interestSearch" placeholder="Interest ara (ör: travel, fitness)..." style="padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px; background: var(--bg-secondary); color: var(--text-primary); font-size: 11px; width: 200px;">
-                    <button class="meta-btn" onclick="searchInterest()" style="padding: 8px 14px;">🔍 Ara</button>
-                    <button class="meta-btn" onclick="showMappingsModal()" style="padding: 8px 14px; background: linear-gradient(135deg, #7c3aed, #6d28d9);">📋 Eşleştirmeler</button>
-                    <span id="metaLoadedCount" style="font-size: 10px; color: var(--text-secondary); font-family: 'Space Mono', monospace;">0/0 segment</span>
-                    <button class="meta-btn" id="metaLoadBtn" onclick="loadMetaData()">🔄 Verileri Çek</button>
+                <div class="meta-panel-title"><span>📊</span> Meta Audience Data <span class="meta-status" id="metaStatus">Hazır</span></div>
+                <div class="meta-controls">
+                    <input type="text" id="interestSearch" class="meta-input" placeholder="Interest ara (ör: travel)...">
+                    <button class="meta-btn" onclick="searchInterest()">🔍 Ara</button>
+                    <button class="meta-btn purple" onclick="showMappingsModal()">📋 Eşleştirmeler</button>
+                    <span class="meta-count" id="metaLoadedCount">0 eşleşme</span>
                 </div>
             </div>
-            <div id="interestResults" style="display: none; margin-top: 12px; padding: 12px; background: var(--bg-secondary); border-radius: 10px; max-height: 350px; overflow-y: auto; border: 1px solid var(--border-color);"></div>
+            <div id="interestResults"></div>
+            <div class="ai-suggestions" id="aiSuggestions">
+                <div class="ai-suggestions-header">
+                    <div class="ai-suggestions-title">🤖 Akıllı Interest Önerileri <span id="suggestionCount" style="font-weight:400;color:var(--text-secondary);"></span></div>
+                    <div class="ai-suggestions-actions">
+                        <button class="meta-btn green" onclick="acceptAllSuggestions()">✓ Tümünü Kabul</button>
+                        <button class="meta-btn" onclick="fetchAllSuggestions()">🔄 Yeniden Öner</button>
+                        <button class="suggestion-btn skip" onclick="closeSuggestions()">✕ Kapat</button>
+                    </div>
+                </div>
+                <div class="suggestions-list" id="suggestionsList"></div>
+            </div>
         </div>
-
+        <div class="stats-row">
+            <div class="stat-card"><div class="stat-icon blue">👥</div><div><div class="stat-value">68</div><div class="stat-label">Toplam Segment</div></div></div>
+            <div class="stat-card"><div class="stat-icon purple">📁</div><div><div class="stat-value">16</div><div class="stat-label">Ana Kategori</div></div></div>
+            <div class="stat-card"><div class="stat-icon green">✓</div><div><div class="stat-value" id="selectedCount">0</div><div class="stat-label">Seçili</div></div></div>
+            <div class="stat-card"><div class="stat-icon orange">📈</div><div><div class="stat-value" id="totalReach">0%</div><div class="stat-label">Tahmini Reach</div></div></div>
+        </div>
         <div class="controls">
-            <div class="search-box">
-                <span class="search-icon">🔍</span>
-                <input type="text" class="search-input" placeholder="Segment ara..." id="searchInput">
-            </div>
+            <div class="search-box"><span class="search-icon">🔍</span><input type="text" class="search-input" placeholder="Segment ara..." id="searchInput"></div>
             <div class="filter-btns">
                 <button class="filter-btn active" data-filter="all">Tümü</button>
                 <button class="filter-btn" data-filter="lifestyle">🌟 Lifestyle</button>
@@ -369,724 +225,805 @@
                 <button class="filter-btn" data-filter="b2b">🏢 B2B</button>
             </div>
         </div>
-
         <div class="segment-grid" id="segmentGrid"></div>
     </div>
-
     <div class="footer-actions" id="footerActions">
-        <div class="footer-left">
-            <span style="color: var(--text-secondary); font-size: 13px;"><strong id="footerCount" style="color: var(--accent-blue);">0</strong> segment seçildi</span>
-            <div class="selected-chips" id="selectedChips"></div>
-        </div>
-        <div style="display: flex; gap: 12px;">
+        <div class="footer-left"><span class="footer-count"><strong id="footerCount">0</strong> segment seçildi</span><div class="selected-chips" id="selectedChips"></div></div>
+        <div class="footer-right">
             <button class="btn btn-secondary" onclick="clearSelection()">Temizle</button>
             <button class="btn btn-secondary" onclick="exportSelection()">📥 CSV</button>
-            <button class="btn btn-primary" onclick="goToQuadrant()">📊 Quadrant'a Gönder →</button>
+            <button class="btn btn-primary" onclick="goToQuadrant()">Quadrant'a Gönder →</button>
         </div>
     </div>
-
     <script>
-        const segments = [
-            { id: 'yasam-tarzi', name: 'Yaşam Tarzı Segmentleri', icon: '🌟', theme: 'theme-purple', category: 'lifestyle', subs: [
-                { id: 'yt-1', name: 'Trendsetter Öncüler', desc: 'Yeniliklere açık, trendleri belirleyen grup', reach: 8.2 },
-                { id: 'yt-2', name: 'Statü Odaklı Profesyoneller', desc: 'Kariyer ve sosyal statü öncelikli', reach: 12.5 },
-                { id: 'yt-3', name: 'Deneyim Avcıları', desc: 'Yeni deneyimler arayan maceraperestler', reach: 9.8 },
-                { id: 'yt-4', name: 'Wellness Tutkunları', desc: 'Sağlık ve wellness odaklı yaşam', reach: 7.3 }
-            ]},
-            { id: 'tuketim', name: 'Tüketim Alışkanlıkları', icon: '🛒', theme: 'theme-blue', category: 'davranis', subs: [
-                { id: 'tk-1', name: 'Premium Tüketiciler', desc: 'Kaliteyi fiyatın önünde tutan', reach: 11.2 },
-                { id: 'tk-2', name: 'Değer Arayanlar', desc: 'En iyi fiyat-performans peşinde', reach: 18.7 },
-                { id: 'tk-3', name: 'Dürtüsel Alışverişçiler', desc: 'Anlık kararlarla alışveriş yapan', reach: 14.3 },
-                { id: 'tk-4', name: 'Planlı Alışverişçiler', desc: 'Her şeyi önceden planlayan', reach: 15.8 }
-            ]},
-            { id: 'dijital', name: 'Dijital Davranış', icon: '📱', theme: 'theme-green', category: 'davranis', subs: [
-                { id: 'dj-1', name: 'Dijital Yerliler', desc: 'Hayatı tamamen dijitalde yaşayan', reach: 22.4 },
-                { id: 'dj-2', name: 'Sosyal Medya Aktifi', desc: 'Tüm platformlarda aktif', reach: 28.6 },
-                { id: 'dj-3', name: 'E-Ticaret Uzmanı', desc: 'Online alışverişi tercih eden', reach: 19.2 },
-                { id: 'dj-4', name: 'Dijital Temkinli', desc: 'Teknolojiyle mesafeli', reach: 12.1 }
-            ]},
-            { id: 'aile', name: 'Aile Yaşamı', icon: '👨‍👩‍👧‍👦', theme: 'theme-orange', category: 'demografik', subs: [
-                { id: 'al-1', name: 'Genç Aileler', desc: 'Küçük çocuklu aileler', reach: 16.8 },
-                { id: 'al-2', name: 'Büyüyen Aileler', desc: 'Okul çağı çocuklu', reach: 14.2 },
-                { id: 'al-3', name: 'Boş Yuva', desc: 'Çocuklar evden ayrılmış', reach: 9.5 },
-                { id: 'al-4', name: 'Tekli Yaşayanlar', desc: 'Yalnız yaşayan yetişkinler', reach: 11.3 }
-            ]},
-            { id: 'gelir', name: 'Gelir Segmentleri', icon: '💰', theme: 'theme-yellow', category: 'demografik', subs: [
-                { id: 'gl-1', name: 'Üst Gelir A+', desc: 'En yüksek gelir grubu', reach: 5.2 },
-                { id: 'gl-2', name: 'Üst-Orta A', desc: 'Yüksek gelir grubu', reach: 12.8 },
-                { id: 'gl-3', name: 'Orta B', desc: 'Orta gelir grubu', reach: 35.4 },
-                { id: 'gl-4', name: 'Alt-Orta C', desc: 'Alt-orta gelir grubu', reach: 28.6 }
-            ]},
-            { id: 'medya', name: 'Medya Tüketimi', icon: '📺', theme: 'theme-pink', category: 'davranis', subs: [
-                { id: 'md-1', name: 'TV Ağırlıklı', desc: 'Geleneksel TV izleyicisi', reach: 42.3 },
-                { id: 'md-2', name: 'Streaming Odaklı', desc: 'Dijital içerik tercih eden', reach: 31.5 },
-                { id: 'md-3', name: 'Multi-Screen', desc: 'Çoklu ekran kullanıcısı', reach: 38.7 },
-                { id: 'md-4', name: 'Radyo Dinleyicisi', desc: 'Aktif radyo takipçisi', reach: 24.8 }
-            ]},
-            { id: 'otomobil', name: 'Otomobil Segmentleri', icon: '🚗', theme: 'theme-teal', category: 'davranis', subs: [
-                { id: 'ot-1', name: 'Premium Araç Sahipleri', desc: 'Lüks segment araç kullanıcıları', reach: 8.4 },
-                { id: 'ot-2', name: 'SUV Tutkunları', desc: 'SUV/crossover tercihi', reach: 15.2 },
-                { id: 'ot-3', name: 'Ekonomik Sürücüler', desc: 'Yakıt tasarrufu odaklı', reach: 22.6 },
-                { id: 'ot-4', name: 'Elektrik/Hibrit İlgili', desc: 'Alternatif yakıt meraklıları', reach: 6.8 }
-            ]},
-            { id: 'seyahat', name: 'Seyahat Tercihleri', icon: '✈️', theme: 'theme-cyan', category: 'lifestyle', subs: [
-                { id: 'sy-1', name: 'Sık Seyahat Edenler', desc: 'Yılda 4+ seyahat', reach: 12.4 },
-                { id: 'sy-2', name: 'Tatil Planlayıcıları', desc: 'Yıllık tatil odaklı', reach: 28.6 },
-                { id: 'sy-3', name: 'İş Seyahati Yapanlar', desc: 'Profesyonel seyahat', reach: 9.8 },
-                { id: 'sy-4', name: 'Yerel Gezginler', desc: 'Yurt içi keşif seven', reach: 18.2 }
-            ]},
-            { id: 'finans', name: 'Finansal Davranış', icon: '💳', theme: 'theme-indigo', category: 'davranis', subs: [
-                { id: 'fn-1', name: 'Yatırımcılar', desc: 'Aktif yatırım yapan', reach: 14.6 },
-                { id: 'fn-2', name: 'Tasarruf Odaklı', desc: 'Birikim öncelikli', reach: 22.8 },
-                { id: 'fn-3', name: 'Kredi Kullanıcıları', desc: 'Aktif kredi kullanan', reach: 31.4 },
-                { id: 'fn-4', name: 'Dijital Bankacılık', desc: 'Mobile banking aktif', reach: 45.2 }
-            ]},
-            { id: 'beslenme', name: 'Beslenme Tercihleri', icon: '🍽️', theme: 'theme-red', category: 'lifestyle', subs: [
-                { id: 'bs-1', name: 'Sağlıklı Beslenme', desc: 'Organik ve doğal tercih', reach: 18.4 },
-                { id: 'bs-2', name: 'Fast Food Severler', desc: 'Hızlı yemek tercihi', reach: 24.6 },
-                { id: 'bs-3', name: 'Gurme Tutkunları', desc: 'Kaliteli restoran seven', reach: 11.2 },
-                { id: 'bs-4', name: 'Ev Yemekleri', desc: 'Evde pişirmeyi tercih eden', reach: 32.8 }
-            ]},
-            // Enerjisa Hedef Kitleleri
-            { id: 'influencer', name: 'Influencer (Etkileyiciler)', icon: '⚡', theme: 'theme-yellow', category: 'b2c', subs: [
-                { id: 'inf-1', name: 'Hane Halkları - Kesintisiz Enerji', desc: 'Güvenilir elektrik ve hızlı çözüm bekleyen konut kullanıcıları', reach: 42.5 },
-                { id: 'inf-2', name: 'Hane Halkları - Dijital Müşteri', desc: 'Online işlem ve kolay anlaşılır fatura isteyen tüketiciler', reach: 28.3 },
-                { id: 'inf-3', name: 'Mobil Kullanıcılar', desc: 'Uygulama üzerinden hızlı işlem yapan dijital öncelikli segment', reach: 35.6 },
-                { id: 'inf-4', name: 'Küçük İşletmeler', desc: 'Enerji maliyeti optimizasyonu arayan KOBİ sahipleri', reach: 12.8 },
-                { id: 'inf-5', name: 'Enerjisa Çalışanları', desc: 'Tek takım kültürü ve aidiyet duygusu taşıyan iç paydaşlar', reach: 1.2 },
-                { id: 'inf-6', name: 'Güven Odaklı Tüketiciler', desc: 'Şeffaf iletişim ve net bilgi bekleyen müşteri segmenti', reach: 38.4 }
-            ]},
-            { id: 'gatekeeper', name: 'Gatekeepers (Kapı Bekçileri)', icon: '🏛️', theme: 'theme-teal', category: 'b2b', subs: [
-                { id: 'gk-1', name: 'Yerel Yönetimler', desc: 'Belediyeler ve il özel idareleri - bölgesel enerji paydaşları', reach: 2.4 },
-                { id: 'gk-2', name: 'Muhtarlar', desc: 'Mahalle düzeyinde toplum liderleri ve yerel temsilciler', reach: 4.8 },
-                { id: 'gk-3', name: 'STK ve Sivil Toplum', desc: 'Sürdürülebilirlik ve toplumsal fayda odaklı kuruluşlar', reach: 1.6 },
-                { id: 'gk-4', name: 'Akademik Kurumlar', desc: 'Üniversiteler ve araştırma merkezleri - enerji dönüşümü düşünce liderleri', reach: 0.8 },
-                { id: 'gk-5', name: 'Sürdürülebilirlik Partnerleri', desc: 'Çevre projeleri ve yeşil enerji iş birliği yapan paydaşlar', reach: 1.2 }
-            ]},
-            { id: 'decisionmaker', name: 'Decision Makers (Karar Vericiler)', icon: '🎯', theme: 'theme-indigo', category: 'b2b', subs: [
-                { id: 'dm-1', name: 'Devlet Kurumları', desc: 'EPDK, Enerji Bakanlığı ve ilgili kamu otoriteleri', reach: 0.3 },
-                { id: 'dm-2', name: 'Regülatörler', desc: 'Enerji sektörü düzenleyici ve denetleyici kurumlar', reach: 0.2 },
-                { id: 'dm-3', name: 'Kurumsal Yatırımcılar', desc: 'ESG odaklı fonlar ve enerji sektörü yatırımcıları', reach: 0.8 },
-                { id: 'dm-4', name: 'Bireysel Yatırımcılar', desc: 'Hisse senedi ve finansal performans takipçileri', reach: 3.5 },
-                { id: 'dm-5', name: 'Stratejik İş Ortakları', desc: 'Enerji dönüşümünde uzun vadeli iş birliği hedefleyen şirketler', reach: 1.4 }
-            ]}
-        ];
+const segments = [
+    { id: 'yasam-tarzi', name: 'Yaşam Tarzı Segmentleri', icon: '🌟', category: 'lifestyle', subs: [
+        { id: 'yt-1', name: 'Trendsetter Öncüler', desc: 'Yeniliklere açık, trendleri belirleyen', reach: 8.2 },
+        { id: 'yt-2', name: 'Statü Odaklı Profesyoneller', desc: 'Kariyer ve sosyal statü öncelikli', reach: 12.5 },
+        { id: 'yt-3', name: 'Deneyim Avcıları', desc: 'Yeni deneyimler arayan maceraperestler', reach: 9.8 },
+        { id: 'yt-4', name: 'Wellness Tutkunları', desc: 'Sağlık ve wellness odaklı', reach: 7.3 }
+    ]},
+    { id: 'tuketim', name: 'Tüketim Alışkanlıkları', icon: '🛒', category: 'davranis', subs: [
+        { id: 'tk-1', name: 'Premium Tüketiciler', desc: 'Kaliteyi fiyatın önünde tutan', reach: 11.2 },
+        { id: 'tk-2', name: 'Değer Arayanlar', desc: 'Fiyat-performans peşinde', reach: 18.7 },
+        { id: 'tk-3', name: 'Dürtüsel Alışverişçiler', desc: 'Anlık kararlarla alışveriş', reach: 14.3 },
+        { id: 'tk-4', name: 'Planlı Alışverişçiler', desc: 'Her şeyi önceden planlayan', reach: 15.8 }
+    ]},
+    { id: 'dijital', name: 'Dijital Davranış', icon: '📱', category: 'davranis', subs: [
+        { id: 'dj-1', name: 'Dijital Yerliler', desc: 'Hayatı dijitalde yaşayan', reach: 22.4 },
+        { id: 'dj-2', name: 'Sosyal Medya Aktifi', desc: 'Tüm platformlarda aktif', reach: 28.6 },
+        { id: 'dj-3', name: 'E-Ticaret Uzmanı', desc: 'Online alışverişi tercih eden', reach: 19.2 },
+        { id: 'dj-4', name: 'Dijital Temkinli', desc: 'Teknolojiyle mesafeli', reach: 12.1 }
+    ]},
+    { id: 'aile', name: 'Aile Yaşamı', icon: '👨‍👩‍👧‍👦', category: 'demografik', subs: [
+        { id: 'al-1', name: 'Genç Aileler', desc: 'Küçük çocuklu aileler', reach: 16.8 },
+        { id: 'al-2', name: 'Büyüyen Aileler', desc: 'Okul çağı çocuklu', reach: 14.2 },
+        { id: 'al-3', name: 'Boş Yuva', desc: 'Çocuklar evden ayrılmış', reach: 9.5 },
+        { id: 'al-4', name: 'Tekli Yaşayanlar', desc: 'Yalnız yaşayan yetişkinler', reach: 11.3 }
+    ]},
+    { id: 'gelir', name: 'Gelir Segmentleri', icon: '💰', category: 'demografik', subs: [
+        { id: 'gl-1', name: 'Üst Gelir A+', desc: 'En yüksek gelir grubu', reach: 5.2 },
+        { id: 'gl-2', name: 'Üst-Orta A', desc: 'Yüksek gelir grubu', reach: 12.8 },
+        { id: 'gl-3', name: 'Orta B', desc: 'Orta gelir grubu', reach: 35.4 },
+        { id: 'gl-4', name: 'Alt-Orta C', desc: 'Alt-orta gelir grubu', reach: 28.6 }
+    ]},
+    { id: 'medya', name: 'Medya Tüketimi', icon: '📺', category: 'davranis', subs: [
+        { id: 'md-1', name: 'TV Ağırlıklı', desc: 'Geleneksel TV izleyicisi', reach: 42.3 },
+        { id: 'md-2', name: 'Streaming Odaklı', desc: 'Dijital içerik tercih eden', reach: 31.5 },
+        { id: 'md-3', name: 'Multi-Screen', desc: 'Çoklu ekran kullanıcısı', reach: 38.7 },
+        { id: 'md-4', name: 'Radyo Dinleyicisi', desc: 'Aktif radyo takipçisi', reach: 24.8 }
+    ]},
+    { id: 'otomobil', name: 'Otomobil Segmentleri', icon: '🚗', category: 'davranis', subs: [
+        { id: 'ot-1', name: 'Premium Araç Sahipleri', desc: 'Lüks segment araç', reach: 8.4 },
+        { id: 'ot-2', name: 'SUV Tutkunları', desc: 'SUV/crossover tercihi', reach: 15.2 },
+        { id: 'ot-3', name: 'Ekonomik Sürücüler', desc: 'Yakıt tasarrufu odaklı', reach: 22.6 },
+        { id: 'ot-4', name: 'Elektrik/Hibrit İlgili', desc: 'Alternatif yakıt meraklıları', reach: 6.8 }
+    ]},
+    { id: 'seyahat', name: 'Seyahat Tercihleri', icon: '✈️', category: 'lifestyle', subs: [
+        { id: 'sy-1', name: 'Sık Seyahat Edenler', desc: 'Yılda 4+ seyahat', reach: 12.4 },
+        { id: 'sy-2', name: 'Tatil Planlayıcıları', desc: 'Yıllık tatil odaklı', reach: 28.6 },
+        { id: 'sy-3', name: 'İş Seyahati Yapanlar', desc: 'Profesyonel seyahat', reach: 9.8 },
+        { id: 'sy-4', name: 'Yerel Gezginler', desc: 'Yurt içi keşif seven', reach: 18.2 }
+    ]},
+    { id: 'finans', name: 'Finansal Davranış', icon: '💳', category: 'davranis', subs: [
+        { id: 'fn-1', name: 'Yatırımcılar', desc: 'Aktif yatırım yapan', reach: 14.6 },
+        { id: 'fn-2', name: 'Tasarruf Odaklı', desc: 'Birikim öncelikli', reach: 22.8 },
+        { id: 'fn-3', name: 'Kredi Kullanıcıları', desc: 'Aktif kredi kullanan', reach: 31.4 },
+        { id: 'fn-4', name: 'Dijital Bankacılık', desc: 'Mobile banking aktif', reach: 45.2 }
+    ]},
+    { id: 'beslenme', name: 'Beslenme Tercihleri', icon: '🍽️', category: 'lifestyle', subs: [
+        { id: 'bs-1', name: 'Sağlıklı Beslenme', desc: 'Organik ve doğal tercih', reach: 18.4 },
+        { id: 'bs-2', name: 'Fast Food Severler', desc: 'Hızlı yemek tercihi', reach: 24.6 },
+        { id: 'bs-3', name: 'Gurme Tutkunları', desc: 'Kaliteli restoran seven', reach: 11.2 },
+        { id: 'bs-4', name: 'Ev Yemekleri', desc: 'Evde pişirmeyi tercih', reach: 32.8 }
+    ]},
+    { id: 'influencers', name: 'Influencers (Etkileyiciler)', icon: '⚡', category: 'b2c', subs: [
+        { id: 'inf-1', name: 'Hane Halkları - Kesintisiz Enerji', desc: 'Güvenilir elektrik bekleyen', reach: 42.5 },
+        { id: 'inf-2', name: 'Hane Halkları - Dijital Müşteri', desc: 'Online işlem isteyen', reach: 28.3 },
+        { id: 'inf-3', name: 'Mobil Kullanıcılar', desc: 'Uygulama üzerinden işlem', reach: 35.6 },
+        { id: 'inf-4', name: 'Küçük İşletmeler', desc: 'Enerji optimizasyonu arayan KOBİ', reach: 12.8 },
+        { id: 'inf-5', name: 'Enerjisa Çalışanları', desc: 'İç paydaşlar', reach: 1.2 },
+        { id: 'inf-6', name: 'Güven Odaklı Tüketiciler', desc: 'Şeffaf iletişim bekleyen', reach: 38.4 },
+        { id: 'inf-7', name: 'Sosyal Medya Takipçileri', desc: 'Dijital kanallarda aktif', reach: 48.2 },
+        { id: 'inf-8', name: 'Fiyat Odaklı Tüketiciler', desc: 'Maliyet hassasiyeti yüksek', reach: 52.1 }
+    ]},
+    { id: 'gatekeeper', name: 'Gatekeepers', icon: '🏛️', category: 'b2b', subs: [
+        { id: 'gk-1', name: 'Yerel Yönetimler', desc: 'Belediyeler ve il idareleri', reach: 2.4 },
+        { id: 'gk-2', name: 'Muhtarlar', desc: 'Mahalle toplum liderleri', reach: 4.8 },
+        { id: 'gk-3', name: 'STK ve Sivil Toplum', desc: 'Sürdürülebilirlik odaklı', reach: 1.6 },
+        { id: 'gk-4', name: 'Akademik Kurumlar', desc: 'Üniversiteler', reach: 0.8 },
+        { id: 'gk-5', name: 'Sürdürülebilirlik Partnerleri', desc: 'Yeşil enerji ortakları', reach: 1.2 },
+        { id: 'gk-6', name: 'Medya Kuruluşları', desc: 'Gazeteciler', reach: 3.5 },
+        { id: 'gk-7', name: 'Enerji Sektörü Analistleri', desc: 'Sektör uzmanları', reach: 0.5 },
+        { id: 'gk-8', name: 'Yerel Ticaret Odaları', desc: 'Bölgesel iş temsilcileri', reach: 2.1 },
+        { id: 'gk-9', name: 'Tüketici Dernekleri', desc: 'Tüketici hakları', reach: 1.8 },
+        { id: 'gk-10', name: 'Çevre Aktivistleri', desc: 'İklim odaklı gruplar', reach: 2.2 }
+    ]},
+    { id: 'decisionmaker', name: 'Decision Makers', icon: '🎯', category: 'b2b', subs: [
+        { id: 'dm-1', name: 'Devlet Kurumları', desc: 'EPDK, Enerji Bakanlığı', reach: 0.3 },
+        { id: 'dm-2', name: 'Regülatörler (EPDK)', desc: 'Düzenleyici kurumlar', reach: 0.2 },
+        { id: 'dm-3', name: 'Kurumsal Yatırımcılar', desc: 'ESG odaklı fonlar', reach: 0.8 },
+        { id: 'dm-4', name: 'Bireysel Yatırımcılar', desc: 'Hisse takipçileri', reach: 3.5 },
+        { id: 'dm-5', name: 'Stratejik İş Ortakları', desc: 'Uzun vadeli ortaklık', reach: 1.4 },
+        { id: 'dm-6', name: 'Finans Kuruluşları', desc: 'Bankalar', reach: 0.6 },
+        { id: 'dm-7', name: 'Uluslararası Enerji Fonları', desc: 'Global ESG fonları', reach: 0.4 },
+        { id: 'dm-8', name: 'Borsa Analistleri', desc: 'Equity research', reach: 0.7 },
+        { id: 'dm-9', name: 'Finans Medyası', desc: 'Bloomberg, Reuters', reach: 1.2 },
+        { id: 'dm-10', name: 'Perakende Yatırımcı Toplulukları', desc: 'Online forumlar', reach: 4.8 }
+    ]}
+];
 
-        let selectedSegments = new Set();
+const INTEREST_RECOMMENDATIONS = {
+    'yt-1': { keyword: 'early adopter', name: 'Early adopters' },
+    'yt-2': { keyword: 'luxury', name: 'Luxury goods' },
+    'yt-3': { keyword: 'adventure travel', name: 'Adventure travel' },
+    'yt-4': { keyword: 'wellness', name: 'Health and wellness' },
+    'tk-1': { keyword: 'premium products', name: 'Premium products' },
+    'tk-2': { keyword: 'discount', name: 'Discount stores' },
+    'tk-3': { keyword: 'shopping', name: 'Online shopping' },
+    'tk-4': { keyword: 'budgeting', name: 'Personal finance' },
+    'dj-1': { keyword: 'technology', name: 'Technology' },
+    'dj-2': { keyword: 'social media', name: 'Social media' },
+    'dj-3': { keyword: 'e-commerce', name: 'E-commerce' },
+    'dj-4': { keyword: 'traditional media', name: 'Television' },
+    'al-1': { keyword: 'parenting', name: 'Parenting' },
+    'al-2': { keyword: 'family', name: 'Family' },
+    'al-3': { keyword: 'retirement', name: 'Retirement' },
+    'al-4': { keyword: 'single lifestyle', name: 'Urban lifestyle' },
+    'md-1': { keyword: 'television', name: 'Television' },
+    'md-2': { keyword: 'netflix', name: 'Streaming services' },
+    'md-3': { keyword: 'smartphone', name: 'Smartphones' },
+    'md-4': { keyword: 'radio', name: 'Radio' },
+    'ot-1': { keyword: 'luxury cars', name: 'Luxury vehicles' },
+    'ot-2': { keyword: 'suv', name: 'SUVs' },
+    'ot-3': { keyword: 'fuel efficiency', name: 'Fuel efficiency' },
+    'ot-4': { keyword: 'electric vehicles', name: 'Electric vehicles' },
+    'sy-1': { keyword: 'travel', name: 'Travel' },
+    'sy-2': { keyword: 'vacation', name: 'Vacation' },
+    'sy-3': { keyword: 'business travel', name: 'Business travel' },
+    'sy-4': { keyword: 'tourism', name: 'Tourism' },
+    'fn-1': { keyword: 'investing', name: 'Investing' },
+    'fn-2': { keyword: 'savings', name: 'Savings' },
+    'fn-3': { keyword: 'credit cards', name: 'Credit cards' },
+    'fn-4': { keyword: 'mobile banking', name: 'Mobile banking' },
+    'bs-1': { keyword: 'organic food', name: 'Organic food' },
+    'bs-2': { keyword: 'fast food', name: 'Fast food' },
+    'bs-3': { keyword: 'fine dining', name: 'Fine dining' },
+    'bs-4': { keyword: 'cooking', name: 'Cooking' },
+    'inf-1': { keyword: 'home improvement', name: 'Homeowners' },
+    'inf-2': { keyword: 'digital services', name: 'Online services' },
+    'inf-3': { keyword: 'mobile apps', name: 'Mobile applications' },
+    'inf-4': { keyword: 'small business', name: 'Small business' },
+    'inf-5': { keyword: 'corporate', name: 'Corporate culture' },
+    'inf-6': { keyword: 'customer service', name: 'Customer service' },
+    'inf-7': { keyword: 'social media marketing', name: 'Social media' },
+    'inf-8': { keyword: 'discount shopping', name: 'Discount shoppers' },
+    'gk-1': { keyword: 'government', name: 'Government' },
+    'gk-2': { keyword: 'community', name: 'Community' },
+    'gk-3': { keyword: 'ngo', name: 'Non-profit' },
+    'gk-4': { keyword: 'education', name: 'Higher education' },
+    'gk-5': { keyword: 'sustainability', name: 'Sustainability' },
+    'gk-6': { keyword: 'journalism', name: 'Journalism' },
+    'gk-7': { keyword: 'energy industry', name: 'Energy industry' },
+    'gk-8': { keyword: 'business networking', name: 'Business networking' },
+    'gk-9': { keyword: 'consumer rights', name: 'Consumer advocacy' },
+    'gk-10': { keyword: 'environment', name: 'Environmental activism' },
+    'dm-1': { keyword: 'public policy', name: 'Public policy' },
+    'dm-2': { keyword: 'regulation', name: 'Regulatory affairs' },
+    'dm-3': { keyword: 'esg investing', name: 'ESG investing' },
+    'dm-4': { keyword: 'stock trading', name: 'Stock trading' },
+    'dm-5': { keyword: 'b2b', name: 'B2B' },
+    'dm-6': { keyword: 'banking', name: 'Banking' },
+    'dm-7': { keyword: 'international finance', name: 'International finance' },
+    'dm-8': { keyword: 'financial analysis', name: 'Financial analysis' },
+    'dm-9': { keyword: 'financial news', name: 'Financial news' },
+    'dm-10': { keyword: 'day trading', name: 'Day trading' }
+};
 
-        function renderSegments(filter = 'all', search = '') {
-            const grid = document.getElementById('segmentGrid');
-            grid.innerHTML = '';
-            const filtered = segments.filter(parent => {
-                if (filter !== 'all' && parent.category !== filter) return false;
-                if (search) {
-                    const s = search.toLowerCase();
-                    return parent.name.toLowerCase().includes(s) || parent.subs.some(sub => sub.name.toLowerCase().includes(s) || sub.desc.toLowerCase().includes(s));
-                }
-                return true;
-            });
-            if (filtered.length === 0) {
-                grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><div class="empty-state-icon">🔍</div><h3>Segment bulunamadı</h3></div>';
-                return;
-            }
-            filtered.forEach(parent => {
-                const isExpanded = document.querySelector(`[data-parent="${parent.id}"]`)?.classList.contains('expanded');
-                const selectedInParent = parent.subs.filter(s => selectedSegments.has(s.id)).length;
-                const card = document.createElement('div');
-                card.className = `parent-card ${parent.theme}${isExpanded ? ' expanded' : ''}`;
-                card.dataset.parent = parent.id;
-                card.innerHTML = `
-                    <div class="parent-header" onclick="toggleParent('${parent.id}')">
-                        <div class="parent-info">
-                            <div class="parent-icon">${parent.icon}</div>
-                            <div><div class="parent-name">${parent.name}</div><div class="parent-count">${parent.subs.length} segment${selectedInParent > 0 ? ` • ${selectedInParent} seçili` : ''}</div></div>
-                        </div>
-                        <div class="parent-actions">
-                            <button class="select-all-btn" onclick="event.stopPropagation(); selectAllInParent('${parent.id}')">${selectedInParent === parent.subs.length ? 'Tümünü Kaldır' : 'Tümünü Seç'}</button>
-                            <span class="expand-icon">▼</span>
-                        </div>
-                    </div>
-                    <div class="sub-segments">
-                        ${parent.subs.map(sub => `
-                            <div class="sub-segment${selectedSegments.has(sub.id) ? ' selected' : ''}" onclick="toggleSegment('${sub.id}')">
-                                <div class="checkbox${selectedSegments.has(sub.id) ? ' checked' : ''}"></div>
-                                <div class="sub-info"><div class="sub-name">${sub.name}</div><div class="sub-desc">${sub.desc}</div></div>
-                                <div class="sub-meta">
-                                                    <span class="meta-tag">${sub.reach}%</span>
-                                                    <span class="meta-reach" id="meta-${sub.id}" title="Meta'dan yükleniyor...">📊 --</span>
-                                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
+let selectedSegments = new Set();
+let activeFunnel = null;
+let currentSuggestions = [];
+let META_SEGMENT_MAP = {};
+let metaDataCache = {};
 
-        function toggleParent(parentId) { document.querySelector(`[data-parent="${parentId}"]`).classList.toggle('expanded'); }
-        function toggleSegment(segmentId) { selectedSegments.has(segmentId) ? selectedSegments.delete(segmentId) : selectedSegments.add(segmentId); updateUI(); }
-        function selectAllInParent(parentId) {
-            const parent = segments.find(p => p.id === parentId);
-            const allSelected = parent.subs.every(s => selectedSegments.has(s.id));
-            parent.subs.forEach(sub => allSelected ? selectedSegments.delete(sub.id) : selectedSegments.add(sub.id));
-            updateUI();
-        }
-        function clearSelection() { selectedSegments.clear(); updateUI(); }
-        function findSegment(segmentId) { for (const p of segments) { const s = p.subs.find(s => s.id === segmentId); if (s) return s; } return null; }
+const funnelSegments = {
+    awareness: ['yt-1','yt-3','dj-2','dj-1','md-2','md-1','inf-1','inf-2','inf-6','inf-7','gk-1','gk-2','gk-3','gk-6','dm-3','dm-5','bs-1','sy-2'],
+    consideration: ['yt-2','yt-4','tk-1','tk-2','dj-3','al-1','al-2','md-3','inf-3','inf-4','inf-8','gk-4','gk-5','gk-7','dm-4','dm-6','dm-8','fn-1','fn-4','ot-4'],
+    conversion: ['tk-3','tk-4','dj-4','al-3','al-4','fn-2','fn-3','inf-5','gk-8','gk-9','gk-10','dm-1','dm-2','dm-7','dm-9','dm-10']
+};
 
-        function updateUI() {
-            document.getElementById('selectedCount').textContent = selectedSegments.size;
-            document.getElementById('footerCount').textContent = selectedSegments.size;
-            let totalReach = 0;
-            segments.forEach(p => p.subs.forEach(s => { if (selectedSegments.has(s.id)) totalReach += s.reach * 0.6; }));
-            document.getElementById('totalReach').textContent = Math.min(totalReach, 95).toFixed(1) + '%';
-            document.getElementById('footerActions').classList.toggle('visible', selectedSegments.size > 0);
-            const chipsContainer = document.getElementById('selectedChips');
-            chipsContainer.innerHTML = '';
-            let count = 0;
-            selectedSegments.forEach(segId => {
-                if (count >= 5) return;
-                const seg = findSegment(segId);
-                if (seg) { chipsContainer.innerHTML += `<span class="selected-chip">${seg.name} <span class="chip-remove" onclick="event.stopPropagation(); toggleSegment('${segId}')">×</span></span>`; count++; }
-            });
-            if (selectedSegments.size > 5) chipsContainer.innerHTML += `<span class="selected-chip">+${selectedSegments.size - 5} daha</span>`;
-            const filter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
-            renderSegments(filter, document.getElementById('searchInput').value);
-        }
+const META_CONFIG = { 
+    accessToken: 'EAAYe5SrdjKgBQZAZAZCh5uE3KLAyOrABkdC5gZCZBcLwdzaAXOKAjGVP7puJt2IijGivXAtQZCd6tbPrkDSoK9JRfWZBHsq2CuqdkL4L33a0xWDbZAyQxuwSjA62eZB3GcZBB6FXWueGyExbs3zZApqbB5IlEZCOfMM1zPjqKYaQF1N2TYZCoAfEfbLgWJZBFz0tggiOnKRwZDZD', 
+    adAccountId: '1449083392081509', 
+    apiVersion: 'v18.0' 
+};
 
-        function exportSelection() {
-            let csv = 'Segment,Açıklama,Reach\n';
-            selectedSegments.forEach(segId => { const s = findSegment(segId); if (s) csv += `"${s.name}","${s.desc}",${s.reach}%\n`; });
-            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'secili_segmentler.csv'; a.click();
-        }
+function init() {
+    renderSegments();
+    setupEventListeners();
+    checkOnboardingState();
+    loadSavedMappings();
+    updateMetaCount();
+}
 
-        function goToQuadrant() {
-            if (selectedSegments.size === 0) {
-                alert('Lütfen en az bir segment seçin');
-                return;
-            }
-            // Seçili segmentleri localStorage'a kaydet (Meta reach dahil)
-            const selectedData = [];
-            selectedSegments.forEach(segId => {
-                for (const parent of segments) {
-                    const sub = parent.subs.find(s => s.id === segId);
-                    if (sub) {
-                        // Meta reach verisini al
-                        const metaData = metaDataCache[segId] || {};
-                        const metaMapping = META_SEGMENT_MAP[segId] || {};
-                        
-                        selectedData.push({
-                            id: sub.id,
-                            name: sub.name,
-                            desc: sub.desc,
-                            reach: sub.reach * 100000, // TDY Reach sayısına çevir
-                            parent: parent.name,
-                            // Meta verileri
-                            metaReach: metaData.estimate || null,
-                            metaReachLower: metaData.lower || null,
-                            metaReachUpper: metaData.upper || null,
-                            metaReachFormatted: metaData.formatted || null,
-                            metaInterest: metaMapping.interests?.[0] || null
-                        });
-                        break;
-                    }
-                }
-            });
-            
-            // Meta mapping'leri de kaydet (quadrant'ta kullanmak için)
-            localStorage.setItem('selectedSegments', JSON.stringify(selectedData));
-            localStorage.setItem('metaSegmentMappings', JSON.stringify(META_SEGMENT_MAP));
-            
-            window.location.href = 'segmentation-quadrant.html';
-        }
-
-        document.querySelectorAll('.filter-btn').forEach(btn => btn.addEventListener('click', () => {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+function setupEventListeners() {
+    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
             btn.classList.add('active');
             renderSegments(btn.dataset.filter, document.getElementById('searchInput').value);
-        }));
-        document.getElementById('searchInput').addEventListener('input', (e) => renderSegments(document.querySelector('.filter-btn.active')?.dataset.filter || 'all', e.target.value));
+        });
+    });
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+        var activeFilter = document.querySelector('.filter-btn.active');
+        renderSegments(activeFilter ? activeFilter.dataset.filter : 'all', e.target.value);
+    });
+    document.getElementById('interestSearch').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') searchInterest();
+    });
+}
+
+function checkOnboardingState() {
+    if (localStorage.getItem('onboardingHidden') === 'true') {
+        document.getElementById('onboarding').classList.add('hidden');
+        document.getElementById('onboardingToggle').classList.add('visible');
+    }
+}
+
+function toggleOnboarding() {
+    var onboarding = document.getElementById('onboarding');
+    var toggle = document.getElementById('onboardingToggle');
+    if (onboarding.classList.contains('hidden')) {
+        onboarding.classList.remove('hidden');
+        toggle.classList.remove('visible');
+        localStorage.setItem('onboardingHidden', 'false');
+    } else {
+        onboarding.classList.add('hidden');
+        toggle.classList.add('visible');
+        localStorage.setItem('onboardingHidden', 'true');
+    }
+}
+
+function renderSegments(filter, search) {
+    filter = filter || 'all';
+    search = search || '';
+    var grid = document.getElementById('segmentGrid');
+    grid.innerHTML = '';
+    
+    var filtered = segments.filter(function(parent) {
+        if (filter !== 'all' && parent.category !== filter) return false;
+        if (search) {
+            var s = search.toLowerCase();
+            if (parent.name.toLowerCase().indexOf(s) !== -1) return true;
+            for (var i = 0; i < parent.subs.length; i++) {
+                if (parent.subs[i].name.toLowerCase().indexOf(s) !== -1) return true;
+                if (parent.subs[i].desc.toLowerCase().indexOf(s) !== -1) return true;
+            }
+            return false;
+        }
+        return true;
+    });
+    
+    if (filtered.length === 0) {
+        grid.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🔍</div><h3>Segment bulunamadı</h3></div>';
+        return;
+    }
+    
+    filtered.forEach(function(parent, idx) {
+        var selectedInParent = parent.subs.filter(function(s) { return selectedSegments.has(s.id); }).length;
+        var hasSelected = selectedInParent > 0;
+        var card = document.createElement('div');
+        card.className = 'parent-card' + (hasSelected ? ' has-selected' : '');
+        card.dataset.parent = parent.id;
+        card.style.animationDelay = (idx * 0.05) + 's';
         
-        // Funnel bazlı segment seçimleri
-        const funnelSegments = {
-            awareness: ['yt-1', 'yt-3', 'dj-2', 'dj-1', 'mo-2', 'mo-1', 'il-1', 'il-2', 'ko-2', 'fi-1', 'fi-2', 'sa-1', 'inf-1', 'inf-2', 'inf-6', 'gk-1', 'gk-2', 'gk-3'],
-            consideration: ['yt-2', 'yt-4', 'tk-1', 'tk-2', 'dj-3', 'al-1', 'al-2', 'mo-3', 'ko-1', 'ko-3', 'fi-3', 'fi-4', 'sa-2', 'sa-3', 'inf-3', 'inf-4', 'gk-4', 'gk-5', 'dm-3', 'dm-4'],
-            conversion: ['tk-3', 'tk-4', 'dj-4', 'al-3', 'al-4', 'mo-4', 'il-3', 'il-4', 'ko-4', 'sa-4', 'inf-5', 'dm-1', 'dm-2', 'dm-5']
-        };
+        var subsHtml = '';
+        parent.subs.forEach(function(sub) {
+            var mapping = META_SEGMENT_MAP[sub.id];
+            var metaText = mapping ? mapping.interests[0].name : '--';
+            var isSelected = selectedSegments.has(sub.id);
+            subsHtml += '<div class="sub-segment' + (isSelected ? ' selected' : '') + '" onclick="toggleSegment(\'' + sub.id + '\')">' +
+                '<div class="checkbox' + (isSelected ? ' checked' : '') + '"></div>' +
+                '<div class="sub-info"><div class="sub-name">' + sub.name + '</div><div class="sub-desc">' + sub.desc + '</div></div>' +
+                '<div class="sub-meta"><span class="meta-tag">' + sub.reach + '%</span>' +
+                '<span class="meta-reach' + (mapping ? ' loaded' : '') + '" id="meta-' + sub.id + '">📊 ' + metaText + '</span></div></div>';
+        });
         
-        let activeFunnel = null;
-        
-        function selectFunnel(funnel) {
-            const btn = document.querySelector(`.funnel-btn.${funnel}`);
-            const wasActive = btn.classList.contains('active');
-            
-            // Tüm funnel butonlarını deaktive et
-            document.querySelectorAll('.funnel-btn').forEach(b => b.classList.remove('active'));
-            
-            if (wasActive) {
-                // Aynı butona tıklandıysa seçimi temizle
-                activeFunnel = null;
-                clearSelection();
-            } else {
-                // Yeni funnel seç
-                btn.classList.add('active');
-                activeFunnel = funnel;
-                
-                // Önce seçimi temizle
-                selectedSegments.clear();
-                
-                // İlgili segmentleri seç
-                funnelSegments[funnel].forEach(segId => {
-                    // Segment var mı kontrol et
-                    if (findSegment(segId)) {
-                        selectedSegments.add(segId);
-                    }
+        card.innerHTML = '<div class="parent-header" onclick="toggleParent(\'' + parent.id + '\')">' +
+            '<div class="parent-left"><div class="parent-icon">' + parent.icon + '</div><div>' +
+            '<div class="parent-name">' + parent.name + '</div>' +
+            '<div class="parent-count">' + parent.subs.length + ' segment' + (selectedInParent > 0 ? ' • <span style="color:var(--accent-green)">' + selectedInParent + ' seçili</span>' : '') + '</div></div></div>' +
+            '<div class="parent-actions"><button class="select-all-btn" onclick="event.stopPropagation();selectAllInParent(\'' + parent.id + '\')">' + 
+            (selectedInParent === parent.subs.length ? 'Kaldır' : 'Tümü') + '</button><span class="expand-icon">▼</span></div></div>' +
+            '<div class="sub-segments">' + subsHtml + '</div>';
+        grid.appendChild(card);
+    });
+}
+
+function toggleParent(parentId) {
+    var card = document.querySelector('[data-parent="' + parentId + '"]');
+    card.classList.toggle('expanded');
+}
+
+function toggleSegment(segmentId) {
+    if (selectedSegments.has(segmentId)) {
+        selectedSegments.delete(segmentId);
+    } else {
+        selectedSegments.add(segmentId);
+    }
+    updateUI();
+    updateSteps();
+}
+
+function selectAllInParent(parentId) {
+    var parent = segments.find(function(p) { return p.id === parentId; });
+    var allSelected = parent.subs.every(function(s) { return selectedSegments.has(s.id); });
+    parent.subs.forEach(function(sub) {
+        if (allSelected) { selectedSegments.delete(sub.id); }
+        else { selectedSegments.add(sub.id); }
+    });
+    updateUI();
+    updateSteps();
+}
+
+function selectFunnel(funnel) {
+    var btn = document.getElementById('funnel-' + funnel);
+    var wasActive = btn.classList.contains('active');
+    document.querySelectorAll('.quick-action').forEach(function(b) { b.classList.remove('active'); });
+    
+    if (wasActive) {
+        activeFunnel = null;
+        clearSelection();
+        closeSuggestions();
+    } else {
+        btn.classList.add('active');
+        activeFunnel = funnel;
+        selectedSegments.clear();
+        funnelSegments[funnel].forEach(function(segId) {
+            if (findSegment(segId)) { selectedSegments.add(segId); }
+        });
+        updateUI();
+        updateSteps();
+        document.querySelectorAll('.parent-card').forEach(function(card) { card.classList.add('expanded'); });
+        generateSuggestions();
+    }
+}
+
+function clearSelection() {
+    selectedSegments.clear();
+    activeFunnel = null;
+    document.querySelectorAll('.quick-action').forEach(function(b) { b.classList.remove('active'); });
+    updateUI();
+    updateSteps();
+    closeSuggestions();
+}
+
+function findSegment(segmentId) {
+    for (var i = 0; i < segments.length; i++) {
+        var sub = segments[i].subs.find(function(s) { return s.id === segmentId; });
+        if (sub) return sub;
+    }
+    return null;
+}
+
+function updateUI() {
+    document.getElementById('selectedCount').textContent = selectedSegments.size;
+    document.getElementById('footerCount').textContent = selectedSegments.size;
+    
+    var totalReach = 0;
+    segments.forEach(function(p) {
+        p.subs.forEach(function(s) {
+            if (selectedSegments.has(s.id)) totalReach += s.reach * 0.6;
+        });
+    });
+    document.getElementById('totalReach').textContent = Math.min(totalReach, 95).toFixed(1) + '%';
+    
+    if (selectedSegments.size > 0) {
+        document.getElementById('footerActions').classList.add('visible');
+    } else {
+        document.getElementById('footerActions').classList.remove('visible');
+    }
+    
+    var chipsContainer = document.getElementById('selectedChips');
+    chipsContainer.innerHTML = '';
+    var count = 0;
+    selectedSegments.forEach(function(segId) {
+        if (count >= 4) return;
+        var seg = findSegment(segId);
+        if (seg) {
+            var chip = document.createElement('span');
+            chip.className = 'selected-chip';
+            chip.innerHTML = seg.name + ' <span class="chip-remove" onclick="event.stopPropagation();toggleSegment(\'' + segId + '\')">×</span>';
+            chipsContainer.appendChild(chip);
+            count++;
+        }
+    });
+    if (selectedSegments.size > 4) {
+        var moreChip = document.createElement('span');
+        moreChip.className = 'selected-chip';
+        moreChip.textContent = '+' + (selectedSegments.size - 4) + ' daha';
+        chipsContainer.appendChild(moreChip);
+    }
+    
+    var activeFilter = document.querySelector('.filter-btn.active');
+    renderSegments(activeFilter ? activeFilter.dataset.filter : 'all', document.getElementById('searchInput').value);
+}
+
+function updateSteps() {
+    var step1 = document.getElementById('step1');
+    var step2 = document.getElementById('step2');
+    if (activeFunnel) { step1.classList.add('completed'); } else { step1.classList.remove('completed'); }
+    if (selectedSegments.size > 0) {
+        step2.classList.add('active');
+        if (selectedSegments.size >= 3) { step2.classList.add('completed'); } else { step2.classList.remove('completed'); }
+    } else {
+        step2.classList.remove('active');
+        step2.classList.remove('completed');
+    }
+}
+
+// AI SUGGESTIONS
+function generateSuggestions() {
+    currentSuggestions = [];
+    var panel = document.getElementById('aiSuggestions');
+    
+    selectedSegments.forEach(function(segId) {
+        if (!META_SEGMENT_MAP[segId] && INTEREST_RECOMMENDATIONS[segId]) {
+            var rec = INTEREST_RECOMMENDATIONS[segId];
+            var segment = findSegment(segId);
+            if (segment) {
+                currentSuggestions.push({
+                    segmentId: segId,
+                    segmentName: segment.name,
+                    keyword: rec.keyword,
+                    suggestedName: rec.name,
+                    status: 'pending',
+                    selectedInterest: null,
+                    audienceSize: null
                 });
-                
-                updateUI();
-                
-                // Tüm parent kartları aç
-                document.querySelectorAll('.parent-card').forEach(card => card.classList.add('expanded'));
             }
         }
+    });
+    
+    if (currentSuggestions.length > 0) {
+        panel.classList.add('visible');
+        document.getElementById('suggestionCount').textContent = '(' + currentSuggestions.length + ' segment için)';
+        renderSuggestions();
+        fetchAllSuggestions();
+    } else {
+        panel.classList.remove('visible');
+    }
+}
+
+function renderSuggestions() {
+    var list = document.getElementById('suggestionsList');
+    var html = '';
+    
+    currentSuggestions.forEach(function(s, idx) {
+        var statusHtml = '';
+        var actionsHtml = '';
         
+        if (s.status === 'loading') {
+            statusHtml = '<span style="color:var(--accent-yellow)">⏳ Aranıyor...</span>';
+        } else if (s.status === 'accepted') {
+            statusHtml = '<span class="suggestion-status">✓ Kabul Edildi</span>';
+        } else if (s.status === 'skipped') {
+            statusHtml = '<span style="color:var(--text-secondary)">Atlandı</span>';
+        } else if (s.selectedInterest) {
+            var sizeText = s.audienceSize ? ' (' + formatMetaNumber(s.audienceSize) + ')' : '';
+            statusHtml = '<span class="suggestion-interest">' + s.selectedInterest.name + '</span><span class="suggestion-size">' + sizeText + '</span>';
+            actionsHtml = '<button class="suggestion-btn accept" onclick="acceptSuggestion(' + idx + ')">✓ Kabul</button><button class="suggestion-btn skip" onclick="skipSuggestion(' + idx + ')">Atla</button>';
+        } else {
+            statusHtml = '<span style="color:var(--text-secondary)">Bekleniyor...</span>';
+        }
+        
+        html += '<div class="suggestion-item' + (s.status === 'accepted' ? ' accepted' : '') + (s.status === 'loading' ? ' loading' : '') + '">' +
+            '<div class="suggestion-left"><span class="suggestion-segment">' + s.segmentName + '</span>' +
+            '<span class="suggestion-arrow">→</span>' + statusHtml + '</div>' +
+            '<div class="suggestion-actions">' + actionsHtml + '</div></div>';
+    });
+    
+    list.innerHTML = html;
+}
+
+function fetchAllSuggestions() {
+    updateMetaStatus('loading', 'Öneriler hazırlanıyor...');
+    
+    var promises = currentSuggestions.map(function(s, idx) {
+        if (s.status !== 'pending') return Promise.resolve();
+        
+        s.status = 'loading';
+        renderSuggestions();
+        
+        return new Promise(function(resolve) {
+            setTimeout(function() {
+                var url = 'https://graph.facebook.com/' + META_CONFIG.apiVersion + '/search?type=adinterest&q=' + encodeURIComponent(s.keyword) + '&limit=1&access_token=' + META_CONFIG.accessToken;
+                
+                fetch(url)
+                    .then(function(res) { return res.json(); })
+                    .then(function(data) {
+                        if (data.data && data.data.length > 0) {
+                            var interest = data.data[0];
+                            s.selectedInterest = { id: interest.id, name: interest.name };
+                            
+                            return getMetaReachEstimate([{ id: interest.id, name: interest.name }])
+                                .then(function(sizeData) {
+                                    s.audienceSize = sizeData.users_upper_bound;
+                                })
+                                .catch(function() {
+                                    s.audienceSize = null;
+                                });
+                        }
+                    })
+                    .then(function() {
+                        s.status = 'ready';
+                        renderSuggestions();
+                        resolve();
+                    })
+                    .catch(function(err) {
+                        console.error('Error:', err);
+                        s.status = 'error';
+                        renderSuggestions();
+                        resolve();
+                    });
+            }, idx * 400);
+        });
+    });
+    
+    Promise.all(promises).then(function() {
+        updateMetaStatus('connected', '✓ Öneriler hazır');
+    });
+}
+
+function acceptSuggestion(idx) {
+    var s = currentSuggestions[idx];
+    if (s.selectedInterest) {
+        META_SEGMENT_MAP[s.segmentId] = {
+            name: s.segmentName,
+            interests: [s.selectedInterest]
+        };
+        if (s.audienceSize) {
+            metaDataCache[s.segmentId] = { formatted: formatMetaNumber(s.audienceSize) };
+        }
+        s.status = 'accepted';
+        saveMappings();
+        updateMetaCount();
+        renderSuggestions();
         renderSegments();
-        
-        // ============================================
-        // META MARKETING API ENTEGRASYONU
-        // ============================================
-        
-        const META_CONFIG = {
-            accessToken: 'EAAYe5SrdjKgBQZAZAZCh5uE3KLAyOrABkdC5gZCZBcLwdzaAXOKAjGVP7puJt2IijGivXAtQZCd6tbPrkDSoK9JRfWZBHsq2CuqdkL4L33a0xWDbZAyQxuwSjA62eZB3GcZBB6FXWueGyExbs3zZApqbB5IlEZCOfMM1zPjqKYaQF1N2TYZCoAfEfbLgWJZBFz0tggiOnKRwZDZD',
-            adAccountId: '1449083392081509',
-            apiVersion: 'v18.0'
-        };
-        
-        // Segment -> Meta Interest Mapping (Doğrulanmış ID'ler)
-        const META_SEGMENT_MAP = {
-            'yt-1': { name: 'Trendsetter Öncüler', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'yt-2': { name: 'Statü Odaklı Profesyoneller', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'yt-3': { name: 'Deneyim Avcıları', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'yt-4': { name: 'Wellness Tutkunları', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'tk-1': { name: 'Premium Tüketiciler', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'tk-2': { name: 'Değer Arayanlar', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'tk-3': { name: 'Dürtüsel Alışverişçiler', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'tk-4': { name: 'Planlı Alışverişçiler', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'dj-1': { name: 'Dijital Yerliler', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'dj-2': { name: 'Sosyal Medya Aktifi', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'dj-3': { name: 'E-Ticaret Uzmanı', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'dj-4': { name: 'Dijital Temkinli', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'al-1': { name: 'Genç Aileler', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'al-2': { name: 'Büyüyen Aileler', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'ot-1': { name: 'Premium Araç Sahipleri', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'ot-2': { name: 'SUV Tutkunları', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'ot-3': { name: 'Ekonomik Sürücüler', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'ot-4': { name: 'Elektrik/Hibrit İlgili', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'sy-1': { name: 'Sık Seyahat Edenler', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'sy-2': { name: 'Tatil Planlayıcıları', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'fn-1': { name: 'Yatırımcılar', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'fn-4': { name: 'Dijital Bankacılık', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'inf-1': { name: 'Hane Halkları - Kesintisiz Enerji', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'inf-3': { name: 'Mobil Kullanıcılar', interests: [{ id: '6003139266461', name: 'Travel' }] },
-            'inf-4': { name: 'Küçük İşletmeler', interests: [{ id: '6003139266461', name: 'Travel' }] }
-        };
-        
-        let metaDataCache = {};
-        let isMetaLoading = false;
-        
-        function formatMetaNumber(num) {
-            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
-            if (num >= 1000) return Math.round(num / 1000) + 'K';
-            return num.toString();
-        }
-        
-        function updateMetaStatus(status, text) {
-            const statusEl = document.getElementById('metaStatus');
-            statusEl.className = 'meta-status ' + status;
-            statusEl.textContent = text;
-        }
-        
-        async function getMetaReachEstimate(interests) {
-            const targetingSpec = {
-                geo_locations: { countries: ['TR'] },
-                age_min: 18,
-                age_max: 65,
-                flexible_spec: [{ interests: interests }]
+        showNotification('✓ ' + s.segmentName + ' → ' + s.selectedInterest.name);
+    }
+}
+
+function skipSuggestion(idx) {
+    currentSuggestions[idx].status = 'skipped';
+    renderSuggestions();
+}
+
+function acceptAllSuggestions() {
+    var accepted = 0;
+    currentSuggestions.forEach(function(s, idx) {
+        if (s.status === 'ready' && s.selectedInterest) {
+            META_SEGMENT_MAP[s.segmentId] = {
+                name: s.segmentName,
+                interests: [s.selectedInterest]
             };
-            
-            const url = `https://graph.facebook.com/${META_CONFIG.apiVersion}/act_${META_CONFIG.adAccountId}/reachestimate?targeting_spec=${encodeURIComponent(JSON.stringify(targetingSpec))}&access_token=${META_CONFIG.accessToken}`;
-            
-            const response = await fetch(url);
-            const data = await response.json();
-            
-            if (data.error) {
-                throw new Error(data.error.message);
+            if (s.audienceSize) {
+                metaDataCache[s.segmentId] = { formatted: formatMetaNumber(s.audienceSize) };
             }
-            
+            s.status = 'accepted';
+            accepted++;
+        }
+    });
+    saveMappings();
+    updateMetaCount();
+    renderSuggestions();
+    renderSegments();
+    showNotification('✓ ' + accepted + ' öneri kabul edildi');
+}
+
+function closeSuggestions() {
+    document.getElementById('aiSuggestions').classList.remove('visible');
+    currentSuggestions = [];
+}
+
+// META API
+function formatMetaNumber(num) {
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (num >= 1000) return Math.round(num / 1000) + 'K';
+    return num.toString();
+}
+
+function updateMetaStatus(status, text) {
+    var el = document.getElementById('metaStatus');
+    el.className = 'meta-status ' + status;
+    el.textContent = text;
+}
+
+function updateMetaCount() {
+    var count = Object.keys(META_SEGMENT_MAP).length;
+    document.getElementById('metaLoadedCount').textContent = count + ' eşleşme';
+}
+
+function getMetaReachEstimate(interests) {
+    var targetingSpec = {
+        geo_locations: { countries: ['TR'] },
+        age_min: 18,
+        age_max: 65,
+        flexible_spec: [{ interests: interests }]
+    };
+    var url = 'https://graph.facebook.com/' + META_CONFIG.apiVersion + '/act_' + META_CONFIG.adAccountId + '/reachestimate?targeting_spec=' + encodeURIComponent(JSON.stringify(targetingSpec)) + '&access_token=' + META_CONFIG.accessToken;
+    
+    return fetch(url)
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            if (data.error) throw new Error(data.error.message);
             return data.data;
-        }
-        
-        async function loadMetaData() {
-            if (isMetaLoading) return;
-            isMetaLoading = true;
-            
-            const btn = document.getElementById('metaLoadBtn');
-            btn.disabled = true;
-            btn.textContent = '⏳ Yükleniyor...';
-            updateMetaStatus('loading', 'Veriler çekiliyor...');
-            
-            const segmentIds = Object.keys(META_SEGMENT_MAP);
-            let loaded = 0;
-            let errors = 0;
-            
-            for (const segmentId of segmentIds) {
-                const segmentData = META_SEGMENT_MAP[segmentId];
-                const metaEl = document.getElementById(`meta-${segmentId}`);
-                
-                try {
-                    const result = await getMetaReachEstimate(segmentData.interests);
-                    const formatted = `${formatMetaNumber(result.users_lower_bound)} - ${formatMetaNumber(result.users_upper_bound)}`;
-                    
-                    metaDataCache[segmentId] = {
-                        lower: result.users_lower_bound,
-                        upper: result.users_upper_bound,
-                        formatted: formatted
-                    };
-                    
-                    if (metaEl) {
-                        metaEl.innerHTML = `📊 ${formatted} <span class="meta-live"></span>`;
-                        metaEl.classList.add('loaded');
-                        metaEl.title = `Meta Audience: ${result.users_lower_bound.toLocaleString('tr-TR')} - ${result.users_upper_bound.toLocaleString('tr-TR')} kişi`;
-                    }
-                    
-                    loaded++;
-                } catch (err) {
-                    console.error(`Error for ${segmentId}:`, err);
-                    if (metaEl) {
-                        metaEl.textContent = '📊 Hata';
-                        metaEl.classList.add('error');
-                        metaEl.title = err.message;
-                    }
-                    errors++;
-                }
-                
-                document.getElementById('metaLoadedCount').textContent = `${loaded}/${segmentIds.length} segment`;
-                
-                // Rate limit için bekle
-                await new Promise(resolve => setTimeout(resolve, 300));
-            }
-            
-            isMetaLoading = false;
-            btn.disabled = false;
-            btn.textContent = '🔄 Yenile';
-            
-            if (errors === 0) {
-                updateMetaStatus('connected', `✓ ${loaded} segment yüklendi`);
-            } else {
-                updateMetaStatus('error', `${loaded} başarılı, ${errors} hata`);
-            }
-        }
-        
-        // Sayfa yüklendiğinde Meta durumunu göster ve localStorage'dan mapping'i yükle
-        document.addEventListener('DOMContentLoaded', () => {
-            updateMetaStatus('', 'Hazır - butona tıklayın');
-            loadSavedMappings();
         });
-        
-        // LocalStorage'dan kaydedilmiş mapping'leri yükle
-        function loadSavedMappings() {
-            const saved = localStorage.getItem('metaSegmentMappings');
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                Object.assign(META_SEGMENT_MAP, parsed);
-                console.log('Kaydedilmiş mapping\'ler yüklendi:', Object.keys(parsed).length);
+}
+
+function loadSavedMappings() {
+    var saved = localStorage.getItem('metaSegmentMappings');
+    if (saved) {
+        META_SEGMENT_MAP = JSON.parse(saved);
+    }
+}
+
+function saveMappings() {
+    localStorage.setItem('metaSegmentMappings', JSON.stringify(META_SEGMENT_MAP));
+}
+
+function searchInterest() {
+    var query = document.getElementById('interestSearch').value;
+    if (!query || query.length < 2) { alert('En az 2 karakter girin'); return; }
+    
+    var resultsDiv = document.getElementById('interestResults');
+    resultsDiv.style.display = 'block';
+    resultsDiv.innerHTML = '<p style="color:var(--text-secondary)">🔍 Aranıyor...</p>';
+    
+    var url = 'https://graph.facebook.com/' + META_CONFIG.apiVersion + '/search?type=adinterest&q=' + encodeURIComponent(query) + '&access_token=' + META_CONFIG.accessToken;
+    
+    fetch(url)
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            if (data.error) {
+                resultsDiv.innerHTML = '<p style="color:#f87171">Hata: ' + data.error.message + '</p>';
+                return;
             }
-        }
-        
-        // Mapping'leri kaydet
-        function saveMappings() {
-            localStorage.setItem('metaSegmentMappings', JSON.stringify(META_SEGMENT_MAP));
-        }
-        
-        // Seçili segment (interest atamak için)
-        let selectedSegmentForMapping = null;
-        
-        // Interest Arama Fonksiyonu - Kitle büyüklüğü ile
-        async function searchInterest() {
-            const query = document.getElementById('interestSearch').value;
-            if (!query || query.length < 2) {
-                alert('En az 2 karakter girin');
+            if (!data.data || data.data.length === 0) {
+                resultsDiv.innerHTML = '<p style="color:var(--text-secondary)">Sonuç bulunamadı</p>';
                 return;
             }
             
-            const resultsDiv = document.getElementById('interestResults');
-            resultsDiv.style.display = 'block';
-            resultsDiv.innerHTML = '<p style="color: var(--text-secondary); font-size: 11px;">🔍 Aranıyor ve kitle büyüklükleri hesaplanıyor...</p>';
+            var html = '<div style="margin-bottom:16px;padding:12px;background:rgba(0,212,255,0.1);border-radius:10px">' +
+                '<div style="font-size:12px;color:var(--accent-blue);margin-bottom:8px;font-weight:600">📌 Segment seç:</div>' +
+                '<select id="segmentSelector" style="width:100%;padding:10px;background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;color:var(--text-primary);font-size:12px">' +
+                '<option value="">-- Segment Seç --</option>' + getAllSegmentOptions() + '</select></div>';
             
-            try {
-                // Interest'leri ara
-                const url = `https://graph.facebook.com/${META_CONFIG.apiVersion}/search?type=adinterest&q=${encodeURIComponent(query)}&access_token=${META_CONFIG.accessToken}`;
-                const response = await fetch(url);
-                const data = await response.json();
-                
-                if (data.error) {
-                    resultsDiv.innerHTML = `<p style="color: #f87171; font-size: 11px;">Hata: ${data.error.message}</p>`;
-                    return;
-                }
-                
-                if (!data.data || data.data.length === 0) {
-                    resultsDiv.innerHTML = '<p style="color: var(--text-secondary); font-size: 11px;">Sonuç bulunamadı</p>';
-                    return;
-                }
-                
-                // Her interest için kitle büyüklüğü çek
-                const interests = data.data.slice(0, 8);
-                const resultsWithSize = [];
-                
-                for (const interest of interests) {
-                    try {
-                        const sizeData = await getMetaReachEstimate([{ id: interest.id, name: interest.name }]);
-                        resultsWithSize.push({
-                            ...interest,
-                            audience_lower: sizeData.users_lower_bound,
-                            audience_upper: sizeData.users_upper_bound
-                        });
-                    } catch (e) {
-                        resultsWithSize.push({
-                            ...interest,
-                            audience_lower: 0,
-                            audience_upper: 0,
-                            error: true
-                        });
-                    }
-                    await new Promise(r => setTimeout(r, 200));
-                }
-                
-                // Sonuçları göster
-                let html = '';
-                
-                // Segment seçici
-                html += `
-                    <div style="margin-bottom: 12px; padding: 10px; background: rgba(0,212,255,0.1); border-radius: 8px; border: 1px solid rgba(0,212,255,0.2);">
-                        <div style="font-size: 11px; color: var(--accent-blue); margin-bottom: 6px; font-weight: 600;">📌 Interest'i bir segment'e ata:</div>
-                        <select id="segmentSelector" style="width: 100%; padding: 8px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-primary); font-size: 11px;">
-                            <option value="">-- Segment Seç --</option>
-                            ${getAllSegmentOptions()}
-                        </select>
-                    </div>
-                `;
-                
-                // Interest sonuçları
-                resultsWithSize.forEach(interest => {
-                    const sizeText = interest.error ? 
-                        '<span style="color: #f87171;">Hesaplanamadı</span>' : 
-                        `<span style="color: #34d399; font-weight: 600;">${formatMetaNumber(interest.audience_lower)} - ${formatMetaNumber(interest.audience_upper)}</span>`;
-                    
-                    html += `
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: var(--bg-card); border-radius: 8px; margin-bottom: 8px; border: 1px solid var(--border-color);">
-                            <div style="flex: 1;">
-                                <div style="font-size: 13px; font-weight: 500; margin-bottom: 2px;">${interest.name}</div>
-                                <div style="font-size: 10px; color: var(--text-secondary);">
-                                    ID: <code style="background: var(--bg-secondary); padding: 1px 4px; border-radius: 3px;">${interest.id}</code>
-                                </div>
-                                <div style="font-size: 11px; margin-top: 4px;">
-                                    🇹🇷 TR Kitle: ${sizeText}
-                                </div>
-                            </div>
-                            <div style="display: flex; gap: 6px;">
-                                <button onclick="assignInterestToSegment('${interest.id}', '${interest.name.replace(/'/g, "\\'")}', ${interest.audience_lower}, ${interest.audience_upper})" 
-                                    style="padding: 6px 12px; background: linear-gradient(135deg, #10b981, #059669); border: none; border-radius: 6px; color: white; font-size: 10px; cursor: pointer; font-weight: 500;">
-                                    ✓ Ata
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                resultsDiv.innerHTML = html;
-                
-            } catch (err) {
-                resultsDiv.innerHTML = `<p style="color: #f87171; font-size: 11px;">Hata: ${err.message}</p>`;
-            }
-        }
-        
-        // Tüm segment'leri option olarak getir
-        function getAllSegmentOptions() {
-            let options = '';
-            segments.forEach(parent => {
-                options += `<optgroup label="${parent.icon} ${parent.name}">`;
-                parent.subs.forEach(sub => {
-                    const currentInterest = META_SEGMENT_MAP[sub.id]?.interests?.[0]?.name || 'Atanmamış';
-                    options += `<option value="${sub.id}">${sub.name} (${currentInterest})</option>`;
-                });
-                options += '</optgroup>';
-            });
-            return options;
-        }
-        
-        // Interest'i seçili segment'e ata
-        function assignInterestToSegment(interestId, interestName, lower, upper) {
-            const selector = document.getElementById('segmentSelector');
-            const segmentId = selector.value;
-            
-            if (!segmentId) {
-                alert('Lütfen önce bir segment seçin!');
-                return;
-            }
-            
-            // Mapping'i güncelle
-            META_SEGMENT_MAP[segmentId] = {
-                name: findSegment(segmentId)?.name || segmentId,
-                interests: [{ id: interestId, name: interestName }]
-            };
-            
-            // LocalStorage'a kaydet
-            saveMappings();
-            
-            // UI güncelle
-            const metaEl = document.getElementById(`meta-${segmentId}`);
-            if (metaEl) {
-                metaEl.innerHTML = `📊 ${formatMetaNumber(lower)} - ${formatMetaNumber(upper)} <span class="meta-live"></span>`;
-                metaEl.classList.add('loaded');
-                metaEl.title = `${interestName}: ${lower.toLocaleString('tr-TR')} - ${upper.toLocaleString('tr-TR')} kişi`;
-            }
-            
-            // Selector'ı güncelle
-            selector.innerHTML = `<option value="">-- Segment Seç --</option>${getAllSegmentOptions()}`;
-            
-            // Bildirim
-            const segmentName = findSegment(segmentId)?.name || segmentId;
-            showNotification(`✓ "${interestName}" → "${segmentName}" atandı!`);
-        }
-        
-        // Bildirim göster
-        function showNotification(message) {
-            const notif = document.createElement('div');
-            notif.style.cssText = `
-                position: fixed;
-                bottom: 100px;
-                right: 20px;
-                background: linear-gradient(135deg, #10b981, #059669);
-                color: white;
-                padding: 12px 20px;
-                border-radius: 10px;
-                font-size: 13px;
-                font-weight: 500;
-                z-index: 10000;
-                animation: slideIn 0.3s ease;
-                box-shadow: 0 4px 20px rgba(16,185,129,0.4);
-            `;
-            notif.textContent = message;
-            document.body.appendChild(notif);
-            
-            setTimeout(() => {
-                notif.style.animation = 'fadeOut 0.3s ease';
-                setTimeout(() => notif.remove(), 300);
-            }, 2500);
-        }
-        
-        // Mapping'leri göster/yönet modalı
-        function showMappingsModal() {
-            const modal = document.createElement('div');
-            modal.id = 'mappingsModal';
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0,0,0,0.8);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                z-index: 10000;
-            `;
-            
-            let mappingsHtml = '';
-            Object.entries(META_SEGMENT_MAP).forEach(([segId, data]) => {
-                const segName = findSegment(segId)?.name || segId;
-                const interestName = data.interests?.[0]?.name || 'Atanmamış';
-                mappingsHtml += `
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: var(--bg-secondary); border-radius: 6px; margin-bottom: 6px;">
-                        <div>
-                            <div style="font-size: 12px; font-weight: 500;">${segName}</div>
-                            <div style="font-size: 10px; color: var(--accent-blue);">→ ${interestName}</div>
-                        </div>
-                        <button onclick="removeMapping('${segId}')" style="padding: 4px 8px; background: #ef4444; border: none; border-radius: 4px; color: white; font-size: 10px; cursor: pointer;">Sil</button>
-                    </div>
-                `;
+            data.data.slice(0, 8).forEach(function(interest) {
+                html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:var(--bg-card);border-radius:10px;margin-bottom:10px">' +
+                    '<div style="flex:1"><div style="font-size:14px;font-weight:500">' + interest.name + '</div>' +
+                    '<div style="font-size:11px;color:var(--text-secondary)">ID: ' + interest.id + '</div></div>' +
+                    '<button onclick="assignInterestToSegment(\'' + interest.id + '\',\'' + interest.name.replace(/'/g, "\\'") + '\')" ' +
+                    'style="padding:8px 16px;background:linear-gradient(135deg,#10b981,#059669);border:none;border-radius:8px;color:white;font-size:11px;cursor:pointer">✓ Ata</button></div>';
             });
             
-            modal.innerHTML = `
-                <div style="background: var(--bg-card); border-radius: 16px; width: 500px; max-height: 80vh; overflow: hidden; border: 1px solid var(--border-color);">
-                    <div style="padding: 16px 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
-                        <h3 style="font-size: 14px; color: var(--accent-blue);">📋 Segment-Interest Eşleştirmeleri</h3>
-                        <button onclick="document.getElementById('mappingsModal').remove()" style="background: none; border: none; color: var(--text-secondary); font-size: 18px; cursor: pointer;">✕</button>
-                    </div>
-                    <div style="padding: 20px; max-height: 60vh; overflow-y: auto;">
-                        ${mappingsHtml || '<p style="color: var(--text-secondary); font-size: 12px;">Henüz eşleştirme yok</p>'}
-                    </div>
-                    <div style="padding: 16px 20px; border-top: 1px solid var(--border-color); display: flex; gap: 10px; justify-content: flex-end;">
-                        <button onclick="clearAllMappings()" style="padding: 8px 16px; background: #ef4444; border: none; border-radius: 6px; color: white; font-size: 11px; cursor: pointer;">Tümünü Sil</button>
-                        <button onclick="exportMappings()" style="padding: 8px 16px; background: var(--accent-blue); border: none; border-radius: 6px; color: #000; font-size: 11px; cursor: pointer;">📥 Dışa Aktar</button>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-        }
-        
-        function removeMapping(segId) {
-            delete META_SEGMENT_MAP[segId];
-            saveMappings();
-            document.getElementById('mappingsModal').remove();
-            showMappingsModal();
-            showNotification('Eşleştirme silindi');
-        }
-        
-        function clearAllMappings() {
-            if (confirm('Tüm eşleştirmeleri silmek istediğinize emin misiniz?')) {
-                Object.keys(META_SEGMENT_MAP).forEach(key => delete META_SEGMENT_MAP[key]);
-                localStorage.removeItem('metaSegmentMappings');
-                document.getElementById('mappingsModal').remove();
-                showNotification('Tüm eşleştirmeler silindi');
-                renderSegments();
-            }
-        }
-        
-        function exportMappings() {
-            const data = JSON.stringify(META_SEGMENT_MAP, null, 2);
-            const blob = new Blob([data], { type: 'application/json' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'segment-interest-mappings.json';
-            a.click();
-        }
-        
-        function copyInterestId(id, name) {
-            navigator.clipboard.writeText(`{ id: '${id}', name: '${name}' }`);
-            alert(`Kopyalandı: ${name} (${id})`);
-        }
-        
-        // Enter tuşu ile arama
-        document.getElementById('interestSearch')?.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') searchInterest();
+            resultsDiv.innerHTML = html;
+        })
+        .catch(function(err) {
+            resultsDiv.innerHTML = '<p style="color:#f87171">Hata: ' + err.message + '</p>';
         });
-        
-        // CSS Animasyonları
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                from { transform: translateX(100px); opacity: 0; }
-                to { transform: translateX(0); opacity: 1; }
+}
+
+function getAllSegmentOptions() {
+    var options = '';
+    segments.forEach(function(parent) {
+        options += '<optgroup label="' + parent.icon + ' ' + parent.name + '">';
+        parent.subs.forEach(function(sub) {
+            var currentInterest = META_SEGMENT_MAP[sub.id] ? META_SEGMENT_MAP[sub.id].interests[0].name : 'Atanmamış';
+            options += '<option value="' + sub.id + '">' + sub.name + ' (' + currentInterest + ')</option>';
+        });
+        options += '</optgroup>';
+    });
+    return options;
+}
+
+function assignInterestToSegment(interestId, interestName) {
+    var selector = document.getElementById('segmentSelector');
+    var segmentId = selector.value;
+    if (!segmentId) { alert('Lütfen önce bir segment seçin!'); return; }
+    
+    var seg = findSegment(segmentId);
+    META_SEGMENT_MAP[segmentId] = {
+        name: seg ? seg.name : segmentId,
+        interests: [{ id: interestId, name: interestName }]
+    };
+    saveMappings();
+    updateMetaCount();
+    selector.innerHTML = '<option value="">-- Segment Seç --</option>' + getAllSegmentOptions();
+    renderSegments();
+    showNotification('✓ ' + interestName + ' → ' + (seg ? seg.name : segmentId));
+}
+
+function showNotification(message) {
+    var notif = document.createElement('div');
+    notif.style.cssText = 'position:fixed;bottom:100px;right:20px;background:linear-gradient(135deg,#10b981,#059669);color:white;padding:14px 24px;border-radius:12px;font-size:13px;font-weight:500;z-index:10000;animation:slideIn 0.3s ease';
+    notif.textContent = message;
+    document.body.appendChild(notif);
+    setTimeout(function() { notif.remove(); }, 2500);
+}
+
+function showMappingsModal() {
+    var modal = document.createElement('div');
+    modal.id = 'mappingsModal';
+    modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:10000';
+    
+    var html = '';
+    Object.keys(META_SEGMENT_MAP).forEach(function(segId) {
+        var data = META_SEGMENT_MAP[segId];
+        var segName = findSegment(segId) ? findSegment(segId).name : segId;
+        var interestName = data.interests[0].name;
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:12px;background:var(--bg-secondary);border-radius:8px;margin-bottom:8px">' +
+            '<div><div style="font-size:13px;font-weight:500">' + segName + '</div><div style="font-size:11px;color:var(--accent-blue)">→ ' + interestName + '</div></div>' +
+            '<button onclick="removeMapping(\'' + segId + '\')" style="padding:6px 12px;background:#ef4444;border:none;border-radius:6px;color:white;font-size:11px;cursor:pointer">Sil</button></div>';
+    });
+    
+    modal.innerHTML = '<div style="background:var(--bg-card);border-radius:16px;width:520px;max-height:80vh;overflow:hidden;border:1px solid var(--border-color)">' +
+        '<div style="padding:18px 22px;border-bottom:1px solid var(--border-color);display:flex;justify-content:space-between;align-items:center">' +
+        '<h3 style="font-size:15px;color:var(--accent-blue)">📋 Eşleştirmeler (' + Object.keys(META_SEGMENT_MAP).length + ')</h3>' +
+        '<button onclick="document.getElementById(\'mappingsModal\').remove()" style="background:none;border:none;color:var(--text-secondary);font-size:20px;cursor:pointer">✕</button></div>' +
+        '<div style="padding:20px;max-height:60vh;overflow-y:auto">' + (html || '<p style="color:var(--text-secondary)">Henüz eşleştirme yok</p>') + '</div>' +
+        '<div style="padding:16px 22px;border-top:1px solid var(--border-color);display:flex;gap:12px;justify-content:flex-end">' +
+        '<button onclick="clearAllMappings()" style="padding:10px 18px;background:#ef4444;border:none;border-radius:8px;color:white;font-size:12px;cursor:pointer">Tümünü Sil</button>' +
+        '<button onclick="exportMappings()" style="padding:10px 18px;background:var(--accent-blue);border:none;border-radius:8px;color:#000;font-size:12px;cursor:pointer">📥 JSON</button></div></div>';
+    
+    document.body.appendChild(modal);
+}
+
+function removeMapping(segId) {
+    delete META_SEGMENT_MAP[segId];
+    delete metaDataCache[segId];
+    saveMappings();
+    updateMetaCount();
+    document.getElementById('mappingsModal').remove();
+    showMappingsModal();
+    renderSegments();
+}
+
+function clearAllMappings() {
+    if (confirm('Tüm eşleştirmeleri silmek istediğinize emin misiniz?')) {
+        META_SEGMENT_MAP = {};
+        metaDataCache = {};
+        localStorage.removeItem('metaSegmentMappings');
+        updateMetaCount();
+        document.getElementById('mappingsModal').remove();
+        showNotification('Tüm eşleştirmeler silindi');
+        renderSegments();
+    }
+}
+
+function exportMappings() {
+    var data = JSON.stringify(META_SEGMENT_MAP, null, 2);
+    var blob = new Blob([data], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'segment-interest-mappings.json';
+    a.click();
+}
+
+function exportSelection() {
+    var csv = 'Segment,Açıklama,Reach,Meta Interest\n';
+    selectedSegments.forEach(function(segId) {
+        var s = findSegment(segId);
+        var interest = META_SEGMENT_MAP[segId] ? META_SEGMENT_MAP[segId].interests[0].name : '';
+        if (s) csv += '"' + s.name + '","' + s.desc + '",' + s.reach + '%,"' + interest + '"\n';
+    });
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'secili_segmentler.csv';
+    a.click();
+    document.getElementById('step4').classList.add('completed');
+}
+
+function goToQuadrant() {
+    if (selectedSegments.size === 0) { alert('Lütfen en az bir segment seçin'); return; }
+    var selectedData = [];
+    selectedSegments.forEach(function(segId) {
+        for (var i = 0; i < segments.length; i++) {
+            var sub = segments[i].subs.find(function(s) { return s.id === segId; });
+            if (sub) {
+                selectedData.push({ id: sub.id, name: sub.name, desc: sub.desc, reach: sub.reach * 100000, parent: segments[i].name });
+                break;
             }
-            @keyframes fadeOut {
-                from { opacity: 1; }
-                to { opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
+        }
+    });
+    localStorage.setItem('selectedSegments', JSON.stringify(selectedData));
+    localStorage.setItem('metaSegmentMappings', JSON.stringify(META_SEGMENT_MAP));
+    document.getElementById('step3').classList.add('completed');
+    setTimeout(function() { window.location.href = 'segmentation-quadrant.html'; }, 300);
+}
+
+init();
     </script>
 </body>
 </html>
