@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/24773718/README.md)
+[README.md](https://github.com/user-attachments/files/24774227/README.md)
 # A.T.L.A.S
 
 **Audience Targeting & Lifecycle Analysis System**
@@ -26,11 +26,11 @@ ATLAS, media planlama ekiplerinin hedef kitle segmentasyonunu görselleştirmesi
 ## 📁 Dosya Yapısı
 
 ```
-├── index.html              # Intro animasyonu (giriş sayfası)
-├── dashboard.html          # Ana segment seçim arayüzü
+├── index.html                   # Intro animasyonu (giriş sayfası)
+├── segment-page.html            # Ana segment seçim arayüzü
 ├── segmentation-quadrant.html   # Quadrant analiz görselleştirmesi
-├── po-segmentasyon.html    # Petrol Ofisi özel segmentasyon
-├── enerjisa-30yil.html     # Enerjisa 30. yıl kampanya planlama
+├── po-segmentasyon.html         # Petrol Ofisi özel segmentasyon
+├── enerjisa-30yil.html          # Enerjisa 30. yıl kampanya planlama
 └── README.md
 ```
 
@@ -61,7 +61,7 @@ Tarayıcıda `http://localhost:8000` adresini açın.
 
 | Sayfa | Açıklama |
 |-------|----------|
-| **Dashboard** | Ana segment seçim arayüzü. Funnel bazlı hızlı seçim, arama, filtreleme |
+| **Segment Page** | Ana segment seçim arayüzü. Funnel bazlı hızlı seçim, arama, filtreleme |
 | **Quadrant** | Seçilen segmentlerin Reach-Relevance matrisinde görselleştirilmesi |
 | **PO Segmentasyon** | Petrol Ofisi müşteri segmentasyonu (TDY entegreli) |
 | **Enerjisa 30. Yıl** | Enerjisa özel kampanya segment planlama |
