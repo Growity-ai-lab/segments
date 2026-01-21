@@ -1,139 +1,107 @@
-# 🎯 Segment Analiz Aracı
+[README.md](https://github.com/user-attachments/files/24773718/README.md)
+# A.T.L.A.S
 
-Time & Growity tarafından geliştirilen interaktif hedef kitle segment analiz ve görselleştirme aracı.
+**Audience Targeting & Lifecycle Analysis System**
 
-## 🔗 Demo
+Growity AI Studio tarafından geliştirilen, Türkiye pazarına özel hedef kitle segmentasyon ve analiz platformu.
 
-- **Segment Kütüphanesi**: [https://growity-ai-lab.github.io/segments/](https://growity-ai-lab.github.io/segments/)
-- **Segment Analizi**: [https://growity-ai-lab.github.io/segments/segmentation-quadrant/](https://growity-ai-lab.github.io/segments/segmentation-quadrant/)
-
----
-
-## 📊 Nasıl Çalışır?
-
-### 1️⃣ Segment Seçimi (Ana Sayfa)
-- 30 ana segment kategorisi, 120+ alt segment
-- Filtreleme ve arama
-- Çoklu seçim yaparak analiz sayfasına gönderme
-
-### 2️⃣ Segment Analizi (3 Görünüm)
-
-| Tab | Açıklama |
-|-----|----------|
-| 📊 **Quadrant** | 2x2 matris görselleştirmesi |
-| 🔵 **Kesişim Analizi** | Venn diagram ile segment kesişimleri |
-| 📋 **Karşılaştırma** | Tablo formatında metrik karşılaştırması |
+![ATLAS Preview](https://img.shields.io/badge/Status-Active-success) ![Version](https://img.shields.io/badge/Version-1.0-blue) ![License](https://img.shields.io/badge/License-Proprietary-red)
 
 ---
 
-## 🎯 Quadrant Eksenleri
+## 🎯 Nedir?
 
-| Eksen | Açıklama |
-|-------|----------|
-| **X - Erişilebilirlik** | Hedefe ulaşma kolaylığı, platform varlığı, targeting opsiyonları |
-| **Y - Değer Potansiyeli** | Müşteri değeri, sepet büyüklüğü, LTV potansiyeli |
-| **Boyut** | Erişim hacmi (elle düzenlenebilir) |
+ATLAS, media planlama ekiplerinin hedef kitle segmentasyonunu görselleştirmesini ve Meta Ads entegrasyonuyla interest targeting yapmasını sağlayan bir araç setidir.
 
-### Quadrant Bölgeleri
+### Temel Özellikler
 
-```
-┌─────────────────────┬─────────────────────┐
-│                     │                     │
-│   YATIRIM GEREKLİ   │    🎯 ÖNCELİK      │
-│   (Zor + Değerli)   │  (Kolay + Değerli) │
-│                     │                     │
-├─────────────────────┼─────────────────────┤
-│                     │                     │
-│  DÜŞÜK PRİORİTE     │   HACİM OYUNU      │
-│  (Zor + Düşük)      │  (Kolay + Düşük)   │
-│                     │                     │
-└─────────────────────┴─────────────────────┘
-        Erişilebilirlik →
-```
-
----
-
-## 🔵 Kesişim Analizi (Venn Diagram)
-
-- **Maksimum 4 segment** seçilebilir
-- Sürükle-bırak veya "+" butonu ile ekleme
-- Otomatik kesişim hesaplama:
-  - Her segmentin hacmi
-  - İkili kesişimler
-  - Toplam kesişim
-
----
-
-## 📋 Karşılaştırma Tablosu
-
-- Tüm segmentler yan yana
-- Görsel bar chart'lar
-- **Öncelik Skoru** = (Erişilebilirlik × 0.4) + (Değer × 0.6)
-
----
-
-## ✏️ Düzenleme Özellikleri
-
-- Segment silme
-- Metrik düzenleme (X, Y, Hacim)
-- Hacim formatları: `2.5M`, `500K`, `1200000`
+- **68+ Segment** — TDY sosyolojik araştırma verilerine dayalı Türkiye'ye özel segmentler
+- **Funnel Bazlı Seçim** — Awareness, Consideration, Conversion aşamalarına göre otomatik segment önerileri
+- **Quadrant Analizi** — Reach vs. Relevance matrisinde görsel segment karşılaştırması
+- **Meta API Entegrasyonu** — Seçilen segmentler için otomatik interest önerileri
+- **Export** — CSV ve PNG formatında planlama ekibiyle paylaşım
 
 ---
 
 ## 📁 Dosya Yapısı
 
 ```
-segments/
-├── index.html                    # Segment kütüphanesi
-├── README.md                     # Dokümantasyon
-└── segmentation-quadrant/
-    └── index.html                # Analiz sayfası (Quadrant + Venn + Tablo)
+├── index.html              # Intro animasyonu (giriş sayfası)
+├── dashboard.html          # Ana segment seçim arayüzü
+├── segmentation-quadrant.html   # Quadrant analiz görselleştirmesi
+├── po-segmentasyon.html    # Petrol Ofisi özel segmentasyon
+├── enerjisa-30yil.html     # Enerjisa 30. yıl kampanya planlama
+└── README.md
 ```
 
 ---
 
-## 🚀 Kurulum
+## 🚀 Kullanım
+
+### GitHub Pages ile Yayınlama
+
+1. Bu repository'yi fork edin veya dosyaları yükleyin
+2. **Settings** → **Pages** → Source: `main` branch
+3. Site URL: `https://[username].github.io/[repo-name]/`
+
+### Lokal Çalıştırma
 
 ```bash
-git clone https://github.com/Growity-ai-lab/segments.git
-cd segments
-# Tarayıcıda index.html açın
+# Herhangi bir HTTP server ile
+python -m http.server 8000
+# veya
+npx serve .
 ```
 
-Veya GitHub Pages üzerinden doğrudan kullanın.
+Tarayıcıda `http://localhost:8000` adresini açın.
 
 ---
 
-## 📤 Export
+## 🔧 Araç Seti
 
-- **PNG**: Aktif görünümün görselini indir
-- **Excel**: Tüm segment verilerini tablo olarak indir
-
----
-
-## 🛠️ Teknolojiler
-
-- Vanilla JavaScript (framework-free)
-- HTML5 Canvas
-- CSS3 Grid & Flexbox
-- LocalStorage (segment seçimi aktarımı)
+| Sayfa | Açıklama |
+|-------|----------|
+| **Dashboard** | Ana segment seçim arayüzü. Funnel bazlı hızlı seçim, arama, filtreleme |
+| **Quadrant** | Seçilen segmentlerin Reach-Relevance matrisinde görselleştirilmesi |
+| **PO Segmentasyon** | Petrol Ofisi müşteri segmentasyonu (TDY entegreli) |
+| **Enerjisa 30. Yıl** | Enerjisa özel kampanya segment planlama |
 
 ---
 
-## 👥 Geliştirici
+## 📊 Segment Kategorileri
 
-**Time & Growity**  
-Media Agency & Digital Transformation Consulting
+- 🌟 **Lifestyle** — Yaşam tarzı segmentleri
+- 👤 **Demografik** — Yaş, gelir, eğitim bazlı
+- 🛒 **Davranış** — Tüketim alışkanlıkları
+- ⚡ **B2C** — Bireysel müşteri segmentleri
+- 🏢 **B2B** — Kurumsal hedef kitleler
 
 ---
 
-## 📄 Lisans
+## 🔗 Entegrasyonlar
 
-MIT License
+- **Meta Marketing API** — Interest targeting ve audience size
+- **TDY Data** — Türkiye sosyolojik segmentasyon verileri
+- **Export** — CSV, PNG, Quadrant görselleştirme
+
+---
+
+## 👥 Ekip
+
+**Growity AI Studio**
+
+Türkiye'nin önde gelen dijital pazarlama ajansı Time & Growity bünyesinde geliştirilen AI destekli pazarlama araçları.
+
+---
+
+## 📝 Notlar
+
+- Tüm veriler Türkiye pazarına özeldir
+- Meta API entegrasyonu için API key gereklidir
+- Segment verileri TDY araştırma sonuçlarına dayanmaktadır
 
 ---
 
 <p align="center">
-  <strong>Time & Growity</strong><br>
-  <em>Transforming Data into Strategy</em>
+  <strong>Growity AI Studio</strong> · 2025
 </p>
