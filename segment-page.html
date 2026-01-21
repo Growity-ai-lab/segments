@@ -488,70 +488,99 @@ const segments = [
 ];
 
 const INTEREST_RECOMMENDATIONS = {
-    'yt-1': { keyword: 'early adopter', name: 'Early adopters' },
-    'yt-2': { keyword: 'luxury', name: 'Luxury goods' },
-    'yt-3': { keyword: 'adventure travel', name: 'Adventure travel' },
-    'yt-4': { keyword: 'wellness', name: 'Health and wellness' },
-    'tk-1': { keyword: 'premium products', name: 'Premium products' },
-    'tk-2': { keyword: 'discount', name: 'Discount stores' },
-    'tk-3': { keyword: 'shopping', name: 'Online shopping' },
-    'tk-4': { keyword: 'budgeting', name: 'Personal finance' },
-    'dj-1': { keyword: 'technology', name: 'Technology' },
+    // Yaşam Tarzı Segmentleri
+    'yt-1': { keyword: 'early adopter technology', name: 'Technology early adopters' },
+    'yt-2': { keyword: 'business executive', name: 'Business and industry' },
+    'yt-3': { keyword: 'adventure', name: 'Outdoor recreation' },
+    'yt-4': { keyword: 'fitness wellness', name: 'Physical fitness' },
+    
+    // Tüketim Alışkanlıkları
+    'tk-1': { keyword: 'luxury shopping', name: 'Luxury goods' },
+    'tk-2': { keyword: 'online shopping', name: 'Online shopping' },
+    'tk-3': { keyword: 'shopping fashion', name: 'Shopping and fashion' },
+    'tk-4': { keyword: 'personal finance', name: 'Personal finance' },
+    
+    // Dijital Davranış
+    'dj-1': { keyword: 'technology', name: 'Consumer electronics' },
     'dj-2': { keyword: 'social media', name: 'Social media' },
-    'dj-3': { keyword: 'e-commerce', name: 'E-commerce' },
-    'dj-4': { keyword: 'traditional media', name: 'Television' },
-    'al-1': { keyword: 'parenting', name: 'Parenting' },
-    'al-2': { keyword: 'family', name: 'Family' },
-    'al-3': { keyword: 'retirement', name: 'Retirement' },
-    'al-4': { keyword: 'single lifestyle', name: 'Urban lifestyle' },
+    'dj-3': { keyword: 'online shopping', name: 'Online shopping' },
+    'dj-4': { keyword: 'television', name: 'Television' },
+    
+    // Aile Yaşamı
+    'al-1': { keyword: 'parenting', name: 'Family and relationships' },
+    'al-2': { keyword: 'family activities', name: 'Family' },
+    'al-3': { keyword: 'travel leisure', name: 'Travel' },
+    'al-4': { keyword: 'entertainment', name: 'Entertainment' },
+    
+    // Gelir Segmentleri
+    'gl-1': { keyword: 'luxury', name: 'Luxury goods' },
+    'gl-2': { keyword: 'investment', name: 'Investing' },
+    'gl-3': { keyword: 'shopping', name: 'Shopping and fashion' },
+    'gl-4': { keyword: 'discount', name: 'Coupons' },
+    
+    // Medya Tüketimi
     'md-1': { keyword: 'television', name: 'Television' },
-    'md-2': { keyword: 'netflix', name: 'Streaming services' },
+    'md-2': { keyword: 'streaming entertainment', name: 'Entertainment' },
     'md-3': { keyword: 'smartphone', name: 'Smartphones' },
-    'md-4': { keyword: 'radio', name: 'Radio' },
-    'ot-1': { keyword: 'luxury cars', name: 'Luxury vehicles' },
-    'ot-2': { keyword: 'suv', name: 'SUVs' },
-    'ot-3': { keyword: 'fuel efficiency', name: 'Fuel efficiency' },
-    'ot-4': { keyword: 'electric vehicles', name: 'Electric vehicles' },
-    'sy-1': { keyword: 'travel', name: 'Travel' },
-    'sy-2': { keyword: 'vacation', name: 'Vacation' },
+    'md-4': { keyword: 'music', name: 'Music' },
+    
+    // Otomobil Segmentleri
+    'ot-1': { keyword: 'luxury vehicles', name: 'Automobiles' },
+    'ot-2': { keyword: 'SUV cars', name: 'SUVs' },
+    'ot-3': { keyword: 'automotive', name: 'Automotive industry' },
+    'ot-4': { keyword: 'electric car', name: 'Electric vehicle' },
+    
+    // Seyahat Tercihleri
+    'sy-1': { keyword: 'frequent traveler', name: 'Air travel' },
+    'sy-2': { keyword: 'vacation travel', name: 'Tourism' },
     'sy-3': { keyword: 'business travel', name: 'Business travel' },
-    'sy-4': { keyword: 'tourism', name: 'Tourism' },
-    'fn-1': { keyword: 'investing', name: 'Investing' },
-    'fn-2': { keyword: 'savings', name: 'Savings' },
-    'fn-3': { keyword: 'credit cards', name: 'Credit cards' },
-    'fn-4': { keyword: 'mobile banking', name: 'Mobile banking' },
-    'bs-1': { keyword: 'organic food', name: 'Organic food' },
-    'bs-2': { keyword: 'fast food', name: 'Fast food' },
-    'bs-3': { keyword: 'fine dining', name: 'Fine dining' },
-    'bs-4': { keyword: 'cooking', name: 'Cooking' },
-    'inf-1': { keyword: 'home improvement', name: 'Homeowners' },
-    'inf-2': { keyword: 'digital services', name: 'Online services' },
-    'inf-3': { keyword: 'mobile apps', name: 'Mobile applications' },
-    'inf-4': { keyword: 'small business', name: 'Small business' },
-    'inf-5': { keyword: 'corporate', name: 'Corporate culture' },
-    'inf-6': { keyword: 'customer service', name: 'Customer service' },
-    'inf-7': { keyword: 'social media marketing', name: 'Social media' },
-    'inf-8': { keyword: 'discount shopping', name: 'Discount shoppers' },
-    'gk-1': { keyword: 'government', name: 'Government' },
-    'gk-2': { keyword: 'community', name: 'Community' },
-    'gk-3': { keyword: 'ngo', name: 'Non-profit' },
-    'gk-4': { keyword: 'education', name: 'Higher education' },
-    'gk-5': { keyword: 'sustainability', name: 'Sustainability' },
-    'gk-6': { keyword: 'journalism', name: 'Journalism' },
+    'sy-4': { keyword: 'domestic tourism', name: 'Tourism' },
+    
+    // Finansal Davranış
+    'fn-1': { keyword: 'investing finance', name: 'Investing' },
+    'fn-2': { keyword: 'personal finance', name: 'Personal finance' },
+    'fn-3': { keyword: 'credit card', name: 'Credit cards' },
+    'fn-4': { keyword: 'mobile banking', name: 'Online banking' },
+    
+    // Beslenme Tercihleri
+    'bs-1': { keyword: 'healthy food', name: 'Organic food' },
+    'bs-2': { keyword: 'fast food restaurants', name: 'Fast food restaurants' },
+    'bs-3': { keyword: 'restaurants dining', name: 'Restaurants' },
+    'bs-4': { keyword: 'cooking recipes', name: 'Cooking' },
+    
+    // Influencers (B2C)
+    'inf-1': { keyword: 'home improvement', name: 'Home improvement' },
+    'inf-2': { keyword: 'online services', name: 'Online shopping' },
+    'inf-3': { keyword: 'smartphone apps', name: 'Smartphones' },
+    'inf-4': { keyword: 'small business owner', name: 'Small business' },
+    'inf-5': { keyword: 'corporate', name: 'Business and industry' },
+    'inf-6': { keyword: 'customer experience', name: 'Online shopping' },
+    'inf-7': { keyword: 'social media', name: 'Social media' },
+    'inf-8': { keyword: 'bargain hunting', name: 'Coupons' },
+    
+    // Gatekeepers (B2B)
+    'gk-1': { keyword: 'government', name: 'Politics and social issues' },
+    'gk-2': { keyword: 'community local', name: 'Community' },
+    'gk-3': { keyword: 'nonprofit charity', name: 'Charity and causes' },
+    'gk-4': { keyword: 'higher education', name: 'Higher education' },
+    'gk-5': { keyword: 'sustainability green', name: 'Environmentalism' },
+    'gk-6': { keyword: 'news journalism', name: 'Journalism' },
     'gk-7': { keyword: 'energy industry', name: 'Energy industry' },
-    'gk-8': { keyword: 'business networking', name: 'Business networking' },
-    'gk-9': { keyword: 'consumer rights', name: 'Consumer advocacy' },
-    'gk-10': { keyword: 'environment', name: 'Environmental activism' },
-    'dm-1': { keyword: 'public policy', name: 'Public policy' },
-    'dm-2': { keyword: 'regulation', name: 'Regulatory affairs' },
-    'dm-3': { keyword: 'esg investing', name: 'ESG investing' },
-    'dm-4': { keyword: 'stock trading', name: 'Stock trading' },
-    'dm-5': { keyword: 'b2b', name: 'B2B' },
-    'dm-6': { keyword: 'banking', name: 'Banking' },
-    'dm-7': { keyword: 'international finance', name: 'International finance' },
-    'dm-8': { keyword: 'financial analysis', name: 'Financial analysis' },
-    'dm-9': { keyword: 'financial news', name: 'Financial news' },
-    'dm-10': { keyword: 'day trading', name: 'Day trading' }
+    'gk-8': { keyword: 'business networking', name: 'Business' },
+    'gk-9': { keyword: 'consumer rights', name: 'Consumer awareness' },
+    'gk-10': { keyword: 'environment climate', name: 'Environmentalism' },
+    
+    // Decision Makers (B2B)
+    'dm-1': { keyword: 'government policy', name: 'Politics and social issues' },
+    'dm-2': { keyword: 'regulation compliance', name: 'Business and industry' },
+    'dm-3': { keyword: 'sustainable investing', name: 'Investing' },
+    'dm-4': { keyword: 'stock market', name: 'Investing' },
+    'dm-5': { keyword: 'b2b business', name: 'Business' },
+    'dm-6': { keyword: 'banking finance', name: 'Banking' },
+    'dm-7': { keyword: 'international business', name: 'Business' },
+    'dm-8': { keyword: 'financial analysis', name: 'Finance' },
+    'dm-9': { keyword: 'financial news', name: 'Business news' },
+    'dm-10': { keyword: 'stock trading', name: 'Investing' }
 };
 
 let selectedSegments = new Set();
