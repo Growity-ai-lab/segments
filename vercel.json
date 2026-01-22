@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
+    }
+  ],
+  "env": {
+    "TIKTOK_APP_ID": "@tiktok-app-id",
+    "TIKTOK_APP_SECRET": "@tiktok-app-secret"
+  }
+}
