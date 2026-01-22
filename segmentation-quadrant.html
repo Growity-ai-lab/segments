@@ -903,6 +903,8 @@
                                 <th>Erişim Hacmi</th>
                                 <th>Erişilebilirlik</th>
                                 <th>Değer Potansiyeli</th>
+                                <th>📘 Meta</th>
+                                <th>🎵 TikTok</th>
                                 <th>Öncelik Skoru</th>
                             </tr>
                         </thead>
@@ -944,6 +946,14 @@
             if (metaMappings) {
                 try { metaMap = JSON.parse(metaMappings); } catch(e) { console.log('Meta mapping parse error'); }
             }
+            
+            // TikTok mapping'leri localStorage'dan yükle
+            const tiktokMappings = localStorage.getItem('tiktokSegmentMappings');
+            let tiktokMap = {};
+            if (tiktokMappings) {
+                try { tiktokMap = JSON.parse(tiktokMappings); } catch(e) { console.log('TikTok mapping parse error'); }
+            }
+            
             segments = rawSegments.map((seg, index) => ({
                 ...seg,
                 color: segmentColors[index % segmentColors.length],
@@ -951,7 +961,9 @@
                 y: Math.floor(Math.random() * 40) + 30,
                 reachNum: seg.reach,
                 metaInterest: metaMap[seg.id] ? metaMap[seg.id].interests[0] : null,
-                metaReachFormatted: metaMap[seg.id] ? metaMap[seg.id].interests[0].name : null
+                metaReachFormatted: metaMap[seg.id] ? metaMap[seg.id].interests[0].name : null,
+                tiktokInterest: tiktokMap[seg.id] ? tiktokMap[seg.id].interests[0] : null,
+                tiktokReachFormatted: tiktokMap[seg.id] ? tiktokMap[seg.id].interests[0].name : null
             }));
 
             quadrantCanvas = document.getElementById('quadrantCanvas');
@@ -2140,6 +2152,16 @@
             tbody.innerHTML = segments.map(seg => {
                 const priorityScore = Math.round((seg.x * 0.4 + seg.y * 0.6));
                 const reachPct = (seg.reachNum / maxReach * 100).toFixed(0);
+                
+                // Platform badges
+                const metaBadge = seg.metaReachFormatted 
+                    ? `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 8px;background:rgba(24,119,242,0.15);border:1px solid rgba(24,119,242,0.3);border-radius:6px;font-size:10px;color:#60a5fa;">${seg.metaReachFormatted}</span>`
+                    : `<span style="color:var(--text-secondary);font-size:10px;">--</span>`;
+                    
+                const tiktokBadge = seg.tiktokReachFormatted 
+                    ? `<span style="display:inline-flex;align-items:center;gap:4px;padding:4px 8px;background:rgba(238,45,86,0.15);border:1px solid rgba(238,45,86,0.3);border-radius:6px;font-size:10px;color:#ee2d5e;">${seg.tiktokReachFormatted}</span>`
+                    : `<span style="color:var(--text-secondary);font-size:10px;">--</span>`;
+                
                 return `
                     <tr>
                         <td><div style="display:flex;align-items:center;gap:10px;"><div style="width:14px;height:14px;border-radius:50%;background:${seg.color};box-shadow:0 0 8px ${seg.color};"></div><strong>${seg.name}</strong></div></td>
@@ -2147,6 +2169,8 @@
                         <td><div style="display:flex;align-items:center;gap:10px;"><div class="comparison-bar" style="width:100px;"><div class="comparison-bar-fill" style="width:${reachPct}%;background:${seg.color};"></div></div><span style="color:var(--accent-blue);font-weight:600;font-family:'Space Mono',monospace;">${formatReach(seg.reachNum)}</span></div></td>
                         <td><div style="display:flex;align-items:center;gap:10px;"><div class="comparison-bar" style="width:70px;"><div class="comparison-bar-fill" style="width:${seg.x}%;background:var(--accent-blue);"></div></div><span>${seg.x}</span></div></td>
                         <td><div style="display:flex;align-items:center;gap:10px;"><div class="comparison-bar" style="width:70px;"><div class="comparison-bar-fill" style="width:${seg.y}%;background:var(--accent-purple);"></div></div><span>${seg.y}</span></div></td>
+                        <td>${metaBadge}</td>
+                        <td>${tiktokBadge}</td>
                         <td><span style="font-weight:700;font-family:'Space Mono',monospace;color:${priorityScore >= 60 ? 'var(--accent-green)' : priorityScore >= 40 ? 'var(--accent-orange)' : 'var(--accent-red)'};">${priorityScore}</span></td>
                     </tr>
                 `;
@@ -2181,9 +2205,9 @@
             
             setTimeout(() => {
                 let html = '<html><head><meta charset="UTF-8"></head><body><table border="1">';
-                html += '<tr><th>Segment</th><th>Kategori</th><th>Erişim</th><th>Erişilebilirlik</th><th>Değer</th><th>Öncelik</th></tr>';
+                html += '<tr><th>Segment</th><th>Kategori</th><th>Erişim</th><th>Erişilebilirlik</th><th>Değer</th><th>Meta Interest</th><th>TikTok Interest</th><th>Öncelik</th></tr>';
                 segments.forEach(seg => {
-                    html += `<tr><td>${seg.name}</td><td>${seg.parent}</td><td>${formatReach(seg.reachNum)}</td><td>${seg.x}</td><td>${seg.y}</td><td>${Math.round((seg.x * 0.4 + seg.y * 0.6))}</td></tr>`;
+                    html += `<tr><td>${seg.name}</td><td>${seg.parent}</td><td>${formatReach(seg.reachNum)}</td><td>${seg.x}</td><td>${seg.y}</td><td>${seg.metaReachFormatted || '-'}</td><td>${seg.tiktokReachFormatted || '-'}</td><td>${Math.round((seg.x * 0.4 + seg.y * 0.6))}</td></tr>`;
                 });
                 html += '</table></body></html>';
                 const blob = new Blob([html], { type: 'application/vnd.ms-excel' });
