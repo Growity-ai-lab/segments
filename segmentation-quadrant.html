@@ -752,6 +752,69 @@
         .toast-info .toast-progress { background: var(--accent-blue); }
         @keyframes toast-progress { from { width: 100%; } to { width: 0%; } }
         
+        /* === ACCORDION STYLES === */
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .accordion-content.expanded { max-height: 200px; }
+        .accordion-arrow { transition: transform 0.2s ease; }
+        .accordion-arrow.rotated { transform: rotate(180deg); }
+        .strategy-accordion > div:first-child:hover { filter: brightness(1.1); }
+        
+        /* === PRE-SEGMENTS DROPDOWN === */
+        .pre-segments-dropdown { position: relative; }
+        .pre-segments-btn {
+            display: flex; align-items: center; gap: 8px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(0,212,255,0.1));
+            border: 1px solid rgba(124,58,237,0.4);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 12px; font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .pre-segments-btn:hover { border-color: var(--accent-purple); transform: translateY(-1px); }
+        .pre-segments-btn .dropdown-arrow { font-size: 8px; transition: transform 0.2s; margin-left: 4px; }
+        .pre-segments-btn .dropdown-arrow.rotated { transform: rotate(180deg); }
+        .pre-segments-menu {
+            display: none; position: absolute; top: calc(100% + 8px); right: 0;
+            min-width: 220px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            z-index: 100;
+            animation: dropdownFadeIn 0.2s ease;
+        }
+        .pre-segments-menu.visible { display: block; }
+        @keyframes dropdownFadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .pre-segments-group { margin-bottom: 8px; }
+        .pre-segments-group:last-child { margin-bottom: 0; }
+        .pre-segments-group-title {
+            display: flex; align-items: center; gap: 8px;
+            padding: 8px 12px;
+            font-size: 11px; font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 4px;
+        }
+        .pre-segments-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+        .pre-segments-item:hover { background: rgba(255,255,255,0.05); }
+        .pre-segments-item.po { border-left: 3px solid #e31e24; }
+        .pre-segments-item.po:hover { background: rgba(227,30,36,0.1); }
+        .pre-segments-item.enerjisa { border-left: 3px solid #ffc107; }
+        .pre-segments-item.enerjisa:hover { background: rgba(255,193,7,0.1); }
+        
         /* === LOADING BUTTON STATES === */
         .btn-loading { position: relative; pointer-events: none; opacity: 0.7; }
         .btn-loading .btn-text { opacity: 0; }
@@ -807,9 +870,34 @@
             </div>
         </div>
         <div class="header-actions">
-            <a href="po-segmentasyon.html" class="po-btn" aria-label="Petrol Ofisi Premium Market">
-                <span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span> PO Premium Market
-            </a>
+            <!-- Pre-Segments Dropdown -->
+            <div class="pre-segments-dropdown" id="preSegmentsDropdown">
+                <button class="pre-segments-btn" onclick="togglePreSegments()" aria-label="Pre-Segments Menüsü">
+                    <span class="icon"><svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg></span>
+                    Pre-Segments
+                    <span class="dropdown-arrow" id="preSegmentsArrow">▼</span>
+                </button>
+                <div class="pre-segments-menu" id="preSegmentsMenu">
+                    <div class="pre-segments-group">
+                        <div class="pre-segments-group-title">
+                            <span class="icon" style="color: #e31e24;"><svg viewBox="0 0 24 24" width="14" height="14"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
+                            Petrol Ofisi
+                        </div>
+                        <a href="po-segmentasyon.html" class="pre-segments-item po">
+                            Premium Market
+                        </a>
+                    </div>
+                    <div class="pre-segments-group">
+                        <div class="pre-segments-group-title">
+                            <span class="icon" style="color: #ffc107;"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span>
+                            Enerjisa
+                        </div>
+                        <a href="enerjisa-30yil.html" class="pre-segments-item enerjisa">
+                            30. Yıl
+                        </a>
+                    </div>
+                </div>
+            </div>
             <button class="btn btn-secondary" onclick="exportPNG()" aria-label="PNG olarak indir"><span class="icon"><svg viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></span> PNG</button>
             <button class="btn btn-secondary" onclick="exportExcel()" aria-label="Excel olarak indir"><span class="icon"><svg viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M8 13h2"/><path d="M14 13h2"/><path d="M8 17h2"/><path d="M14 17h2"/></svg></span> Excel</button>
         </div>
@@ -922,6 +1010,23 @@
     <div class="tooltip" id="tooltip"></div>
 
     <script>
+        // Pre-Segments Dropdown Toggle
+        function togglePreSegments() {
+            const menu = document.getElementById('preSegmentsMenu');
+            const arrow = document.getElementById('preSegmentsArrow');
+            menu.classList.toggle('visible');
+            arrow.classList.toggle('rotated');
+        }
+        
+        // Click outside to close dropdown
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('preSegmentsDropdown');
+            if (dropdown && !dropdown.contains(e.target)) {
+                document.getElementById('preSegmentsMenu').classList.remove('visible');
+                document.getElementById('preSegmentsArrow').classList.remove('rotated');
+            }
+        });
+        
         const segmentColors = [
             '#00d4ff', '#7c3aed', '#ec4899', '#10b981', '#f59e0b', 
             '#ef4444', '#06b6d4', '#8b5cf6', '#f43f5e', '#22c55e',
@@ -1035,31 +1140,34 @@
                 // Hedefleme stratejisi
                 const targetingStrategy = getTargetingStrategy(seg);
                 
-                // Meta ve TikTok yan yana karşılaştırma
+                // Meta ve TikTok yan yana karşılaştırma - Kompakt + Reach
+                const metaReach = seg.metaInterest?.audience_size ? formatReach(seg.metaInterest.audience_size) : null;
+                const tiktokReach = seg.tiktokInterest?.audience_size ? formatReach(seg.tiktokInterest.audience_size) : null;
+                
                 const platformSection = `
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 14px;">
                         <!-- Meta Card -->
-                        <div style="background: linear-gradient(135deg, rgba(24,119,242,0.15), rgba(24,119,242,0.05)); border: 1px solid rgba(24,119,242,0.3); border-radius: 10px; padding: 10px;">
-                            <div style="font-size: 9px; color: #60a5fa; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
-                                📘 META ${seg.metaReachFormatted ? '<span style="width:5px;height:5px;background:#34d399;border-radius:50%;"></span>' : ''}
+                        <div style="background: linear-gradient(135deg, rgba(24,119,242,0.15), rgba(24,119,242,0.05)); border: 1px solid rgba(24,119,242,0.3); border-radius: 8px; padding: 8px; min-width: 0;">
+                            <div style="font-size: 8px; color: #60a5fa; font-weight: 600; margin-bottom: 3px; display: flex; align-items: center; gap: 3px;">
+                                📘 META ${seg.metaReachFormatted ? '<span style="width:4px;height:4px;background:#34d399;border-radius:50%;"></span>' : ''}
                             </div>
                             ${seg.metaReachFormatted ? `
-                                <div style="font-size: 13px; font-weight: 700; color: #60a5fa; font-family: 'Space Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${seg.metaReachFormatted}">${seg.metaReachFormatted}</div>
-                                <div style="font-size: 9px; color: var(--text-secondary); margin-top: 2px;">${seg.metaInterest?.name || ''}</div>
+                                <div style="font-size: 11px; font-weight: 600; color: #60a5fa; font-family: 'Space Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${seg.metaReachFormatted}">${seg.metaReachFormatted}</div>
+                                ${metaReach ? `<div style="font-size: 9px; color: #34d399; margin-top: 2px;">🎯 ${metaReach}</div>` : ''}
                             ` : `
-                                <div style="font-size: 10px; color: var(--text-secondary);">Atanmamış</div>
+                                <div style="font-size: 9px; color: var(--text-secondary);">—</div>
                             `}
                         </div>
                         <!-- TikTok Card -->
-                        <div style="background: linear-gradient(135deg, rgba(238,45,86,0.15), rgba(238,45,86,0.05)); border: 1px solid rgba(238,45,86,0.3); border-radius: 10px; padding: 10px;">
-                            <div style="font-size: 9px; color: #ee2d5e; font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 4px;">
-                                🎵 TIKTOK ${seg.tiktokReachFormatted ? '<span style="width:5px;height:5px;background:#34d399;border-radius:50%;"></span>' : ''}
+                        <div style="background: linear-gradient(135deg, rgba(238,45,86,0.15), rgba(238,45,86,0.05)); border: 1px solid rgba(238,45,86,0.3); border-radius: 8px; padding: 8px; min-width: 0;">
+                            <div style="font-size: 8px; color: #ee2d5e; font-weight: 600; margin-bottom: 3px; display: flex; align-items: center; gap: 3px;">
+                                🎵 TIKTOK ${seg.tiktokReachFormatted ? '<span style="width:4px;height:4px;background:#34d399;border-radius:50%;"></span>' : ''}
                             </div>
                             ${seg.tiktokReachFormatted ? `
-                                <div style="font-size: 13px; font-weight: 700; color: #ee2d5e; font-family: 'Space Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${seg.tiktokReachFormatted}">${seg.tiktokReachFormatted}</div>
-                                <div style="font-size: 9px; color: var(--text-secondary); margin-top: 2px;">${seg.tiktokInterest?.name || ''}</div>
+                                <div style="font-size: 11px; font-weight: 600; color: #ee2d5e; font-family: 'Space Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${seg.tiktokReachFormatted}">${seg.tiktokReachFormatted}</div>
+                                ${tiktokReach ? `<div style="font-size: 9px; color: #34d399; margin-top: 2px;">🎯 ${tiktokReach}</div>` : ''}
                             ` : `
-                                <div style="font-size: 10px; color: var(--text-secondary);">Atanmamış</div>
+                                <div style="font-size: 9px; color: var(--text-secondary);">—</div>
                             `}
                         </div>
                     </div>
@@ -1108,27 +1216,32 @@
                 'lifestyle': {
                     meta: ['Lifestyle', 'Hobbies and interests', 'Entertainment'],
                     google: ['Affinity: Lifestyle', 'In-market: Consumer goods'],
+                    tiktok: ['Lifestyle content', 'Day in my life', 'Aesthetic videos'],
                     tip: 'Yaşam tarzı odaklı içeriklerle hedefleyin'
                 },
                 'demografik': {
                     meta: ['Demographics', 'Life events', 'Family status'],
                     google: ['Demographics targeting', 'Life events'],
+                    tiktok: ['Family content', 'Parenting tips', 'Life milestones'],
                     tip: 'Demografik filtrelerle daraltın'
                 },
                 'davranis': {
                     meta: ['Purchase behavior', 'Online activity', 'Device usage'],
                     google: ['In-market audiences', 'Custom intent'],
+                    tiktok: ['Shopping hauls', 'Product reviews', 'Unboxing'],
                     tip: 'Davranışsal sinyallerle hedefleyin'
                 },
                 'b2c': {
                     meta: ['Consumer interests', 'Shopping behavior', 'Brand affinity'],
                     google: ['In-market: Retail', 'Affinity: Shoppers'],
+                    tiktok: ['TikTok Shop', 'Trending products', 'GRWM'],
                     tip: 'Tüketici odaklı kampanyalar için idealdir'
                 },
                 'b2b': {
                     meta: ['Job titles', 'Industries', 'Company size'],
                     google: ['Business services', 'B2B decision makers'],
                     linkedin: ['Job function', 'Seniority', 'Industry'],
+                    tiktok: ['Career tips', 'Business hacks', 'Corporate humor'],
                     tip: 'LinkedIn ve profesyonel ağlar öncelikli'
                 }
             };
@@ -1142,25 +1255,70 @@
             
             const strat = categoryStrategies[category] || categoryStrategies['lifestyle'];
             
+            const accordionId = 'strategy_' + Date.now();
+            
             let html = `
                 <div style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(124,58,237,0.02)); border: 1px solid rgba(124,58,237,0.2); border-radius: 8px; padding: 12px; margin-bottom: 10px;">
-                    <div style="font-size: 10px; font-weight: 600; color: #a78bfa; margin-bottom: 8px;">🤖 OTOMATİK ÖNERİ</div>
-                    <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 10px;">${strat.tip}</div>
+                    <div style="font-size: 10px; font-weight: 600; color: #a78bfa; margin-bottom: 6px;">🤖 OTOMATİK ÖNERİ</div>
+                    <div style="font-size: 11px; color: var(--text-secondary);">${strat.tip}</div>
                 </div>
-                <div style="background: linear-gradient(135deg, rgba(24,119,242,0.1), rgba(24,119,242,0.02)); border: 1px solid rgba(24,119,242,0.2); border-radius: 8px; padding: 10px; margin-bottom: 10px;">
-                    <div style="font-size: 10px; font-weight: 600; color: #60a5fa; margin-bottom: 6px;">📘 META ÖNERİLERİ</div>
-                    <div style="font-size: 10px; color: #34d399;">${strat.meta.join(', ')}</div>
+                
+                <!-- Meta Accordion -->
+                <div class="strategy-accordion" style="margin-bottom: 6px;">
+                    <div onclick="this.nextElementSibling.classList.toggle('expanded'); this.querySelector('.accordion-arrow').classList.toggle('rotated');" 
+                         style="display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: linear-gradient(135deg, rgba(24,119,242,0.1), rgba(24,119,242,0.02)); border: 1px solid rgba(24,119,242,0.2); border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 10px; font-weight: 600; color: #60a5fa;">📘 META ÖNERİLERİ</span>
+                        </div>
+                        <span class="accordion-arrow" style="color: #60a5fa; font-size: 10px; transition: transform 0.2s;">▼</span>
+                    </div>
+                    <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                        <div style="padding: 10px 12px; font-size: 10px; color: #34d399; background: rgba(24,119,242,0.05); border-radius: 0 0 8px 8px; border: 1px solid rgba(24,119,242,0.1); border-top: none;">${strat.meta.join(', ')}</div>
+                    </div>
                 </div>
-                <div style="background: linear-gradient(135deg, rgba(234,67,53,0.1), rgba(66,133,244,0.1)); border: 1px solid rgba(234,67,53,0.2); border-radius: 8px; padding: 10px; margin-bottom: 10px;">
-                    <div style="font-size: 10px; font-weight: 600; color: #ea4335; margin-bottom: 6px;">🔍 GOOGLE ÖNERİLERİ</div>
-                    <div style="font-size: 10px; color: #60a5fa;">${strat.google.join(', ')}</div>
+                
+                <!-- TikTok Accordion -->
+                <div class="strategy-accordion" style="margin-bottom: 6px;">
+                    <div onclick="this.nextElementSibling.classList.toggle('expanded'); this.querySelector('.accordion-arrow').classList.toggle('rotated');" 
+                         style="display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: linear-gradient(135deg, rgba(238,45,86,0.1), rgba(238,45,86,0.02)); border: 1px solid rgba(238,45,86,0.2); border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 10px; font-weight: 600; color: #ee2d5e;">🎵 TIKTOK ÖNERİLERİ</span>
+                        </div>
+                        <span class="accordion-arrow" style="color: #ee2d5e; font-size: 10px; transition: transform 0.2s;">▼</span>
+                    </div>
+                    <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                        <div style="padding: 10px 12px; font-size: 10px; color: #f472b6; background: rgba(238,45,86,0.05); border-radius: 0 0 8px 8px; border: 1px solid rgba(238,45,86,0.1); border-top: none;">${strat.tiktok ? strat.tiktok.join(', ') : 'Short-form video, Hashtag challenge, Influencer collab'}</div>
+                    </div>
+                </div>
+                
+                <!-- Google Accordion -->
+                <div class="strategy-accordion" style="margin-bottom: 6px;">
+                    <div onclick="this.nextElementSibling.classList.toggle('expanded'); this.querySelector('.accordion-arrow').classList.toggle('rotated');" 
+                         style="display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: linear-gradient(135deg, rgba(234,67,53,0.1), rgba(66,133,244,0.1)); border: 1px solid rgba(234,67,53,0.2); border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 10px; font-weight: 600; color: #ea4335;">🔍 GOOGLE ÖNERİLERİ</span>
+                        </div>
+                        <span class="accordion-arrow" style="color: #ea4335; font-size: 10px; transition: transform 0.2s;">▼</span>
+                    </div>
+                    <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                        <div style="padding: 10px 12px; font-size: 10px; color: #60a5fa; background: rgba(234,67,53,0.05); border-radius: 0 0 8px 8px; border: 1px solid rgba(234,67,53,0.1); border-top: none;">${strat.google.join(', ')}</div>
+                    </div>
                 </div>`;
             
             if (strat.linkedin) {
                 html += `
-                <div style="background: linear-gradient(135deg, rgba(10,102,194,0.1), rgba(10,102,194,0.02)); border: 1px solid rgba(10,102,194,0.2); border-radius: 8px; padding: 10px;">
-                    <div style="font-size: 10px; font-weight: 600; color: #0a66c2; margin-bottom: 6px;">💼 LINKEDIN ÖNERİLERİ</div>
-                    <div style="font-size: 10px; color: #34d399;">${strat.linkedin.join(', ')}</div>
+                <!-- LinkedIn Accordion -->
+                <div class="strategy-accordion" style="margin-bottom: 6px;">
+                    <div onclick="this.nextElementSibling.classList.toggle('expanded'); this.querySelector('.accordion-arrow').classList.toggle('rotated');" 
+                         style="display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: linear-gradient(135deg, rgba(10,102,194,0.1), rgba(10,102,194,0.02)); border: 1px solid rgba(10,102,194,0.2); border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 10px; font-weight: 600; color: #0a66c2;">💼 LINKEDIN ÖNERİLERİ</span>
+                        </div>
+                        <span class="accordion-arrow" style="color: #0a66c2; font-size: 10px; transition: transform 0.2s;">▼</span>
+                    </div>
+                    <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                        <div style="padding: 10px 12px; font-size: 10px; color: #34d399; background: rgba(10,102,194,0.05); border-radius: 0 0 8px 8px; border: 1px solid rgba(10,102,194,0.1); border-top: none;">${strat.linkedin.join(', ')}</div>
+                    </div>
                 </div>`;
             }
             
@@ -1297,6 +1455,13 @@
                         audiences: ['In-market: Utilities', 'Affinity: News junkies'],
                         keywords: ['enerjisa güvenilir mi', 'elektrik şirketi şikayet', 'en iyi enerji şirketi'],
                         placements: ['Haber siteleri', 'Şikayet siteleri (remarketing)']
+                    },
+                    tiktok: {
+                        age: ['35-44', '45-54'],
+                        interests: ['News & Current Events', 'Finance', 'Consumer Tips'],
+                        behaviors: ['Engaged with informative content', 'Comment readers'],
+                        hashtags: ['#tüketicihakları', '#bilgilendirme', '#güvenilir', '#müşterideneyimi'],
+                        content_type: 'Müşteri hikayeleri, Şeffaf bilgilendirme, FAQ videoları, Güven inşası'
                     },
                     custom: 'CRM: Şikayet geçmişi olanlar (win-back), NPS düşük müşteriler'
                 },
@@ -1653,7 +1818,7 @@
                 'yt-1': [{ platform: 'Instagram', score: 92, reason: 'Trend içerikler' }, { platform: 'YouTube', score: 85, reason: 'Tech reviews' }, { platform: 'TikTok', score: 78, reason: 'Viral trends' }],
                 'yt-2': [{ platform: 'LinkedIn', score: 95, reason: 'Profesyonel ağ' }, { platform: 'Instagram', score: 82, reason: 'Lifestyle' }, { platform: 'YouTube', score: 75, reason: 'Business content' }],
                 'yt-3': [{ platform: 'Instagram', score: 90, reason: 'Travel content' }, { platform: 'YouTube', score: 88, reason: 'Vlog & deneyim' }, { platform: 'TikTok', score: 82, reason: 'Kısa geziler' }],
-                'yt-4': [{ platform: 'Instagram', score: 94, reason: 'Wellness influencer' }, { platform: 'YouTube', score: 86, reason: 'Fitness video' }, { platform: 'Pinterest', score: 78, reason: 'Sağlıklı yaşam' }],
+                'yt-4': [{ platform: 'Instagram', score: 94, reason: 'Wellness influencer' }, { platform: 'TikTok', score: 88, reason: '#fitness #wellness viral' }, { platform: 'YouTube', score: 86, reason: 'Fitness video' }, { platform: 'Pinterest', score: 72, reason: 'Sağlıklı yaşam' }],
                 
                 // Tüketim
                 'tk-1': [{ platform: 'Instagram', score: 92, reason: 'Lüks markalar' }, { platform: 'YouTube', score: 80, reason: 'Ürün incelemeleri' }, { platform: 'Pinterest', score: 75, reason: 'Ürün keşfi' }],
@@ -1678,6 +1843,7 @@
                     { platform: 'Facebook', score: 94, reason: 'Hane hedefleme, 35-55 yaş' },
                     { platform: 'YouTube', score: 88, reason: 'Bilgilendirici içerik, güven' },
                     { platform: 'Google Display', score: 85, reason: 'Retargeting, fatura hatırlatma' },
+                    { platform: 'TikTok', score: 72, reason: 'Pratik ev ipuçları, tasarruf' },
                     { platform: 'TV', score: 82, reason: 'Kesintisiz hizmet mesajı' }
                 ],
                 'inf-2': [
@@ -1708,6 +1874,7 @@
                     { platform: 'YouTube', score: 92, reason: 'Şeffaf bilgilendirme, FAQ' },
                     { platform: 'Facebook', score: 90, reason: 'Topluluk güveni, yorumlar' },
                     { platform: 'Google Search', score: 88, reason: 'Bilgi arama intent' },
+                    { platform: 'TikTok', score: 75, reason: 'Müşteri hikayeleri, güven içeriği' },
                     { platform: 'Twitter/X', score: 75, reason: 'Anlık müşteri hizmetleri' }
                 ],
                 
@@ -1780,21 +1947,27 @@
             const defaultRecs = [
                 { platform: 'Instagram', score: 85, reason: 'Geniş erişim' },
                 { platform: 'YouTube', score: 80, reason: 'Video içerik' },
+                { platform: 'TikTok', score: 78, reason: 'Genç kitle, viral potansiyel' },
                 { platform: 'Facebook', score: 75, reason: 'Demografik hedefleme' }
             ];
             
             const recs = recommendations[seg.id] || defaultRecs;
             
-            return recs.map(rec => `
-                <div style="display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: var(--bg-secondary); border-radius: 8px; margin-bottom: 6px;">
-                    <div style="font-size: 14px;">${getPlatformIcon(rec.platform)}</div>
-                    <div style="flex: 1;">
-                        <div style="font-size: 11px; font-weight: 500;">${rec.platform}</div>
-                        <div style="font-size: 9px; color: var(--text-secondary);">${rec.reason}</div>
+            return recs.map(rec => {
+                const barColor = rec.score >= 90 ? '#10b981' : rec.score >= 80 ? '#00d4ff' : rec.score >= 70 ? '#f59e0b' : '#6b7280';
+                return `
+                <div style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--bg-secondary); border-radius: 10px; margin-bottom: 8px; border: 1px solid var(--border-color);">
+                    <div style="width: 36px; height: 36px; background: rgba(255,255,255,0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;">${getPlatformIcon(rec.platform)}</div>
+                    <div style="flex: 1; min-width: 0;">
+                        <div style="font-size: 12px; font-weight: 600; margin-bottom: 4px;">${rec.platform}</div>
+                        <div style="font-size: 9px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${rec.reason}</div>
+                        <div style="margin-top: 6px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;">
+                            <div style="height: 100%; width: ${rec.score}%; background: ${barColor}; border-radius: 2px; transition: width 0.3s;"></div>
+                        </div>
                     </div>
-                    <div style="background: ${getScoreColor(rec.score)}; padding: 3px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; font-family: 'Space Mono', monospace;">${rec.score}%</div>
+                    <div style="background: ${barColor}20; color: ${barColor}; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; font-family: 'Space Mono', monospace; flex-shrink: 0;">${rec.score}%</div>
                 </div>
-            `).join('');
+            `}).join('');
         }
         
         function getPlatformIcon(platform) {
