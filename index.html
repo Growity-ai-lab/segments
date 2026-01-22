@@ -748,6 +748,19 @@
     <button class="skip-btn" onclick="enterApp()">Atla →</button>
     
     <script>
+        // TikTok OAuth Callback Handler - auth_code varsa direkt segment-page'e yönlendir
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const authCode = urlParams.get('auth_code') || urlParams.get('code');
+            
+            if (authCode) {
+                console.log('🎵 TikTok OAuth callback detected, redirecting to segment-page...');
+                // Auth parametrelerini koruyarak segment-page'e yönlendir
+                window.location.href = 'segment-page.html' + window.location.search;
+                return; // Diğer kodların çalışmasını engelle
+            }
+        })();
+        
         // Add loaded class to globe after animations complete
         setTimeout(() => {
             document.getElementById('globeContainer').classList.add('loaded');
