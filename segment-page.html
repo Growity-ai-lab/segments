@@ -99,6 +99,10 @@
         .platform-tab[data-platform="google"].active { background: linear-gradient(135deg, rgba(66,133,244,0.2), rgba(52,168,83,0.15)); border-color: #4285f4; }
         .platform-tab:disabled { opacity: 0.4; cursor: not-allowed; }
         .platform-tab svg { flex-shrink: 0; }
+        .tiktok-connect-btn { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: linear-gradient(135deg, rgba(238,45,86,0.15), rgba(238,45,86,0.05)); border: 1px solid rgba(238,45,86,0.3); border-radius: 8px; color: #ee2d5e; cursor: pointer; transition: all 0.2s; margin-left: -4px; }
+        .tiktok-connect-btn:hover { background: linear-gradient(135deg, rgba(238,45,86,0.25), rgba(238,45,86,0.1)); border-color: #ee2d5e; transform: translateY(-1px); }
+        .tiktok-connect-btn.connected { background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(16,185,129,0.05)); border-color: rgba(16,185,129,0.3); color: #10b981; }
+        .tiktok-connect-btn.connected:hover { border-color: #10b981; }
         .connection-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border-color); margin-left: 4px; }
         .connection-dot.connected { background: #10b981; box-shadow: 0 0 6px #10b981; }
         .connection-dot.pending { background: #f59e0b; animation: pulse 1.5s infinite; }
@@ -141,6 +145,41 @@
         .platform-badge.empty { background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); color: var(--text-secondary); }
         .meta-live { width: 6px; height: 6px; background: #34d399; border-radius: 50%; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        
+        /* TikTok Connection Modal */
+        .tiktok-modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; }
+        .tiktok-modal-overlay.visible { display: flex; animation: fadeIn 0.2s ease; }
+        .tiktok-modal { background: var(--bg-card); border: 1px solid rgba(238,45,86,0.3); border-radius: 20px; padding: 32px; max-width: 480px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(238,45,86,0.15); animation: slideIn 0.3s ease; }
+        .tiktok-modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+        .tiktok-modal-title { display: flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 600; }
+        .tiktok-modal-title svg { color: #ee2d5e; }
+        .tiktok-modal-close { width: 32px; height: 32px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .tiktok-modal-close:hover { background: rgba(255,255,255,0.1); color: var(--text-primary); }
+        .tiktok-modal-status { padding: 16px; border-radius: 12px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+        .tiktok-modal-status.disconnected { background: linear-gradient(135deg, rgba(238,45,86,0.1), rgba(0,0,0,0.2)); border: 1px solid rgba(238,45,86,0.2); }
+        .tiktok-modal-status.connected { background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(0,0,0,0.2)); border: 1px solid rgba(16,185,129,0.2); }
+        .tiktok-modal-status-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+        .tiktok-modal-status.disconnected .tiktok-modal-status-icon { background: rgba(238,45,86,0.15); }
+        .tiktok-modal-status.connected .tiktok-modal-status-icon { background: rgba(16,185,129,0.15); }
+        .tiktok-modal-status-text { flex: 1; }
+        .tiktok-modal-status-title { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+        .tiktok-modal-status.disconnected .tiktok-modal-status-title { color: #ee2d5e; }
+        .tiktok-modal-status.connected .tiktok-modal-status-title { color: #10b981; }
+        .tiktok-modal-status-desc { font-size: 11px; color: var(--text-secondary); }
+        .tiktok-modal-info { background: rgba(255,255,255,0.03); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; margin-bottom: 20px; }
+        .tiktok-modal-info p { font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; }
+        .tiktok-modal-info p:last-child { margin-bottom: 0; }
+        .tiktok-modal-info strong { color: var(--text-primary); }
+        .tiktok-modal-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+        .tiktok-modal-btn { flex: 1; padding: 14px 20px; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; }
+        .tiktok-modal-btn.primary { background: linear-gradient(135deg, #ee2d5e, #ff0050); color: white; box-shadow: 0 4px 15px rgba(238,45,86,0.3); }
+        .tiktok-modal-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(238,45,86,0.4); }
+        .tiktok-modal-btn.secondary { background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-primary); }
+        .tiktok-modal-btn.secondary:hover { background: rgba(255,255,255,0.1); }
+        .tiktok-modal-btn.danger { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #ef4444; }
+        .tiktok-modal-btn.danger:hover { background: rgba(239,68,68,0.25); }
+        .tiktok-modal-footer { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-color); text-align: center; }
+        .tiktok-modal-footer p { font-size: 10px; color: var(--text-secondary); font-family: 'Space Mono', monospace; }
         .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
         .stat-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
         .stat-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
@@ -371,6 +410,9 @@
                         TikTok
                         <span class="connection-dot" id="tiktokConnectionDot"></span>
                     </button>
+                    <button class="tiktok-connect-btn" id="tiktokConnectBtn" onclick="event.stopPropagation(); showTikTokConnectionModal()" title="TikTok Hesap Ayarları">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </button>
                     <button class="platform-tab" data-platform="google" onclick="switchPlatform('google')" disabled title="Yakında">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                         Google
@@ -419,6 +461,48 @@
         </div>
         <div class="segment-grid" id="segmentGrid"></div>
     </div>
+    
+    <!-- TikTok Connection Modal -->
+    <div class="tiktok-modal-overlay" id="tiktokModal" onclick="if(event.target === this) closeTikTokModal()">
+        <div class="tiktok-modal">
+            <div class="tiktok-modal-header">
+                <div class="tiktok-modal-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                    TikTok Business API
+                </div>
+                <button class="tiktok-modal-close" onclick="closeTikTokModal()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+            </div>
+            
+            <div class="tiktok-modal-status disconnected" id="tiktokModalStatus">
+                <div class="tiktok-modal-status-icon">🔌</div>
+                <div class="tiktok-modal-status-text">
+                    <div class="tiktok-modal-status-title" id="tiktokStatusTitle">Bağlantı Yok</div>
+                    <div class="tiktok-modal-status-desc" id="tiktokStatusDesc">TikTok Ads Manager hesabınız bağlı değil</div>
+                </div>
+            </div>
+            
+            <div class="tiktok-modal-info">
+                <p><strong>💡 Meta ile farkı nedir?</strong></p>
+                <p>Meta API token'ları uzun süreli (60 gün+) geçerlidir ve sürekli bağlı kalır. TikTok Business API ise güvenlik nedeniyle daha kısa süreli token'lar kullanır ve periyodik yenileme gerektirebilir.</p>
+                <p>Bağlantı koptuğunda sistem otomatik olarak <strong>simüle edilmiş Türkiye verileri</strong> kullanmaya devam eder.</p>
+            </div>
+            
+            <div class="tiktok-modal-actions" id="tiktokModalActions">
+                <button class="tiktok-modal-btn primary" onclick="initTikTokAuth()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                    TikTok Hesabını Bağla
+                </button>
+                <button class="tiktok-modal-btn secondary" onclick="closeTikTokModal()">Demo Mod</button>
+            </div>
+            
+            <div class="tiktok-modal-footer">
+                <p>App ID: <span id="tiktokAppIdDisplay"></span></p>
+            </div>
+        </div>
+    </div>
+    
     <div class="footer-actions" id="footerActions">
         <div class="footer-left"><span class="footer-count"><strong id="footerCount">0</strong> segment seçildi</span><div class="selected-chips" id="selectedChips"></div></div>
         <div class="footer-right">
@@ -793,19 +877,14 @@ function switchPlatform(platform) {
         searchInput.placeholder = 'Interest ara (ör: travel)...';
     }
     
-    // TikTok seçildiğinde ve token yoksa, bağlantı butonunu göster
-    if (platform === 'tiktok' && !TIKTOK_CONFIG.accessToken) {
-        updateTikTokConnectionUI();
-    } else {
-        // Diğer platformlarda sonuçları gizle
-        document.getElementById('interestResults').style.display = 'none';
-    }
+    // TikTok connection UI'ı güncelle (buton durumu)
+    updateTikTokConnectionUI();
+    
+    // Sonuçları gizle
+    document.getElementById('interestResults').style.display = 'none';
     
     // Sayaçları güncelle
     updateMetaCount();
-    
-    // Sonuçları temizle
-    document.getElementById('interestResults').style.display = 'none';
 }
 
 // TikTok OAuth Functions
@@ -819,16 +898,26 @@ function initTikTokAuth() {
 }
 
 function handleTikTokCallback() {
+    // Debug: Mevcut token durumunu kontrol et
+    console.log('🎵 TikTok Init Check:', {
+        savedToken: localStorage.getItem('tiktokAccessToken') ? 'EXISTS' : 'NONE',
+        savedAdvertiserId: localStorage.getItem('tiktokAdvertiserId') || 'NONE',
+        configToken: TIKTOK_CONFIG.accessToken ? 'LOADED' : 'EMPTY'
+    });
+    
     // URL'den auth_code ve state'i al
     const urlParams = new URLSearchParams(window.location.search);
     const authCode = urlParams.get('auth_code');
     const state = urlParams.get('state');
     const savedState = localStorage.getItem('tiktokAuthState');
     
+    console.log('🎵 TikTok Callback Check:', { authCode: authCode ? 'FOUND' : 'NONE', state, savedState });
+    
     if (authCode) {
         // State doğrulama (CSRF protection)
         if (state && savedState && state !== savedState) {
             showToast('Güvenlik hatası: State eşleşmedi', 'error');
+            console.error('TikTok State mismatch:', { state, savedState });
             return;
         }
         
@@ -842,6 +931,10 @@ function handleTikTokCallback() {
 
 function exchangeTikTokToken(authCode) {
     showToast('🎵 TikTok bağlantısı kuruluyor...', 'info');
+    console.log('🎵 TikTok Token Exchange Started:', { 
+        backendUrl: TIKTOK_CONFIG.backendUrl,
+        authCodeLength: authCode?.length 
+    });
     
     // Backend proxy üzerinden token al
     fetch(`${TIKTOK_CONFIG.backendUrl}/api/tiktok/token`, {
@@ -853,35 +946,45 @@ function exchangeTikTokToken(authCode) {
             auth_code: authCode
         })
     })
-    .then(res => res.json())
+    .then(res => {
+        console.log('🎵 TikTok API Response Status:', res.status);
+        return res.json();
+    })
     .then(data => {
+        console.log('🎵 TikTok API Response Data:', data);
+        
         if (data.success && data.data) {
             // Token'ları kaydet
             TIKTOK_CONFIG.accessToken = data.data.access_token;
             localStorage.setItem('tiktokAccessToken', data.data.access_token);
+            console.log('🎵 TikTok Access Token Saved');
             
             if (data.data.advertiser_ids && data.data.advertiser_ids.length > 0) {
                 TIKTOK_CONFIG.advertiserId = data.data.advertiser_ids[0];
                 localStorage.setItem('tiktokAdvertiserId', data.data.advertiser_ids[0]);
+                console.log('🎵 TikTok Advertiser ID Saved:', data.data.advertiser_ids[0]);
+            } else {
+                console.warn('🎵 TikTok: No advertiser_ids in response');
             }
             
             showToast('🎵 TikTok başarıyla bağlandı!', 'success');
             updateTikTokConnectionUI();
+            closeTikTokModal(); // Modal'ı kapat
             switchPlatform('tiktok');
         } else {
-            console.error('TikTok token error:', data);
-            showToast('TikTok bağlantı hatası: ' + (data.error || 'Bilinmeyen hata'), 'error');
+            console.error('🎵 TikTok token error:', data);
+            showToast('TikTok bağlantı hatası: ' + (data.error || data.message || 'Bilinmeyen hata'), 'error');
         }
     })
     .catch(err => {
-        console.error('TikTok auth error:', err);
+        console.error('🎵 TikTok auth error:', err);
         showToast('TikTok bağlantı hatası. Lütfen tekrar deneyin.', 'error');
     });
 }
 
 function updateTikTokConnectionUI() {
-    const resultsDiv = document.getElementById('interestResults');
     const tiktokDot = document.getElementById('tiktokConnectionDot');
+    const tiktokConnectBtn = document.getElementById('tiktokConnectBtn');
     
     // Connection dot'u güncelle
     if (tiktokDot) {
@@ -892,33 +995,99 @@ function updateTikTokConnectionUI() {
         }
     }
     
-    if (activePlatform === 'tiktok' && !TIKTOK_CONFIG.accessToken) {
-        resultsDiv.setAttribute('style', 'display:block !important; margin-top:16px; padding:16px; background:var(--bg-card); border-radius:12px; border:2px solid #ee2d5e; box-shadow:0 4px 20px rgba(238,45,86,0.3);');
-        resultsDiv.innerHTML = `
-            <div style="text-align:center;padding:30px;background:linear-gradient(135deg,rgba(238,45,86,0.1),rgba(0,0,0,0.3));border-radius:12px;border:1px solid rgba(238,45,86,0.3);">
-                <div style="font-size:48px;margin-bottom:16px;">🎵</div>
-                <h3 style="font-size:18px;margin-bottom:12px;color:#ffffff;font-weight:600;">TikTok Business API</h3>
-                <p style="color:#a0a0b0;font-size:13px;margin-bottom:24px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.6;">
-                    TikTok Ads Manager hesabınızı bağlayarak gerçek audience verilerine erişebilirsiniz. 
-                    Bağlantı olmadan simüle edilmiş Türkiye verileri kullanılır.
-                </p>
-                <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-                    <button onclick="initTikTokAuth()" style="padding:14px 28px;background:linear-gradient(135deg,#ee2d5e,#ff0050);border:none;border-radius:10px;color:#ffffff;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 4px 15px rgba(238,45,86,0.4);">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
-                        TikTok Hesabını Bağla
-                    </button>
-                    <button onclick="document.getElementById('interestResults').setAttribute('style','display:none')" style="padding:14px 28px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:10px;color:#ffffff;font-size:14px;cursor:pointer;">
-                        Demo Mod ile Devam Et
-                    </button>
-                </div>
-                <p style="color:#666680;font-size:11px;margin-top:20px;">
-                    App ID: ${TIKTOK_CONFIG.appId}
-                </p>
-            </div>
-        `;
-        // Scroll into view
-        setTimeout(() => resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+    // Connect butonunu güncelle
+    if (tiktokConnectBtn) {
+        if (TIKTOK_CONFIG.accessToken) {
+            tiktokConnectBtn.classList.add('connected');
+            tiktokConnectBtn.title = 'TikTok Bağlı - Ayarları Aç';
+        } else {
+            tiktokConnectBtn.classList.remove('connected');
+            tiktokConnectBtn.title = 'TikTok Hesabını Bağla';
+        }
     }
+    
+    // Modal içeriğini güncelle
+    updateTikTokModalContent();
+}
+
+function showTikTokConnectionModal() {
+    const modal = document.getElementById('tiktokModal');
+    updateTikTokModalContent();
+    modal.classList.add('visible');
+    
+    // ESC tuşu ile kapatma
+    document.addEventListener('keydown', handleTikTokModalEsc);
+}
+
+function closeTikTokModal() {
+    const modal = document.getElementById('tiktokModal');
+    modal.classList.remove('visible');
+    document.removeEventListener('keydown', handleTikTokModalEsc);
+}
+
+function handleTikTokModalEsc(e) {
+    if (e.key === 'Escape') closeTikTokModal();
+}
+
+function updateTikTokModalContent() {
+    const statusDiv = document.getElementById('tiktokModalStatus');
+    const statusTitle = document.getElementById('tiktokStatusTitle');
+    const statusDesc = document.getElementById('tiktokStatusDesc');
+    const actionsDiv = document.getElementById('tiktokModalActions');
+    const appIdDisplay = document.getElementById('tiktokAppIdDisplay');
+    
+    if (appIdDisplay) {
+        appIdDisplay.textContent = TIKTOK_CONFIG.appId;
+    }
+    
+    if (TIKTOK_CONFIG.accessToken) {
+        // Bağlı durumu
+        statusDiv.className = 'tiktok-modal-status connected';
+        statusDiv.querySelector('.tiktok-modal-status-icon').textContent = '✓';
+        statusTitle.textContent = 'Bağlantı Aktif';
+        statusDesc.textContent = TIKTOK_CONFIG.advertiserId 
+            ? 'Advertiser ID: ' + TIKTOK_CONFIG.advertiserId 
+            : 'TikTok Business hesabınız bağlı';
+        
+        actionsDiv.innerHTML = `
+            <button class="tiktok-modal-btn secondary" onclick="refreshTikTokToken()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>
+                Token Yenile
+            </button>
+            <button class="tiktok-modal-btn danger" onclick="confirmDisconnectTikTok()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" x2="12" y1="2" y2="12"/></svg>
+                Bağlantıyı Kes
+            </button>
+        `;
+    } else {
+        // Bağlı değil durumu
+        statusDiv.className = 'tiktok-modal-status disconnected';
+        statusDiv.querySelector('.tiktok-modal-status-icon').textContent = '🔌';
+        statusTitle.textContent = 'Bağlantı Yok';
+        statusDesc.textContent = 'TikTok Ads Manager hesabınız bağlı değil';
+        
+        actionsDiv.innerHTML = `
+            <button class="tiktok-modal-btn primary" onclick="initTikTokAuth()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                TikTok Hesabını Bağla
+            </button>
+            <button class="tiktok-modal-btn secondary" onclick="closeTikTokModal()">Demo Mod ile Devam</button>
+        `;
+    }
+}
+
+function confirmDisconnectTikTok() {
+    if (confirm('TikTok bağlantısını kesmek istediğinize emin misiniz?')) {
+        disconnectTikTok();
+        closeTikTokModal();
+    }
+}
+
+function refreshTikTokToken() {
+    showToast('🔄 Token yenileniyor...', 'info');
+    // Gerçek uygulamada refresh token kullanılır
+    // Şimdilik yeniden auth başlat
+    initTikTokAuth();
 }
 
 function disconnectTikTok() {
@@ -941,6 +1110,9 @@ function init() {
     loadSavedMappings();
     loadTikTokMappings();
     updateMetaCount();
+    
+    // TikTok bağlantı durumunu UI'da göster
+    updateTikTokConnectionUI();
 }
 
 function setupEventListeners() {
