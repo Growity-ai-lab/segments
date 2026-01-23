@@ -48,11 +48,31 @@
         .logo-text .tagline { font-size: 9px; font-family: 'Space Mono', monospace; color: var(--text-secondary); letter-spacing: 0.3px; margin-top: 2px; }
         .logo-text .powered-by { display: flex; align-items: center; gap: 6px; font-size: 9px; color: var(--text-secondary); margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--border-color); }
         .logo-text .powered-by .growity-name { font-weight: 600; background: linear-gradient(90deg, #E91E8C, #7B2D8E); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .header-nav { display: flex; gap: 10px; }
-        .nav-link { padding: 10px 16px; border: 1px solid var(--border-color); border-radius: 10px; background: var(--bg-card); color: var(--text-primary); font-size: 12px; text-decoration: none; transition: all 0.3s; }
+        .header-nav { display: flex; gap: 10px; align-items: center; }
+        .nav-link { padding: 10px 16px; border: 1px solid var(--border-color); border-radius: 10px; background: var(--bg-card); color: var(--text-primary); font-size: 12px; text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 6px; }
         .nav-link:hover { border-color: var(--accent-blue); }
         .nav-link.po { border-color: rgba(227,30,36,0.4); color: #e31e24; }
         .nav-link.enerjisa { border-color: rgba(255,193,7,0.4); color: #ffc107; }
+        /* === PRE-SEGMENTS DROPDOWN === */
+        .pre-segments-dropdown { position: relative; }
+        .pre-segments-btn { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(0,212,255,0.1)); border: 1px solid rgba(124,58,237,0.4); border-radius: 10px; color: var(--text-primary); font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: 'Sora', sans-serif; }
+        .pre-segments-btn:hover { border-color: var(--accent-purple); transform: translateY(-1px); }
+        .pre-segments-btn .dropdown-arrow { font-size: 8px; transition: transform 0.2s; margin-left: 4px; }
+        .pre-segments-btn .dropdown-arrow.rotated { transform: rotate(180deg); }
+        .pre-segments-menu { display: none; position: absolute; top: calc(100% + 8px); right: 0; min-width: 220px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.4); z-index: 100; animation: dropdownFadeIn 0.2s ease; }
+        .pre-segments-menu.visible { display: block; }
+        @keyframes dropdownFadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .pre-segments-group { margin-bottom: 8px; }
+        .pre-segments-group:last-child { margin-bottom: 0; }
+        .pre-segments-group-title { display: flex; align-items: center; gap: 8px; padding: 8px 12px; font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border-color); margin-bottom: 4px; }
+        .pre-segments-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; color: var(--text-primary); text-decoration: none; font-size: 12px; transition: all 0.2s; }
+        .pre-segments-item:hover { background: rgba(255,255,255,0.05); }
+        .pre-segments-item.po { border-left: 3px solid #e31e24; }
+        .pre-segments-item.po:hover { background: rgba(227,30,36,0.1); }
+        .pre-segments-item.enerjisa { border-left: 3px solid #ffc107; }
+        .pre-segments-item.enerjisa:hover { background: rgba(255,193,7,0.1); }
+        .pre-segments-item.quadrant { border-left: 3px solid var(--accent-blue); }
+        .pre-segments-item.quadrant:hover { background: rgba(0,212,255,0.1); }
         .onboarding-toggle { display: none; padding: 10px 16px; background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(124,58,237,0.1)); border: 1px solid rgba(0,212,255,0.3); border-radius: 10px; color: var(--accent-blue); font-size: 12px; cursor: pointer; margin-bottom: 16px; }
         .onboarding-toggle.visible { display: inline-flex; align-items: center; gap: 8px; }
         .onboarding { background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(124,58,237,0.08)); border: 1px solid rgba(0,212,255,0.2); border-radius: 16px; padding: 24px; margin-bottom: 24px; }
@@ -180,6 +200,28 @@
         .tiktok-modal-btn.danger:hover { background: rgba(239,68,68,0.25); }
         .tiktok-modal-footer { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-color); text-align: center; }
         .tiktok-modal-footer p { font-size: 10px; color: var(--text-secondary); font-family: 'Space Mono', monospace; }
+        
+        /* TikTok AI Suggestions Panel */
+        .tiktok-suggestions { display: none; margin-top: 16px; padding: 20px; background: linear-gradient(135deg, rgba(238,45,86,0.08), rgba(0,0,0,0.1)); border: 1px solid rgba(238,45,86,0.2); border-radius: 16px; animation: fadeIn 0.3s ease; }
+        .tiktok-suggestions.visible { display: block; }
+        .tiktok-suggestions-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .tiktok-suggestions-title { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; color: #ee2d5e; }
+        .tiktok-suggestions-actions { display: flex; gap: 8px; }
+        .tiktok-suggestion-btn { padding: 6px 12px; border: 1px solid rgba(238,45,86,0.3); border-radius: 6px; background: rgba(238,45,86,0.1); color: #ee2d5e; font-size: 11px; cursor: pointer; transition: all 0.2s; font-family: 'Sora', sans-serif; }
+        .tiktok-suggestion-btn:hover { background: rgba(238,45,86,0.2); border-color: #ee2d5e; }
+        .tiktok-suggestion-btn.green { background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.3); color: #10b981; }
+        .tiktok-suggestion-btn.green:hover { background: rgba(16,185,129,0.2); border-color: #10b981; }
+        .tiktok-suggestion-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; margin-bottom: 8px; transition: all 0.2s; }
+        .tiktok-suggestion-item:hover { border-color: rgba(238,45,86,0.3); }
+        .tiktok-suggestion-item.accepted { background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.3); }
+        .tiktok-suggestion-item.loading { opacity: 0.7; }
+        .tiktok-suggestion-left { display: flex; align-items: center; gap: 12px; flex: 1; }
+        .tiktok-suggestion-segment { font-size: 12px; font-weight: 600; color: var(--text-primary); }
+        .tiktok-suggestion-arrow { color: #ee2d5e; font-size: 14px; }
+        .tiktok-suggestion-interest { font-size: 12px; color: #ee2d5e; font-weight: 500; }
+        .tiktok-suggestion-size { font-size: 10px; color: var(--text-secondary); margin-left: 6px; font-family: 'Space Mono', monospace; }
+        .tiktok-suggestion-status { font-size: 11px; color: var(--accent-green); }
+        .tiktok-suggestion-actions { display: flex; gap: 6px; }
         .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
         .stat-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
         .stat-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
@@ -374,8 +416,34 @@
             </div>
             <nav class="header-nav">
                 <a href="segmentation-quadrant.html" class="nav-link" aria-label="Quadrant Analizi"><span class="icon"><svg viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg></span> Quadrant</a>
-                <a href="po-segmentasyon.html" class="nav-link po" aria-label="Petrol Ofisi Premium Market"><span class="icon"><svg viewBox="0 0 24 24"><path d="M3 22V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v17"/><path d="M14 10h1a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 6"/><path d="M3 22h14"/><path d="M7 10h4"/></svg></span> PO Premium</a>
-                <a href="enerjisa-30yil.html" class="nav-link enerjisa" aria-label="Enerjisa 30. Yıl"><span class="icon"><svg viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span> Enerjisa</a>
+                <!-- Pre-Segments Dropdown -->
+                <div class="pre-segments-dropdown" id="preSegmentsDropdown">
+                    <button class="pre-segments-btn" onclick="togglePreSegments()" aria-label="Pre-Segments Menüsü">
+                        <span class="icon"><svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg></span>
+                        Pre-Segments
+                        <span class="dropdown-arrow" id="preSegmentsArrow">▼</span>
+                    </button>
+                    <div class="pre-segments-menu" id="preSegmentsMenu">
+                        <div class="pre-segments-group">
+                            <div class="pre-segments-group-title">
+                                <span class="icon" style="color: #e31e24;"><svg viewBox="0 0 24 24" width="14" height="14"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
+                                Petrol Ofisi
+                            </div>
+                            <a href="po-segmentasyon.html" class="pre-segments-item po">
+                                <span>🏪</span> Premium Market
+                            </a>
+                        </div>
+                        <div class="pre-segments-group">
+                            <div class="pre-segments-group-title">
+                                <span class="icon" style="color: #ffc107;"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span>
+                                Enerjisa
+                            </div>
+                            <a href="enerjisa-30yil.html" class="pre-segments-item enerjisa">
+                                <span>🎉</span> 30. Yıl
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </nav>
         </header>
         <button class="onboarding-toggle" id="onboardingToggle" onclick="toggleOnboarding()" aria-label="Kullanım Rehberini Göster"><span class="icon"><svg viewBox="0 0 24 24"><path d="M12 16v-4"/><path d="M12 8h.01"/><circle cx="12" cy="12" r="10"/></svg></span> Kullanım Rehberini Göster</button>
@@ -437,6 +505,22 @@
                     </div>
                 </div>
                 <div class="suggestions-list" id="suggestionsList"></div>
+            </div>
+            
+            <!-- TikTok AI Suggestions Panel -->
+            <div class="tiktok-suggestions" id="tiktokSuggestions">
+                <div class="tiktok-suggestions-header">
+                    <div class="tiktok-suggestions-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                        TikTok Interest Önerileri <span id="tiktokSuggestionCount" style="font-weight:400;color:var(--text-secondary);"></span>
+                    </div>
+                    <div class="tiktok-suggestions-actions">
+                        <button class="tiktok-suggestion-btn green" onclick="acceptAllTikTokSuggestions()">✓ Tümünü Kabul</button>
+                        <button class="tiktok-suggestion-btn" onclick="generateTikTokSuggestions()">🔄 Yeniden Öner</button>
+                        <button class="tiktok-suggestion-btn" onclick="closeTikTokSuggestions()">✕ Kapat</button>
+                    </div>
+                </div>
+                <div class="suggestions-list" id="tiktokSuggestionsList"></div>
             </div>
         </div>
         <div class="stats-row">
@@ -882,6 +966,19 @@ function switchPlatform(platform) {
     
     // Sonuçları gizle
     document.getElementById('interestResults').style.display = 'none';
+    
+    // Platform'a göre öneri panellerini güncelle
+    if (platform === 'meta') {
+        document.getElementById('tiktokSuggestions').classList.remove('visible');
+        if (selectedSegments.size > 0 && currentSuggestions.length === 0) {
+            generateSuggestions();
+        }
+    } else if (platform === 'tiktok') {
+        document.getElementById('aiSuggestions').classList.remove('visible');
+        if (selectedSegments.size > 0 && currentTikTokSuggestions.length === 0) {
+            generateTikTokSuggestions();
+        }
+    }
     
     // Sayaçları güncelle
     updateMetaCount();
@@ -1372,6 +1469,19 @@ function updateUI() {
     
     var activeFilter = document.querySelector('.filter-btn.active');
     renderSegments(activeFilter ? activeFilter.dataset.filter : 'all', document.getElementById('searchInput').value);
+    
+    // Segment seçildiğinde aktif platforma göre öneri panelini güncelle
+    if (selectedSegments.size > 0) {
+        if (activePlatform === 'meta') {
+            generateSuggestions();
+        } else if (activePlatform === 'tiktok') {
+            generateTikTokSuggestions();
+        }
+    } else {
+        // Seçim yoksa panelleri kapat
+        document.getElementById('aiSuggestions').classList.remove('visible');
+        document.getElementById('tiktokSuggestions').classList.remove('visible');
+    }
 }
 
 function updateSteps() {
@@ -1549,6 +1659,144 @@ function acceptAllSuggestions() {
 function closeSuggestions() {
     document.getElementById('aiSuggestions').classList.remove('visible');
     currentSuggestions = [];
+}
+
+// ======== TIKTOK AI SUGGESTIONS ========
+let currentTikTokSuggestions = [];
+
+function generateTikTokSuggestions() {
+    currentTikTokSuggestions = [];
+    var panel = document.getElementById('tiktokSuggestions');
+    
+    selectedSegments.forEach(function(segId) {
+        // Daha önce eşleştirilmemişse ve öneri varsa
+        if (!PLATFORM_SEGMENT_MAP.tiktok[segId] && TIKTOK_SEGMENT_RECOMMENDATIONS[segId]) {
+            var rec = TIKTOK_SEGMENT_RECOMMENDATIONS[segId];
+            var segment = findSegment(segId);
+            var category = TIKTOK_INTEREST_CATEGORIES[rec.keyword];
+            
+            if (segment && category) {
+                currentTikTokSuggestions.push({
+                    segmentId: segId,
+                    segmentName: segment.name,
+                    keyword: rec.keyword,
+                    suggestedName: rec.name,
+                    status: 'ready',
+                    selectedInterest: { 
+                        id: category.id, 
+                        name: category.name 
+                    },
+                    audienceSize: category.audience_size,
+                    subcategories: category.subcategories || []
+                });
+            }
+        }
+    });
+    
+    if (currentTikTokSuggestions.length > 0) {
+        panel.classList.add('visible');
+        document.getElementById('tiktokSuggestionCount').textContent = '(' + currentTikTokSuggestions.length + ' segment için)';
+        renderTikTokSuggestions();
+    } else {
+        panel.classList.remove('visible');
+        if (selectedSegments.size > 0) {
+            showToast('Tüm segmentler zaten eşleştirilmiş', 'info');
+        }
+    }
+}
+
+function renderTikTokSuggestions() {
+    var list = document.getElementById('tiktokSuggestionsList');
+    var html = '';
+    
+    currentTikTokSuggestions.forEach(function(s, idx) {
+        var statusHtml = '';
+        var actionsHtml = '';
+        
+        if (s.status === 'accepted') {
+            statusHtml = '<span class="tiktok-suggestion-status">✓ Kabul Edildi</span>';
+        } else if (s.status === 'skipped') {
+            statusHtml = '<span style="color:var(--text-secondary)">Atlandı</span>';
+        } else if (s.selectedInterest) {
+            var sizeText = s.audienceSize ? ' (' + formatMetaNumber(s.audienceSize) + ')' : '';
+            var subText = s.subcategories && s.subcategories.length > 0 ? ' • ' + s.subcategories.slice(0, 2).join(', ') : '';
+            statusHtml = '<span class="tiktok-suggestion-interest">' + s.selectedInterest.name + '</span><span class="tiktok-suggestion-size">' + sizeText + subText + '</span>';
+            actionsHtml = '<button class="tiktok-suggestion-btn green" onclick="acceptTikTokSuggestion(' + idx + ')">✓ Kabul</button><button class="tiktok-suggestion-btn" onclick="skipTikTokSuggestion(' + idx + ')">Atla</button>';
+        }
+        
+        html += '<div class="tiktok-suggestion-item' + (s.status === 'accepted' ? ' accepted' : '') + '">' +
+            '<div class="tiktok-suggestion-left"><span class="tiktok-suggestion-segment">' + s.segmentName + '</span>' +
+            '<span class="tiktok-suggestion-arrow">→</span>' + statusHtml + '</div>' +
+            '<div class="tiktok-suggestion-actions">' + actionsHtml + '</div></div>';
+    });
+    
+    list.innerHTML = html;
+}
+
+function acceptTikTokSuggestion(idx) {
+    var s = currentTikTokSuggestions[idx];
+    if (s.selectedInterest) {
+        PLATFORM_SEGMENT_MAP.tiktok[s.segmentId] = {
+            name: s.segmentName,
+            interests: [s.selectedInterest]
+        };
+        if (s.audienceSize) {
+            platformDataCache.tiktok[s.segmentId] = { formatted: formatMetaNumber(s.audienceSize) };
+        }
+        s.status = 'accepted';
+        saveTikTokMappings();
+        updateMetaCount();
+        renderTikTokSuggestions();
+        renderSegments();
+        showToast('🎵 ' + s.segmentName + ' → ' + s.selectedInterest.name, 'success');
+    }
+}
+
+function skipTikTokSuggestion(idx) {
+    currentTikTokSuggestions[idx].status = 'skipped';
+    renderTikTokSuggestions();
+}
+
+function acceptAllTikTokSuggestions() {
+    var accepted = 0;
+    currentTikTokSuggestions.forEach(function(s, idx) {
+        if (s.status === 'ready' && s.selectedInterest) {
+            PLATFORM_SEGMENT_MAP.tiktok[s.segmentId] = {
+                name: s.segmentName,
+                interests: [s.selectedInterest]
+            };
+            if (s.audienceSize) {
+                platformDataCache.tiktok[s.segmentId] = { formatted: formatMetaNumber(s.audienceSize) };
+            }
+            s.status = 'accepted';
+            accepted++;
+        }
+    });
+    saveTikTokMappings();
+    updateMetaCount();
+    renderTikTokSuggestions();
+    renderSegments();
+    showToast('🎵 ' + accepted + ' TikTok önerisi kabul edildi', 'success');
+}
+
+function closeTikTokSuggestions() {
+    document.getElementById('tiktokSuggestions').classList.remove('visible');
+    currentTikTokSuggestions = [];
+}
+
+function saveTikTokMappings() {
+    localStorage.setItem('tiktokSegmentMappings', JSON.stringify(PLATFORM_SEGMENT_MAP.tiktok));
+}
+
+function loadTikTokMappings() {
+    var saved = localStorage.getItem('tiktokSegmentMappings');
+    if (saved) {
+        try {
+            PLATFORM_SEGMENT_MAP.tiktok = JSON.parse(saved);
+        } catch(e) {
+            console.log('TikTok mapping parse error');
+        }
+    }
 }
 
 // META API
@@ -2100,6 +2348,23 @@ function setButtonLoading(btn, isLoading) {
         return toast;
     };
 })();
+
+// === PRE-SEGMENTS DROPDOWN ===
+function togglePreSegments() {
+    const menu = document.getElementById('preSegmentsMenu');
+    const arrow = document.getElementById('preSegmentsArrow');
+    menu.classList.toggle('visible');
+    arrow.classList.toggle('rotated');
+}
+
+// Click outside to close dropdown
+document.addEventListener('click', function(e) {
+    const dropdown = document.getElementById('preSegmentsDropdown');
+    if (dropdown && !dropdown.contains(e.target)) {
+        document.getElementById('preSegmentsMenu').classList.remove('visible');
+        document.getElementById('preSegmentsArrow').classList.remove('rotated');
+    }
+});
 
 init();
     </script>
