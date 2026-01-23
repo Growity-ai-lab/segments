@@ -54,6 +54,27 @@
         .po-icon { width: 28px; height: 28px; background: linear-gradient(135deg, #e31e24, #c41e24); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 10px; font-family: 'Space Mono', monospace; }
         .po-text { font-size: 13px; font-weight: 600; color: #fff; }
         .header-actions { display: flex; gap: 10px; align-items: center; }
+        /* === PRE-SEGMENTS DROPDOWN === */
+        .pre-segments-dropdown { position: relative; }
+        .pre-segments-btn { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(0,212,255,0.1)); border: 1px solid rgba(124,58,237,0.4); border-radius: 10px; color: var(--text-primary); font-size: 11px; font-weight: 500; cursor: pointer; transition: all 0.2s; font-family: 'Sora', sans-serif; }
+        .pre-segments-btn:hover { border-color: var(--accent-purple); transform: translateY(-1px); }
+        .pre-segments-btn .dropdown-arrow { font-size: 8px; transition: transform 0.2s; margin-left: 4px; }
+        .pre-segments-btn .dropdown-arrow.rotated { transform: rotate(180deg); }
+        .pre-segments-menu { display: none; position: absolute; top: calc(100% + 8px); right: 0; min-width: 220px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.4); z-index: 100; animation: dropdownFadeIn 0.2s ease; }
+        .pre-segments-menu.visible { display: block; }
+        @keyframes dropdownFadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .pre-segments-group { margin-bottom: 8px; }
+        .pre-segments-group:last-child { margin-bottom: 0; }
+        .pre-segments-group-title { display: flex; align-items: center; gap: 8px; padding: 8px 12px; font-size: 10px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border-color); margin-bottom: 4px; }
+        .pre-segments-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; color: var(--text-primary); text-decoration: none; font-size: 11px; transition: all 0.2s; }
+        .pre-segments-item:hover { background: rgba(255,255,255,0.05); }
+        .pre-segments-item.main { border-left: 3px solid var(--accent-blue); }
+        .pre-segments-item.main:hover { background: rgba(0,212,255,0.1); }
+        .pre-segments-item.quadrant { border-left: 3px solid var(--accent-purple); }
+        .pre-segments-item.quadrant:hover { background: rgba(124,58,237,0.1); }
+        .pre-segments-item.enerjisa { border-left: 3px solid #ffc107; }
+        .pre-segments-item.enerjisa:hover { background: rgba(255,193,7,0.1); }
+        .pre-segments-item.active { background: rgba(227,30,36,0.15); border-left: 3px solid var(--accent-red); }
         .btn { padding: 10px 16px; border: none; border-radius: 8px; font-size: 11px; font-weight: 600; font-family: 'Sora', sans-serif; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 6px; }
         .btn-secondary { background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); }
         .btn-secondary:hover { border-color: var(--accent-red); background: rgba(227,30,36,0.1); }
@@ -239,9 +260,6 @@
     <div class="bg-grid"></div>
     <header class="header">
         <div class="header-left">
-            <a href="index.html" class="nav-btn">← Kütüphane</a>
-            <a href="segmentation-quadrant.html" class="nav-btn">Quadrant</a>
-            <a href="enerjisa-30yil.html" class="nav-btn" style="border-color: rgba(255,193,7,0.4); color: #ffc107;" aria-label="Enerjisa 30. Yıl"><span class="icon"><svg viewBox="0 0 24 24"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span> Enerjisa</a>
             <div class="logo">
                 <div class="logo-icon">
                     <svg viewBox="0 0 44 44" fill="none">
@@ -283,8 +301,29 @@
                 <div class="po-icon">PO</div>
                 <span class="po-text">Premium Market</span>
             </div>
+            <a href="segment-page.html" class="nav-btn">← Kütüphane</a>
+            <a href="segmentation-quadrant.html" class="nav-btn">Quadrant</a>
         </div>
         <div class="header-actions">
+            <!-- Pre-Segments Dropdown -->
+            <div class="pre-segments-dropdown" id="preSegmentsDropdown">
+                <button class="pre-segments-btn" onclick="togglePreSegments()" aria-label="Pre-Segments Menüsü">
+                    <span class="icon"><svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg></span>
+                    Pre-Segments
+                    <span class="dropdown-arrow" id="preSegmentsArrow">▼</span>
+                </button>
+                <div class="pre-segments-menu" id="preSegmentsMenu">
+                    <div class="pre-segments-group">
+                        <div class="pre-segments-group-title">
+                            <span class="icon" style="color: #ffc107;"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></span>
+                            Enerjisa
+                        </div>
+                        <a href="enerjisa-30yil.html" class="pre-segments-item enerjisa">
+                            <span>🎉</span> 30. Yıl
+                        </a>
+                    </div>
+                </div>
+            </div>
             <button class="btn btn-secondary" onclick="exportPNG()" aria-label="PNG olarak indir"><span class="icon"><svg viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></span> PNG</button>
             <button class="btn btn-secondary" onclick="exportExcel()" aria-label="Excel olarak indir"><span class="icon"><svg viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M8 13h2"/><path d="M14 13h2"/><path d="M8 17h2"/><path d="M14 17h2"/></svg></span> Excel</button>
         </div>
@@ -593,6 +632,23 @@
                 setTimeout(function() { toast.classList.add('hiding'); toast.classList.remove('visible'); setTimeout(function() { toast.remove(); }, 300); }, duration);
             };
         })();
+        
+        // === PRE-SEGMENTS DROPDOWN ===
+        function togglePreSegments() {
+            const menu = document.getElementById('preSegmentsMenu');
+            const arrow = document.getElementById('preSegmentsArrow');
+            menu.classList.toggle('visible');
+            arrow.classList.toggle('rotated');
+        }
+        
+        // Click outside to close dropdown
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('preSegmentsDropdown');
+            if (dropdown && !dropdown.contains(e.target)) {
+                document.getElementById('preSegmentsMenu').classList.remove('visible');
+                document.getElementById('preSegmentsArrow').classList.remove('rotated');
+            }
+        });
         
         init();
     </script>
