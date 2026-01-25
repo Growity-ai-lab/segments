@@ -192,6 +192,11 @@
         .extra-item-icon.lifestyle { background: var(--accent-purple); }
         .extra-item-icon.affinity { background: var(--accent-green); }
         .extra-item-icon.inmarket { background: var(--accent-orange); }
+        .extra-item-icon.product { background: var(--accent-enerjisa); }
+        .extra-item-icon.content { background: var(--accent-blue); }
+        .targeting-row.segment-specific { background: rgba(255,193,7,0.08); border-radius: 4px; padding: 6px 4px; margin: 2px 0; }
+        .targeting-row.segment-specific .targeting-type { color: var(--accent-enerjisa); font-weight: 600; }
+        .extra-section-title { font-size: 9px; font-weight: 600; color: var(--accent-enerjisa); margin-bottom: 6px; padding-bottom: 4px; border-bottom: 1px solid var(--border-color); }
         .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: var(--text-secondary); text-align: center; padding: 24px; }
         .empty-icon { font-size: 36px; margin-bottom: 10px; opacity: 0.5; }
         .tooltip { position: fixed; background: rgba(26,26,36,0.98); padding: 12px 16px; border-radius: 10px; font-size: 11px; pointer-events: none; z-index: 1000; display: none; max-width: 260px; border: 1px solid var(--border-color); backdrop-filter: blur(20px); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
@@ -529,6 +534,367 @@
                 inmarket: ['Investment Services', 'B2B Energy Solutions', 'Corporate Partnerships', 'ESG Investments', 'Trading Platforms']
             }
         };
+        
+        // Segment Bazlı Hedefleme (Yeni Tüketici Personaları)
+        const segmentTargeting = {
+            // === TÜKETİCİ PERSONALARI ===
+            'Hane Odaklı Yöneticiler': {
+                meta: [
+                    { type: 'Demographics', target: '35-55 yaş, Ev sahibi, Evli', bht: 'aw' }, 
+                    { type: 'Interest', target: 'Home Management, Budgeting, Family Finance, Utility Bills, Smart Home', bht: 'aw' }, 
+                    { type: 'Behavior', target: 'Bill Payers, Homeowners, Financial Planners, Mobile Payment Users', bht: 'co' },
+                    { type: 'LAL', target: 'Mevcut müşteri veritabanı %1-3', bht: 'cv' }
+                ],
+                tiktok: [
+                    { type: 'Demographics', target: '35-44, 45-54 yaş', bht: 'aw' }, 
+                    { type: 'Interest', target: 'Home & Garden, Finance & Investment, Family, Life Hacks', bht: 'aw' },
+                    { type: 'Behavior', target: 'Bill Management, Home Improvement Content Viewers', bht: 'co' },
+                    { type: 'Hashtag', target: '#evyönetimi #tasarruf #fatura #aile #pratikbilgiler #evişleri', bht: 'co' }
+                ],
+                product: ['Müşteri Çözümleri', 'Enerjimi Koruyorum'],
+                content: ['Güven', 'Şeffaflık', 'Süreklilik', 'Verimlilik']
+            },
+            'Küçük İşletme Sahipleri': {
+                meta: [
+                    { type: 'Demographics', target: '28-55 yaş, İşletme sahibi', bht: 'aw' }, 
+                    { type: 'Interest', target: 'Small Business, Entrepreneurship, Business Finance, Cost Management', bht: 'aw' }, 
+                    { type: 'Behavior', target: 'Small Business Owners, Business Page Admins, SME Decision Makers', bht: 'co' },
+                    { type: 'Job Title', target: 'İşletme Sahibi, Esnaf, Dükkan Sahibi, Muhasebeci', bht: 'co' }
+                ],
+                tiktok: [
+                    { type: 'Demographics', target: '25-34, 35-44 yaş', bht: 'aw' }, 
+                    { type: 'Interest', target: 'Business, Finance & Investment, Entrepreneurship', bht: 'aw' },
+                    { type: 'Behavior', target: 'Business Content Viewers, Entrepreneur Community', bht: 'co' },
+                    { type: 'Hashtag', target: '#esnaf #işletme #küçükişletme #girişimci #maliyetdüşürme #kobi', bht: 'co' }
+                ],
+                product: ['Müşteri Çözümleri', 'Enerjimi Koruyorum'],
+                content: ['İş sürekliliği', 'Maliyet optimizasyonu', 'Güvenilir ortaklık']
+            },
+            'App-First Kullanıcılar': {
+                meta: [
+                    { type: 'Demographics', target: '22-40 yaş, Şehirli, Üniversite mezunu', bht: 'aw' }, 
+                    { type: 'Interest', target: 'Mobile Apps, Digital Payments, Online Banking, Tech Gadgets, E-commerce', bht: 'aw' }, 
+                    { type: 'Behavior', target: 'Mobile Banking Users, App Enthusiasts, Early Adopters, Online Shoppers', bht: 'co' },
+                    { type: 'Custom', target: 'Enerjisa App İndirenler LAL', bht: 'cv' }
+                ],
+                tiktok: [
+                    { type: 'Demographics', target: '18-24, 25-34 yaş', bht: 'aw' }, 
+                    { type: 'Interest', target: 'Technology, Apps & Games, Digital Life, Science & Education', bht: 'aw' },
+                    { type: 'Behavior', target: 'App Downloaders, Digital Payment Users, Tech Content Creators', bht: 'co' },
+                    { type: 'Hashtag', target: '#uygulama #dijital #mobilödeme #teknoloji #pratik #kolay', bht: 'co' }
+                ],
+                product: ['E-Şarj', 'Enerjimi Koruyorum'],
+                content: ['Anında işlem tamamlama', 'Kesintisiz kullanıcı deneyimi', 'Tek tıkla çözüm']
+            },
+            'Self-Servis Odaklılar': {
+                meta: [
+                    { type: 'Demographics', target: '25-45 yaş, Bağımsız, Problem çözücü', bht: 'aw' }, 
+                    { type: 'Interest', target: 'DIY, Self-service, Online Tutorials, How-to Guides, Life Hacks', bht: 'aw' }, 
+                    { type: 'Behavior', target: 'Self-service Users, Tutorial Watchers, Independent Problem Solvers', bht: 'co' }
+                ],
+                tiktok: [
+                    { type: 'Demographics', target: '25-34, 35-44 yaş', bht: 'aw' }, 
+                    { type: 'Interest', target: 'DIY & Life Hacks, Education, How-to Content', bht: 'aw' },
+                    { type: 'Behavior', target: 'Tutorial Viewers, Self-Help Content Consumers', bht: 'co' },
+                    { type: 'Hashtag', target: '#kendinYap #selfservis #çözüm #nasılyapılır #ipucu #rehber', bht: 'co' }
+                ],
+                product: ['E-Şarj', 'Müşteri Çözümleri'],
+                content: ['Detaylı bilgi ve kılavuzlar', 'İnteraktif öğrenme araçları', 'Bağımsız problem çözme']
+            },
+            'Sürdürülebilirlik Duyarlıları': {
+                meta: [
+                    { type: 'Demographics', target: '22-40 yaş, Şehirli, Eğitimli, Çevre bilinçli', bht: 'aw' }, 
+                    { type: 'Interest', target: 'Sustainability, Climate Change, Green Energy, Eco-friendly, Recycling', bht: 'aw' }, 
+                    { type: 'Behavior', target: 'Eco-Conscious Consumers, Green Product Buyers, Organic Shoppers', bht: 'co' }
+                ],
+                tiktok: [
+                    { type: 'Demographics', target: '18-24, 25-34 yaş', bht: 'aw' }, 
+                    { type: 'Interest', target: 'Sustainability, Science & Education, Environment, Climate', bht: 'aw' },
+                    { type: 'Behavior', target: 'Eco Content Viewers, Green Lifestyle Followers', bht: 'co' },
+                    { type: 'Hashtag', target: '#sürdürülebilirlik #yeşilenerji #çevre #ekolojik #karbonayakizi #yeşilyaşam', bht: 'co' }
+                ],
+                product: ['Sentrum', 'Enerjimi Koruyorum', 'Müşteri Çözümleri'],
+                content: ['Karbon ayak izi', 'Yenilenebilir enerji', 'Gelecek vizyonu']
+            },
+            'E-Mobilite Meraklıları': {
+                meta: [
+                    { type: 'Demographics', target: '25-45 yaş, Yüksek gelir, İnovasyon meraklısı', bht: 'aw' }, 
+                    { type: 'Interest', target: 'Electric Vehicles, Tesla, EV Charging, Solar Energy, Smart Home, IoT', bht: 'aw' }, 
+                    { type: 'Behavior', target: 'EV Owners, Tech Early Adopters, Green Tech Enthusiasts', bht: 'co' },
+                    { type: 'LAL', target: 'E-Şarj Kullanıcıları, Sentrum müşterileri', bht: 'cv' }
+                ],
+                tiktok: [
+                    { type: 'Demographics', target: '25-34, 35-44 yaş', bht: 'aw' }, 
+                    { type: 'Interest', target: 'Vehicles & Transportation, Technology, Science, Sustainability', bht: 'aw' },
+                    { type: 'Behavior', target: 'EV Content Viewers, Tech Review Followers, Auto Enthusiasts', bht: 'co' },
+                    { type: 'Hashtag', target: '#elektrikliAraç #EV #şarj #tesla #yeşilteknoloji #geleceğinteknolojisi #emobilite', bht: 'co' }
+                ],
+                product: ['Sentrum', 'E-Şarj', 'Müşteri Çözümleri'],
+                content: ['İnovasyon', 'Gelecek vizyonu', 'Teknoloji liderliği']
+            },
+            // === KURUMSAL / B2B SEGMENTLER (Customer Match + LinkedIn Odaklı) ===
+            'Enerjisa Çalışanları': {
+                meta: [
+                    { type: '⭐ Customer Match', target: 'Enerjisa çalışan e-posta listesi (HR veritabanı)', bht: 'cv' },
+                    { type: '⭐ Customer Match', target: 'Enerjisa kurumsal e-posta domain (@enerjisa.com.tr)', bht: 'cv' },
+                    { type: 'LAL', target: 'Çalışan listesi %1 LAL (aile/yakın çevre)', bht: 'co' }
+                ],
+                linkedin: [
+                    { type: '⭐ Company', target: 'Enerjisa Enerji A.Ş. (Current Employee)', bht: 'cv' },
+                    { type: '⭐ Company', target: 'Enerjisa Üretim, Enerjisa Başkent, Enerjisa Toroslar', bht: 'cv' },
+                    { type: 'Seniority', target: 'All levels (Entry to Executive)', bht: 'aw' }
+                ],
+                tiktok: [
+                    { type: 'Note', target: 'Düşük öncelik - İç iletişim kanalları tercih edilmeli', bht: 'aw' }
+                ],
+                product: ['Internal Comms', 'Employee Engagement'],
+                content: ['30 yıl gururu', 'Tek takım ruhu', 'Marka elçiliği']
+            },
+            'Yerel Yönetimler': {
+                meta: [
+                    { type: '⭐ Customer Match', target: 'Belediye yetkili e-posta listesi', bht: 'cv' },
+                    { type: '⭐ Customer Match', target: 'Belediye başkanları ve meclis üyeleri', bht: 'cv' },
+                    { type: 'LAL', target: 'Kamu sektörü karar vericileri %3 LAL', bht: 'co' }
+                ],
+                linkedin: [
+                    { type: '⭐ Job Title', target: 'Belediye Başkanı, Genel Sekreter, Daire Başkanı', bht: 'cv' },
+                    { type: '⭐ Industry', target: 'Government Administration, Public Policy', bht: 'aw' },
+                    { type: 'Seniority', target: 'Director, VP, CXO', bht: 'cv' },
+                    { type: 'Company Size', target: '1000+ employees (Büyükşehir belediyeleri)', bht: 'co' }
+                ],
+                tiktok: [
+                    { type: 'Note', target: 'Düşük öncelik - LinkedIn ve direkt iletişim tercih edilmeli', bht: 'aw' }
+                ],
+                product: ['Altyapı Çözümleri', 'Kurumsal Ortaklık'],
+                content: ['Topluma hizmet', 'Altyapı yatırımları', 'Uzun vadeli ortaklık']
+            },
+            'Muhtarlar': {
+                meta: [
+                    { type: '⭐ Customer Match', target: 'Muhtar e-posta/telefon veritabanı', bht: 'cv' },
+                    { type: '⭐ Customer Match', target: 'Mahalle muhtar dernekleri üye listesi', bht: 'cv' },
+                    { type: 'Interest', target: 'Local Government, Community Leadership', bht: 'aw' }
+                ],
+                linkedin: [
+                    { type: '⭐ Job Title', target: 'Muhtar, Mahalle Muhtarı', bht: 'cv' },
+                    { type: 'Location', target: 'Enerjisa hizmet bölgeleri', bht: 'aw' }
+                ],
+                tiktok: [
+                    { type: 'Note', target: 'Düşük öncelik - Saha etkinlikleri ve WhatsApp grupları tercih edilmeli', bht: 'aw' }
+                ],
+                product: ['Mahalle Hizmetleri', 'Toplum İlişkileri'],
+                content: ['Mahalle buluşmaları', 'Doğrudan iletişim', 'Grassroots']
+            },
+            'STK ve Sivil Toplum': {
+                meta: [
+                    { type: '⭐ Customer Match', target: 'STK yönetici e-posta listesi', bht: 'cv' },
+                    { type: '⭐ Customer Match', target: 'Çevre ve sürdürülebilirlik STK veritabanı', bht: 'cv' },
+                    { type: 'Interest', target: 'NGO, Non-profit, Environmental Organizations', bht: 'aw' }
+                ],
+                linkedin: [
+                    { type: '⭐ Industry', target: 'Non-profit Organization Management, Environmental Services', bht: 'aw' },
+                    { type: '⭐ Job Title', target: 'Executive Director, Program Manager, Sustainability Officer', bht: 'cv' },
+                    { type: 'Interest', target: 'Sustainability, Corporate Social Responsibility, Climate Action', bht: 'aw' }
+                ],
+                tiktok: [
+                    { type: 'Interest', target: 'Sustainability, Environment, Social Causes', bht: 'aw' },
+                    { type: 'Hashtag', target: '#siviltoplum #stk #sürdürülebilirlik #sosyalsorumluluk', bht: 'co' }
+                ],
+                product: ['CSR Projeleri', 'Sürdürülebilirlik Ortaklıkları'],
+                content: ['Toplumsal fayda', 'Çevresel etki', 'İşbirliği']
+            },
+            'Akademik Kurumlar': {
+                meta: [
+                    { type: '⭐ Customer Match', target: 'Üniversite rektör/dekan e-posta listesi', bht: 'cv' },
+                    { type: '⭐ Customer Match', target: 'Enerji mühendisliği bölüm başkanları', bht: 'cv' },
+                    { type: 'Interest', target: 'Higher Education, Research, Engineering', bht: 'aw' }
+                ],
+                linkedin: [
+                    { type: '⭐ Industry', target: 'Higher Education, Research', bht: 'aw' },
+                    { type: '⭐ Job Title', target: 'Professor, Dean, Department Chair, Researcher', bht: 'cv' },
+                    { type: 'Skills', target: 'Energy Engineering, Renewable Energy, Power Systems', bht: 'co' },
+                    { type: 'School', target: 'ITU, ODTÜ, Boğaziçi, Bilkent, Koç, Sabancı', bht: 'aw' }
+                ],
+                tiktok: [
+                    { type: 'Note', target: 'Düşük öncelik - LinkedIn ve akademik kanallar tercih edilmeli', bht: 'aw' }
+                ],
+                product: ['Ar-Ge İşbirliği', 'Akademik Sponsorluk', 'Burs Programları'],
+                content: ['Bilimsel katkı', 'İnovasyon', 'Bilgi paylaşımı']
+            },
+            'Sürdürülebilirlik Partnerleri': {
+                meta: [
+                    { type: '⭐ Customer Match', target: 'ESG odaklı şirket yetkilileri listesi', bht: 'cv' },
+                    { type: '⭐ Customer Match', target: 'Sürdürülebilirlik danışmanları veritabanı', bht: 'cv' },
+                    { type: 'Interest', target: 'ESG Investing, Sustainable Business, Green Finance', bht: 'aw' }
+                ],
+                linkedin: [
+                    { type: '⭐ Job Title', target: 'Chief Sustainability Officer, ESG Director, Sustainability Manager', bht: 'cv' },
+                    { type: '⭐ Industry', target: 'Renewables & Environment, Clean Technology', bht: 'aw' },
+                    { type: 'Interest', target: 'ESG, Carbon Neutral, Net Zero, Climate Finance', bht: 'co' },
+                    { type: 'Company Size', target: '500+ employees', bht: 'co' }
+                ],
+                tiktok: [
+                    { type: 'Interest', target: 'Sustainability, Business, Green Tech', bht: 'aw' },
+                    { type: 'Hashtag', target: '#esg #sürdürülebilirlik #yeşilfinans #karbonnötr', bht: 'co' }
+                ],
+                product: ['ESG Raporlama', 'Yeşil Enerji Sertifikası', 'Karbon Offset'],
+                content: ['ESG uyumu', 'Karbon nötr hedefler', 'Şeffaf raporlama']
+            },
+            'Devlet Kurumları': {
+                meta: [
+                    { type: '⭐ Customer Match', target: 'Bakanlık ve genel müdürlük yetkili listesi', bht: 'cv' },
+                    { type: '⭐ Customer Match', target: 'Enerji ve Tabii Kaynaklar Bakanlığı yetkilileri', bht: 'cv' }
+                ],
+                linkedin: [
+                    { type: '⭐ Industry', target: 'Government Administration, Public Policy', bht: 'aw' },
+                    { type: '⭐ Job Title', target: 'Genel Müdür, Daire Başkanı, Müsteşar, Bakan Danışmanı', bht: 'cv' },
+                    { type: 'Company', target: 'T.C. Enerji ve Tabii Kaynaklar Bakanlığı, TEDAŞ, TEİAŞ', bht: 'cv' },
+                    { type: 'Seniority', target: 'Director, VP, CXO', bht: 'cv' }
+                ],
+                tiktok: [
+                    { type: 'Note', target: 'Uygun değil - Resmi kanallar ve LinkedIn tercih edilmeli', bht: 'aw' }
+                ],
+                product: ['Stratejik Ortaklık', 'Politika Danışmanlığı'],
+                content: ['Enerji güvenliği', 'Ulusal katkı', 'Altyapı yatırımları']
+            },
+            'Regülatörler (EPDK)': {
+                meta: [
+                    { type: '⭐ Customer Match', target: 'EPDK yetkili ve uzman listesi', bht: 'cv' },
+                    { type: '⭐ Customer Match', target: 'Enerji sektörü regülatör yetkilileri', bht: 'cv' }
+                ],
+                linkedin: [
+                    { type: '⭐ Company', target: 'EPDK, Enerji Piyasası Düzenleme Kurumu', bht: 'cv' },
+                    { type: '⭐ Job Title', target: 'Kurul Üyesi, Daire Başkanı, Uzman, Müfettiş', bht: 'cv' },
+                    { type: 'Industry', target: 'Government Administration, Utilities', bht: 'aw' }
+                ],
+                tiktok: [
+                    { type: 'Note', target: 'Uygun değil - Resmi kanallar tercih edilmeli', bht: 'aw' }
+                ],
+                product: ['Regülasyon Uyumu', 'Sektör Standartları'],
+                content: ['Uyum ve şeffaflık', 'Proaktif iletişim', '30 yıllık tecrübe']
+            },
+            'Kurumsal Yatırımcılar': {
+                meta: [
+                    { type: '⭐ Customer Match', target: 'Kurumsal yatırımcı fon yöneticisi listesi', bht: 'cv' },
+                    { type: '⭐ Customer Match', target: 'Emeklilik fonu ve sigorta şirketi yetkilileri', bht: 'cv' },
+                    { type: 'Interest', target: 'Institutional Investing, Asset Management, ESG', bht: 'aw' }
+                ],
+                linkedin: [
+                    { type: '⭐ Job Title', target: 'Fund Manager, Portfolio Manager, CIO, Investment Director', bht: 'cv' },
+                    { type: '⭐ Industry', target: 'Investment Management, Venture Capital, Private Equity', bht: 'aw' },
+                    { type: 'Company', target: 'BlackRock, Vanguard, İş Portföy, Ak Portföy, Yapı Kredi Portföy', bht: 'co' },
+                    { type: 'Seniority', target: 'Director, VP, CXO, Partner', bht: 'cv' }
+                ],
+                tiktok: [
+                    { type: 'Note', target: 'Uygun değil - LinkedIn ve IR etkinlikleri tercih edilmeli', bht: 'aw' }
+                ],
+                product: ['Investor Relations', 'ESG Raporlama'],
+                content: ['Finansal performans', 'ESG skorları', 'Büyüme stratejisi']
+            },
+            'Stratejik İş Ortakları': {
+                meta: [
+                    { type: '⭐ Customer Match', target: 'Mevcut iş ortakları yönetici listesi', bht: 'cv' },
+                    { type: '⭐ Customer Match', target: 'Potansiyel partner şirket yetkilileri', bht: 'cv' },
+                    { type: 'Interest', target: 'Business Partnership, Strategic Alliance, Energy Sector', bht: 'aw' }
+                ],
+                linkedin: [
+                    { type: '⭐ Job Title', target: 'CEO, COO, Business Development Director, Partnership Manager', bht: 'cv' },
+                    { type: '⭐ Industry', target: 'Utilities, Renewables, Energy, Technology', bht: 'aw' },
+                    { type: 'Company Size', target: '200+ employees', bht: 'co' },
+                    { type: 'Interest', target: 'Strategic Partnerships, Joint Ventures, M&A', bht: 'co' }
+                ],
+                tiktok: [
+                    { type: 'Note', target: 'Düşük öncelik - LinkedIn ve B2B etkinlikler tercih edilmeli', bht: 'aw' }
+                ],
+                product: ['Joint Venture', 'Stratejik Ortaklık'],
+                content: ['Win-win yaklaşım', 'Uzun vadeli değer', 'Ortak projeler']
+            },
+            'Bireysel Yatırımcılar': {
+                meta: [
+                    { type: '⭐ Customer Match', target: 'Enerjisa hissedarı e-posta listesi (MKK)', bht: 'cv' },
+                    { type: 'Interest', target: 'Stock Trading, Investment, Personal Finance, BIST', bht: 'aw' },
+                    { type: 'Behavior', target: 'Stock Traders, Retail Investors, Financial App Users', bht: 'co' }
+                ],
+                linkedin: [
+                    { type: 'Interest', target: 'Stock Market, Investing, Financial Markets', bht: 'aw' },
+                    { type: 'Groups', target: 'Borsa İstanbul, Yatırımcı Grupları, Finans Profesyonelleri', bht: 'co' }
+                ],
+                tiktok: [
+                    { type: 'Interest', target: 'Finance & Investment, Business', bht: 'aw' },
+                    { type: 'Hashtag', target: '#borsa #yatırım #hisse #bist #finansalözgürlük', bht: 'co' }
+                ],
+                product: ['Yatırımcı İlişkileri', 'Hisse Bilgilendirme'],
+                content: ['Borsa performansı', 'Temettü politikası', 'Şeffaf bilgi']
+            },
+            'Medya Kuruluşları': {
+                meta: [
+                    { type: '⭐ Customer Match', target: 'Gazeteci ve editör e-posta listesi', bht: 'cv' },
+                    { type: '⭐ Customer Match', target: 'Enerji muhabirleri veritabanı', bht: 'cv' },
+                    { type: 'Interest', target: 'Journalism, Media, News', bht: 'aw' }
+                ],
+                linkedin: [
+                    { type: '⭐ Job Title', target: 'Journalist, Editor, Reporter, News Director, Producer', bht: 'cv' },
+                    { type: '⭐ Industry', target: 'Media Production, Broadcast Media, Online Media', bht: 'aw' },
+                    { type: 'Company', target: 'Hürriyet, Sabah, NTV, Bloomberg HT, Dünya Gazetesi', bht: 'co' },
+                    { type: 'Interest', target: 'Energy Sector, Business News, Economy', bht: 'co' }
+                ],
+                tiktok: [
+                    { type: 'Note', target: 'Düşük öncelik - Direkt medya ilişkileri tercih edilmeli', bht: 'aw' }
+                ],
+                product: ['Basın Bülteni', 'Medya Kiti', 'Röportaj'],
+                content: ['30 yıl hikayeleri', 'Veri ve görsel içerik', 'Haber açıları']
+            },
+            'Enerji Sektörü Analistleri': {
+                meta: [
+                    { type: '⭐ Customer Match', target: 'Sektör analisti e-posta listesi', bht: 'cv' },
+                    { type: '⭐ Customer Match', target: 'Araştırma şirketi uzmanları', bht: 'cv' }
+                ],
+                linkedin: [
+                    { type: '⭐ Job Title', target: 'Energy Analyst, Research Analyst, Sector Specialist', bht: 'cv' },
+                    { type: '⭐ Industry', target: 'Research, Market Research, Investment Banking', bht: 'aw' },
+                    { type: 'Company', target: 'McKinsey, BCG, Deloitte, PwC, EY, KPMG', bht: 'co' },
+                    { type: 'Skills', target: 'Energy Market Analysis, Power Sector, Utilities Research', bht: 'co' }
+                ],
+                tiktok: [
+                    { type: 'Note', target: 'Uygun değil - LinkedIn ve sektör etkinlikleri tercih edilmeli', bht: 'aw' }
+                ],
+                product: ['Analist Brifingleri', 'Sektör Verileri'],
+                content: ['Detaylı performans', 'Gelecek projeksiyonları', 'Stratejik yol haritası']
+            },
+            'Finans Kuruluşları': {
+                meta: [
+                    { type: '⭐ Customer Match', target: 'Banka ve finans kurumu yetkili listesi', bht: 'cv' },
+                    { type: '⭐ Customer Match', target: 'Proje finansmanı uzmanları', bht: 'cv' }
+                ],
+                linkedin: [
+                    { type: '⭐ Job Title', target: 'Corporate Banker, Project Finance Manager, Credit Analyst', bht: 'cv' },
+                    { type: '⭐ Industry', target: 'Banking, Financial Services, Investment Banking', bht: 'aw' },
+                    { type: 'Company', target: 'İş Bankası, Garanti BBVA, Akbank, Yapı Kredi, TEB', bht: 'co' },
+                    { type: 'Seniority', target: 'Manager, Director, VP', bht: 'cv' }
+                ],
+                tiktok: [
+                    { type: 'Note', target: 'Uygun değil - LinkedIn ve B2B kanallar tercih edilmeli', bht: 'aw' }
+                ],
+                product: ['Proje Finansmanı', 'Kredi İlişkileri'],
+                content: ['Finansal güç', 'Kredi notu', 'Yatırım planları']
+            },
+            'Uluslararası Enerji Fonları': {
+                meta: [
+                    { type: '⭐ Customer Match', target: 'Uluslararası fon yöneticisi listesi', bht: 'cv' },
+                    { type: '⭐ Customer Match', target: 'EBRD, IFC, EIB yetkilileri', bht: 'cv' }
+                ],
+                linkedin: [
+                    { type: '⭐ Job Title', target: 'Fund Manager, Investment Officer, Senior Banker', bht: 'cv' },
+                    { type: '⭐ Company', target: 'EBRD, IFC, EIB, ADB, Green Climate Fund', bht: 'cv' },
+                    { type: 'Industry', target: 'International Finance, Development Finance', bht: 'aw' },
+                    { type: 'Location', target: 'London, Washington DC, Luxembourg', bht: 'co' }
+                ],
+                tiktok: [
+                    { type: 'Note', target: 'Uygun değil - LinkedIn ve IR roadshow tercih edilmeli', bht: 'aw' }
+                ],
+                product: ['Uluslararası IR', 'ESG Raporlama'],
+                content: ['Global standartlar', 'Türkiye fırsatları', 'Yabancı yatırımcı çekme']
+            }
+        };
 
         // 30. Yıl Strateji Verileri
         const strategyData = {
@@ -699,6 +1065,45 @@
                 text: 'Reddit, Ekşi Sözlük, Discord gibi platformlardaki yatırımcı topluluklarına erişim. AMA oturumları ve şeffaf iletişim.', 
                 reason: 'Viral potansiyel yüksek, kontrol düşük. Genç yatırımcı segmentine erişim.', 
                 tags: ['Retail Community', 'Social Trading', 'AMA', 'Transparent Communication'] 
+            },
+            // === GÜNLÜK HAYATIN YÖNETİCİLERİ (~11M) ===
+            'Hane Odaklı Yöneticiler': { 
+                title: '30 Yıl Güven ve Kontrol', 
+                text: 'Evini, bütçesini ve gündelik düzenini kontrol altında tutmak isteyen segment için 30 yıllık kesintisiz hizmet güvencesi. Fatura şeffaflığı, tasarruf ipuçları ve sürpriz önleme mesajları.', 
+                reason: 'Güven ve kontrol odaklı kitle için 30 yıllık deneyim en güçlü mesaj.', 
+                tags: ['Home Management', 'Budget Control', 'Bill Transparency', 'Energy Savings', 'Müşteri Çözümleri', 'Enerjimi Koruyorum'] 
+            },
+            'Küçük İşletme Sahipleri': { 
+                title: '30 Yıl İş Sürekliliği', 
+                text: 'Mikro ve küçük işletmelere 30 yıllık kesintisiz enerji güvencesi. İş sürekliliği, maliyet optimizasyonu ve esnaf dostu dijital çözümler.', 
+                reason: 'İşletme sahipleri için enerji maliyeti ve süreklilik kritik karar faktörleri.', 
+                tags: ['Small Business', 'Cost Management', 'Business Continuity', 'SME Solutions', 'Müşteri Çözümleri'] 
+            },
+            // === BAĞLANTIDA YAŞAYANLAR (~12M) ===
+            'App-First Kullanıcılar': { 
+                title: '30 Yıl Dijital Dönüşüm', 
+                text: 'Her işini mobil uygulama üzerinden çözen dijital nesil için anında işlem, kesintisiz deneyim ve tek tıkla çözüm. E-Şarj ve dijital hizmetler öne çıkarılmalı.', 
+                reason: 'Dijital kullanıcılar için uygulama deneyimi marka algısını direkt etkiler.', 
+                tags: ['Mobile First', 'Digital Experience', 'Instant Service', 'E-Şarj', 'Enerjimi Koruyorum'] 
+            },
+            'Self-Servis Odaklılar': { 
+                title: '30 Yıl Bağımsız Çözüm', 
+                text: 'Kendi işini kendisi çözmek isteyen segment için detaylı kılavuzlar, interaktif öğrenme araçları ve bağımsız problem çözme imkanı.', 
+                reason: 'Self-servis tercih edenler için güçlü dokümantasyon ve araçlar kritik.', 
+                tags: ['Self Service', 'DIY Solutions', 'Tutorials', 'Knowledge Base', 'E-Şarj'] 
+            },
+            // === GELECEĞİ İNŞA EDENLER (~6M) ===
+            'Sürdürülebilirlik Duyarlıları': { 
+                title: '30 Yıl Yeşil Gelecek', 
+                text: 'Çevre bilinçli genç şehirli kitle için karbon ayak izi azaltma, yenilenebilir enerji ve sürdürülebilir yaşam mesajları. Sentrum ve yeşil enerji çözümleri.', 
+                reason: 'Sürdürülebilirlik duyarlı kitle için çevresel etki en güçlü motivasyon.', 
+                tags: ['Sustainability', 'Carbon Footprint', 'Green Energy', 'Eco-Conscious', 'Sentrum', 'Enerjimi Koruyorum'] 
+            },
+            'E-Mobilite Meraklıları': { 
+                title: '30 Yıl Geleceğin Enerjisi', 
+                text: 'Elektrikli araç sahipleri ve yeni teknoloji meraklıları için E-Şarj ağı, inovasyon ve gelecek vizyonu. Sentrum ile entegre çözümler.', 
+                reason: 'EV sahipleri için şarj altyapısı ve teknoloji liderliği kritik.', 
+                tags: ['Electric Vehicles', 'EV Charging', 'Innovation', 'Future Tech', 'Sentrum', 'E-Şarj', 'Müşteri Çözümleri'] 
             }
         };
         const defaultStrategy = { title: '30. Yıl Stratejisi', text: 'Bu segment için 30. yıl temasına uygun özelleştirilmiş kampanya stratejisi geliştirin. Segmentin temel motivasyonlarını ve davranış kalıplarını analiz ederek hedefe yönelik mesajlaşma oluşturun.', reason: '30. yıl teması ile segment karakteristiğini birleştirerek etki oluşturun.', tags: ['30th Anniversary', 'Targeted', 'Data-Driven'] };
@@ -714,6 +1119,11 @@
             { parent: 'Influencers (Etkileyiciler)', name: 'Enerjisa Çalışanları', x: 50, y: 95, size: 40, tier: 'T2' },
             { parent: 'Influencers (Etkileyiciler)', name: 'Sosyal Medya Takipçileri', x: 92, y: 35, size: 75, tier: 'T3' },
             { parent: 'Influencers (Etkileyiciler)', name: 'Fiyat Odaklı Tüketiciler', x: 88, y: 25, size: 80, tier: 'T4' },
+            // Yeni Tüketici Personaları - Influencers altında
+            { parent: 'Influencers (Etkileyiciler)', name: 'Hane Odaklı Yöneticiler', x: 72, y: 82, size: 88, tier: 'T1' },
+            { parent: 'Influencers (Etkileyiciler)', name: 'Küçük İşletme Sahipleri', x: 58, y: 72, size: 72, tier: 'T1' },
+            { parent: 'Influencers (Etkileyiciler)', name: 'App-First Kullanıcılar', x: 93, y: 78, size: 82, tier: 'T1' },
+            { parent: 'Influencers (Etkileyiciler)', name: 'Self-Servis Odaklılar', x: 82, y: 68, size: 75, tier: 'T2' },
             // Gatekeepers (Kapı Bekçileri)
             { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Yerel Yönetimler', x: 40, y: 92, size: 55, tier: 'Süper' },
             { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Muhtarlar', x: 70, y: 45, size: 70, tier: 'T2' },
@@ -725,6 +1135,9 @@
             { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Yerel Ticaret Odaları', x: 60, y: 40, size: 55, tier: 'T3' },
             { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Tüketici Dernekleri', x: 65, y: 30, size: 45, tier: 'T3' },
             { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Çevre Aktivistleri', x: 55, y: 35, size: 40, tier: 'T4' },
+            // Yeni Tüketici Personaları - Gatekeepers altında
+            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'Sürdürülebilirlik Duyarlıları', x: 62, y: 78, size: 65, tier: 'T1' },
+            { parent: 'Gatekeepers (Kapı Bekçileri)', name: 'E-Mobilite Meraklıları', x: 72, y: 68, size: 58, tier: 'T1' },
             // Decision Makers (Karar Vericiler)
             { parent: 'Decision Makers (Karar Vericiler)', name: 'Kurumsal Yatırımcılar', x: 25, y: 95, size: 50, tier: 'Süper' },
             { parent: 'Decision Makers (Karar Vericiler)', name: 'Stratejik İş Ortakları', x: 35, y: 90, size: 55, tier: 'Süper' },
@@ -887,7 +1300,7 @@
             document.getElementById('bottomSegName').textContent = seg.name;
             document.getElementById('bottomSegParent').textContent = seg.parent;
             updateBhtPanel(seg.parent);
-            updateTargetingPanel(seg.parent);
+            updateTargetingPanel(seg.parent, seg.name);
             renderSegmentList();
             draw();
             showToast(seg.name + ' seçildi • Tier ' + seg.tier, 'info');
@@ -909,15 +1322,38 @@
             document.getElementById('cvImpact').textContent = '+' + cvImp + '%';
         }
         
-        function updateTargetingPanel(parent) { 
-            const t = targetT[parent]; if (!t) return;
+        function updateTargetingPanel(parent, segmentName) { 
+            // Önce segment bazlı hedefleme var mı kontrol et
+            const segT = segmentTargeting[segmentName];
+            const t = targetT[parent]; 
+            if (!t && !segT) return;
+            
             ['meta', 'linkedin', 'tiktok', 'youtube', 'dv360'].forEach(plat => { 
                 const el = document.getElementById(plat + 'Targeting');
-                el.innerHTML = (t[plat] || []).map(r => '<div class="targeting-row"><span class="targeting-type">' + r.type + '</span><span class="targeting-value">' + r.target + '<span class="bht-mini ' + r.bht + '">' + r.bht.toUpperCase() + '</span></span></div>').join('');
+                // Segment bazlı hedefleme varsa önce onu göster
+                let content = '';
+                if (segT && segT[plat]) {
+                    content = segT[plat].map(r => '<div class="targeting-row segment-specific"><span class="targeting-type">' + r.type + '</span><span class="targeting-value">' + r.target + '<span class="bht-mini ' + r.bht + '">' + r.bht.toUpperCase() + '</span></span></div>').join('');
+                } else if (t && t[plat]) {
+                    content = t[plat].map(r => '<div class="targeting-row"><span class="targeting-type">' + r.type + '</span><span class="targeting-value">' + r.target + '<span class="bht-mini ' + r.bht + '">' + r.bht.toUpperCase() + '</span></span></div>').join('');
+                }
+                el.innerHTML = content;
             });
-            document.getElementById('lifestyleTargeting').innerHTML = (t.lifestyle || []).map(l => '<div class="extra-item"><div class="extra-item-icon lifestyle"></div><span>' + l + '</span></div>').join('');
-            document.getElementById('affinityTargeting').innerHTML = (t.affinity || []).map(a => '<div class="extra-item"><div class="extra-item-icon affinity"></div><span>' + a + '</span></div>').join('');
-            document.getElementById('inmarketTargeting').innerHTML = (t.inmarket || []).map(i => '<div class="extra-item"><div class="extra-item-icon inmarket"></div><span>' + i + '</span></div>').join('');
+            
+            // Ürün/Hizmet ve İçerik önerileri (segment bazlı)
+            if (segT) {
+                if (segT.product) {
+                    document.getElementById('lifestyleTargeting').innerHTML = '<div class="extra-section-title">🎯 Ürün/Hizmet</div>' + segT.product.map(p => '<div class="extra-item"><div class="extra-item-icon product"></div><span>' + p + '</span></div>').join('');
+                }
+                if (segT.content) {
+                    document.getElementById('affinityTargeting').innerHTML = '<div class="extra-section-title">📝 Content Pillars</div>' + segT.content.map(c => '<div class="extra-item"><div class="extra-item-icon content"></div><span>' + c + '</span></div>').join('');
+                }
+                document.getElementById('inmarketTargeting').innerHTML = '';
+            } else if (t) {
+                document.getElementById('lifestyleTargeting').innerHTML = (t.lifestyle || []).map(l => '<div class="extra-item"><div class="extra-item-icon lifestyle"></div><span>' + l + '</span></div>').join('');
+                document.getElementById('affinityTargeting').innerHTML = (t.affinity || []).map(a => '<div class="extra-item"><div class="extra-item-icon affinity"></div><span>' + a + '</span></div>').join('');
+                document.getElementById('inmarketTargeting').innerHTML = (t.inmarket || []).map(i => '<div class="extra-item"><div class="extra-item-icon inmarket"></div><span>' + i + '</span></div>').join('');
+            }
         }
         
         function closeBottomPanel() { document.getElementById('bottomPanel').classList.remove('active'); selectedSeg = null; renderSegmentList(); draw(); }
