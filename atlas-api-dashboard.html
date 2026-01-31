@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATLAS - API Monitoring & Token Management</title>
+    <title>ATLAS - API Management Dashboard</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -91,6 +91,9 @@
             font-size: 14px;
             font-weight: 500;
             transition: background 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
         
         .button:hover {
@@ -103,6 +106,52 @@
         
         .button-secondary:hover {
             background: #4b5563;
+        }
+        
+        .button-success {
+            background: #10b981;
+        }
+        
+        .button-success:hover {
+            background: #059669;
+        }
+        
+        .button-tiktok {
+            background: #000000;
+            color: #ff0050;
+            border: 2px solid #ff0050;
+        }
+        
+        .button-tiktok:hover {
+            background: #ff0050;
+            color: white;
+        }
+        
+        .button-meta {
+            background: #1877f2;
+        }
+        
+        .button-meta:hover {
+            background: #166fe5;
+        }
+        
+        .auth-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .auth-section h3 {
+            margin: 0 0 16px 0;
+            color: white;
+        }
+        
+        .auth-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
         }
         
         .token-input-section {
@@ -158,6 +207,56 @@
         .log-warning { color: #f59e0b; }
         .log-error { color: #ef4444; }
         .log-info { color: #3b82f6; }
+        
+        .oauth-info {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .oauth-info h4 {
+            margin: 0 0 8px 0;
+            color: #1e40af;
+        }
+        
+        .oauth-info p {
+            margin: 0;
+            font-size: 14px;
+            color: #1e40af;
+        }
+        
+        .credentials-display {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 12px;
+            margin-bottom: 16px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #374151;
+        }
+        
+        .manual-token-toggle {
+            text-align: center;
+            margin: 16px 0;
+        }
+        
+        .toggle-link {
+            color: #3b82f6;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+        
+        .toggle-link:hover {
+            color: #2563eb;
+        }
+        
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -174,17 +273,49 @@
             </div>
         </div>
 
-        <!-- Token Input Section -->
-        <div class="token-input-section">
-            <h3 style="margin: 0 0 16px 0;">Token Yapılandırması</h3>
+        <!-- OAuth Authentication Section -->
+        <div class="auth-section">
+            <h3>🔐 API Authentication</h3>
+            <p style="margin-bottom: 20px; opacity: 0.9;">Güvenli OAuth flow ile Meta ve TikTok API'lerine bağlanın:</p>
+            
+            <div class="auth-buttons">
+                <button class="button button-meta" onclick="window.startMetaAuth()" id="meta-auth-btn">
+                    📘 Meta ile Bağlan
+                </button>
+                <button class="button button-tiktok" onclick="window.startTikTokAuth()" id="tiktok-auth-btn">
+                    🎵 TikTok ile Bağlan
+                </button>
+            </div>
+
+            <div class="manual-token-toggle">
+                <span class="toggle-link" onclick="toggleManualTokens()">
+                    ⚙️ Manuel token girişi (geliştiriciler için)
+                </span>
+            </div>
+        </div>
+
+        <!-- OAuth Info -->
+        <div class="oauth-info">
+            <h4>📋 API Credentials Bilgisi</h4>
+            <div class="credentials-display">
+                <strong>TikTok API:</strong><br>
+                App ID: 7598110409156984833<br>
+                Redirect URI: https://growity-ai-lab.github.io/atlas/<br><br>
+                
+                <strong>Meta API:</strong><br>
+                App ID: 1722819475770536<br>
+                Redirect URI: https://growity-ai-lab.github.io/atlas/
+            </div>
+            <p><strong>Not:</strong> OAuth flow tamamlandıkında token'lar otomatik olarak kaydedilir ve yenilenir.</p>
+        </div>
+
+        <!-- Manual Token Input Section (Hidden by default) -->
+        <div class="token-input-section hidden" id="manual-token-section">
+            <h3 style="margin: 0 0 16px 0;">🔧 Manuel Token Yapılandırması</h3>
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div>
                     <h4 style="margin: 0 0 12px 0; color: #374151;">Meta API</h4>
-                    <div class="input-group">
-                        <input type="text" class="input" id="meta-app-id" placeholder="App ID">
-                        <input type="password" class="input" id="meta-app-secret" placeholder="App Secret">
-                    </div>
                     <div class="input-group">
                         <input type="text" class="input" id="meta-access-token" placeholder="Access Token">
                         <button class="button" onclick="setMetaTokens()">Kaydet</button>
@@ -320,7 +451,7 @@
 
     <!-- Include the main scripts -->
     <script src="api-health-monitor.js"></script>
-    <script src="token-manager.js"></script>
+    <script src="token-manager-updated.js"></script>
     
     <script>
         // Dashboard JavaScript
@@ -336,7 +467,27 @@
             // İlk durumu göster
             updateTokenStatusDisplay();
             
+            // OAuth callback'i kontrol et
+            checkAuthCallback();
+            
             log('success', 'Dashboard başarıyla yüklendi');
+        }
+        
+        function checkAuthCallback() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const authCode = urlParams.get('code');
+            const error = urlParams.get('error');
+            
+            if (error) {
+                log('error', `OAuth hatası: ${error}`);
+            } else if (authCode) {
+                log('info', 'OAuth callback alındı, token exchange başlatılıyor...');
+            }
+        }
+        
+        function toggleManualTokens() {
+            const section = document.getElementById('manual-token-section');
+            section.classList.toggle('hidden');
         }
         
         function setupEventListeners() {
@@ -388,6 +539,8 @@
         }
         
         function updateTokenStatusDisplay() {
+            if (!window.tokenManager) return;
+            
             const status = window.tokenManager.getTokenStatus();
             
             // Meta token status
@@ -397,7 +550,7 @@
             metaTokenStatus.className = `status-indicator ${metaValid ? 'status-healthy' : 'status-error'}`;
             metaTokenStatus.innerHTML = `
                 <span>🔑</span>
-                <span>Meta Token: ${metaValid ? 'Geçerli' : 'Geçersiz'}</span>
+                <span>Meta Token: ${metaValid ? 'Geçerli' : status.meta.hasToken ? 'Süresi Dolmuş' : 'Yok'}</span>
             `;
             
             document.getElementById('meta-token-expires').textContent = 
@@ -412,13 +565,37 @@
             tiktokTokenStatus.className = `status-indicator ${tiktokValid ? 'status-healthy' : 'status-error'}`;
             tiktokTokenStatus.innerHTML = `
                 <span>🔑</span>
-                <span>TikTok Token: ${tiktokValid ? 'Geçerli' : 'Geçersiz'}</span>
+                <span>TikTok Token: ${tiktokValid ? 'Geçerli' : status.tiktok.hasToken ? 'Süresi Dolmuş' : 'Yok'}</span>
             `;
             
             document.getElementById('tiktok-token-expires').textContent = 
                 status.tiktok.expiresAt ? new Date(status.tiktok.expiresAt).toLocaleString('tr-TR') : 'Never';
             document.getElementById('tiktok-token-remaining').textContent = 
                 status.tiktok.expiresIn ? formatDuration(status.tiktok.expiresIn) : '-';
+            
+            // Auth butonlarını güncelle
+            updateAuthButtons(status);
+        }
+        
+        function updateAuthButtons(status) {
+            const metaBtn = document.getElementById('meta-auth-btn');
+            const tiktokBtn = document.getElementById('tiktok-auth-btn');
+            
+            if (status.meta.isValid) {
+                metaBtn.textContent = '✅ Meta Bağlandı';
+                metaBtn.className = 'button button-success';
+            } else {
+                metaBtn.textContent = '📘 Meta ile Bağlan';
+                metaBtn.className = 'button button-meta';
+            }
+            
+            if (status.tiktok.isValid) {
+                tiktokBtn.textContent = '✅ TikTok Bağlandı';
+                tiktokBtn.className = 'button button-success';
+            } else {
+                tiktokBtn.textContent = '🎵 TikTok ile Bağlan';
+                tiktokBtn.className = 'button button-tiktok';
+            }
         }
         
         function handleTokenEvent(eventData) {
@@ -444,8 +621,6 @@
         
         // Button handlers
         function setMetaTokens() {
-            const appId = document.getElementById('meta-app-id').value.trim();
-            const appSecret = document.getElementById('meta-app-secret').value.trim();
             const accessToken = document.getElementById('meta-access-token').value.trim();
             
             if (!accessToken) {
@@ -454,8 +629,6 @@
             }
             
             window.tokenManager.setTokens('meta', {
-                appId: appId || undefined,
-                appSecret: appSecret || undefined,
                 accessToken,
                 expiresIn: 3600 * 24 * 60 // 60 gün varsayılan
             });
@@ -463,8 +636,6 @@
             log('success', 'Meta token\'ları kaydedildi');
             
             // Input'ları temizle
-            document.getElementById('meta-app-id').value = '';
-            document.getElementById('meta-app-secret').value = '';
             document.getElementById('meta-access-token').value = '';
         }
         
@@ -547,31 +718,30 @@
                     geo_locations: { countries: ['TR'] }
                 };
                 
+                let results = [];
+                
                 // Meta test
                 try {
-                    const metaResult = await window.apiClient.makeMetaAPICall('/act_XXXX/delivery_estimate', {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            targeting_spec: testTargeting
-                        })
-                    });
-                    log('success', `Meta audience size: ${metaResult.estimate_ready ? 'Hazır' : 'Hesaplanıyor'}`);
+                    const metaResult = await window.apiClient.makeMetaAPICall('/me/adaccounts');
+                    results.push(`Meta: ${metaResult.data?.length || 0} ad account(s) erişilebilir`);
+                    log('success', `Meta API erişilebilir`);
                 } catch (metaError) {
+                    results.push(`Meta: ${metaError.message}`);
                     log('warning', `Meta audience test: ${metaError.message}`);
                 }
                 
                 // TikTok test
                 try {
-                    const tiktokResult = await window.apiClient.makeTikTokAPICall('/tool/target_recommend/', {
-                        method: 'GET'
-                    });
-                    log('success', 'TikTok targeting tools erişilebilir');
+                    const tiktokResult = await window.apiClient.makeTikTokAPICall('/oauth2/advertiser/get/');
+                    results.push(`TikTok: ${tiktokResult.list?.length || 0} advertiser(s) erişilebilir`);
+                    log('success', 'TikTok API erişilebilir');
                 } catch (tiktokError) {
+                    results.push(`TikTok: ${tiktokError.message}`);
                     log('warning', `TikTok audience test: ${tiktokError.message}`);
                 }
                 
                 document.getElementById('test-results').innerHTML = 
-                    '<strong>Audience Size Test Tamamlandı</strong><br>Detaylar için console loglarını kontrol edin.';
+                    `<strong>Audience Size Test Tamamlandı:</strong><br><pre>${results.join('\n')}</pre>`;
                     
             } catch (error) {
                 document.getElementById('test-results').innerHTML = 
