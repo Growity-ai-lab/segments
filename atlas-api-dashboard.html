@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATLAS - API Monitoring & Token Management</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .card {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .card h3 {
+            margin: 0 0 16px 0;
+            color: #1f2937;
+            font-size: 18px;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        
+        .status-healthy { background: #dcfce7; color: #16a34a; }
+        .status-warning { background: #fef3c7; color: #d97706; }
+        .status-error { background: #fef2f2; color: #dc2626; }
+        .status-unknown { background: #f3f4f6; color: #6b7280; }
+        
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .metric-label {
+            color: #6b7280;
+        }
+        
+        .metric-value {
+            font-weight: 600;
+            color: #1f2937;
+        }
+        
+        .button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        
+        .button:hover {
+            background: #2563eb;
+        }
+        
+        .button-secondary {
+            background: #6b7280;
+        }
+        
+        .button-secondary:hover {
+            background: #4b5563;
+        }
+        
+        .token-input-section {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            align-items: center;
+        }
+        
+        .input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .log-section {
+            background: #111827;
+            color: #e5e7eb;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .log-entry {
+            margin-bottom: 8px;
+            padding: 4px 0;
+        }
+        
+        .log-timestamp {
+            color: #9ca3af;
+        }
+        
+        .log-success { color: #10b981; }
+        .log-warning { color: #f59e0b; }
+        .log-error { color: #ef4444; }
+        .log-info { color: #3b82f6; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 style="margin: 0; color: #1f2937;">ATLAS - API Management Dashboard</h1>
+            <div style="display: flex; gap: 12px;">
+                <button class="button" onclick="triggerManualHealthCheck()">
+                    🔄 Manuel Kontrol
+                </button>
+                <button class="button button-secondary" onclick="showTokenStatus()">
+                    🔑 Token Durumu
+                </button>
+            </div>
+        </div>
+
+        <!-- Token Input Section -->
+        <div class="token-input-section">
+            <h3 style="margin: 0 0 16px 0;">Token Yapılandırması</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <h4 style="margin: 0 0 12px 0; color: #374151;">Meta API</h4>
+                    <div class="input-group">
+                        <input type="text" class="input" id="meta-app-id" placeholder="App ID">
+                        <input type="password" class="input" id="meta-app-secret" placeholder="App Secret">
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="input" id="meta-access-token" placeholder="Access Token">
+                        <button class="button" onclick="setMetaTokens()">Kaydet</button>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 style="margin: 0 0 12px 0; color: #374151;">TikTok API</h4>
+                    <div class="input-group">
+                        <input type="text" class="input" id="tiktok-access-token" placeholder="Access Token">
+                        <input type="text" class="input" id="tiktok-refresh-token" placeholder="Refresh Token">
+                    </div>
+                    <div class="input-group">
+                        <button class="button" onclick="setTikTokTokens()">Kaydet</button>
+                        <button class="button button-secondary" onclick="clearAllTokens()">Temizle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- API Health Status -->
+            <div class="card">
+                <h3>API Sağlık Durumu</h3>
+                
+                <div id="meta-status" class="status-indicator status-unknown">
+                    <span>🔵</span>
+                    <span>Meta API: Kontrol Ediliyor...</span>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-label">Başarı Oranı:</span>
+                    <span class="metric-value" id="meta-success-rate">-</span>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-label">Yanıt Süresi:</span>
+                    <span class="metric-value" id="meta-response-time">-</span>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-label">Son Kontrol:</span>
+                    <span class="metric-value" id="meta-last-check">-</span>
+                </div>
+
+                <hr style="margin: 16px 0; border: none; border-top: 1px solid #e5e7eb;">
+
+                <div id="tiktok-status" class="status-indicator status-unknown">
+                    <span>🔵</span>
+                    <span>TikTok API: Kontrol Ediliyor...</span>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-label">Başarı Oranı:</span>
+                    <span class="metric-value" id="tiktok-success-rate">-</span>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-label">Yanıt Süresi:</span>
+                    <span class="metric-value" id="tiktok-response-time">-</span>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-label">Son Kontrol:</span>
+                    <span class="metric-value" id="tiktok-last-check">-</span>
+                </div>
+            </div>
+
+            <!-- Token Status -->
+            <div class="card">
+                <h3>Token Durumu</h3>
+                
+                <div id="meta-token-status" class="status-indicator status-unknown">
+                    <span>🔑</span>
+                    <span>Meta Token: Bilinmiyor</span>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-label">Süre Sonu:</span>
+                    <span class="metric-value" id="meta-token-expires">-</span>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-label">Kalan Süre:</span>
+                    <span class="metric-value" id="meta-token-remaining">-</span>
+                </div>
+
+                <hr style="margin: 16px 0; border: none; border-top: 1px solid #e5e7eb;">
+
+                <div id="tiktok-token-status" class="status-indicator status-unknown">
+                    <span>🔑</span>
+                    <span>TikTok Token: Bilinmiyor</span>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-label">Süre Sonu:</span>
+                    <span class="metric-value" id="tiktok-token-expires">-</span>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-label">Kalan Süre:</span>
+                    <span class="metric-value" id="tiktok-token-remaining">-</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Section -->
+        <div class="card">
+            <h3>API Test</h3>
+            <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+                <button class="button" onclick="testMetaAPI()">Meta API Test</button>
+                <button class="button" onclick="testTikTokAPI()">TikTok API Test</button>
+                <button class="button" onclick="testAudienceSize()">Audience Size Test</button>
+            </div>
+            
+            <div id="test-results" style="background: #f3f4f6; padding: 12px; border-radius: 6px; min-height: 60px; font-family: monospace; font-size: 12px;">
+                Test sonuçları burada görünecek...
+            </div>
+        </div>
+
+        <!-- Log Section -->
+        <div style="margin-top: 24px;">
+            <h3 style="margin: 0 0 12px 0;">Sistem Logları</h3>
+            <div id="log-container" class="log-section">
+                <div class="log-entry">
+                    <span class="log-timestamp">[Sistem]</span> 
+                    <span class="log-info">ATLAS API Management sistemi başlatıldı...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the main scripts -->
+    <script src="api-health-monitor.js"></script>
+    <script src="token-manager.js"></script>
+    
+    <script>
+        // Dashboard JavaScript
+        
+        let logContainer;
+        
+        function initialize() {
+            logContainer = document.getElementById('log-container');
+            
+            // Event listener'ları ekle
+            setupEventListeners();
+            
+            // İlk durumu göster
+            updateTokenStatusDisplay();
+            
+            log('success', 'Dashboard başarıyla yüklendi');
+        }
+        
+        function setupEventListeners() {
+            // API health event listener
+            document.addEventListener('apiHealthUpdate', (event) => {
+                updateHealthDisplay(event.detail);
+            });
+            
+            // Token event listener
+            document.addEventListener('tokenEvent', (event) => {
+                handleTokenEvent(event.detail);
+            });
+        }
+        
+        function updateHealthDisplay(healthData) {
+            // Meta API status
+            const metaStatus = document.getElementById('meta-status');
+            const metaData = healthData.platforms.meta;
+            
+            metaStatus.className = `status-indicator status-${metaData.status}`;
+            metaStatus.innerHTML = `
+                <span>${getStatusIcon(metaData.status)}</span>
+                <span>Meta API: ${getStatusText(metaData.status)}</span>
+            `;
+            
+            document.getElementById('meta-success-rate').textContent = `${metaData.successRate}%`;
+            document.getElementById('meta-response-time').textContent = 
+                metaData.responseTime ? `${metaData.responseTime}ms` : '-';
+            document.getElementById('meta-last-check').textContent = 
+                metaData.lastCheck ? new Date(metaData.lastCheck).toLocaleTimeString('tr-TR') : '-';
+            
+            // TikTok API status
+            const tiktokStatus = document.getElementById('tiktok-status');
+            const tiktokData = healthData.platforms.tiktok;
+            
+            tiktokStatus.className = `status-indicator status-${tiktokData.status}`;
+            tiktokStatus.innerHTML = `
+                <span>${getStatusIcon(tiktokData.status)}</span>
+                <span>TikTok API: ${getStatusText(tiktokData.status)}</span>
+            `;
+            
+            document.getElementById('tiktok-success-rate').textContent = `${tiktokData.successRate}%`;
+            document.getElementById('tiktok-response-time').textContent = 
+                tiktokData.responseTime ? `${tiktokData.responseTime}ms` : '-';
+            document.getElementById('tiktok-last-check').textContent = 
+                tiktokData.lastCheck ? new Date(tiktokData.lastCheck).toLocaleTimeString('tr-TR') : '-';
+            
+            log('info', `API health güncellendi: Meta ${metaData.status}, TikTok ${tiktokData.status}`);
+        }
+        
+        function updateTokenStatusDisplay() {
+            const status = window.tokenManager.getTokenStatus();
+            
+            // Meta token status
+            const metaTokenStatus = document.getElementById('meta-token-status');
+            const metaValid = status.meta.isValid;
+            
+            metaTokenStatus.className = `status-indicator ${metaValid ? 'status-healthy' : 'status-error'}`;
+            metaTokenStatus.innerHTML = `
+                <span>🔑</span>
+                <span>Meta Token: ${metaValid ? 'Geçerli' : 'Geçersiz'}</span>
+            `;
+            
+            document.getElementById('meta-token-expires').textContent = 
+                status.meta.expiresAt ? new Date(status.meta.expiresAt).toLocaleString('tr-TR') : 'Never';
+            document.getElementById('meta-token-remaining').textContent = 
+                status.meta.expiresIn ? formatDuration(status.meta.expiresIn) : '-';
+            
+            // TikTok token status
+            const tiktokTokenStatus = document.getElementById('tiktok-token-status');
+            const tiktokValid = status.tiktok.isValid;
+            
+            tiktokTokenStatus.className = `status-indicator ${tiktokValid ? 'status-healthy' : 'status-error'}`;
+            tiktokTokenStatus.innerHTML = `
+                <span>🔑</span>
+                <span>TikTok Token: ${tiktokValid ? 'Geçerli' : 'Geçersiz'}</span>
+            `;
+            
+            document.getElementById('tiktok-token-expires').textContent = 
+                status.tiktok.expiresAt ? new Date(status.tiktok.expiresAt).toLocaleString('tr-TR') : 'Never';
+            document.getElementById('tiktok-token-remaining').textContent = 
+                status.tiktok.expiresIn ? formatDuration(status.tiktok.expiresIn) : '-';
+        }
+        
+        function handleTokenEvent(eventData) {
+            const { platform, eventType } = eventData;
+            
+            switch (eventType) {
+                case 'updated':
+                    log('success', `${platform} token güncellendi`);
+                    break;
+                case 'refreshed':
+                    log('success', `${platform} token yenilendi`);
+                    break;
+                case 'refresh_failed':
+                    log('error', `${platform} token yenileme hatası`);
+                    break;
+                case 'cleared':
+                    log('warning', `${platform} token temizlendi`);
+                    break;
+            }
+            
+            updateTokenStatusDisplay();
+        }
+        
+        // Button handlers
+        function setMetaTokens() {
+            const appId = document.getElementById('meta-app-id').value.trim();
+            const appSecret = document.getElementById('meta-app-secret').value.trim();
+            const accessToken = document.getElementById('meta-access-token').value.trim();
+            
+            if (!accessToken) {
+                log('error', 'Meta access token gerekli');
+                return;
+            }
+            
+            window.tokenManager.setTokens('meta', {
+                appId: appId || undefined,
+                appSecret: appSecret || undefined,
+                accessToken,
+                expiresIn: 3600 * 24 * 60 // 60 gün varsayılan
+            });
+            
+            log('success', 'Meta token\'ları kaydedildi');
+            
+            // Input'ları temizle
+            document.getElementById('meta-app-id').value = '';
+            document.getElementById('meta-app-secret').value = '';
+            document.getElementById('meta-access-token').value = '';
+        }
+        
+        function setTikTokTokens() {
+            const accessToken = document.getElementById('tiktok-access-token').value.trim();
+            const refreshToken = document.getElementById('tiktok-refresh-token').value.trim();
+            
+            if (!accessToken) {
+                log('error', 'TikTok access token gerekli');
+                return;
+            }
+            
+            window.tokenManager.setTokens('tiktok', {
+                accessToken,
+                refreshToken: refreshToken || undefined,
+                expiresIn: 3600 * 24 // 24 saat varsayılan
+            });
+            
+            log('success', 'TikTok token\'ları kaydedildi');
+            
+            // Input'ları temizle
+            document.getElementById('tiktok-access-token').value = '';
+            document.getElementById('tiktok-refresh-token').value = '';
+        }
+        
+        function clearAllTokens() {
+            if (confirm('Tüm token\'lar silinsin mi?')) {
+                window.tokenManager.clearAllTokens();
+                log('warning', 'Tüm token\'lar temizlendi');
+            }
+        }
+        
+        function triggerManualHealthCheck() {
+            log('info', 'Manuel health check başlatıldı...');
+            window.apiHealthMonitor.triggerManualCheck();
+        }
+        
+        function showTokenStatus() {
+            window.tokenManager.logTokenStatus();
+        }
+        
+        async function testMetaAPI() {
+            try {
+                log('info', 'Meta API test ediliyor...');
+                const result = await window.apiClient.makeMetaAPICall('/me');
+                
+                document.getElementById('test-results').innerHTML = 
+                    `<strong>Meta API Test Başarılı:</strong><br><pre>${JSON.stringify(result, null, 2)}</pre>`;
+                log('success', 'Meta API test başarılı');
+            } catch (error) {
+                document.getElementById('test-results').innerHTML = 
+                    `<strong>Meta API Test Hatası:</strong><br><pre>${error.message}</pre>`;
+                log('error', `Meta API test hatası: ${error.message}`);
+            }
+        }
+        
+        async function testTikTokAPI() {
+            try {
+                log('info', 'TikTok API test ediliyor...');
+                const result = await window.apiClient.makeTikTokAPICall('/oauth2/advertiser/get/');
+                
+                document.getElementById('test-results').innerHTML = 
+                    `<strong>TikTok API Test Başarılı:</strong><br><pre>${JSON.stringify(result, null, 2)}</pre>`;
+                log('success', 'TikTok API test başarılı');
+            } catch (error) {
+                document.getElementById('test-results').innerHTML = 
+                    `<strong>TikTok API Test Hatası:</strong><br><pre>${error.message}</pre>`;
+                log('error', `TikTok API test hatası: ${error.message}`);
+            }
+        }
+        
+        async function testAudienceSize() {
+            try {
+                log('info', 'Audience size test ediliyor...');
+                
+                // Test için basit bir targeting
+                const testTargeting = {
+                    age_groups: ['18-24', '25-34'],
+                    genders: ['female'],
+                    geo_locations: { countries: ['TR'] }
+                };
+                
+                // Meta test
+                try {
+                    const metaResult = await window.apiClient.makeMetaAPICall('/act_XXXX/delivery_estimate', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            targeting_spec: testTargeting
+                        })
+                    });
+                    log('success', `Meta audience size: ${metaResult.estimate_ready ? 'Hazır' : 'Hesaplanıyor'}`);
+                } catch (metaError) {
+                    log('warning', `Meta audience test: ${metaError.message}`);
+                }
+                
+                // TikTok test
+                try {
+                    const tiktokResult = await window.apiClient.makeTikTokAPICall('/tool/target_recommend/', {
+                        method: 'GET'
+                    });
+                    log('success', 'TikTok targeting tools erişilebilir');
+                } catch (tiktokError) {
+                    log('warning', `TikTok audience test: ${tiktokError.message}`);
+                }
+                
+                document.getElementById('test-results').innerHTML = 
+                    '<strong>Audience Size Test Tamamlandı</strong><br>Detaylar için console loglarını kontrol edin.';
+                    
+            } catch (error) {
+                document.getElementById('test-results').innerHTML = 
+                    `<strong>Audience Size Test Hatası:</strong><br><pre>${error.message}</pre>`;
+                log('error', `Audience size test hatası: ${error.message}`);
+            }
+        }
+        
+        // Utility functions
+        function getStatusIcon(status) {
+            const icons = {
+                healthy: '🟢',
+                degraded: '🟡',
+                down: '🔴',
+                unknown: '🔵'
+            };
+            return icons[status] || icons.unknown;
+        }
+        
+        function getStatusText(status) {
+            const texts = {
+                healthy: 'Sağlıklı',
+                degraded: 'Yavaşlamış',
+                down: 'Çalışmıyor',
+                unknown: 'Bilinmiyor'
+            };
+            return texts[status] || texts.unknown;
+        }
+        
+        function formatDuration(ms) {
+            const minutes = Math.floor(ms / 1000 / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            
+            if (days > 0) return `${days}g ${hours % 24}s`;
+            if (hours > 0) return `${hours}s ${minutes % 60}dk`;
+            if (minutes > 0) return `${minutes}dk`;
+            return `${Math.floor(ms / 1000)}sn`;
+        }
+        
+        function log(type, message) {
+            const timestamp = new Date().toLocaleTimeString('tr-TR');
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.innerHTML = `
+                <span class="log-timestamp">[${timestamp}]</span> 
+                <span class="log-${type}">${message}</span>
+            `;
+            
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+            
+            // Max 100 log entry tut
+            while (logContainer.children.length > 100) {
+                logContainer.removeChild(logContainer.firstChild);
+            }
+        }
+        
+        // Token status'u 30 saniyede bir güncelle
+        setInterval(updateTokenStatusDisplay, 30000);
+        
+        // Initialize when DOM loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initialize);
+        } else {
+            initialize();
+        }
+    </script>
+</body>
+</html>
