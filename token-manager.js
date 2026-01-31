@@ -1,8 +1,14 @@
+/**
+ * ATLAS Token Management System v2.2
+ * Manuel token girişi + OAuth desteği
+ */
+
 class TokenManager {
     constructor() {
         this.backendUrl = 'https://atlas-taupe-alpha.vercel.app';
-        
         this.redirectUri = 'https://growity-ai-lab.github.io/atlas/';
+        
+        console.log('📍 Redirect URI:', this.redirectUri);
         
         this.config = {
             meta: {
@@ -44,14 +50,14 @@ class TokenManager {
             if (metaTokens) {
                 const parsed = JSON.parse(metaTokens);
                 this.tokens.meta = { ...this.tokens.meta, ...parsed };
+                console.log('✅ Meta token yüklendi');
             }
             
             if (tiktokTokens) {
                 const parsed = JSON.parse(tiktokTokens);
                 this.tokens.tiktok = { ...this.tokens.tiktok, ...parsed };
+                console.log('✅ TikTok token yüklendi');
             }
-            
-            console.log('✅ Token\'lar localStorage\'dan yüklendi');
         } catch (error) {
             console.error('Token yükleme hatası:', error);
         }
@@ -77,15 +83,56 @@ class TokenManager {
         }
     }
 
+    // ============================================
+    // MANUEL TOKEN GİRİŞİ
+    // ============================================
+    
+    /**
+     * Manuel token ayarlama - Dashboard'dan çağrılır
+     * @param {string} platform - 'meta' veya 'tiktok'
+     * @param {object} tokenData - {accessToken, refreshToken?, expiresIn?}
+     */
+    setTokens(platform, tokenData) {
+        if (!['meta', 'tiktok'].includes(platform)) {
+            throw new Error('Geçersiz platform: ' + platform);
+        }
+        
+        if (!tokenData.accessToken) {
+            throw new Error('Access token gerekli');
+        }
+        
+        const expiresIn = tokenData.expiresIn || (platform === 'meta' ? 5184000 : 86400); // Meta: 60 gün, TikTok: 24 saat
+        
+        if (platform === 'meta') {
+            this.tokens.meta.accessToken = tokenData.accessToken;
+            this.tokens.meta.expiresAt = Date.now() + (expiresIn * 1000);
+        } else {
+            this.tokens.tiktok.accessToken = tokenData.accessToken;
+            this.tokens.tiktok.refreshToken = tokenData.refreshToken || null;
+            this.tokens.tiktok.expiresAt = Date.now() + (expiresIn * 1000);
+            this.tokens.tiktok.advertiserIds = tokenData.advertiserIds || [];
+        }
+        
+        this.saveTokensToStorage();
+        this.emitTokenEvent(platform, 'updated');
+        this.showNotification(`${platform.toUpperCase()} token kaydedildi!`, 'success');
+        
+        console.log(`✅ ${platform} token manuel olarak ayarlandı`);
+    }
+
     setupAuthHandlers() {
         this.handleAuthCallback();
         window.startTikTokAuth = () => this.startTikTokAuth();
         window.startMetaAuth = () => this.startMetaAuth();
     }
 
+    // ============================================
+    // OAUTH FLOW
+    // ============================================
+
     startTikTokAuth() {
-        const state = 'tiktok_auth_' + Date.now();
-        localStorage.setItem('atlas_auth_state', state);
+        const state = 'tiktok_' + Date.now();
+        localStorage.setItem('atlas_auth_platform', 'tiktok');
         
         const authUrl = `https://business-api.tiktok.com/portal/auth?` +
             `app_id=${this.config.tiktok.appId}&` +
@@ -97,8 +144,8 @@ class TokenManager {
     }
     
     startMetaAuth() {
-        const state = 'meta_auth_' + Date.now();
-        localStorage.setItem('atlas_auth_state', state);
+        const state = 'meta_' + Date.now();
+        localStorage.setItem('atlas_auth_platform', 'meta');
         
         const authUrl = `https://www.facebook.com/v18.0/dialog/oauth?` +
             `client_id=${this.config.meta.appId}&` +
@@ -114,24 +161,34 @@ class TokenManager {
     handleAuthCallback() {
         const urlParams = new URLSearchParams(window.location.search);
         const authCode = urlParams.get('code');
-        const state = urlParams.get('state');
+        const returnedState = urlParams.get('state');
         const error = urlParams.get('error');
+        const errorMessage = urlParams.get('error_message');
         
-        if (error) {
-            console.error('OAuth error:', error);
-            this.showNotification(`OAuth hatası: ${error}`, 'error');
+        if (error || errorMessage) {
+            const msg = errorMessage || error;
+            console.error('OAuth error:', msg);
+            this.showNotification(`OAuth hatası: ${decodeURIComponent(msg)}`, 'error');
+            window.history.replaceState({}, document.title, window.location.pathname);
             return;
         }
         
-        if (authCode && state) {
-            console.log('🔑 Auth code alındı, backend\'e gönderiliyor...');
+        if (authCode) {
+            console.log('🔑 Auth code alındı');
             
-            if (state.includes('tiktok')) {
+            let platform = localStorage.getItem('atlas_auth_platform');
+            
+            if (!platform && returnedState) {
+                platform = returnedState.startsWith('tiktok') ? 'tiktok' : 'meta';
+            }
+            
+            if (platform === 'tiktok') {
                 this.exchangeTikTokToken(authCode);
-            } else if (state.includes('meta')) {
+            } else {
                 this.exchangeMetaToken(authCode);
             }
             
+            localStorage.removeItem('atlas_auth_platform');
             window.history.replaceState({}, document.title, window.location.pathname);
         }
     }
@@ -157,13 +214,12 @@ class TokenManager {
                 this.saveTokensToStorage();
                 this.emitTokenEvent('tiktok', 'updated');
                 
-                console.log('✅ TikTok authentication başarılı!');
                 this.showNotification('TikTok bağlantısı başarılı!', 'success');
             } else {
                 throw new Error(data.error || 'Token alınamadı');
             }
         } catch (error) {
-            console.error('❌ TikTok token hatası:', error);
+            console.error('TikTok token hatası:', error);
             this.showNotification(`TikTok hatası: ${error.message}`, 'error');
         }
     }
@@ -190,23 +246,22 @@ class TokenManager {
                 this.saveTokensToStorage();
                 this.emitTokenEvent('meta', 'updated');
                 
-                console.log('✅ Meta authentication başarılı!');
                 this.showNotification('Meta bağlantısı başarılı!', 'success');
             } else {
                 throw new Error(data.error || 'Token alınamadı');
             }
         } catch (error) {
-            console.error('❌ Meta token hatası:', error);
+            console.error('Meta token hatası:', error);
             this.showNotification(`Meta hatası: ${error.message}`, 'error');
         }
     }
 
+    // ============================================
+    // TOKEN REFRESH
+    // ============================================
+
     async refreshTikTokToken() {
-        if (this.tokens.tiktok.isRefreshing) return;
-        if (!this.tokens.tiktok.refreshToken) {
-            console.warn('TikTok refresh token yok, yeniden auth gerekli');
-            return;
-        }
+        if (this.tokens.tiktok.isRefreshing || !this.tokens.tiktok.refreshToken) return;
         
         try {
             this.tokens.tiktok.isRefreshing = true;
@@ -226,20 +281,17 @@ class TokenManager {
                 
                 this.saveTokensToStorage();
                 this.emitTokenEvent('tiktok', 'refreshed');
-                
                 console.log('🔄 TikTok token yenilendi');
             }
         } catch (error) {
             console.error('TikTok refresh hatası:', error);
-            this.emitTokenEvent('tiktok', 'error');
         } finally {
             this.tokens.tiktok.isRefreshing = false;
         }
     }
     
     async refreshMetaToken() {
-        if (this.tokens.meta.isRefreshing) return;
-        if (!this.tokens.meta.accessToken) return;
+        if (this.tokens.meta.isRefreshing || !this.tokens.meta.accessToken) return;
         
         try {
             this.tokens.meta.isRefreshing = true;
@@ -258,25 +310,19 @@ class TokenManager {
                 
                 this.saveTokensToStorage();
                 this.emitTokenEvent('meta', 'refreshed');
-                
                 console.log('🔄 Meta token yenilendi');
             }
         } catch (error) {
             console.error('Meta refresh hatası:', error);
-            this.emitTokenEvent('meta', 'error');
         } finally {
             this.tokens.meta.isRefreshing = false;
         }
     }
-    
+
     startTokenMonitoring() {
         setInterval(() => {
-            if (this.shouldRefreshToken('tiktok')) {
-                this.refreshTikTokToken();
-            }
-            if (this.shouldRefreshToken('meta')) {
-                this.refreshMetaToken();
-            }
+            if (this.shouldRefreshToken('tiktok')) this.refreshTikTokToken();
+            if (this.shouldRefreshToken('meta')) this.refreshMetaToken();
         }, 5 * 60 * 1000);
     }
     
@@ -293,19 +339,20 @@ class TokenManager {
         return token.expiresAt > Date.now();
     }
 
+    // ============================================
+    // PUBLIC API
+    // ============================================
+
     async getValidToken(platform) {
         const token = this.tokens[platform];
         
         if (!token.accessToken) {
-            throw new Error(`${platform} token bulunamadı. Lütfen önce bağlantı kurun.`);
+            throw new Error(`${platform} token bulunamadı. Lütfen önce bağlantı kurun veya manuel token girin.`);
         }
         
         if (this.shouldRefreshToken(platform)) {
-            if (platform === 'tiktok') {
-                await this.refreshTikTokToken();
-            } else {
-                await this.refreshMetaToken();
-            }
+            if (platform === 'tiktok') await this.refreshTikTokToken();
+            else await this.refreshMetaToken();
         }
         
         return token.accessToken;
@@ -332,16 +379,14 @@ class TokenManager {
     }
     
     clearPlatformTokens(platform) {
-        this.tokens[platform] = {
-            accessToken: null,
-            refreshToken: null,
-            expiresAt: null,
-            isRefreshing: false
-        };
+        if (platform === 'meta') {
+            this.tokens.meta = { accessToken: null, expiresAt: null, isRefreshing: false };
+        } else {
+            this.tokens.tiktok = { accessToken: null, refreshToken: null, expiresAt: null, advertiserIds: [], isRefreshing: false };
+        }
         
         localStorage.removeItem(`atlas_${platform}_tokens`);
         this.emitTokenEvent(platform, 'cleared');
-        
         console.log(`🗑️ ${platform} token'ları temizlendi`);
     }
     
@@ -350,54 +395,36 @@ class TokenManager {
         this.clearPlatformTokens('tiktok');
     }
 
+    // ============================================
+    // EVENTS & UI
+    // ============================================
+
     emitTokenEvent(platform, eventType, data = null) {
         const event = new CustomEvent('tokenEvent', {
-            detail: {
-                platform,
-                eventType,
-                timestamp: new Date(),
-                data,
-                tokenInfo: this.getTokenStatus()[platform]
-            }
+            detail: { platform, eventType, timestamp: new Date(), data, tokenInfo: this.getTokenStatus()[platform] }
         });
-        
         this.eventEmitter.dispatchEvent(event);
         document.dispatchEvent(event);
     }
     
     addEventListener(eventType, listener) {
         this.eventEmitter.addEventListener('tokenEvent', (event) => {
-            if (!eventType || event.detail.eventType === eventType) {
-                listener(event.detail);
-            }
+            if (!eventType || event.detail.eventType === eventType) listener(event.detail);
         });
     }
     
     showNotification(message, type = 'info') {
-        const colors = {
-            success: '#10B981',
-            error: '#EF4444',
-            info: '#3B82F6',
-            warning: '#F59E0B'
-        };
+        const colors = { success: '#10B981', error: '#EF4444', info: '#3B82F6', warning: '#F59E0B' };
         
         const notification = document.createElement('div');
         notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 16px 24px;
-            background: ${colors[type]};
-            color: white;
-            border-radius: 8px;
-            font-family: system-ui, sans-serif;
-            font-size: 14px;
-            z-index: 10000;
-            animation: slideIn 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            position: fixed; top: 20px; right: 20px; padding: 16px 24px;
+            background: ${colors[type]}; color: white; border-radius: 8px;
+            font-family: system-ui, sans-serif; font-size: 14px; z-index: 10000;
+            animation: slideIn 0.3s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            max-width: 400px;
         `;
         notification.textContent = message;
-        
         document.body.appendChild(notification);
         
         setTimeout(() => {
@@ -409,22 +436,17 @@ class TokenManager {
     logTokenStatus() {
         const status = this.getTokenStatus();
         console.log('🔑 Token Status:', {
-            meta: {
-                hasToken: status.meta.hasToken,
-                isValid: status.meta.isValid,
-                expiresIn: status.meta.expiresIn ? 
-                    `${Math.round(status.meta.expiresIn / 1000 / 60)} dakika` : 'N/A'
-            },
-            tiktok: {
-                hasToken: status.tiktok.hasToken,
-                isValid: status.tiktok.isValid,
-                expiresIn: status.tiktok.expiresIn ? 
-                    `${Math.round(status.tiktok.expiresIn / 1000 / 60)} dakika` : 'N/A',
-                advertiserIds: status.tiktok.advertiserIds
-            }
+            meta: { hasToken: status.meta.hasToken, isValid: status.meta.isValid, 
+                    expiresIn: status.meta.expiresIn ? `${Math.round(status.meta.expiresIn / 1000 / 60)} dk` : 'N/A' },
+            tiktok: { hasToken: status.tiktok.hasToken, isValid: status.tiktok.isValid,
+                      expiresIn: status.tiktok.expiresIn ? `${Math.round(status.tiktok.expiresIn / 1000 / 60)} dk` : 'N/A' }
         });
     }
 }
+
+// ============================================
+// API CLIENT
+// ============================================
 
 class APIClient {
     constructor(tokenManager) {
@@ -437,19 +459,11 @@ class APIClient {
         
         const response = await fetch(`https://business-api.tiktok.com/open_api/v1.3${endpoint}`, {
             ...options,
-            headers: {
-                'Access-Token': token,
-                'Content-Type': 'application/json',
-                ...options.headers
-            }
+            headers: { 'Access-Token': token, 'Content-Type': 'application/json', ...options.headers }
         });
         
         const data = await response.json();
-        
-        if (data.code !== 0) {
-            throw new Error(`TikTok API Error: ${data.message}`);
-        }
-        
+        if (data.code !== 0) throw new Error(`TikTok API Error: ${data.message}`);
         return data.data;
     }
     
@@ -461,18 +475,11 @@ class APIClient {
         
         const response = await fetch(url.toString(), {
             ...options,
-            headers: {
-                'Content-Type': 'application/json',
-                ...options.headers
-            }
+            headers: { 'Content-Type': 'application/json', ...options.headers }
         });
         
         const data = await response.json();
-        
-        if (data.error) {
-            throw new Error(`Meta API Error: ${data.error.message}`);
-        }
-        
+        if (data.error) throw new Error(`Meta API Error: ${data.error.message}`);
         return data;
     }
     
@@ -482,18 +489,11 @@ class APIClient {
         const response = await fetch(`${this.backendUrl}/api/tiktok/${endpoint}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                access_token: token,
-                ...body
-            })
+            body: JSON.stringify({ access_token: token, ...body })
         });
         
         const data = await response.json();
-        
-        if (!data.success) {
-            throw new Error(data.error || 'API call failed');
-        }
-        
+        if (!data.success) throw new Error(data.error || 'API call failed');
         return data.data;
     }
     
@@ -503,39 +503,30 @@ class APIClient {
         const response = await fetch(`${this.backendUrl}/api/meta/${endpoint}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                access_token: token,
-                ...body
-            })
+            body: JSON.stringify({ access_token: token, ...body })
         });
         
         const data = await response.json();
-        
-        if (!data.success) {
-            throw new Error(data.error || 'API call failed');
-        }
-        
+        if (!data.success) throw new Error(data.error || 'API call failed');
         return data.data;
     }
 }
 
+// ============================================
+// INIT
+// ============================================
+
 const style = document.createElement('style');
 style.textContent = `
-    @keyframes slideIn {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-    @keyframes slideOut {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-    }
+    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
 `;
 document.head.appendChild(style);
 
 window.tokenManager = new TokenManager();
 window.apiClient = new APIClient(window.tokenManager);
 
-console.log('🔐 ATLAS Token Manager v2.0 (Secure) yüklendi');
+console.log('🔐 ATLAS Token Manager v2.2 yüklendi');
 console.log('📡 Backend:', window.tokenManager.backendUrl);
 
 if (typeof module !== 'undefined' && module.exports) {
