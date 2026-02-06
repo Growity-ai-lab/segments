@@ -432,6 +432,9 @@
                             <a href="po-segmentasyon.html" class="pre-segments-item po">
                                 <span>🏪</span> Premium Market
                             </a>
+                            <a href="po-segmentasyon-automatic-filo.html" class="pre-segments-item po">
+                                <span>🚛</span> AutoMatic Filo
+                            </a>
                         </div>
                         <div class="pre-segments-group">
                             <div class="pre-segments-group-title">
@@ -667,28 +670,43 @@ const segments = [
         { id: 'kn-3', name: 'Ev Arayanlar', desc: 'Aktif emlak araştıran', reach: 12.8 },
         { id: 'kn-4', name: 'Yatırımcı', desc: 'Emlak yatırımı yapan', reach: 6.4 }
     ]},
-    { id: 'influencers', name: 'B2C Etkileyiciler', icon: '⚡', category: 'b2c', subs: [
-        { id: 'inf-1', name: 'Hane Halkları - Kesintisiz Enerji', desc: 'Güvenilir elektrik bekleyen', reach: 42.5 },
-        { id: 'inf-2', name: 'Dijital Müşteriler', desc: 'Online işlem tercih eden', reach: 28.3 },
-        { id: 'inf-3', name: 'Mobil Uygulama Kullanıcıları', desc: 'App üzerinden işlem yapan', reach: 35.6 },
-        { id: 'inf-4', name: 'KOBİ Sahipleri', desc: 'Enerji maliyeti odaklı işletme', reach: 12.8 },
-        { id: 'inf-5', name: 'Fiyat Hassas Tüketiciler', desc: 'Maliyet öncelikli karar veren', reach: 52.1 },
-        { id: 'inf-6', name: 'Sosyal Medya Takipçileri', desc: 'Marka etkileşimi yüksek', reach: 48.2 }
+    { id: 'influencers', name: 'B2C — Satın Alma Etkileyicileri', icon: '⚡', category: 'b2c', subs: [
+        { id: 'inf-1', name: 'Aile İçi Karar Yönlendiriciler', desc: 'Ev harcamalarında söz sahibi, ürün araştıran — Meta: Household decision makers', reach: 42.5 },
+        { id: 'inf-2', name: 'Dijital-First Tüketiciler', desc: 'Online alışveriş ve dijital hizmet tercihi — Meta: Online Shopping, Digital Services', reach: 28.3 },
+        { id: 'inf-3', name: 'Mobil Uygulama Aktifi', desc: 'App üzerinden fatura/alışveriş/sipariş — TikTok: App Activity, In-App Purchasers', reach: 35.6 },
+        { id: 'inf-4', name: 'KOBİ Sahipleri & Esnaf', desc: 'İşletme gider/enerji yönetimi odaklı — Meta: SMB Owners, Business Page Admins', reach: 12.8 },
+        { id: 'inf-5', name: 'Fiyat-Değer Araştırmacıları', desc: 'Fiyat karşılaştırma, indirim/kupon takibi — TikTok: Bargain Hunters, Price Comparison', reach: 52.1 },
+        { id: 'inf-6', name: 'Sosyal Kanıt Takipçileri', desc: 'Yorum/review/UGC üzerinden karar veren — TikTok: Content Engagers, Creators Community', reach: 48.2 }
     ]},
-    { id: 'gatekeeper', name: 'B2B Gatekeepers', icon: '🏛️', category: 'b2b', subs: [
-        { id: 'gk-1', name: 'Yerel Yönetimler', desc: 'Belediyeler ve kamu kurumları', reach: 2.4 },
-        { id: 'gk-2', name: 'Toplum Liderleri', desc: 'Muhtarlar ve kanaat önderleri', reach: 4.8 },
-        { id: 'gk-3', name: 'STK & Sivil Toplum', desc: 'Çevre ve sosyal sorumluluk', reach: 1.6 },
-        { id: 'gk-4', name: 'Akademi & Araştırma', desc: 'Üniversiteler ve enstitüler', reach: 0.8 },
-        { id: 'gk-5', name: 'Medya & Basın', desc: 'Gazeteciler ve editörler', reach: 3.5 },
-        { id: 'gk-6', name: 'Sektör Uzmanları', desc: 'Enerji analistleri', reach: 0.5 }
+    { id: 'gatekeeper', name: 'B2B — Operasyonel Filtreleyiciler', icon: '🏛️', category: 'b2b', subs: [
+        { id: 'gk-1', name: 'Satın Alma & Tedarik Yöneticileri', desc: 'Kurumsal tedarik zinciri, vendor seçimi — LinkedIn: Procurement Manager, Supply Chain', reach: 2.4 },
+        { id: 'gk-2', name: 'Operasyon & Lojistik Müdürleri', desc: 'Filo/depo/saha operasyonları yöneten — Meta: Fleet Management, Logistics Interest', reach: 4.8 },
+        { id: 'gk-3', name: 'Finans & Muhasebe Yöneticileri', desc: 'Bütçe onayı, maliyet analizi — Meta: Business Accounting, Finance Software', reach: 1.6 },
+        { id: 'gk-4', name: 'IT & Dijital Dönüşüm Liderleri', desc: 'Sistem entegrasyon, SaaS kararları — TikTok: Business Tech, SaaS Interest', reach: 0.8 },
+        { id: 'gk-5', name: 'İK & Çalışan Deneyimi Yöneticileri', desc: 'Yan hak, çalışan memnuniyeti — LinkedIn: HR Manager, People & Culture', reach: 3.5 },
+        { id: 'gk-6', name: 'Sektör Analistleri & Danışmanlar', desc: 'Enerji/otomotiv/lojistik uzmanları — Meta: Industry Analysts, Consulting', reach: 0.5 }
     ]},
-    { id: 'decisionmaker', name: 'B2B Karar Vericiler', icon: '🎯', category: 'b2b', subs: [
-        { id: 'dm-1', name: 'Kamu Regülatörleri', desc: 'EPDK, Bakanlıklar', reach: 0.3 },
-        { id: 'dm-2', name: 'Kurumsal Yatırımcılar', desc: 'ESG odaklı fonlar', reach: 0.8 },
-        { id: 'dm-3', name: 'Bireysel Yatırımcılar', desc: 'Hisse ve fon takipçileri', reach: 3.5 },
-        { id: 'dm-4', name: 'Stratejik Ortaklar', desc: 'İş geliştirme partnerleri', reach: 1.4 },
-        { id: 'dm-5', name: 'Finans Kuruluşları', desc: 'Bankalar ve fonlar', reach: 0.6 }
+    { id: 'decisionmaker', name: 'B2B — Stratejik Karar Vericiler', icon: '🎯', category: 'b2b', subs: [
+        { id: 'dm-1', name: 'C-Level & Genel Müdürler', desc: 'CEO/CFO/COO, nihai bütçe onayı — LinkedIn: C-Suite, Company Size 10-500', reach: 0.3 },
+        { id: 'dm-2', name: 'İşletme Sahipleri & Patronlar', desc: 'KOBİ sahibi, hem operasyonel hem finansal karar — Meta: SMB Owners, Entrepreneurship', reach: 3.8 },
+        { id: 'dm-3', name: 'Kurumsal Filo Karar Vericileri', desc: 'Filo yatırım/kiralama/yakıt anlaşma kararı — TikTok: Fleet Business, B2B Auto', reach: 1.5 },
+        { id: 'dm-4', name: 'Yatırımcı & Fon Yöneticileri', desc: 'ESG/sürdürülebilirlik odaklı fonlar — Meta: ESG Investing, Sustainable Business', reach: 0.8 },
+        { id: 'dm-5', name: 'Franchise & Zincir Sahipleri', desc: 'Çoklu şube/bayilik yöneten — Meta: Franchise Ownership, Multi-Location Business', reach: 1.4 }
+    ]},
+    { id: 'po-filo', name: 'PO AutoMatic Filo — B2B KOBİ', icon: '🚛', category: 'b2b', subs: [
+        { id: 'pf-1', name: 'S1 · Hızlı Ölçeklenen KOBİ', desc: '1-20 araç, büyüme eşiğinde, fiş kaosu — Meta: SMB Owners, Recently Started Business', reach: 8.6 },
+        { id: 'pf-2', name: 'S2 · Yaygın Filolu KOBİ', desc: '20-100+ araç, çok lokasyon, istasyon erişimi kritik — Meta: Fleet Management, Logistics', reach: 5.2 },
+        { id: 'pf-3', name: 'S3 · Rakiple Çalışan KOBİ', desc: 'Opet/Shell/BP kullanıyor, switching window açık — TikTok: Business Decision Makers', reach: 4.8 },
+        { id: 'pf-4', name: 'S4 · Çalışan Deneyimi KOBİ', desc: 'Sürücü memnuniyeti odaklı, ekosistem hizmetleri — LinkedIn: HR, Employee Benefits', reach: 3.2 },
+        { id: 'pf-5', name: 'S1-A · E-Ticaret Lojistik', desc: 'Kendi deposundan son mil dağıtım — TikTok: E-commerce Sellers, Logistics', reach: 2.8 },
+        { id: 'pf-6', name: 'S1-B · Franchise Zinciri', desc: 'Çoklu şube/nokta, merkezi kontrol eksik — Meta: Franchise, Multi-Location', reach: 2.1 },
+        { id: 'pf-7', name: 'S1-C · Mikro Filo Esnaf', desc: '1-5 araç, filo sistemi hiç kullanmamış — TikTok: Small Business, Esnaf Content', reach: 6.4 },
+        { id: 'pf-8', name: 'S2-A · Şehirlerarası Nakliye', desc: 'TIR/kamyon filoları, 500+ km/gün — Meta: Transportation, Trucking Industry', reach: 3.5 },
+        { id: 'pf-9', name: 'S2-B · Son Mil Kurye', desc: '3P lojistik, kargo taşeron — TikTok: Courier Life, Last Mile Delivery', reach: 2.4 },
+        { id: 'pf-10', name: 'S3-A · Opet Memnuniyetsiz', desc: 'Opet Otobil kullanıcısı, ekosistem yetersiz — Meta: Competitor Targeting, Fuel Card', reach: 2.2 },
+        { id: 'pf-11', name: 'S3-C · UTTS Geçiş Dönemi', desc: 'UTTS sonrası marka değiştirmeye açık — Meta: Fleet Services, B2B Fuel', reach: 1.8 },
+        { id: 'pf-12', name: 'S4-A · Kurye & Motokurye', desc: 'Yüksek turnover, sürücü motivasyonu — TikTok: Gig Economy, Courier Motivation', reach: 2.6 },
+        { id: 'pf-13', name: 'S4-D · Taksi & VTC', desc: 'Kooperatif/birlik üzerinden toplu anlaşma — Meta: Taxi Services, Ride-Hailing', reach: 1.8 }
     ]}
 ];
 
@@ -763,28 +781,43 @@ const INTEREST_RECOMMENDATIONS = {
     'kn-3': { keyword: 'real estate property', name: 'Real estate' },
     'kn-4': { keyword: 'property investment', name: 'Real estate investing' },
     
-    // B2C Etkileyiciler
-    'inf-1': { keyword: 'home improvement', name: 'Home improvement' },
-    'inf-2': { keyword: 'online services digital', name: 'Online shopping' },
-    'inf-3': { keyword: 'mobile apps smartphone', name: 'Smartphones' },
-    'inf-4': { keyword: 'small business owner', name: 'Small business' },
-    'inf-5': { keyword: 'bargain deals discount', name: 'Coupons' },
-    'inf-6': { keyword: 'social media followers', name: 'Social media' },
+    // B2C — Satın Alma Etkileyicileri
+    'inf-1': { keyword: 'household purchase decision', name: 'Family and relationships' },
+    'inf-2': { keyword: 'online shopping digital services', name: 'Online shopping' },
+    'inf-3': { keyword: 'mobile apps in-app purchase', name: 'Smartphones' },
+    'inf-4': { keyword: 'small business owner entrepreneur', name: 'Small business' },
+    'inf-5': { keyword: 'bargain deals price comparison', name: 'Coupons' },
+    'inf-6': { keyword: 'product review ugc social proof', name: 'Social media' },
     
-    // B2B Gatekeepers
-    'gk-1': { keyword: 'government public', name: 'Politics and social issues' },
-    'gk-2': { keyword: 'community local', name: 'Community' },
-    'gk-3': { keyword: 'nonprofit charity', name: 'Charity and causes' },
-    'gk-4': { keyword: 'higher education research', name: 'Higher education' },
-    'gk-5': { keyword: 'journalism media', name: 'Journalism' },
-    'gk-6': { keyword: 'energy industry', name: 'Energy industry' },
+    // B2B — Operasyonel Filtreleyiciler
+    'gk-1': { keyword: 'procurement supply chain vendor', name: 'Business and industry' },
+    'gk-2': { keyword: 'fleet management logistics operations', name: 'Freight and package transportation' },
+    'gk-3': { keyword: 'business accounting finance software', name: 'Accounting' },
+    'gk-4': { keyword: 'IT digital transformation SaaS', name: 'Computers (brand)' },
+    'gk-5': { keyword: 'HR employee benefits engagement', name: 'Human resources' },
+    'gk-6': { keyword: 'energy automotive industry analyst', name: 'Energy industry' },
     
-    // B2B Karar Vericiler
-    'dm-1': { keyword: 'government policy', name: 'Politics and social issues' },
-    'dm-2': { keyword: 'esg investing sustainable', name: 'Investing' },
-    'dm-3': { keyword: 'stock market trading', name: 'Investing' },
-    'dm-4': { keyword: 'b2b business', name: 'Business' },
-    'dm-5': { keyword: 'banking finance', name: 'Banking' }
+    // B2B — Stratejik Karar Vericiler
+    'dm-1': { keyword: 'CEO CFO COO executive', name: 'Business and industry' },
+    'dm-2': { keyword: 'small business owner SMB patron', name: 'Small business' },
+    'dm-3': { keyword: 'fleet investment fuel management', name: 'Freight and package transportation' },
+    'dm-4': { keyword: 'esg investing sustainable fund', name: 'Investing' },
+    'dm-5': { keyword: 'franchise multi-location chain owner', name: 'Franchising' },
+    
+    // PO AutoMatic Filo — B2B KOBİ
+    'pf-1': { keyword: 'small business fleet startup growth', name: 'Small business' },
+    'pf-2': { keyword: 'fleet management logistics multi-city', name: 'Freight and package transportation' },
+    'pf-3': { keyword: 'fuel card switching fleet services', name: 'Business and industry' },
+    'pf-4': { keyword: 'employee experience driver retention', name: 'Human resources' },
+    'pf-5': { keyword: 'e-commerce logistics last mile', name: 'Online shopping' },
+    'pf-6': { keyword: 'franchise multi-location fleet', name: 'Franchising' },
+    'pf-7': { keyword: 'esnaf small fleet micro business', name: 'Small business' },
+    'pf-8': { keyword: 'trucking transportation long haul', name: 'Freight and package transportation' },
+    'pf-9': { keyword: 'courier delivery last mile', name: 'Freight and package transportation' },
+    'pf-10': { keyword: 'fuel card competitor dissatisfied', name: 'Business and industry' },
+    'pf-11': { keyword: 'fuel card UTTS transition switching', name: 'Business and industry' },
+    'pf-12': { keyword: 'courier motocourier gig economy', name: 'Food delivery' },
+    'pf-13': { keyword: 'taxi ride-hailing VTC fleet', name: 'Taxi and ride-hailing services' }
 };
 
 let selectedSegments = new Set();
@@ -794,9 +827,9 @@ let META_SEGMENT_MAP = {};
 let metaDataCache = {};
 
 const funnelSegments = {
-    awareness: ['yt-1','yt-3','yt-5','dj-2','dj-5','md-2','md-4','md-5','inf-1','inf-6','gk-1','gk-2','gk-3','gk-5','bs-2','sy-2','kn-1'],
-    consideration: ['yt-2','yt-4','tk-1','tk-2','dj-1','dj-3','dj-4','al-3','al-4','md-3','inf-2','inf-3','gk-4','gk-6','dm-2','dm-3','fn-1','fn-4','fn-5','ot-3','kn-3'],
-    conversion: ['tk-3','tk-4','tk-5','al-1','al-2','fn-2','fn-3','inf-4','inf-5','gk-1','dm-1','dm-4','dm-5','kn-2','kn-4','bs-1','bs-3']
+    awareness: ['yt-1','yt-3','yt-5','dj-2','dj-5','md-2','md-4','md-5','inf-1','inf-6','gk-1','gk-2','gk-3','gk-5','bs-2','sy-2','kn-1','pf-1','pf-7'],
+    consideration: ['yt-2','yt-4','tk-1','tk-2','dj-1','dj-3','dj-4','al-3','al-4','md-3','inf-2','inf-3','gk-4','gk-6','dm-2','dm-3','fn-1','fn-4','fn-5','ot-3','kn-3','pf-2','pf-3','pf-5','pf-8','pf-10','pf-11'],
+    conversion: ['tk-3','tk-4','tk-5','al-1','al-2','fn-2','fn-3','inf-4','inf-5','gk-1','dm-1','dm-4','dm-5','kn-2','kn-4','bs-1','bs-3','pf-4','pf-6','pf-9','pf-12','pf-13']
 };
 
 const META_CONFIG = { 
