@@ -110,14 +110,34 @@
         .seg-card.open .seg-toggle{background:var(--po-red);border-color:var(--po-red)}
         .seg-card.open .seg-toggle svg{stroke:#fff}
 
-        .seg-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
-        .seg-body.seg-body-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
-        .seg-card.open .seg-body{max-height:2000px}
+        .seg-body{max-height:0;overflow:hidden;transition:max-height 0.5s ease}
+        .seg-card.open .seg-body{max-height:5000px}
         .seg-card:not(.open) .seg-head{border-bottom:none}
         .seg-card:not(.open) .seg-head-msg{display:block}
         .seg-card:not(.open) .seg-title-area .tagline{display:none}
         .seg-col{padding:28px 32px}
         .seg-col:first-child{border-right:1px solid var(--border-0)}
+
+        /* === SEGMENT BODY: 2-LEVEL ACCORDION === */
+        .seg-msg-area{padding:24px 32px}
+        .seg-detail-toggle{display:flex;align-items:center;gap:8px;padding:12px 32px;cursor:pointer;border-top:1px solid var(--border-0);background:var(--bg-2);font-size:11px;font-weight:600;color:var(--text-2);letter-spacing:0.5px;transition:all 0.2s;user-select:none}
+        .seg-detail-toggle:hover{color:var(--text-0);background:rgba(255,255,255,0.03)}
+        .seg-detail-toggle svg{width:14px;height:14px;transition:transform 0.3s}
+        .seg-detail-toggle.open svg{transform:rotate(180deg)}
+        .seg-detail-toggle.open{color:var(--text-0)}
+        .seg-detail-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+        .seg-detail-body.open{max-height:4000px}
+        .seg-summary{padding:24px 32px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+        .seg-summary-left .info-block:last-child{margin-bottom:0}
+        .seg-summary-right{display:flex;flex-direction:column;gap:0}
+        .inner-tabs{display:flex;gap:0;border-bottom:1px solid var(--border-0);border-top:1px solid var(--border-0);padding:0 32px;background:var(--bg-2)}
+        .inner-tab{padding:10px 20px;font-size:12px;font-weight:600;color:var(--text-3);cursor:pointer;border:none;background:none;font-family:inherit;border-bottom:2px solid transparent;transition:all 0.2s;letter-spacing:0.3px}
+        .inner-tab:hover{color:var(--text-1)}
+        .inner-tab.active{color:var(--text-1);border-bottom-color:var(--po-red)}
+        .inner-pane{display:none;padding:24px 32px}
+        .inner-pane.active{display:block}
+        .inner-pane .tgt-table{table-layout:fixed;word-wrap:break-word}
+        .inner-pane .tgt-table td,.inner-pane .tgt-table th{vertical-align:top}
 
         .info-block{margin-bottom:20px}
         .info-block:last-child{margin-bottom:0}
@@ -164,24 +184,24 @@
 
         /* === SEGMENT FLOW OVERVIEW === */
         .seg-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:48px}
-        .seg-flow-card{background:var(--bg-1);border:1px solid var(--border-0);border-radius:var(--radius-lg);padding:0;cursor:pointer;transition:all 0.3s;overflow:hidden;position:relative}
+        .seg-flow-card{background:var(--bg-1);border:1px solid var(--border-0);border-radius:var(--radius-lg);padding:0;cursor:pointer;transition:all 0.3s;overflow:hidden;position:relative;display:flex;flex-direction:column}
         .seg-flow-card:hover{border-color:var(--border-2);transform:translateY(-4px)}
         .seg-flow-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
         .seg-flow-card.s1::before{background:var(--seg-scale)}
         .seg-flow-card.s2::before{background:var(--seg-fleet)}
         .seg-flow-card.s3::before{background:var(--seg-switch)}
         .seg-flow-card.s4::before{background:var(--seg-exp)}
-        .seg-flow-head{padding:20px 20px 14px;display:flex;align-items:center;gap:12px}
+        .seg-flow-head{padding:20px 20px 14px;display:flex;align-items:center;gap:12px;min-height:76px}
         .seg-flow-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:14px;font-weight:700;flex-shrink:0}
         .seg-flow-title{font-size:14px;font-weight:700;line-height:1.2}
-        .seg-flow-tagline{font-size:11px;font-style:italic;color:var(--text-2);font-family:'Playfair Display',serif;margin-top:2px}
-        .seg-flow-body{padding:0 20px 18px}
+        .seg-flow-tagline{font-size:11px;font-style:italic;color:var(--text-2);font-family:'Playfair Display',serif;margin-top:2px;min-height:14px}
+        .seg-flow-body{padding:0 20px 18px;flex:1}
         .seg-flow-kv{display:flex;flex-direction:column;gap:10px}
         .seg-flow-item{display:flex;gap:8px;align-items:flex-start}
         .seg-flow-item-dot{width:5px;height:5px;border-radius:50%;margin-top:6px;flex-shrink:0}
         .seg-flow-item-text{font-size:11.5px;color:var(--text-1);line-height:1.5}
         .seg-flow-item-label{font-size:8px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-3);margin-bottom:2px}
-        .seg-flow-metrics{display:flex;gap:12px;padding:14px 20px;border-top:1px solid var(--border-0);background:var(--bg-2)}
+        .seg-flow-metrics{display:flex;gap:12px;padding:14px 20px;border-top:1px solid var(--border-0);background:var(--bg-2);margin-top:auto}
         .seg-flow-metric{flex:1;text-align:center}
         .seg-flow-metric-val{font-family:'Space Mono',monospace;font-size:16px;font-weight:700}
         .seg-flow-metric-lbl{font-size:8px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.5px;margin-top:1px}
@@ -193,17 +213,17 @@
         /* === OFFLINE MECRA SECTION === */
         .offline-section{margin-top:64px;margin-bottom:48px}
         .offline-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
-        .offline-card{background:var(--bg-1);border:1px solid var(--border-0);border-radius:var(--radius-lg);overflow:hidden;transition:border-color 0.25s}
+        .offline-card{background:var(--bg-1);border:1px solid var(--border-0);border-radius:var(--radius-lg);overflow:hidden;transition:border-color 0.25s;display:flex;flex-direction:column}
         .offline-card:hover{border-color:var(--border-1)}
-        .offline-card-head{padding:20px 20px 14px;border-bottom:1px solid var(--border-0)}
-        .offline-card-name{font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:#F43F5E;margin-bottom:2px}
-        .offline-card-sub{font-size:11px;color:var(--text-2)}
+        .offline-card-head{padding:20px 20px 14px;border-bottom:1px solid var(--border-0);display:flex;flex-direction:column}
+        .offline-card-name{font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:#F43F5E;margin-bottom:2px;min-height:36px;display:flex;align-items:flex-start}
+        .offline-card-sub{font-size:11px;color:var(--text-2);min-height:14px}
         .offline-card-budget{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:var(--text-0);margin-top:8px}
-        .offline-card-body{padding:16px 20px}
-        .offline-card-role{font-size:12px;color:var(--text-1);line-height:1.6;margin-bottom:12px}
-        .offline-card-segs{font-size:10px;color:var(--text-2);line-height:1.5}
+        .offline-card-body{padding:16px 20px;flex:1;display:flex;flex-direction:column}
+        .offline-card-role{font-size:12px;color:var(--text-1);line-height:1.6;flex:1}
+        .offline-card-segs{font-size:10px;color:var(--text-2);line-height:1.5;margin-top:12px;padding-top:12px;border-top:1px solid var(--border-0)}
         .offline-card-segs strong{color:#F43F5E;font-weight:600}
-        .offline-card-kpis{padding:12px 20px;border-top:1px solid var(--border-0);background:var(--bg-2);font-size:10px;color:var(--text-3)}
+        .offline-card-kpis{padding:12px 20px;border-top:1px solid var(--border-0);background:var(--bg-2);font-size:10px;color:var(--text-3);margin-top:auto}
 
         .offline-uyum{background:var(--bg-1);border:1px solid var(--border-0);border-radius:var(--radius-lg);overflow:hidden}
         .offline-uyum-head{padding:18px 24px;border-bottom:1px solid var(--border-0);display:flex;justify-content:space-between;align-items:center}
@@ -294,11 +314,16 @@
             .hero{padding:32px;border-radius:var(--radius-lg)}
             .hero h1{font-size:28px}
             .hero-stats{display:none}
-            .seg-body.seg-body-grid{grid-template-columns:1fr}
+            .seg-summary{grid-template-columns:1fr}
             .seg-col:first-child{border-right:none;border-bottom:1px solid var(--border-0)}
             .comp-grid{grid-template-columns:1fr}
             .funnel{grid-template-columns:1fr 1fr}
             .quad-canvas-area{height:400px}
+            .offline-grid{grid-template-columns:1fr 1fr}
+            .conquest-grid{grid-template-columns:1fr}
+            .inner-pane{padding:16px 20px;overflow-x:auto}
+            .seg-summary{padding:20px 24px}
+            .inner-tabs{padding:0 24px}
         }
         @media print{
             body{background:#fff;color:#111}
@@ -326,11 +351,6 @@
             <button class="nav-tab active" onclick="switchView('segments')">Segmentler</button>
             <button class="nav-tab" onclick="switchView('quadrant')">Quadrant</button>
         </div>
-        <div class="nav-meta">
-            <div class="nav-meta-item"><div class="nav-meta-dot"></div>Q4 2026</div>
-            <div class="nav-meta-item">70M TL Dijital</div>
-            <div class="nav-meta-item">Growity</div>
-        </div>
     </div>
 </nav>
 
@@ -340,30 +360,6 @@
 <!-- VIEW 1: SEGMENTS              -->
 <!-- ============================= -->
 <div class="view active" id="view-segments">
-
-    <div class="hero">
-        <div class="hero-badge">Bölüm A — Hedef Kitle Analizi</div>
-        <h1>Operasyonel İhtiyaç Bazlı<br>Segmentasyon Çerçevesi</h1>
-        <p>Brief'in açık talebi: segmentasyonun demografik değil, operasyonel problem ve ihtiyaç bazlı kurgulanması. UTTS sonrası dönemde fiyat ve yakıt kalitesi farklılaştırıcı olmaktan çıktı — hedef kitleyi "ne tür operasyonel problemi yaşadıklarına" göre tanımlıyoruz. Dijital bütçe: 70M TL · Offline bütçe: 30M TL (TV + Radyo, odaklı awareness).</p>
-        <div class="hero-stats">
-            <div class="hero-stat">
-                <div class="hero-stat-val">4+16</div>
-                <div class="hero-stat-lbl">Segment Yapısı</div>
-            </div>
-            <div class="hero-stat">
-                <div class="hero-stat-val">2.700+</div>
-                <div class="hero-stat-lbl">İstasyon Ağı</div>
-            </div>
-            <div class="hero-stat">
-                <div class="hero-stat-val">70M</div>
-                <div class="hero-stat-lbl">TL Dijital</div>
-            </div>
-            <div class="hero-stat">
-                <div class="hero-stat-val">30M</div>
-                <div class="hero-stat-lbl">TL Offline</div>
-            </div>
-        </div>
-    </div>
 
     <!-- SEGMENT OVERVIEW -->
     <div class="sh">
@@ -531,71 +527,6 @@
         </div>
     </div>
 
-    <!-- ======= OFFLINE MECRA STRATEJİSİ ======= -->
-    <div class="offline-section">
-        <div class="sh">
-            <div class="sh-label" style="color:#F43F5E">Offline Mecra Stratejisi</div>
-            <div class="sh-title">Odaklı Awareness — 30M TL</div>
-            <div class="sh-desc">TV + Radyo odaklı B2B karar vericiye temas. Tematik kanal seçimiyle B2C waste minimuma indirilir. Tek faz (awareness), dijital kampanyayla eş zamanlı.</div>
-        </div>
-
-        <div class="offline-grid">
-            <div class="offline-card">
-                <div class="offline-card-head">
-                    <div class="offline-card-name">MAÇ</div>
-                    <div class="offline-card-sub">Türkiye Takımları Avrupa Maçları</div>
-                    <div class="offline-card-budget">7M TL · %23</div>
-                </div>
-                <div class="offline-card-body">
-                    <div class="offline-card-role">Yüksek dikkat anında kitlesel B2B marka inşası. ŞL, KL, Avrupa Ligi maçları — KOBİ patronlarının en yoğun TV izleme anı. Erkek 30-55 KOBİ sahibi profiliyle yüksek örtüşme.</div>
-                    <div class="offline-card-segs"><strong>Segment Uyumu:</strong> S1 (patron), S2 (lojistik patron), S3 (marka geçişi tetikleyici)</div>
-                </div>
-                <div class="offline-card-kpis">Reach / GRP · Ad Recall · Marka Bilinirliği</div>
-            </div>
-
-            <div class="offline-card">
-                <div class="offline-card-head">
-                    <div class="offline-card-name">MAÇ YORUMU</div>
-                    <div class="offline-card-sub">Stüdyo Programları</div>
-                    <div class="offline-card-budget">3M TL · %10</div>
-                </div>
-                <div class="offline-card-body">
-                    <div class="offline-card-role">Maç sonrası uzun temas — güvenilir ortamda mesaj derinliği. Düşük zapping, advertorial/sponsorluk formatıyla detaylı ürün mesajı. Maç bütçesinin tamamlayıcısı.</div>
-                    <div class="offline-card-segs"><strong>Segment Uyumu:</strong> S1 (patron), S3 (karşılaştırma mesajı), S4 (ekosistem farkındalığı)</div>
-                </div>
-                <div class="offline-card-kpis">Reach · Mesaj Hatırlanırlığı · Sponsorluk Bilinirliği</div>
-            </div>
-
-            <div class="offline-card">
-                <div class="offline-card-head">
-                    <div class="offline-card-name">TEMATİK</div>
-                    <div class="offline-card-sub">Bloomberg HT · NTV · CNN Türk</div>
-                    <div class="offline-card-budget">12M TL · %40</div>
-                </div>
-                <div class="offline-card-body">
-                    <div class="offline-card-role">B2B karar vericiye doğrudan, düşük waste erişim. Ekonomi kuşakları, haber bültenleri, Pazar ekonomi programları. Filo ürünü için en doğrudan karar verici erişimi.</div>
-                    <div class="offline-card-segs"><strong>Segment Uyumu:</strong> S1 (finans karar verici), S2 (operasyon mgr), S3 (ROI switching), S4 (İK/maliyet)</div>
-                </div>
-                <div class="offline-card-kpis">Reach / TRP · Mesaj Hatırlanırlığı · Marka Otoritesi</div>
-            </div>
-
-            <div class="offline-card">
-                <div class="offline-card-head">
-                    <div class="offline-card-name">RADYO</div>
-                    <div class="offline-card-sub">Sürüş Saatleri (07-09, 17-19)</div>
-                    <div class="offline-card-budget">8M TL · %27</div>
-                </div>
-                <div class="offline-card-body">
-                    <div class="offline-card-role">Günlük tekrar ve zihinsel pekiştirme — sürüş anında temas. Frekans etkisi en yüksek mecra. QR/kısa URL ile dijitale köprü kurabilecek tek offline mecra.</div>
-                    <div class="offline-card-segs"><strong>Segment Uyumu:</strong> S1-C (esnaf), S2-A (nakliye), S3 (marka değiştirme), S4-D (taksi)</div>
-                </div>
-                <div class="offline-card-kpis">Reach · Frekans · Mesaj Hatırlanırlığı · QR/URL Trafik</div>
-            </div>
-        </div>
-
-
-    </div>
-
     <!-- ======= S1: HIZLI ÖLÇEKLENEN KOBİ ======= -->
     <div class="seg-card" id="seg-scale">
         <div class="seg-head" onclick="toggleSeg(this)">
@@ -619,426 +550,61 @@
                 <div class="seg-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
             </div>
         </div>
-        <div class="seg-body seg-body-grid">
-            <div class="seg-col">
-                <div class="info-block">
-                    <div class="info-lbl">Operasyonel Problem</div>
-                    <div class="info-txt">1-3 araçtan 10+ araca geçiş yapan işletmeler. Manuel yönetim artık sürdürülebilir değil: her sürücüye nakit veya kredi kartı veriyor, ay sonunda onlarca fiş/fatura birikiyor, muhasebeciye ekstra ödeme yapılıyor. Hangi aracın ne kadar harcadığını gerçek zamanlı takip edemiyor. Yakıt usulsüz kullanım riski büyüyor. "Filo yönetimi büyük şirketlere göre" algısı en büyük engel.</div>
-                </div>
-                <div class="info-block">
-                    <div class="info-lbl">İşletme Profili</div>
-                    <div class="info-txt">1-20 araçlık filolar. E-ticaret lojistik, franchise zincirler, teknik servis ağları, hızlı büyüyen perakende KOBİ'ler. Yeni şube açan, kurye ağı kuran, araç filosu katlanarak büyüyen işletmeler. Genellikle muhasebe departmanı yok, dış muhasebeci kullanılıyor.</div>
-                </div>
-                <div class="info-block">
-                    <div class="info-lbl">Karar Verici</div>
-                    <div class="info-txt">İşletme sahibi veya genel müdür. 28-50 yaş. Hem operasyonel hem finansal kararları tek başına alıyor. Dijital okuryazarlığı orta-yüksek, hız ve pratiklik odaklı. Genellikle kendisi de sürücü.</div>
-                </div>
+        <div class="seg-body">
+            <div class="seg-msg-area">
                 <div class="msg-box">
-                    <div class="msg-label">Anahtar Mesaj</div>
-                    <div class="msg-main">"1 araçla bile başla, büyüdükçe AutoMatic Filo seninle büyüsün."</div>
-                    <div class="msg-sub">Fiş toplamaya son. Tüm filoyla tek fatura, araç bazlı raporlama, ücretsiz oto yıkama ve Tchibo kahve ayrıcalığı — işletmen büyürken yönetim karmaşası büyümesin.</div>
-                </div>
-
-                <div class="conquest">
-                    <div class="conquest-head" style="color:var(--seg-scale)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                        Conquest Stratejisi
+                            <div class="msg-label">Anahtar Mesaj</div>
+                            <div class="msg-main">"1 araçla bile başla, büyüdükçe AutoMatic Filo seninle büyüsün."</div>
+                            <div class="msg-sub">Fiş toplamaya son. Tüm filoyla tek fatura, araç bazlı raporlama, ücretsiz oto yıkama ve Tchibo kahve ayrıcalığı — işletmen büyürken yönetim karmaşası büyümesin.</div>
+                                    </div>
+            </div>
+            <div class="seg-detail-toggle" onclick="toggleDetail(this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                Profil, Conquest, Alt Segmentler & Platform Hedefleme
+            </div>
+            <div class="seg-detail-body">
+                <div class="seg-summary">
+                    <div class="seg-summary-left">
+                        <div class="info-block">
+                            <div class="info-lbl">Operasyonel Problem</div>
+                            <div class="info-txt">1-3 araçtan 10+ araca geçiş yapan işletmeler. Manuel yönetim artık sürdürülebilir değil: her sürücüye nakit veya kredi kartı veriyor, ay sonunda onlarca fiş/fatura birikiyor, muhasebeciye ekstra ödeme yapılıyor. Hangi aracın ne kadar harcadığını gerçek zamanlı takip edemiyor. Yakıt usulsüz kullanım riski büyüyor. "Filo yönetimi büyük şirketlere göre" algısı en büyük engel.</div>
+                                    </div>
+                                    <div class="info-block">
+                            <div class="info-lbl">İşletme Profili</div>
+                            <div class="info-txt">1-20 araçlık filolar. E-ticaret lojistik, franchise zincirler, teknik servis ağları, hızlı büyüyen perakende KOBİ'ler. Yeni şube açan, kurye ağı kuran, araç filosu katlanarak büyüyen işletmeler. Genellikle muhasebe departmanı yok, dış muhasebeci kullanılıyor.</div>
+                                    </div>
+                                    <div class="info-block">
+                            <div class="info-lbl">Karar Verici</div>
+                            <div class="info-txt">İşletme sahibi veya genel müdür. 28-50 yaş. Hem operasyonel hem finansal kararları tek başına alıyor. Dijital okuryazarlığı orta-yüksek, hız ve pratiklik odaklı. Genellikle kendisi de sürücü.</div>
+                                    </div>
                     </div>
-                    <div class="conquest-grid">
-                        <div class="conquest-item opet">
+                    <div class="seg-summary-right">
+                        <div class="conquest">
+                            <div class="conquest-head" style="color:var(--seg-scale)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                            Conquest Stratejisi
+                            </div>
+                            <div class="conquest-grid">
+                            <div class="conquest-item opet">
                             <div class="conquest-brand opet">vs Opet Otobil</div>
                             <div class="conquest-weakness">Opet "Otobilim" uygulaması yeni ve KOBİ'lere yönelik ama ekosistem hizmetleri (yıkama, kahve, market) sınırlı. Filo büyüdüğünde ölçeklenme esnekliği düşük.</div>
                             <div class="conquest-attack"><strong>Saldırı:</strong> "1 araçtan 100'e, tek platformda büyü" mesajıyla ölçeklenebilirlik avantajını vurgula. Opet'in sunmadığı ekosistem avantajlarını karşılaştırmalı göster.</div>
-                        </div>
-                        <div class="conquest-item shell">
+                            </div>
+                            <div class="conquest-item shell">
                             <div class="conquest-brand shell">vs Shell TTS</div>
                             <div class="conquest-weakness">Shell TTS 1.000 istasyon — PO'nun 2.700 istasyonunun yarısından az. Shell'in KOBİ segmentine özel çözümü yok; "kurumsal" algısı yüksek, küçük işletme esnekliği düşük.</div>
                             <div class="conquest-attack"><strong>Saldırı:</strong> "Filonu büyütürken istasyon aramasın" — istasyon sayısı üstünlüğü + KOBİ'ye özel onboarding süreci ile fark yarat.</div>
-                        </div>
+                            </div>
+                            </div>
+                    </div>
                     </div>
                 </div>
+                <div class="inner-tabs">
+                <button class="inner-tab active" onclick="switchInner(this,'s1','subs')">📋 Alt Segmentler</button>
+                <button class="inner-tab" onclick="switchInner(this,'s1','platform')">🎯 Platform Hedefleme</button>
             </div>
-            <div class="seg-col">
-                <div class="info-block">
-                    <div class="info-lbl">Platform Hedefleme Detayları</div>
-                    <table class="tgt-table">
-                        <thead><tr><th>Platform</th><th>Hedefleme Parametreleri</th></tr></thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="pbadge pb-meta">Meta</span></td>
-                                <td><strong>Yaş:</strong> 28-50 · <strong>İlgi:</strong> Entrepreneurship, Small business, KOBİ, E-ticaret<br><strong>Davranış:</strong> SMB owners, Recently started business, Business page admins<br><strong>Placement:</strong> FB Feed + IG Reels (video ağırlıklı)<br><strong>Lookalike:</strong> Mevcut 1-10 araç AutoMatic müşteri bazı (%1-2)</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-google">Google</span></td>
-                                <td><strong>Search:</strong> "kurumsal yakıt kartı", "filo yakıt fatura", "araç yakıt takip", "esnaf yakıt çözümü"<br><strong>Display:</strong> In-market: Fleet management, Business accounting, KOBİ portalları<br><strong>YT:</strong> Girişimcilik, KOBİ yönetimi, esnaf içerik kanalları</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-linkedin">LinkedIn</span></td>
-                                <td><strong>Title:</strong> Owner, Founder, GM · <strong>Size:</strong> 2-50 emp<br><strong>Industry:</strong> Wholesale, Retail, Manufacturing, Services, E-commerce<br><strong>Format:</strong> Sponsored Content + Message Ads</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-dv360">DV360</span></td>
-                                <td><strong>Hedefleme:</strong> In-market SMB services, geo-fence esnaf çarşıları + OSB bölgeleri<br><strong>Format:</strong> Native (KobiFinans, KobiEfor), ROI calculator rich media<br><strong>Optimizasyon:</strong> CPA bidding, FC 4/hafta</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-audio">D. Audio</span></td>
-                                <td><strong>Platform:</strong> Spotify Ad Studio — iş/girişimcilik playlist dinleyicileri<br><strong>Format:</strong> 15" audio spot, samimi patron-patron tonu + companion banner<br><strong>Podcast:</strong> KOBİ/finans podcastleri sponsorluk</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-tiktok">TikTok</span></td>
-                                <td><strong>Hedefleme:</strong> Business decision makers, SMB owners, 25-45 yaş<br><strong>İlgi:</strong> Entrepreneurship, small business tips, muhasebe<br><strong>Format:</strong> In-feed native video (15-30") — "3 araçlı patronun fatura kaosu" hikaye formatı, UGC tarzı<br><strong>Lead Gen:</strong> TikTok Instant Form → CRM entegrasyon<br><strong>Spark Ads:</strong> Gerçek KOBİ sahiplerinin AutoMatic Filo deneyimi boost</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-radyo">Radyo</span></td>
-                                <td style="color:var(--text-3);font-style:italic"><strong>Offline bütçe netleşince planlanacak.</strong><br>Ön yönlendirme: Radyo D, NTV Radyo, Bloomberg HT · 07-09 + 17-19 sürüş saatleri · "Fiş toplamaya son, AutoMatic Filo ile tek fatura"</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-ooh">OOH</span></td>
-                                <td style="color:var(--text-3);font-style:italic"><strong>Offline bütçe netleşince planlanacak.</strong><br>Ön yönlendirme: OSB giriş/çıkış, ticaret merkezleri, pompa üstü QR → LP başvuru formu</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ======= S2: YAYGIN OPERASYONLU FİLOLU KOBİ ======= -->
-    <div class="seg-card" id="seg-fleet">
-        <div class="seg-head" onclick="toggleSeg(this)">
-            <div class="seg-icon" style="background:var(--seg-fleet-bg);color:var(--seg-fleet)">S2</div>
-            <div class="seg-title-area">
-                <h3 style="color:var(--seg-fleet)">Yaygın Operasyonlu Filolu KOBİ</h3>
-                <div class="tagline">"Ekibim her gün farklı şehirlerde, her yerde güvenli yakıt bulmalılar"</div>
-                <div class="seg-head-msg">"2.700 istasyonda hiç yolda kalmaz"</div>
-            </div>
-            <div class="seg-head-right">
-                <div class="seg-metrics">
-                    <div class="seg-metric">
-                        <div class="seg-metric-val" style="color:var(--seg-fleet)">%30</div>
-                        <div class="seg-metric-lbl">Dijital Pay</div>
-                    </div>
-                    <div class="seg-metric">
-                        <div class="seg-metric-val">21M</div>
-                        <div class="seg-metric-lbl">TL Dijital</div>
-                    </div>
-                </div>
-                <div class="seg-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-            </div>
-        </div>
-        <div class="seg-body seg-body-grid">
-            <div class="seg-col">
-                <div class="info-block">
-                    <div class="info-lbl">Operasyonel Problem</div>
-                    <div class="info-txt">Kurye, servis, dağıtım, nakliye, inşaat gibi sürekli yolda olan filolar. Sürücüler farklı illerde, ilçelerde yakıt alıyor. İstasyon bulamama veya anlaşmasız istasyondan yakıt almak zorunda kalma problemi kronik. Yüksek kilometre = yüksek yakıt gideri. Optimizasyon yapılmazsa kâr marjı erir. Rota bazlı yakıt tüketim analizi yapamıyor.</div>
-                </div>
-                <div class="info-block">
-                    <div class="info-lbl">İşletme Profili</div>
-                    <div class="info-txt">5-50+ araçlık filolar. Lojistik, son mil dağıtım (kurye), teknik servis ağları, inşaat/tarım. Günlük ortalama 200+ km yol yapan araçlar. Şehirlerarası operasyonlar ağırlıklı. Çoklu şube/depo yapısı var.</div>
-                </div>
-                <div class="info-block">
-                    <div class="info-lbl">Karar Verici</div>
-                    <div class="info-txt">Operasyon müdürü, filo yöneticisi veya işletme sahibi. Pratik çözümlere odaklı, zaman çok değerli. Maliyet-per-km metriği ile karar veriyor.</div>
-                </div>
-                <div class="msg-box">
-                    <div class="msg-label">Anahtar Mesaj</div>
-                    <div class="msg-main">"Türkiye'nin her köşesinde 2.700 istasyon. Filonuz hiç yolda kalmaz."</div>
-                    <div class="msg-sub">En geniş istasyon ağıyla sürücüleriniz nerede olursa olsun güvenli yakıt alsın. Anlık dijital takip, araç bazlı raporlama ve rota optimizasyonu ile yakıt giderlerinizi kontrol altına alın.</div>
-                </div>
-
-                <div class="conquest">
-                    <div class="conquest-head" style="color:var(--seg-fleet)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                        Conquest Stratejisi
-                    </div>
-                    <div class="conquest-grid">
-                        <div class="conquest-item opet">
-                            <div class="conquest-brand opet">vs Opet Otobil</div>
-                            <div class="conquest-weakness">Opet istasyon ağı PO'dan dar. "Otokonum" servisi var ama sahada aktif filo yönetimi için yeterli değil. Multi-lokasyon raporlama zayıf.</div>
-                            <div class="conquest-attack"><strong>Saldırı:</strong> İstasyon ağı haritası karşılaştırması göster. "Sürücün hangi ilde olursa olsun, 5 km içinde PO var" mesajı. Geo-fence Opet istasyonları çevresi → mobil display.</div>
-                        </div>
-                        <div class="conquest-item shell">
-                            <div class="conquest-brand shell">vs Shell TTS</div>
-                            <div class="conquest-weakness">Shell 1.000 istasyon vs PO 2.700. Özellikle Anadolu'da kapsama boşlukları ciddi. Shell TTS'nin güçlü yönü 30 yıllık tecrübe ve araç takip (FiloPlatform) ama istasyon ağı yetersiz.</div>
-                            <div class="conquest-attack"><strong>Saldırı:</strong> "Shell'de 1.000 istasyon ararsın, PO'da 2.700 istasyon seni bulur" — ağ üstünlüğünü sayısal veriyle vurgula. Anadolu'da kapsama karşılaştırma haritası.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="seg-col">
-                <div class="info-block">
-                    <div class="info-lbl">Platform Hedefleme Detayları</div>
-                    <table class="tgt-table">
-                        <thead><tr><th>Platform</th><th>Hedefleme Parametreleri</th></tr></thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="pbadge pb-meta">Meta</span></td>
-                                <td><strong>Yaş:</strong> 30-55 · <strong>İlgi:</strong> Logistics, Fleet management, Trucking, Nakliye<br><strong>Davranış:</strong> Frequent travelers, Business page admins<br><strong>Geo:</strong> Lojistik hub şehirler (İstanbul, Mersin, İzmir, Kocaeli, Ankara)</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-google">Google</span></td>
-                                <td><strong>Search:</strong> "filo yönetim sistemi", "araç takip yakıt", "taşıt tanıma sistemi", "UTTS filo çözüm"<br><strong>Waze:</strong> Branded pins + takeover ads (istasyon yakını)<br><strong>Display:</strong> In-market: Fleet management software, Vehicle tracking</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-linkedin">LinkedIn</span></td>
-                                <td><strong>Title:</strong> Operations Manager, Fleet Manager, Logistics Director<br><strong>Size:</strong> 11-200 · <strong>Industry:</strong> Transportation, Logistics, Construction<br><strong>Skills:</strong> Fleet management, Supply chain</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-dv360">DV360</span></td>
-                                <td><strong>Hedefleme:</strong> Geo-fence lojistik hub'lar (Gebze, Mersin SB, Hadımköy), fleet intent 3P data<br><strong>Format:</strong> Display + DOOH programatik (otoyol dijital billboard), video pre-roll<br><strong>Optimizasyon:</strong> CPA optimize, dayparting (iş saatleri)</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-audio">D. Audio</span></td>
-                                <td><strong>Platform:</strong> Spotify + Muud + Fizy — sürüş anı dinleyicileri<br><strong>Format:</strong> 15-30" audio — "Nerede olursan ol, Petrol Ofisi yanında"<br><strong>Sequential:</strong> 1. spot awareness → 2. spot (7 gün) CTA odaklı</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-tiktok">TikTok</span></td>
-                                <td><strong>Hedefleme:</strong> 25-50 yaş, logistics/fleet/business interest, geo: lojistik hub şehirler<br><strong>Format:</strong> In-feed video — "Sürücümüz Mersin'den İstanbul'a 2.700 istasyonla" rota hikayesi<br><strong>UGC:</strong> Filo sürücülerinin günlük rutini + istasyon deneyimi<br><strong>Lead Gen:</strong> TikTok Instant Form → LP yönlendirme</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-radyo">Radyo</span></td>
-                                <td style="color:var(--text-3);font-style:italic"><strong>Offline bütçe netleşince planlanacak.</strong><br>Ön yönlendirme: Trafik FM, Radyo Voyage · 06-10 + 16-20 uzun yol bantları · trafik/hava durumu sponsorluğu</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-ooh">OOH</span></td>
-                                <td style="color:var(--text-3);font-style:italic"><strong>Offline bütçe netleşince planlanacak.</strong><br>Ön yönlendirme: Otoyol güzergahları, sanayi giriş/çıkışları, TIR parkları, megalight</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ======= S3: RAKİPLE ÇALIŞAN KOBİLER ======= -->
-    <div class="seg-card" id="seg-switch">
-        <div class="seg-head" onclick="toggleSeg(this)">
-            <div class="seg-icon" style="background:var(--seg-switch-bg);color:var(--seg-switch)">S3</div>
-            <div class="seg-title-area">
-                <h3 style="color:var(--seg-switch)">Rakiple Çalışan KOBİ'ler</h3>
-                <div class="tagline">"Mevcut çözümüm yakıt doldurma dışında hiçbir şey sunmuyor"</div>
-                <div class="seg-head-msg">"Yakıt aynı, ekosistem farkı"</div>
-            </div>
-            <div class="seg-head-right">
-                <div class="seg-metrics">
-                    <div class="seg-metric">
-                        <div class="seg-metric-val" style="color:var(--seg-switch)">%20</div>
-                        <div class="seg-metric-lbl">Dijital Pay</div>
-                    </div>
-                    <div class="seg-metric">
-                        <div class="seg-metric-val">14M</div>
-                        <div class="seg-metric-lbl">TL Dijital</div>
-                    </div>
-                </div>
-                <div class="seg-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-            </div>
-        </div>
-        <div class="seg-body seg-body-grid">
-            <div class="seg-col">
-                <div class="info-block">
-                    <div class="info-lbl">Operasyonel Problem</div>
-                    <div class="info-txt">Opet Otobil, Shell TTS veya BP filo çözümü kullanan ama UTTS sonrası alternatiflere açık olan filolar. Mevcut çözümlerinden aldıkları katma değer düşük — sadece yakıt doldurma fonksiyonu var, dijital takip/raporlama yetersiz, ekosistem hizmetleri (yıkama, kahve, market) yok veya sınırlı. Sözleşme yenileme döneminde switching cost algısı var ama UTTS ile azaldı.</div>
-                </div>
-                <div class="info-block">
-                    <div class="info-lbl">İşletme Profili</div>
-                    <div class="info-txt">5-100 araçlık orta ölçekli filolar. Rakip markayla aktif UTTS sözleşmesi olan veya yenileme döneminde olanlar. Sektör çeşitliliği yüksek: lojistik, perakende zinciri, inşaat, tarım, hizmet sektörü.</div>
-                </div>
-                <div class="info-block">
-                    <div class="info-lbl">Karar Verici</div>
-                    <div class="info-txt">Satın alma müdürü, finans direktörü veya operasyon yöneticisi. Karşılaştırmalı analiz yapan, ROI odaklı. Genellikle birden fazla kişinin onayı gerekiyor (committee decision).</div>
-                </div>
-                <div class="msg-box">
-                    <div class="msg-label">Anahtar Mesaj</div>
-                    <div class="msg-main">"Yakıt her yerde aynı. Fark, ekosistemde."</div>
-                    <div class="msg-sub">UTTS ile artık marka değiştirmek kolay. AutoMatic Filo'ya geçin: 2.700 istasyon, ücretsiz oto yıkama, Tchibo kahve, HGS/İSPARK indirimi, market avantajları — sadece yakıt değil, bütünsel avantaj sistemi.</div>
-                </div>
-
-                <div class="conquest">
-                    <div class="conquest-head" style="color:var(--seg-switch)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                        Conquest Stratejisi — En Kritik Segment
-                    </div>
-                    <div class="conquest-grid">
-                        <div class="conquest-item opet">
-                            <div class="conquest-brand opet">vs Opet Otobil — 55K firma, 1M araç</div>
-                            <div class="conquest-weakness"><strong>Güçlü yönleri:</strong> Otobilim mobil uygulama (KOBİ friendly), dijital raporlama, Otokonum konum takibi, Masterpass ödeme altyapısı, DBS (doğrudan borçlandırma).<br><strong>Zayıf yönleri:</strong> Ekosistem hizmetleri sınırlı (yıkama/kahve/market yok), istasyon ağı PO'dan dar, "Otobilim" yeni ürün — olgunluk düşük.</div>
-                            <div class="conquest-attack"><strong>Saldırı:</strong> Ekosistem karşılaştırma tablosu kreatifi (carousel). "Yakıtın yanında oto yıkama, kahve, market — Opet'te bunlar yok." Sözleşme yenileme dönem tetiklemeli CRM outreach.</div>
-                        </div>
-                        <div class="conquest-item shell">
-                            <div class="conquest-brand shell">vs Shell TTS — 40K firma, 600K araç</div>
-                            <div class="conquest-weakness"><strong>Güçlü yönleri:</strong> 30 yıllık tecrübe (1996'dan beri Türkiye'de ilk TTS), FiloPlatform araç takip sistemi, Kurumsal HGS, Shell Select market + deli2go, global marka algısı.<br><strong>Zayıf yönleri:</strong> 1.000 istasyon (PO'nun 1/3'ü), ayda 2 fatura (PO tek fatura), fiyat premium algısı, KOBİ segmentine özel çözüm yok.</div>
-                            <div class="conquest-attack"><strong>Saldırı:</strong> "Shell'de 1.000 istasyon, PO'da 2.700" sayısal üstünlük. "30 yıllık alışkanlığı değiştir, 2.700 noktadan avantajı yakala." Rakip istasyon 500m yarıçap geo-fence → conquest display.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="seg-col">
-                <div class="info-block">
-                    <div class="info-lbl">Platform Hedefleme Detayları</div>
-                    <table class="tgt-table">
-                        <thead><tr><th>Platform</th><th>Hedefleme Parametreleri</th></tr></thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="pbadge pb-meta">Meta</span></td>
-                                <td><strong>Custom Audience:</strong> Rakip filo sayfalarını takip edenler<br><strong>İlgi:</strong> Fleet management, Fuel cards, Opet, Shell interest targeting<br><strong>Retargeting:</strong> LP ziyaretçisi ama form doldurmamış<br><strong>Format:</strong> Karşılaştırma tablosu carousel kreatifleri</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-google">Google</span></td>
-                                <td><strong>Search:</strong> "otobil alternatif", "shell tts alternatif", "filo yakıt karşılaştırma", "en iyi filo yönetimi"<br><strong>Competitor:</strong> Rakip marka branded keyword<br><strong>Display:</strong> In-market: Fuel & fleet solutions</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-linkedin">LinkedIn</span></td>
-                                <td><strong>Title:</strong> Procurement Manager, Finance Director, Operations VP<br><strong>Size:</strong> 11-500<br><strong>Format:</strong> Sponsored InMail (kişiselleştirilmiş teklif + karşılaştırma)</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-dv360">DV360</span></td>
-                                <td><strong>Conquest:</strong> Geo-fence rakip istasyonlar 500m yarıçap → mobil display<br><strong>3P Data:</strong> Fleet intent (Bombora/Oracle), CRM match<br><strong>Format:</strong> "Mevcut çözüm vs AutoMatic Filo" rich media karşılaştırma<br><strong>DOOH:</strong> Rakip istasyon çevresi dijital billboard</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-audio">D. Audio</span></td>
-                                <td><strong>Format:</strong> 30" podcast mid-roll (host-read tercih) — ekosistem farkı mesajı<br><strong>Thought Leadership:</strong> "UTTS Sonrası Yeni Dönem" mini podcast serisi</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-radyo">Radyo</span></td>
-                                <td style="color:var(--text-3);font-style:italic"><strong>Offline bütçe netleşince planlanacak.</strong><br>Ön yönlendirme: Bloomberg HT, NTV Radyo — "UTTS ile marka değiştirmek artık kolay" advertorial</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-tiktok">TikTok</span></td>
-                                <td><strong>Format:</strong> "AutoMatic Filo'ya geçiş hikayesi" UGC tarzı video<br><strong>Hedefleme:</strong> Business decision maker + competitor mentions<br><strong>Spark Ads:</strong> Gerçek müşteri dönüşüm hikayesi boost</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ======= S4: ÇALIŞAN DENEYİMİNİ GÖZETEN KOBİLER ======= -->
-    <div class="seg-card" id="seg-exp">
-        <div class="seg-head" onclick="toggleSeg(this)">
-            <div class="seg-icon" style="background:var(--seg-exp-bg);color:var(--seg-exp)">S4</div>
-            <div class="seg-title-area">
-                <h3 style="color:var(--seg-exp)">Çalışan Deneyimini Gözeten KOBİ'ler</h3>
-                <div class="tagline">"Sadece yakıt değil, sürücülerimin motivasyonunu da düşünüyorum"</div>
-                <div class="seg-head-msg">"Sürücünüze kahve ısmarlayın, oto yıkama hediye edin"</div>
-            </div>
-            <div class="seg-head-right">
-                <div class="seg-metrics">
-                    <div class="seg-metric">
-                        <div class="seg-metric-val" style="color:var(--seg-exp)">%15</div>
-                        <div class="seg-metric-lbl">Dijital Pay</div>
-                    </div>
-                    <div class="seg-metric">
-                        <div class="seg-metric-val">10.5M</div>
-                        <div class="seg-metric-lbl">TL Dijital</div>
-                    </div>
-                </div>
-                <div class="seg-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-            </div>
-        </div>
-        <div class="seg-body seg-body-grid">
-            <div class="seg-col">
-                <div class="info-block">
-                    <div class="info-lbl">Operasyonel Problem</div>
-                    <div class="info-txt">Sürücü memnuniyeti ve bağlılığı düşük, turnover yüksek — özellikle kurye ve dağıtım sektöründe. İstasyonlarda bekleme süreleri uzun, sürücüler şikayetçi. Yakıt dışında oto yıkama, kahve, market alışverişi gibi günlük ihtiyaçlar için ayrı ayrı çözüm aranıyor. Sürücü memnuniyeti = operasyonel verimlilik ilişkisi henüz tam kavranmamış.</div>
-                </div>
-                <div class="info-block">
-                    <div class="info-lbl">İşletme Profili</div>
-                    <div class="info-txt">10-50+ araçlık filolar. Sürücü yoğun sektörler: kurye, taksi, rent-a-car, şehir içi dağıtım. Çalışan memnuniyetine önem veren, "işveren markası" bilinci gelişmiş KOBİ'ler. Sürücü elde tutma maliyeti yüksek olan işletmeler.</div>
-                </div>
-                <div class="info-block">
-                    <div class="info-lbl">Karar Verici</div>
-                    <div class="info-txt">İK/operasyon sorumlusu veya patron. Sürücü motivasyonu ve toplam maliyet optimizasyonu arasında denge arayan profil. "Çalışanıma ne verebilirim?" sorusuna cevap arıyor.</div>
-                </div>
-                <div class="msg-box">
-                    <div class="msg-label">Anahtar Mesaj</div>
-                    <div class="msg-main">"Sürücünüz mutlu, işletmeniz kârlı."</div>
-                    <div class="msg-sub">Her yakıt alımında ücretsiz oto yıkama, Tchibo kahve, HGS/İSPARK indirimi, market avantajları. AutoMatic Filo ekosistemiyle çalışanlarınıza ayrıcalık, işletmenize tasarruf — sürücü turnover'ını azaltın.</div>
-                </div>
-
-                <div class="conquest">
-                    <div class="conquest-head" style="color:var(--seg-exp)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                        Conquest Stratejisi
-                    </div>
-                    <div class="conquest-grid">
-                        <div class="conquest-item opet">
-                            <div class="conquest-brand opet">vs Opet Otobil</div>
-                            <div class="conquest-weakness">Opet'in sürücü deneyimi odaklı ayrıcalık programı yok. Yakıt + ödeme fonksiyonuna odaklanmış; yıkama, kahve, market gibi ekosistem hizmetleri sunmuyor.</div>
-                            <div class="conquest-attack"><strong>Saldırı:</strong> Sürücü testimonial video kampanyası. "Opet'te sadece yakıt alıyordum, PO'da kahve de içiyorum" — deneyim farkını somutlaştır.</div>
-                        </div>
-                        <div class="conquest-item shell">
-                            <div class="conquest-brand shell">vs Shell TTS</div>
-                            <div class="conquest-weakness">Shell Select market + deli2go + temassız tuvalet var — bu segmentte Shell en güçlü rakip. Ancak Shell Filo Yıkama Kartı ayrı satın alım, PO'da ücretsiz.</div>
-                            <div class="conquest-attack"><strong>Saldırı:</strong> "Shell'de yıkama ayrı ödeme, PO'da ücretsiz" maliyet karşılaştırması. Ekosistem paketinin toplam değerini TL bazında göster.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="seg-col">
-                <div class="info-block">
-                    <div class="info-lbl">Platform Hedefleme Detayları</div>
-                    <table class="tgt-table">
-                        <thead><tr><th>Platform</th><th>Hedefleme Parametreleri</th></tr></thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="pbadge pb-meta">Meta</span></td>
-                                <td><strong>İlgi:</strong> Employee benefits, HR management, Fleet services<br><strong>Davranış:</strong> Business decision makers, HR interest<br><strong>Format:</strong> Video testimonials (sürücü hikayesi), carousel (ekosistem hizmetleri)</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-google">Google</span></td>
-                                <td><strong>Search:</strong> "sürücü avantaj programı", "filo çalışan motivasyonu", "kurumsal araç yıkama"<br><strong>Display:</strong> HR & fleet management siteleri<br><strong>YT:</strong> İK/yönetim kanalları, liderlik içerikleri</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-linkedin">LinkedIn</span></td>
-                                <td><strong>Title:</strong> HR Manager, People & Culture, Fleet Manager<br><strong>Industry:</strong> Transportation, Courier, Car rental<br><strong>Format:</strong> Thought leadership ads (ekosistem vizyonu)</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-dv360">DV360</span></td>
-                                <td><strong>Hedefleme:</strong> Affinity: HR professionals + fleet decision makers<br><strong>Format:</strong> Video pre-roll (sürücü testimonial), CTV (Smart TV), native İK siteleri<br><strong>Sequential:</strong> Video → display → audio cross-device</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-audio">D. Audio</span></td>
-                                <td><strong>Format:</strong> Podcast sponsorluk — İK/liderlik/motivasyon podcastleri<br><strong>Branded playlist:</strong> "Yolda Motivasyon — AutoMatic Filo ile" Spotify sponsorluğu</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-tiktok">TikTok</span></td>
-                                <td><strong>Hedefleme:</strong> Business owners, HR interest, employee wellbeing, 28-50 yaş<br><strong>Format:</strong> In-feed video — "Sürücümüze kahve ısmarlıyoruz" ekosistem deneyimi gösterimi<br><strong>Creator:</strong> İK/yönetim influencer collab — çalışan mutluluğu × filo yönetimi<br><strong>Spark Ads:</strong> Sürücü testimonial video boost</td>
-                            </tr>
-                            <tr>
-                                <td><span class="pbadge pb-radyo">Radyo</span></td>
-                                <td style="color:var(--text-3);font-style:italic"><strong>Offline bütçe netleşince planlanacak.</strong><br>Ön yönlendirme: Radyo D, Slow Türk — "Sürücülerinize ücretsiz kahve ve oto yıkama" soft-sell</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== ALT SEGMENTLER ===== -->
-    <div class="sh">
-        <div class="sh-label">Alt Segmentler</div>
-        <div class="sh-title">4 Ana Segment × 16 Alt Segment — Platform Hedeflenebilirlik Testi Geçmiş</div>
-        <div class="sh-desc">Her alt segment, dijital platformlarda hedeflenebilir parametrelerle tanımlanmıştır. Overlap kontrolü yapılmıştır: bir alt segment yalnızca tek bir ana segmente aittir. Ayırt edici kriter, işletmenin <strong>birincil operasyonel ağrı noktasıdır</strong> — aynı sektör farklı ağrı noktalarıyla farklı ana segmentlere düşebilir.</div>
-    </div>
-
-    <!-- S1 ALT SEGMENTLER -->
-    <div class="seg-card" style="border-left:3px solid var(--seg-scale)">
-        <div class="seg-head" onclick="toggleSeg(this)">
-            <div class="seg-icon" style="background:var(--seg-scale-bg);color:var(--seg-scale)">S1</div>
-            <div class="seg-title-area">
-                <h3 style="color:var(--seg-scale)">Hızlı Ölçeklenen KOBİ — Alt Segmentler</h3>
-                <div class="tagline">Ortak özellik: Araç sayısı katlanarak büyüyor, mevcut yönetim sistemi yetersiz kalıyor</div>
-                <div class="seg-head-msg">S1-A · S1-B · S1-C · S1-D — 4 alt segment</div>
-            </div>
-            <div class="seg-head-right">
-                <div class="seg-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
-            </div>
-        </div>
-        <div class="seg-body">
-            <div style="padding:24px 32px">
-            <table class="tgt-table">
+            <div class="inner-pane active" id="s1-subs">
+                <table class="tgt-table">
                 <thead>
                     <tr><th style="width:140px">Alt Segment</th><th style="width:180px">Profil</th><th style="width:160px">Dijital Hedefleme</th><th style="width:180px">Neden Bu Segmentte?</th><th>Mesaj Açısı</th></tr>
                 </thead>
@@ -1073,26 +639,124 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+            </div>
+            <div class="inner-pane" id="s1-platform">
+                <table class="tgt-table">
+                        <thead><tr><th>Platform</th><th>Hedefleme Parametreleri</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="pbadge pb-meta">Meta</span></td>
+                                <td><strong>Yaş:</strong> 28-50 · <strong>İlgi:</strong> Entrepreneurship, Small business, KOBİ, E-ticaret<br><strong>Davranış:</strong> SMB owners, Recently started business, Business page admins<br><strong>Placement:</strong> FB Feed + IG Reels (video ağırlıklı)<br><strong>Lookalike:</strong> Mevcut 1-10 araç AutoMatic müşteri bazı (%1-2)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-google">Google</span></td>
+                                <td><strong>Search:</strong> "kurumsal yakıt kartı", "filo yakıt fatura", "araç yakıt takip", "esnaf yakıt çözümü"<br><strong>Display:</strong> In-market: Fleet management, Business accounting, KOBİ portalları<br><strong>YT:</strong> Girişimcilik, KOBİ yönetimi, esnaf içerik kanalları</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-linkedin">LinkedIn</span></td>
+                                <td><strong>Title:</strong> Owner, Founder, GM · <strong>Size:</strong> 2-50 emp<br><strong>Industry:</strong> Wholesale, Retail, Manufacturing, Services, E-commerce<br><strong>Format:</strong> Sponsored Content + Message Ads</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-dv360">DV360</span></td>
+                                <td><strong>Hedefleme:</strong> In-market SMB services, geo-fence esnaf çarşıları + OSB bölgeleri<br><strong>Format:</strong> Native (KobiFinans, KobiEfor), ROI calculator rich media<br><strong>Optimizasyon:</strong> CPA bidding, FC 4/hafta</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-audio">D. Audio</span></td>
+                                <td><strong>Platform:</strong> Spotify Ad Studio — iş/girişimcilik playlist dinleyicileri<br><strong>Format:</strong> 15" audio spot, samimi patron-patron tonu + companion banner<br><strong>Podcast:</strong> KOBİ/finans podcastleri sponsorluk</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-tiktok">TikTok</span></td>
+                                <td><strong>Hedefleme:</strong> Business decision makers, SMB owners, 25-45 yaş<br><strong>İlgi:</strong> Entrepreneurship, small business tips, muhasebe<br><strong>Format:</strong> In-feed native video (15-30") — "3 araçlı patronun fatura kaosu" hikaye formatı, UGC tarzı<br><strong>Lead Gen:</strong> TikTok Instant Form → CRM entegrasyon<br><strong>Spark Ads:</strong> Gerçek KOBİ sahiplerinin AutoMatic Filo deneyimi boost</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-radyo">Radyo</span></td>
+                                <td style="color:var(--text-3);font-style:italic"><strong>Offline bütçe netleşince planlanacak.</strong><br>Ön yönlendirme: Radyo D, NTV Radyo, Bloomberg HT · 07-09 + 17-19 sürüş saatleri · "Fiş toplamaya son, AutoMatic Filo ile tek fatura"</td>
+                            </tr>
+                            </tbody>
+                    </table>
+            </div>
+            </div>
         </div>
     </div>
 
-    <!-- S2 ALT SEGMENTLER -->
-    <div class="seg-card" style="border-left:3px solid var(--seg-fleet)">
+    <!-- ======= S2: YAYGIN OPERASYONLU FİLOLU KOBİ ======= -->
+    <div class="seg-card" id="seg-fleet">
         <div class="seg-head" onclick="toggleSeg(this)">
             <div class="seg-icon" style="background:var(--seg-fleet-bg);color:var(--seg-fleet)">S2</div>
             <div class="seg-title-area">
-                <h3 style="color:var(--seg-fleet)">Yaygın Operasyonlu Filolu KOBİ — Alt Segmentler</h3>
-                <div class="tagline">Ortak özellik: Çok lokasyonlu, yüksek km, istasyon ağı erişimi kritik</div>
-                <div class="seg-head-msg">S2-A · S2-B · S2-C · S2-D — 4 alt segment</div>
+                <h3 style="color:var(--seg-fleet)">Yaygın Operasyonlu Filolu KOBİ</h3>
+                <div class="tagline">"Ekibim her gün farklı şehirlerde, her yerde güvenli yakıt bulmalılar"</div>
+                <div class="seg-head-msg">"2.700 istasyonda hiç yolda kalmaz"</div>
             </div>
             <div class="seg-head-right">
+                <div class="seg-metrics">
+                    <div class="seg-metric">
+                        <div class="seg-metric-val" style="color:var(--seg-fleet)">%30</div>
+                        <div class="seg-metric-lbl">Dijital Pay</div>
+                    </div>
+                    <div class="seg-metric">
+                        <div class="seg-metric-val">21M</div>
+                        <div class="seg-metric-lbl">TL Dijital</div>
+                    </div>
+                </div>
                 <div class="seg-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
             </div>
         </div>
         <div class="seg-body">
-            <div style="padding:24px 32px">
-            <table class="tgt-table">
+            <div class="seg-msg-area">
+                <div class="msg-box">
+                            <div class="msg-label">Anahtar Mesaj</div>
+                            <div class="msg-main">"Türkiye'nin her köşesinde 2.700 istasyon. Filonuz hiç yolda kalmaz."</div>
+                            <div class="msg-sub">En geniş istasyon ağıyla sürücüleriniz nerede olursa olsun güvenli yakıt alsın. Anlık dijital takip, araç bazlı raporlama ve rota optimizasyonu ile yakıt giderlerinizi kontrol altına alın.</div>
+                                    </div>
+            </div>
+            <div class="seg-detail-toggle" onclick="toggleDetail(this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                Profil, Conquest, Alt Segmentler & Platform Hedefleme
+            </div>
+            <div class="seg-detail-body">
+                <div class="seg-summary">
+                    <div class="seg-summary-left">
+                        <div class="info-block">
+                            <div class="info-lbl">Operasyonel Problem</div>
+                            <div class="info-txt">Kurye, servis, dağıtım, nakliye, inşaat gibi sürekli yolda olan filolar. Sürücüler farklı illerde, ilçelerde yakıt alıyor. İstasyon bulamama veya anlaşmasız istasyondan yakıt almak zorunda kalma problemi kronik. Yüksek kilometre = yüksek yakıt gideri. Optimizasyon yapılmazsa kâr marjı erir. Rota bazlı yakıt tüketim analizi yapamıyor.</div>
+                                    </div>
+                                    <div class="info-block">
+                            <div class="info-lbl">İşletme Profili</div>
+                            <div class="info-txt">5-50+ araçlık filolar. Lojistik, son mil dağıtım (kurye), teknik servis ağları, inşaat/tarım. Günlük ortalama 200+ km yol yapan araçlar. Şehirlerarası operasyonlar ağırlıklı. Çoklu şube/depo yapısı var.</div>
+                                    </div>
+                                    <div class="info-block">
+                            <div class="info-lbl">Karar Verici</div>
+                            <div class="info-txt">Operasyon müdürü, filo yöneticisi veya işletme sahibi. Pratik çözümlere odaklı, zaman çok değerli. Maliyet-per-km metriği ile karar veriyor.</div>
+                                    </div>
+                    </div>
+                    <div class="seg-summary-right">
+                        <div class="conquest">
+                            <div class="conquest-head" style="color:var(--seg-fleet)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                            Conquest Stratejisi
+                            </div>
+                            <div class="conquest-grid">
+                            <div class="conquest-item opet">
+                            <div class="conquest-brand opet">vs Opet Otobil</div>
+                            <div class="conquest-weakness">Opet istasyon ağı PO'dan dar. "Otokonum" servisi var ama sahada aktif filo yönetimi için yeterli değil. Multi-lokasyon raporlama zayıf.</div>
+                            <div class="conquest-attack"><strong>Saldırı:</strong> İstasyon ağı haritası karşılaştırması göster. "Sürücün hangi ilde olursa olsun, 5 km içinde PO var" mesajı. Geo-fence Opet istasyonları çevresi → mobil display.</div>
+                            </div>
+                            <div class="conquest-item shell">
+                            <div class="conquest-brand shell">vs Shell TTS</div>
+                            <div class="conquest-weakness">Shell 1.000 istasyon vs PO 2.700. Özellikle Anadolu'da kapsama boşlukları ciddi. Shell TTS'nin güçlü yönü 30 yıllık tecrübe ve araç takip (FiloPlatform) ama istasyon ağı yetersiz.</div>
+                            <div class="conquest-attack"><strong>Saldırı:</strong> "Shell'de 1.000 istasyon ararsın, PO'da 2.700 istasyon seni bulur" — ağ üstünlüğünü sayısal veriyle vurgula. Anadolu'da kapsama karşılaştırma haritası.</div>
+                            </div>
+                            </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="inner-tabs">
+                <button class="inner-tab active" onclick="switchInner(this,'s2','subs')">📋 Alt Segmentler</button>
+                <button class="inner-tab" onclick="switchInner(this,'s2','platform')">🎯 Platform Hedefleme</button>
+            </div>
+            <div class="inner-pane active" id="s2-subs">
+                <table class="tgt-table">
                 <thead>
                     <tr><th style="width:140px">Alt Segment</th><th style="width:180px">Profil</th><th style="width:160px">Dijital Hedefleme</th><th style="width:180px">Neden Bu Segmentte?</th><th>Mesaj Açısı</th></tr>
                 </thead>
@@ -1127,26 +791,124 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+            </div>
+            <div class="inner-pane" id="s2-platform">
+                <table class="tgt-table">
+                        <thead><tr><th>Platform</th><th>Hedefleme Parametreleri</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="pbadge pb-meta">Meta</span></td>
+                                <td><strong>Yaş:</strong> 30-55 · <strong>İlgi:</strong> Logistics, Fleet management, Trucking, Nakliye<br><strong>Davranış:</strong> Frequent travelers, Business page admins<br><strong>Geo:</strong> Lojistik hub şehirler (İstanbul, Mersin, İzmir, Kocaeli, Ankara)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-google">Google</span></td>
+                                <td><strong>Search:</strong> "filo yönetim sistemi", "araç takip yakıt", "taşıt tanıma sistemi", "UTTS filo çözüm"<br><strong>Waze:</strong> Branded pins + takeover ads (istasyon yakını)<br><strong>Display:</strong> In-market: Fleet management software, Vehicle tracking</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-linkedin">LinkedIn</span></td>
+                                <td><strong>Title:</strong> Operations Manager, Fleet Manager, Logistics Director<br><strong>Size:</strong> 11-200 · <strong>Industry:</strong> Transportation, Logistics, Construction<br><strong>Skills:</strong> Fleet management, Supply chain</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-dv360">DV360</span></td>
+                                <td><strong>Hedefleme:</strong> Geo-fence lojistik hub'lar (Gebze, Mersin SB, Hadımköy), fleet intent 3P data<br><strong>Format:</strong> Display + DOOH programatik (otoyol dijital billboard), video pre-roll<br><strong>Optimizasyon:</strong> CPA optimize, dayparting (iş saatleri)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-audio">D. Audio</span></td>
+                                <td><strong>Platform:</strong> Spotify + Muud + Fizy — sürüş anı dinleyicileri<br><strong>Format:</strong> 15-30" audio — "Nerede olursan ol, Petrol Ofisi yanında"<br><strong>Sequential:</strong> 1. spot awareness → 2. spot (7 gün) CTA odaklı</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-tiktok">TikTok</span></td>
+                                <td><strong>Hedefleme:</strong> 25-50 yaş, logistics/fleet/business interest, geo: lojistik hub şehirler<br><strong>Format:</strong> In-feed video — "Sürücümüz Mersin'den İstanbul'a 2.700 istasyonla" rota hikayesi<br><strong>UGC:</strong> Filo sürücülerinin günlük rutini + istasyon deneyimi<br><strong>Lead Gen:</strong> TikTok Instant Form → LP yönlendirme</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-radyo">Radyo</span></td>
+                                <td style="color:var(--text-3);font-style:italic"><strong>Offline bütçe netleşince planlanacak.</strong><br>Ön yönlendirme: Trafik FM, Radyo Voyage · 06-10 + 16-20 uzun yol bantları · trafik/hava durumu sponsorluğu</td>
+                            </tr>
+                            </tbody>
+                    </table>
+            </div>
+            </div>
         </div>
     </div>
 
-    <!-- S3 ALT SEGMENTLER -->
-    <div class="seg-card" style="border-left:3px solid var(--seg-switch)">
+    <!-- ======= S3: RAKİPLE ÇALIŞAN KOBİLER ======= -->
+    <div class="seg-card" id="seg-switch">
         <div class="seg-head" onclick="toggleSeg(this)">
             <div class="seg-icon" style="background:var(--seg-switch-bg);color:var(--seg-switch)">S3</div>
             <div class="seg-title-area">
-                <h3 style="color:var(--seg-switch)">Rakiple Çalışan KOBİ'ler — Alt Segmentler</h3>
-                <div class="tagline">Ortak özellik: Mevcut rakip çözümü var ama memnuniyet düşük veya sözleşme yenileme döneminde</div>
-                <div class="seg-head-msg">S3-A · S3-B · S3-C · S3-D — 4 alt segment</div>
+                <h3 style="color:var(--seg-switch)">Rakiple Çalışan KOBİ'ler</h3>
+                <div class="tagline">"Mevcut çözümüm yakıt doldurma dışında hiçbir şey sunmuyor"</div>
+                <div class="seg-head-msg">"Yakıt aynı, ekosistem farkı"</div>
             </div>
             <div class="seg-head-right">
+                <div class="seg-metrics">
+                    <div class="seg-metric">
+                        <div class="seg-metric-val" style="color:var(--seg-switch)">%20</div>
+                        <div class="seg-metric-lbl">Dijital Pay</div>
+                    </div>
+                    <div class="seg-metric">
+                        <div class="seg-metric-val">14M</div>
+                        <div class="seg-metric-lbl">TL Dijital</div>
+                    </div>
+                </div>
                 <div class="seg-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
             </div>
         </div>
         <div class="seg-body">
-            <div style="padding:24px 32px">
-            <table class="tgt-table">
+            <div class="seg-msg-area">
+                <div class="msg-box">
+                            <div class="msg-label">Anahtar Mesaj</div>
+                            <div class="msg-main">"Yakıt her yerde aynı. Fark, ekosistemde."</div>
+                            <div class="msg-sub">UTTS ile artık marka değiştirmek kolay. AutoMatic Filo'ya geçin: 2.700 istasyon, ücretsiz oto yıkama, Tchibo kahve, HGS/İSPARK indirimi, market avantajları — sadece yakıt değil, bütünsel avantaj sistemi.</div>
+                                    </div>
+            </div>
+            <div class="seg-detail-toggle" onclick="toggleDetail(this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                Profil, Conquest, Alt Segmentler & Platform Hedefleme
+            </div>
+            <div class="seg-detail-body">
+                <div class="seg-summary">
+                    <div class="seg-summary-left">
+                        <div class="info-block">
+                            <div class="info-lbl">Operasyonel Problem</div>
+                            <div class="info-txt">Opet Otobil, Shell TTS veya BP filo çözümü kullanan ama UTTS sonrası alternatiflere açık olan filolar. Mevcut çözümlerinden aldıkları katma değer düşük — sadece yakıt doldurma fonksiyonu var, dijital takip/raporlama yetersiz, ekosistem hizmetleri (yıkama, kahve, market) yok veya sınırlı. Sözleşme yenileme döneminde switching cost algısı var ama UTTS ile azaldı.</div>
+                                    </div>
+                                    <div class="info-block">
+                            <div class="info-lbl">İşletme Profili</div>
+                            <div class="info-txt">5-100 araçlık orta ölçekli filolar. Rakip markayla aktif UTTS sözleşmesi olan veya yenileme döneminde olanlar. Sektör çeşitliliği yüksek: lojistik, perakende zinciri, inşaat, tarım, hizmet sektörü.</div>
+                                    </div>
+                                    <div class="info-block">
+                            <div class="info-lbl">Karar Verici</div>
+                            <div class="info-txt">Satın alma müdürü, finans direktörü veya operasyon yöneticisi. Karşılaştırmalı analiz yapan, ROI odaklı. Genellikle birden fazla kişinin onayı gerekiyor (committee decision).</div>
+                                    </div>
+                    </div>
+                    <div class="seg-summary-right">
+                        <div class="conquest">
+                            <div class="conquest-head" style="color:var(--seg-switch)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                            Conquest Stratejisi — En Kritik Segment
+                            </div>
+                            <div class="conquest-grid">
+                            <div class="conquest-item opet">
+                            <div class="conquest-brand opet">vs Opet Otobil — 55K firma, 1M araç</div>
+                            <div class="conquest-weakness"><strong>Güçlü yönleri:</strong> Otobilim mobil uygulama (KOBİ friendly), dijital raporlama, Otokonum konum takibi, Masterpass ödeme altyapısı, DBS (doğrudan borçlandırma).<br><strong>Zayıf yönleri:</strong> Ekosistem hizmetleri sınırlı (yıkama/kahve/market yok), istasyon ağı PO'dan dar, "Otobilim" yeni ürün — olgunluk düşük.</div>
+                            <div class="conquest-attack"><strong>Saldırı:</strong> Ekosistem karşılaştırma tablosu kreatifi (carousel). "Yakıtın yanında oto yıkama, kahve, market — Opet'te bunlar yok." Sözleşme yenileme dönem tetiklemeli CRM outreach.</div>
+                            </div>
+                            <div class="conquest-item shell">
+                            <div class="conquest-brand shell">vs Shell TTS — 40K firma, 600K araç</div>
+                            <div class="conquest-weakness"><strong>Güçlü yönleri:</strong> 30 yıllık tecrübe (1996'dan beri Türkiye'de ilk TTS), FiloPlatform araç takip sistemi, Kurumsal HGS, Shell Select market + deli2go, global marka algısı.<br><strong>Zayıf yönleri:</strong> 1.000 istasyon (PO'nun 1/3'ü), ayda 2 fatura (PO tek fatura), fiyat premium algısı, KOBİ segmentine özel çözüm yok.</div>
+                            <div class="conquest-attack"><strong>Saldırı:</strong> "Shell'de 1.000 istasyon, PO'da 2.700" sayısal üstünlük. "30 yıllık alışkanlığı değiştir, 2.700 noktadan avantajı yakala." Rakip istasyon 500m yarıçap geo-fence → conquest display.</div>
+                            </div>
+                            </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="inner-tabs">
+                <button class="inner-tab active" onclick="switchInner(this,'s3','subs')">📋 Alt Segmentler</button>
+                <button class="inner-tab" onclick="switchInner(this,'s3','platform')">🎯 Platform Hedefleme</button>
+            </div>
+            <div class="inner-pane active" id="s3-subs">
+                <table class="tgt-table">
                 <thead>
                     <tr><th style="width:140px">Alt Segment</th><th style="width:180px">Profil</th><th style="width:160px">Dijital Hedefleme</th><th style="width:180px">Neden Bu Segmentte?</th><th>Mesaj Açısı</th></tr>
                 </thead>
@@ -1181,26 +943,124 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+            </div>
+            <div class="inner-pane" id="s3-platform">
+                <table class="tgt-table">
+                        <thead><tr><th>Platform</th><th>Hedefleme Parametreleri</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="pbadge pb-meta">Meta</span></td>
+                                <td><strong>Custom Audience:</strong> Rakip filo sayfalarını takip edenler<br><strong>İlgi:</strong> Fleet management, Fuel cards, Opet, Shell interest targeting<br><strong>Retargeting:</strong> LP ziyaretçisi ama form doldurmamış<br><strong>Format:</strong> Karşılaştırma tablosu carousel kreatifleri</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-google">Google</span></td>
+                                <td><strong>Search:</strong> "otobil alternatif", "shell tts alternatif", "filo yakıt karşılaştırma", "en iyi filo yönetimi"<br><strong>Competitor:</strong> Rakip marka branded keyword<br><strong>Display:</strong> In-market: Fuel & fleet solutions</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-linkedin">LinkedIn</span></td>
+                                <td><strong>Title:</strong> Procurement Manager, Finance Director, Operations VP<br><strong>Size:</strong> 11-500<br><strong>Format:</strong> Sponsored InMail (kişiselleştirilmiş teklif + karşılaştırma)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-dv360">DV360</span></td>
+                                <td><strong>Conquest:</strong> Geo-fence rakip istasyonlar 500m yarıçap → mobil display<br><strong>3P Data:</strong> Fleet intent (Bombora/Oracle), CRM match<br><strong>Format:</strong> "Mevcut çözüm vs AutoMatic Filo" rich media karşılaştırma<br><strong>DOOH:</strong> Rakip istasyon çevresi dijital billboard</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-audio">D. Audio</span></td>
+                                <td><strong>Format:</strong> 30" podcast mid-roll (host-read tercih) — ekosistem farkı mesajı<br><strong>Thought Leadership:</strong> "UTTS Sonrası Yeni Dönem" mini podcast serisi</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-radyo">Radyo</span></td>
+                                <td style="color:var(--text-3);font-style:italic"><strong>Offline bütçe netleşince planlanacak.</strong><br>Ön yönlendirme: Bloomberg HT, NTV Radyo — "UTTS ile marka değiştirmek artık kolay" advertorial</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-tiktok">TikTok</span></td>
+                                <td><strong>Format:</strong> "AutoMatic Filo'ya geçiş hikayesi" UGC tarzı video<br><strong>Hedefleme:</strong> Business decision maker + competitor mentions<br><strong>Spark Ads:</strong> Gerçek müşteri dönüşüm hikayesi boost</td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+            </div>
         </div>
     </div>
 
-    <!-- S4 ALT SEGMENTLER -->
-    <div class="seg-card" style="border-left:3px solid var(--seg-exp)">
+    <!-- ======= S4: ÇALIŞAN DENEYİMİNİ GÖZETEN KOBİLER ======= -->
+    <div class="seg-card" id="seg-exp">
         <div class="seg-head" onclick="toggleSeg(this)">
             <div class="seg-icon" style="background:var(--seg-exp-bg);color:var(--seg-exp)">S4</div>
             <div class="seg-title-area">
-                <h3 style="color:var(--seg-exp)">Çalışan Deneyimini Gözeten KOBİ'ler — Alt Segmentler</h3>
-                <div class="tagline">Ortak özellik: Sürücü memnuniyeti ve elde tutma, operasyonel kararların birincil girdisi</div>
-                <div class="seg-head-msg">S4-A · S4-B · S4-C · S4-D — 4 alt segment</div>
+                <h3 style="color:var(--seg-exp)">Çalışan Deneyimini Gözeten KOBİ'ler</h3>
+                <div class="tagline">"Sadece yakıt değil, sürücülerimin motivasyonunu da düşünüyorum"</div>
+                <div class="seg-head-msg">"Sürücünüze kahve ısmarlayın, oto yıkama hediye edin"</div>
             </div>
             <div class="seg-head-right">
+                <div class="seg-metrics">
+                    <div class="seg-metric">
+                        <div class="seg-metric-val" style="color:var(--seg-exp)">%15</div>
+                        <div class="seg-metric-lbl">Dijital Pay</div>
+                    </div>
+                    <div class="seg-metric">
+                        <div class="seg-metric-val">10.5M</div>
+                        <div class="seg-metric-lbl">TL Dijital</div>
+                    </div>
+                </div>
                 <div class="seg-toggle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
             </div>
         </div>
         <div class="seg-body">
-            <div style="padding:24px 32px">
-            <table class="tgt-table">
+            <div class="seg-msg-area">
+                <div class="msg-box">
+                            <div class="msg-label">Anahtar Mesaj</div>
+                            <div class="msg-main">"Sürücünüz mutlu, işletmeniz kârlı."</div>
+                            <div class="msg-sub">Her yakıt alımında ücretsiz oto yıkama, Tchibo kahve, HGS/İSPARK indirimi, market avantajları. AutoMatic Filo ekosistemiyle çalışanlarınıza ayrıcalık, işletmenize tasarruf — sürücü turnover'ını azaltın.</div>
+                                    </div>
+            </div>
+            <div class="seg-detail-toggle" onclick="toggleDetail(this)">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                Profil, Conquest, Alt Segmentler & Platform Hedefleme
+            </div>
+            <div class="seg-detail-body">
+                <div class="seg-summary">
+                    <div class="seg-summary-left">
+                        <div class="info-block">
+                            <div class="info-lbl">Operasyonel Problem</div>
+                            <div class="info-txt">Sürücü memnuniyeti ve bağlılığı düşük, turnover yüksek — özellikle kurye ve dağıtım sektöründe. İstasyonlarda bekleme süreleri uzun, sürücüler şikayetçi. Yakıt dışında oto yıkama, kahve, market alışverişi gibi günlük ihtiyaçlar için ayrı ayrı çözüm aranıyor. Sürücü memnuniyeti = operasyonel verimlilik ilişkisi henüz tam kavranmamış.</div>
+                                    </div>
+                                    <div class="info-block">
+                            <div class="info-lbl">İşletme Profili</div>
+                            <div class="info-txt">10-50+ araçlık filolar. Sürücü yoğun sektörler: kurye, taksi, rent-a-car, şehir içi dağıtım. Çalışan memnuniyetine önem veren, "işveren markası" bilinci gelişmiş KOBİ'ler. Sürücü elde tutma maliyeti yüksek olan işletmeler.</div>
+                                    </div>
+                                    <div class="info-block">
+                            <div class="info-lbl">Karar Verici</div>
+                            <div class="info-txt">İK/operasyon sorumlusu veya patron. Sürücü motivasyonu ve toplam maliyet optimizasyonu arasında denge arayan profil. "Çalışanıma ne verebilirim?" sorusuna cevap arıyor.</div>
+                                    </div>
+                    </div>
+                    <div class="seg-summary-right">
+                        <div class="conquest">
+                            <div class="conquest-head" style="color:var(--seg-exp)">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                            Conquest Stratejisi
+                            </div>
+                            <div class="conquest-grid">
+                            <div class="conquest-item opet">
+                            <div class="conquest-brand opet">vs Opet Otobil</div>
+                            <div class="conquest-weakness">Opet'in sürücü deneyimi odaklı ayrıcalık programı yok. Yakıt + ödeme fonksiyonuna odaklanmış; yıkama, kahve, market gibi ekosistem hizmetleri sunmuyor.</div>
+                            <div class="conquest-attack"><strong>Saldırı:</strong> Sürücü testimonial video kampanyası. "Opet'te sadece yakıt alıyordum, PO'da kahve de içiyorum" — deneyim farkını somutlaştır.</div>
+                            </div>
+                            <div class="conquest-item shell">
+                            <div class="conquest-brand shell">vs Shell TTS</div>
+                            <div class="conquest-weakness">Shell Select market + deli2go + temassız tuvalet var — bu segmentte Shell en güçlü rakip. Ancak Shell Filo Yıkama Kartı ayrı satın alım, PO'da ücretsiz.</div>
+                            <div class="conquest-attack"><strong>Saldırı:</strong> "Shell'de yıkama ayrı ödeme, PO'da ücretsiz" maliyet karşılaştırması. Ekosistem paketinin toplam değerini TL bazında göster.</div>
+                            </div>
+                            </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="inner-tabs">
+                <button class="inner-tab active" onclick="switchInner(this,'s4','subs')">📋 Alt Segmentler</button>
+                <button class="inner-tab" onclick="switchInner(this,'s4','platform')">🎯 Platform Hedefleme</button>
+            </div>
+            <div class="inner-pane active" id="s4-subs">
+                <table class="tgt-table">
                 <thead>
                     <tr><th style="width:140px">Alt Segment</th><th style="width:180px">Profil</th><th style="width:160px">Dijital Hedefleme</th><th style="width:180px">Neden Bu Segmentte?</th><th>Mesaj Açısı</th></tr>
                 </thead>
@@ -1235,7 +1095,101 @@
                     </tr>
                 </tbody>
             </table>
+            </div>
+            <div class="inner-pane" id="s4-platform">
+                <table class="tgt-table">
+                        <thead><tr><th>Platform</th><th>Hedefleme Parametreleri</th></tr></thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="pbadge pb-meta">Meta</span></td>
+                                <td><strong>İlgi:</strong> Employee benefits, HR management, Fleet services<br><strong>Davranış:</strong> Business decision makers, HR interest<br><strong>Format:</strong> Video testimonials (sürücü hikayesi), carousel (ekosistem hizmetleri)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-google">Google</span></td>
+                                <td><strong>Search:</strong> "sürücü avantaj programı", "filo çalışan motivasyonu", "kurumsal araç yıkama"<br><strong>Display:</strong> HR & fleet management siteleri<br><strong>YT:</strong> İK/yönetim kanalları, liderlik içerikleri</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-linkedin">LinkedIn</span></td>
+                                <td><strong>Title:</strong> HR Manager, People & Culture, Fleet Manager<br><strong>Industry:</strong> Transportation, Courier, Car rental<br><strong>Format:</strong> Thought leadership ads (ekosistem vizyonu)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-dv360">DV360</span></td>
+                                <td><strong>Hedefleme:</strong> Affinity: HR professionals + fleet decision makers<br><strong>Format:</strong> Video pre-roll (sürücü testimonial), CTV (Smart TV), native İK siteleri<br><strong>Sequential:</strong> Video → display → audio cross-device</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-audio">D. Audio</span></td>
+                                <td><strong>Format:</strong> Podcast sponsorluk — İK/liderlik/motivasyon podcastleri<br><strong>Branded playlist:</strong> "Yolda Motivasyon — AutoMatic Filo ile" Spotify sponsorluğu</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-tiktok">TikTok</span></td>
+                                <td><strong>Hedefleme:</strong> Business owners, HR interest, employee wellbeing, 28-50 yaş<br><strong>Format:</strong> In-feed video — "Sürücümüze kahve ısmarlıyoruz" ekosistem deneyimi gösterimi<br><strong>Creator:</strong> İK/yönetim influencer collab — çalışan mutluluğu × filo yönetimi<br><strong>Spark Ads:</strong> Sürücü testimonial video boost</td>
+                            </tr>
+                            <tr>
+                                <td><span class="pbadge pb-radyo">Radyo</span></td>
+                                <td style="color:var(--text-3);font-style:italic"><strong>Offline bütçe netleşince planlanacak.</strong><br>Ön yönlendirme: Radyo D, Slow Türk — "Sürücülerinize ücretsiz kahve ve oto yıkama" soft-sell</td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+            </div>
         </div>
+    </div>
+
+
+    <!-- ======= OFFLINE MECRA STRATEJİSİ ======= -->
+    <div class="sh" style="padding-top:48px">
+        <div class="sh-label" style="color:#F43F5E">Offline Mecra Stratejisi</div>
+        <div class="sh-title">Odaklı Awareness — 30M TL</div>
+        <div class="sh-desc">TV + Radyo odaklı B2B karar vericiye temas. Tematik kanal seçimiyle B2C waste minimuma indirilir. Tek faz (awareness), dijital kampanyayla eş zamanlı.</div>
+    </div>
+    <div class="offline-grid">
+        <div class="offline-card">
+            <div class="offline-card-head">
+                <div class="offline-card-name">AVRUPA KUPASI MAÇLARINDA PAKET KULLANIMI</div>
+                <div class="offline-card-sub">TRT1 + Tabii Türk Takımları Avrupa Maçları</div>
+                <div class="offline-card-budget">7M TL · %23</div>
+            </div>
+            <div class="offline-card-body">
+                <div class="offline-card-role">Yüksek dikkat anında kitlesel B2B marka inşası. ŞL, KL, Avrupa Ligi maçları — KOBİ patronlarının en yoğun TV izleme anı. Erkek 30-55 KOBİ sahibi profiliyle yüksek örtüşme.</div>
+                <div class="offline-card-segs"><strong>Segment Uyumu:</strong> <span style="color:var(--seg-scale)">S1 (patron)</span>, <span style="color:var(--seg-fleet)">S2 (lojistik patron)</span>, <span style="color:var(--seg-switch)">S3 (marka geçişi tetikleyici)</span></div>
+            </div>
+            <div class="offline-card-kpis">Reach / GRP · Ad Recall · Marka Bilinirliği</div>
+        </div>
+        <div class="offline-card">
+            <div class="offline-card-head">
+                <div class="offline-card-name">TV TEMATİK</div>
+                <div class="offline-card-sub">Maç Yorum Programları</div>
+                <div class="offline-card-budget">3M TL · %10</div>
+            </div>
+            <div class="offline-card-body">
+                <div class="offline-card-role">Maç sonrası uzun temas — güvenilir ortamda mesaj derinliği. Düşük zapping, advertorial/sponsorluk formatıyla detaylı ürün mesajı. Maç bütçesinin tamamlayıcısı.</div>
+                <div class="offline-card-segs"><strong>Segment Uyumu:</strong> <span style="color:var(--seg-scale)">S1 (patron)</span>, <span style="color:var(--seg-switch)">S3 (karşılaştırma mesajı)</span>, <span style="color:var(--seg-exp)">S4 (ekosistem farkındalığı)</span></div>
+            </div>
+            <div class="offline-card-kpis">Reach · Mesaj Hatırlanırlığı · Sponsorluk Bilinirliği</div>
+        </div>
+        <div class="offline-card">
+            <div class="offline-card-head">
+                <div class="offline-card-name" style="color:#10B981">TV TEMATİK</div>
+                <div class="offline-card-sub">Ekonomi & Haber Kanalları</div>
+                <div class="offline-card-budget">12M TL · %40</div>
+            </div>
+            <div class="offline-card-body">
+                <div class="offline-card-role">B2B karar vericiye doğrudan, düşük waste erişim. Ekonomi kuşakları, haber bültenleri, Pazar ekonomi programları. Filo ürünü için en doğrudan karar verici erişimi.</div>
+                <div class="offline-card-segs"><strong>Segment Uyumu:</strong> <span style="color:var(--seg-scale)">S1 (finans karar verici)</span>, <span style="color:var(--seg-fleet)">S2 (operasyon mgr)</span>, <span style="color:var(--seg-switch)">S3 (ROI switching)</span>, <span style="color:var(--seg-exp)">S4 (İK/maliyet)</span></div>
+            </div>
+            <div class="offline-card-kpis">Reach / TRP · Mesaj Hatırlanırlığı · Marka Otoritesi</div>
+        </div>
+        <div class="offline-card">
+            <div class="offline-card-head">
+                <div class="offline-card-name">RADYO</div>
+                <div class="offline-card-sub">Sürüş Saatleri (07-12, 17-20)</div>
+                <div class="offline-card-budget">8M TL · %27</div>
+            </div>
+            <div class="offline-card-body">
+                <div class="offline-card-role">Günlük tekrar ve zihinsel pekiştirme — sürüş anında temas. Frekans etkisi en yüksek mecra. QR/kısa URL ile dijitale köprü kurabilecek tek offline mecra.</div>
+                <div class="offline-card-segs"><strong>Segment Uyumu:</strong> <span style="color:var(--seg-scale)">S1-C (esnaf)</span>, <span style="color:var(--seg-fleet)">S2-A (nakliye)</span>, <span style="color:var(--seg-switch)">S3 (marka değiştirme)</span>, <span style="color:var(--seg-exp)">S4-D (taksi)</span></div>
+            </div>
+            <div class="offline-card-kpis">Reach · Frekans · Mesaj Hatırlanırlığı · Website Yönlendirme</div>
         </div>
     </div>
 
@@ -1313,6 +1267,23 @@
 function toggleSeg(headEl) {
     const card = headEl.closest('.seg-card');
     card.classList.toggle('open');
+}
+
+function toggleDetail(el) {
+    el.classList.toggle('open');
+    const body = el.nextElementSibling;
+    if (body) body.classList.toggle('open');
+}
+
+function switchInner(btn, segId, pane) {
+    const card = btn.closest('.seg-card') || btn.closest('.seg-body')?.parentElement;
+    const body = btn.closest('.seg-body') || document.getElementById(segId+'-subs')?.parentElement;
+    if (!body) return;
+    body.querySelectorAll('.inner-tab').forEach(t => t.classList.remove('active'));
+    body.querySelectorAll('.inner-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const target = document.getElementById(segId + '-' + pane);
+    if (target) target.classList.add('active');
 }
 
 // === TAB NAVIGATION ===
