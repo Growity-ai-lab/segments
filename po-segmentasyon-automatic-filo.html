@@ -130,6 +130,31 @@
 
         /* === SEGMENT BODY: 2-LEVEL ACCORDION === */
         .seg-msg-area{padding:24px 32px}
+        
+        .plan-table{width:100%;border-collapse:collapse;font-size:11px;margin-top:8px}
+        .plan-table thead{background:var(--bg-2)}
+        .plan-table th{padding:8px 10px;text-align:left;font-size:10px;font-weight:600;color:var(--text-2);letter-spacing:0.5px;border-bottom:1px solid var(--border-0)}
+        .plan-table td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:middle}
+        .plan-table tr:hover{background:rgba(255,255,255,0.02)}
+        .plan-mecra{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:5px;font-size:10px;font-weight:600}
+        .pm-yt{background:rgba(255,0,0,0.12);color:#ff4444}
+        .pm-meta{background:rgba(24,119,242,0.12);color:#4ea1ff}
+        .pm-li{background:rgba(10,102,194,0.12);color:#5eb5ff}
+        .pm-tt{background:rgba(0,0,0,0.2);color:#ff2d55;border:1px solid rgba(255,45,85,0.3)}
+        .pm-x{background:rgba(255,255,255,0.08);color:#ccc}
+        .pm-dv{background:rgba(52,168,83,0.12);color:#34a853}
+        .pm-partner{background:rgba(245,158,11,0.12);color:#f59e0b}
+        .pm-ott{background:rgba(168,85,247,0.12);color:#a855f7}
+        .pm-audio{background:rgba(30,215,96,0.12);color:#1ed760}
+        .pm-telco{background:rgba(0,180,219,0.12);color:#00b4db}
+        .plan-butce{font-weight:700;color:var(--seg-scale);font-family:'Space Mono',monospace;font-size:11px}
+        .plan-kpi{color:var(--text-2);font-size:10px}
+        .plan-total{background:rgba(227,30,36,0.08);font-weight:700}
+        .plan-total td{border-top:2px solid rgba(227,30,36,0.3);padding:10px}
+        .plan-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:12px}
+        .plan-stat{background:var(--bg-2);border-radius:8px;padding:10px 12px;text-align:center}
+        .plan-stat-val{font-size:16px;font-weight:700;color:var(--accent-green);font-family:'Space Mono',monospace}
+        .plan-stat-lbl{font-size:9px;color:var(--text-2);margin-top:2px;letter-spacing:0.3px}
         .seg-detail-toggle{display:flex;align-items:center;gap:8px;padding:12px 32px;cursor:pointer;border-top:1px solid var(--border-0);background:var(--bg-2);font-size:11px;font-weight:600;color:var(--text-2);letter-spacing:0.5px;transition:all 0.2s;user-select:none}
         .seg-detail-toggle:hover{color:var(--text-0);background:rgba(255,255,255,0.03)}
         .seg-detail-toggle svg{width:14px;height:14px;transition:transform 0.3s}
@@ -644,6 +669,7 @@
                 <div class="inner-tabs">
                 <button class="inner-tab active" onclick="switchInner(this,'s1','subs')">📋 Alt Segmentler</button>
                 <button class="inner-tab" onclick="switchInner(this,'s1','platform')">🎯 Platform Hedefleme</button>
+                <button class="inner-tab" onclick="switchInner(this,'s1','plan')">📊 Yayın Planı</button>
             </div>
             <div class="inner-pane active" id="s1-subs">
                 <table class="tgt-table">
@@ -716,6 +742,32 @@
                             </tr>
                             </tbody>
                     </table>
+            </div>
+            <div class="inner-pane" id="s1-plan">
+                <div class="plan-summary">
+                    <div class="plan-stat"><div class="plan-stat-val">17.36M₺</div><div class="plan-stat-lbl">Dijital Bütçe</div></div>
+                    <div class="plan-stat"><div class="plan-stat-val">7</div><div class="plan-stat-lbl">Platform</div></div>
+                    <div class="plan-stat"><div class="plan-stat-val">12</div><div class="plan-stat-lbl">Yayın Kalemi</div></div>
+                    <div class="plan-stat"><div class="plan-stat-val">Lead Gen</div><div class="plan-stat-lbl">Öncelik</div></div>
+                </div>
+                <table class="plan-table">
+                <thead><tr><th>Platform</th><th>Site / Network</th><th>Format</th><th>Hedefleme</th><th>KPI</th><th style="text-align:right">Bütçe</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="plan-mecra pm-meta">Meta</span></td><td>Instagram</td><td>Lead Gen</td><td>KOBİ / Esnaf / Girişimcilik</td><td class="plan-kpi">12K lead · 500₺ CPL</td><td class="plan-butce" style="text-align:right">6.000.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-meta">Meta</span></td><td>FB & IG</td><td>Trafik</td><td>KOBİ / Esnaf ilgi hedeflemeli</td><td class="plan-kpi">210K click · 10₺ CPC</td><td class="plan-butce" style="text-align:right">2.100.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-tt">TikTok</span></td><td>TikTok</td><td>Lead Gen</td><td>Girişimcilik / #küçükişletme</td><td class="plan-kpi">3.750 lead · 400₺ CPL</td><td class="plan-butce" style="text-align:right">1.500.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-tt">TikTok</span></td><td>TikTok</td><td>Traffic</td><td>KOBİ karar verici 25-45</td><td class="plan-kpi">200K click · 6₺ CPC</td><td class="plan-butce" style="text-align:right">1.200.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-partner">Teklifim Gelsin</span></td><td>Teklifim Gelsin</td><td>Mailing</td><td>KOBİ hedeflemeli</td><td class="plan-kpi">375K mail · 0.8₺ CPM</td><td class="plan-butce" style="text-align:right">300.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-partner">Hesap Kurdu</span></td><td>Hesap Kurdu</td><td>Native Ad</td><td>KOBİ hedeflemeli</td><td class="plan-kpi">800 lead · 750₺ CPL</td><td class="plan-butce" style="text-align:right">600.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-partner">Hangi Kredi</span></td><td>Hangi Kredi</td><td>Native Ad</td><td>KOBİ hedeflemeli</td><td class="plan-kpi">5.5M imp · 110₺ CPM</td><td class="plan-butce" style="text-align:right">600.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-partner">Amazon</span></td><td>Amazon</td><td>Banner</td><td>Satıcı data hedeflemeli</td><td class="plan-kpi">Satıcı retarget</td><td class="plan-butce" style="text-align:right">300.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-partner">HepsiBurada</span></td><td>HepsiBurada</td><td>Banner</td><td>Satıcı data hedeflemeli</td><td class="plan-kpi">Satıcı retarget</td><td class="plan-butce" style="text-align:right">300.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-partner">Trendyol</span></td><td>Trendyol</td><td>Banner</td><td>Satıcı data hedeflemeli</td><td class="plan-kpi">Satıcı retarget</td><td class="plan-butce" style="text-align:right">300.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-telco">Turkcell</span></td><td>Turkcell</td><td>Preroll</td><td>KOBİ data hedeflemeli</td><td class="plan-kpi">1.25M imp · 0.4₺ CPV</td><td class="plan-butce" style="text-align:right">500.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-ott">Tooplay</span></td><td>Kanal D / Star / Show / Puhu</td><td>Preroll</td><td>Mimeda KOBİ datası</td><td class="plan-kpi">1.25M imp · 0.6₺ CPV</td><td class="plan-butce" style="text-align:right">750.000₺</td></tr>
+                    <tr class="plan-total"><td colspan="5" style="text-align:right">TOPLAM S1 DİJİTAL BÜTÇE</td><td class="plan-butce" style="text-align:right;font-size:13px">17.450.000₺</td></tr>
+                </tbody>
+                </table>
             </div>
             </div>
         </div>
@@ -796,6 +848,7 @@
                 <div class="inner-tabs">
                 <button class="inner-tab active" onclick="switchInner(this,'s2','subs')">📋 Alt Segmentler</button>
                 <button class="inner-tab" onclick="switchInner(this,'s2','platform')">🎯 Platform Hedefleme</button>
+                <button class="inner-tab" onclick="switchInner(this,'s2','plan')">📊 Yayın Planı</button>
             </div>
             <div class="inner-pane active" id="s2-subs">
                 <table class="tgt-table">
@@ -868,6 +921,31 @@
                             </tr>
                             </tbody>
                     </table>
+            </div>
+            <div class="inner-pane" id="s2-plan">
+                <div class="plan-summary">
+                    <div class="plan-stat"><div class="plan-stat-val">14.86M₺</div><div class="plan-stat-lbl">Dijital Bütçe</div></div>
+                    <div class="plan-stat"><div class="plan-stat-val">8</div><div class="plan-stat-lbl">Platform</div></div>
+                    <div class="plan-stat"><div class="plan-stat-val">11</div><div class="plan-stat-lbl">Yayın Kalemi</div></div>
+                    <div class="plan-stat"><div class="plan-stat-val">Awareness + Lead</div><div class="plan-stat-lbl">Öncelik</div></div>
+                </div>
+                <table class="plan-table">
+                <thead><tr><th>Platform</th><th>Site / Network</th><th>Format</th><th>Hedefleme</th><th>KPI</th><th style="text-align:right">Bütçe</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="plan-mecra pm-yt">YouTube</span></td><td>YouTube</td><td>Non Skippable</td><td>Hedeflemeli yayın</td><td class="plan-kpi">16.25M imp · 80₺ CPM</td><td class="plan-butce" style="text-align:right">1.300.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-yt">YouTube</span></td><td>YouTube</td><td>Connected TV</td><td>Hedeflemeli yayın</td><td class="plan-kpi">6M imp · 100₺ CPM</td><td class="plan-butce" style="text-align:right">600.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-meta">Meta</span></td><td>Facebook</td><td>Lead Gen</td><td>Filo yöneticisi / operasyon</td><td class="plan-kpi">12K lead · 500₺ CPL</td><td class="plan-butce" style="text-align:right">6.000.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-li">LinkedIn</span></td><td>LinkedIn</td><td>Lead Gen</td><td>Fleet Mgr / Owner / 2-200 emp</td><td class="plan-kpi">429 lead · 1.400₺ CPL</td><td class="plan-butce" style="text-align:right">600.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-dv">DV360</span></td><td>DV360</td><td>Traffic</td><td>In-market fleet, geo-fence OSB</td><td class="plan-kpi">1M imp · 3₺ CPM</td><td class="plan-butce" style="text-align:right">3.000.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-partner">Sahibinden</span></td><td>Sahibinden</td><td>Banner</td><td>KOBİ müşteri hedeflemeli</td><td class="plan-kpi">Ticari araç ilgi</td><td class="plan-butce" style="text-align:right">500.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-ott">TvEkstra</span></td><td>TvEkstra</td><td>Addressable TV</td><td>KOBİ datası</td><td class="plan-kpi">KOBİ HH hedeflemeli</td><td class="plan-butce" style="text-align:right">500.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-telco">Türk Telekom</span></td><td>Türk Telekom</td><td>Preroll</td><td>KOBİ hedeflemeli</td><td class="plan-kpi">1M imp · 0.5₺ CPV</td><td class="plan-butce" style="text-align:right">500.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-ott">Disney+</span></td><td>Disney+</td><td>Preroll</td><td>Hedeflemeli yayın</td><td class="plan-kpi">225K imp · 2₺ CPV</td><td class="plan-butce" style="text-align:right">450.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-ott">HBO Max</span></td><td>HBO Max</td><td>Preroll</td><td>Hedeflemeli yayın</td><td class="plan-kpi">300K imp · 2₺ CPV</td><td class="plan-butce" style="text-align:right">600.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-audio">Spotify</span></td><td>Spotify</td><td>Audio</td><td>İş/girişimcilik playlist</td><td class="plan-kpi">600K imp · 0.6₺ CPV</td><td class="plan-butce" style="text-align:right">360.000₺</td></tr>
+                    <tr class="plan-total"><td colspan="5" style="text-align:right">TOPLAM S2 DİJİTAL BÜTÇE</td><td class="plan-butce" style="text-align:right;font-size:13px">14.410.000₺</td></tr>
+                </tbody>
+                </table>
             </div>
             </div>
         </div>
@@ -948,6 +1026,7 @@
                 <div class="inner-tabs">
                 <button class="inner-tab active" onclick="switchInner(this,'s3','subs')">📋 Alt Segmentler</button>
                 <button class="inner-tab" onclick="switchInner(this,'s3','platform')">🎯 Platform Hedefleme</button>
+                <button class="inner-tab" onclick="switchInner(this,'s3','plan')">📊 Yayın Planı</button>
             </div>
             <div class="inner-pane active" id="s3-subs">
                 <table class="tgt-table">
@@ -1020,6 +1099,29 @@
                             </tr>
                         </tbody>
                     </table>
+            </div>
+            <div class="inner-pane" id="s3-plan">
+                <div class="plan-summary">
+                    <div class="plan-stat"><div class="plan-stat-val">12.11M₺</div><div class="plan-stat-lbl">Dijital Bütçe</div></div>
+                    <div class="plan-stat"><div class="plan-stat-val">7</div><div class="plan-stat-lbl">Platform</div></div>
+                    <div class="plan-stat"><div class="plan-stat-val">9</div><div class="plan-stat-lbl">Yayın Kalemi</div></div>
+                    <div class="plan-stat"><div class="plan-stat-val">Conversion</div><div class="plan-stat-lbl">Öncelik</div></div>
+                </div>
+                <table class="plan-table">
+                <thead><tr><th>Platform</th><th>Site / Network</th><th>Format</th><th>Hedefleme</th><th>KPI</th><th style="text-align:right">Bütçe</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="plan-mecra pm-meta">Meta</span></td><td>Instagram</td><td>Lead Gen</td><td>KOBİ maliyet bilinci</td><td class="plan-kpi">12K lead · 500₺ CPL</td><td class="plan-butce" style="text-align:right">6.000.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-meta">Meta</span></td><td>FB & IG</td><td>Trafik</td><td>Maliyet optimizasyonu ilgi</td><td class="plan-kpi">210K click · 10₺ CPC</td><td class="plan-butce" style="text-align:right">2.100.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-x">X</span></td><td>X</td><td>Lead Gen</td><td>Esnaf / KOBİ / nakliye</td><td class="plan-kpi">750 lead · 800₺ CPL</td><td class="plan-butce" style="text-align:right">600.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-x">X</span></td><td>X</td><td>Traffic</td><td>Mazot / ticari araç konuşmaları</td><td class="plan-kpi">Traffic</td><td class="plan-butce" style="text-align:right">750.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-tt">TikTok</span></td><td>TikTok</td><td>Traffic</td><td>KOBİ tasarruf içerikleri</td><td class="plan-kpi">200K click · 6₺ CPC</td><td class="plan-butce" style="text-align:right">1.200.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-partner">Koçtaş</span></td><td>Tooplay / Koçtaş</td><td>Banner</td><td>Partner giriş ekranı</td><td class="plan-kpi">2.7M imp · 110₺ CPM</td><td class="plan-butce" style="text-align:right">300.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-partner">HepsiBurada</span></td><td>HepsiBurada</td><td>Banner</td><td>Satıcı data hedeflemeli</td><td class="plan-kpi">Satıcı retarget</td><td class="plan-butce" style="text-align:right">300.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-audio">Spotify</span></td><td>Spotify</td><td>Audio</td><td>İş/esnaf podcast</td><td class="plan-kpi">600K imp · 0.6₺ CPV</td><td class="plan-butce" style="text-align:right">360.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-ott">Tooplay</span></td><td>Kanal D / Star / Show</td><td>Preroll</td><td>Mimeda KOBİ datası</td><td class="plan-kpi">1.25M imp · 0.6₺ CPV</td><td class="plan-butce" style="text-align:right">500.000₺</td></tr>
+                    <tr class="plan-total"><td colspan="5" style="text-align:right">TOPLAM S3 DİJİTAL BÜTÇE</td><td class="plan-butce" style="text-align:right;font-size:13px">12.110.000₺</td></tr>
+                </tbody>
+                </table>
             </div>
             </div>
         </div>
@@ -1100,6 +1202,7 @@
                 <div class="inner-tabs">
                 <button class="inner-tab active" onclick="switchInner(this,'s4','subs')">📋 Alt Segmentler</button>
                 <button class="inner-tab" onclick="switchInner(this,'s4','platform')">🎯 Platform Hedefleme</button>
+                <button class="inner-tab" onclick="switchInner(this,'s4','plan')">📊 Yayın Planı</button>
             </div>
             <div class="inner-pane active" id="s4-subs">
                 <table class="tgt-table">
@@ -1172,6 +1275,29 @@
                             </tr>
                         </tbody>
                     </table>
+            </div>
+            <div class="inner-pane" id="s4-plan">
+                <div class="plan-summary">
+                    <div class="plan-stat"><div class="plan-stat-val">11.46M₺</div><div class="plan-stat-lbl">Dijital Bütçe</div></div>
+                    <div class="plan-stat"><div class="plan-stat-val">7</div><div class="plan-stat-lbl">Platform</div></div>
+                    <div class="plan-stat"><div class="plan-stat-val">9</div><div class="plan-stat-lbl">Yayın Kalemi</div></div>
+                    <div class="plan-stat"><div class="plan-stat-val">Awareness + ABM</div><div class="plan-stat-lbl">Öncelik</div></div>
+                </div>
+                <table class="plan-table">
+                <thead><tr><th>Platform</th><th>Site / Network</th><th>Format</th><th>Hedefleme</th><th>KPI</th><th style="text-align:right">Bütçe</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="plan-mecra pm-yt">YouTube</span></td><td>YouTube</td><td>Masthead</td><td>Hedeflemeli yayın</td><td class="plan-kpi">25M imp · 40₺ CPM</td><td class="plan-butce" style="text-align:right">1.000.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-yt">YouTube</span></td><td>YouTube</td><td>Connected TV</td><td>Hedeflemeli yayın</td><td class="plan-kpi">6M imp · 100₺ CPM</td><td class="plan-butce" style="text-align:right">600.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-meta">Meta</span></td><td>Facebook</td><td>Lead Gen</td><td>C-Level / Fleet Manager</td><td class="plan-kpi">12K lead · 500₺ CPL</td><td class="plan-butce" style="text-align:right">6.000.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-li">LinkedIn</span></td><td>LinkedIn</td><td>Lead Gen</td><td>Director+ / 200+ emp / Fleet</td><td class="plan-kpi">429 lead · 1.400₺ CPL</td><td class="plan-butce" style="text-align:right">600.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-dv">DV360</span></td><td>DV360</td><td>Traffic</td><td>In-market fleet + ABM</td><td class="plan-kpi">1M imp · 3₺ CPM</td><td class="plan-butce" style="text-align:right">3.000.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-ott">TvEkstra</span></td><td>TvEkstra</td><td>Addressable TV</td><td>Kurumsal HH datası</td><td class="plan-kpi">Kurumsal HH hedeflemeli</td><td class="plan-butce" style="text-align:right">500.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-ott">Disney+</span></td><td>Disney+</td><td>Preroll</td><td>Premium hedefleme</td><td class="plan-kpi">225K imp · 2₺ CPV</td><td class="plan-butce" style="text-align:right">450.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-ott">HBO Max</span></td><td>HBO Max</td><td>Preroll</td><td>Premium hedefleme</td><td class="plan-kpi">300K imp · 2₺ CPV</td><td class="plan-butce" style="text-align:right">600.000₺</td></tr>
+                    <tr><td><span class="plan-mecra pm-audio">Spotify</span></td><td>Spotify</td><td>Audio</td><td>Yönetici/iş podcast</td><td class="plan-kpi">600K imp · 0.6₺ CPV</td><td class="plan-butce" style="text-align:right">360.000₺</td></tr>
+                    <tr class="plan-total"><td colspan="5" style="text-align:right">TOPLAM S4 DİJİTAL BÜTÇE</td><td class="plan-butce" style="text-align:right;font-size:13px">13.110.000₺</td></tr>
+                </tbody>
+                </table>
             </div>
             </div>
         </div>
