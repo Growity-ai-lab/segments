@@ -542,7 +542,7 @@
             <div class="stat-card"><div class="stat-icon blue">👥</div><div><div class="stat-value">68</div><div class="stat-label">Toplam Segment</div></div></div>
             <div class="stat-card"><div class="stat-icon purple">📁</div><div><div class="stat-value">12</div><div class="stat-label">Ana Kategori</div></div></div>
             <div class="stat-card"><div class="stat-icon green">✓</div><div><div class="stat-value" id="selectedCount">0</div><div class="stat-label">Seçili</div></div></div>
-            <div class="stat-card"><div class="stat-icon orange">📈</div><div><div class="stat-value" id="totalReach">0%</div><div class="stat-label">Tahmini Reach</div></div></div>
+            <div class="stat-card" style="position:relative"><div class="stat-icon orange">📈</div><div><div class="stat-value" id="totalReach">0%</div><div class="stat-label">Platform Reach</div><div id="reachBenchmark" style="font-size:9px;margin-top:3px;font-family:'Space Mono',monospace;display:none"></div></div></div>
         </div>
         <div class="controls">
             <div class="search-box"><span class="search-icon">🔍</span><input type="text" class="search-input" placeholder="Segment ara..." id="searchInput"></div>
@@ -1427,7 +1427,18 @@ function renderSegments(filter, search) {
             subsHtml += '<div class="sub-segment' + (isSelected ? ' selected' : '') + '" onclick="toggleSegment(\'' + sub.id + '\')">' +
                 '<div class="checkbox' + (isSelected ? ' checked' : '') + '"></div>' +
                 '<div class="sub-info"><div class="sub-name">' + sub.name + '</div><div class="sub-desc">' + sub.desc + '</div></div>' +
-                '<div class="sub-meta"><span class="meta-tag">' + sub.reach + '%</span>' +
+                '<div class="sub-meta">' +
+                (function() {
+                    var metaR = metaDataCache[sub.id] ? metaDataCache[sub.id].formatted : null;
+                    var ttR = platformDataCache.tiktok && platformDataCache.tiktok[sub.id] ? platformDataCache.tiktok[sub.id].formatted : null;
+                    if (metaR || ttR) {
+                        var parts = [];
+                        if (metaR) parts.push('<span class="meta-tag" style="background:rgba(24,119,242,0.15);color:#1877f2;font-size:9px">M:' + metaR + '</span>');
+                        if (ttR) parts.push('<span class="meta-tag" style="background:rgba(238,45,94,0.15);color:#ee2d5e;font-size:9px">T:' + ttR + '</span>');
+                        return parts.join(' ');
+                    }
+                    return '<span class="meta-tag" style="opacity:0.4;font-size:9px">—</span>';
+                })() +
                 '<div class="platform-badges">' + platformBadges + '</div></div></div>';
         });
         
@@ -1564,13 +1575,78 @@ function updateUI() {
     document.getElementById('selectedCount').textContent = selectedSegments.size;
     document.getElementById('footerCount').textContent = selectedSegments.size;
     
-    var totalReach = 0;
-    segments.forEach(function(p) {
-        p.subs.forEach(function(s) {
-            if (selectedSegments.has(s.id)) totalReach += s.reach * 0.6;
-        });
+    // Platform bazlı gerçek reach hesabı (Meta + TikTok audience)
+    var KOBI_UNIVERSE = 3930000; // TÜİK 2024
+    var metaReachTotal = 0;
+    var tiktokReachTotal = 0;
+    var matchedSegCount = 0;
+    
+    selectedSegments.forEach(function(segId) {
+        // Meta reach
+        var metaData = META_SEGMENT_MAP[segId];
+        if (metaData && metaData.audienceSize) {
+            metaReachTotal += metaData.audienceSize;
+            matchedSegCount++;
+        } else if (metaDataCache[segId] && metaDataCache[segId].raw) {
+            metaReachTotal += metaDataCache[segId].raw;
+            matchedSegCount++;
+        }
+        // TikTok reach
+        var ttData = PLATFORM_SEGMENT_MAP.tiktok && PLATFORM_SEGMENT_MAP.tiktok[segId];
+        if (ttData && ttData.audienceSize) {
+            tiktokReachTotal += ttData.audienceSize;
+        } else if (platformDataCache.tiktok && platformDataCache.tiktok[segId] && platformDataCache.tiktok[segId].raw) {
+            tiktokReachTotal += platformDataCache.tiktok[segId].raw;
+        }
     });
-    document.getElementById('totalReach').textContent = Math.min(totalReach, 95).toFixed(1) + '%';
+    
+    // Overlap tahmini (%30 düş — aynı kişi iki platformda)
+    var combinedReach = metaReachTotal + tiktokReachTotal;
+    var deduplicatedReach = combinedReach > 0 ? combinedReach * 0.7 : 0;
+    var reachPercent = deduplicatedReach > 0 ? Math.min((deduplicatedReach / KOBI_UNIVERSE) * 100, 100) : 0;
+    
+    var reachEl = document.getElementById('totalReach');
+    if (selectedSegments.size === 0) {
+        reachEl.textContent = '0%';
+    } else if (matchedSegCount === 0) {
+        reachEl.textContent = '—';
+    } else {
+        reachEl.textContent = reachPercent.toFixed(1) + '%';
+    }
+    
+    // Benchmark ibaresi
+    var benchEl = document.getElementById('reachBenchmark');
+    if (matchedSegCount > 0 && reachPercent > 0) {
+        benchEl.style.display = 'block';
+        var benchText, benchColor;
+        if (reachPercent < 5) {
+            benchText = '⚠ Niş — dar hedefleme';
+            benchColor = '#f59e0b';
+        } else if (reachPercent < 15) {
+            benchText = '✓ Odaklı — B2B ideal';
+            benchColor = '#10b981';
+        } else if (reachPercent < 30) {
+            benchText = '✦ Güçlü — geniş kapsama';
+            benchColor = '#3b82f6';
+        } else if (reachPercent < 50) {
+            benchText = '★ Agresif — yüksek penetrasyon';
+            benchColor = '#8b5cf6';
+        } else {
+            benchText = '⚡ Maksimum — overlap riski';
+            benchColor = '#ef4444';
+        }
+        var metaStr = metaReachTotal > 0 ? 'Meta ' + formatMetaNumber(metaReachTotal) : '';
+        var ttStr = tiktokReachTotal > 0 ? 'TikTok ' + formatMetaNumber(tiktokReachTotal) : '';
+        var platformDetail = [metaStr, ttStr].filter(function(x){return x;}).join(' + ');
+        benchEl.innerHTML = '<span style="color:' + benchColor + '">' + benchText + '</span>' +
+            (platformDetail ? '<br><span style="color:var(--text-secondary);font-size:8px">' + platformDetail + ' (-%30 overlap)</span>' : '') +
+            '<br><span style="color:var(--text-secondary);font-size:8px">TR KOBİ evreni: ~3.93M (TÜİK 2024)</span>';
+    } else if (selectedSegments.size > 0 && matchedSegCount === 0) {
+        benchEl.style.display = 'block';
+        benchEl.innerHTML = '<span style="color:var(--text-secondary);font-size:8px">Interest eşleştirmesi yapılınca hesaplanır</span>';
+    } else {
+        benchEl.style.display = 'none';
+    }
     
     if (selectedSegments.size > 0) {
         document.getElementById('footerActions').classList.add('visible');
@@ -1861,10 +1937,11 @@ function acceptSuggestion(idx) {
     if (interests.length > 0) {
         META_SEGMENT_MAP[s.segmentId] = {
             name: s.segmentName,
-            interests: interests
+            interests: interests,
+            audienceSize: s.audienceSize || 0
         };
         if (s.audienceSize) {
-            metaDataCache[s.segmentId] = { formatted: formatMetaNumber(s.audienceSize) };
+            metaDataCache[s.segmentId] = { formatted: formatMetaNumber(s.audienceSize), raw: s.audienceSize };
         }
         s.status = 'accepted';
         saveMappings();
@@ -2123,10 +2200,11 @@ function acceptTikTokSuggestion(idx) {
     if (s.selectedInterests && s.selectedInterests.length > 0) {
         PLATFORM_SEGMENT_MAP.tiktok[s.segmentId] = {
             name: s.segmentName,
-            interests: s.selectedInterests
+            interests: s.selectedInterests,
+            audienceSize: s.audienceSize || 0
         };
         if (s.audienceSize) {
-            platformDataCache.tiktok[s.segmentId] = { formatted: formatMetaNumber(s.audienceSize) };
+            platformDataCache.tiktok[s.segmentId] = { formatted: formatMetaNumber(s.audienceSize), raw: s.audienceSize };
         }
         s.status = 'accepted';
         saveTikTokMappings();
@@ -2629,11 +2707,14 @@ function exportSelection() {
     setButtonLoading(btn, true);
     
     setTimeout(function() {
-        var csv = 'Segment,Açıklama,Reach,Meta Interest\n';
+        var csv = 'Segment,Açıklama,Meta Reach,TikTok Reach,Meta Interest,TikTok Interest\n';
         selectedSegments.forEach(function(segId) {
             var s = findSegment(segId);
-            var interest = META_SEGMENT_MAP[segId] ? META_SEGMENT_MAP[segId].interests[0].name : '';
-            if (s) csv += '"' + s.name + '","' + s.desc + '",' + s.reach + '%,"' + interest + '"\n';
+            var metaInterest = META_SEGMENT_MAP[segId] ? META_SEGMENT_MAP[segId].interests.map(function(i){return i.name}).join('; ') : '';
+            var ttInterest = PLATFORM_SEGMENT_MAP.tiktok && PLATFORM_SEGMENT_MAP.tiktok[segId] ? PLATFORM_SEGMENT_MAP.tiktok[segId].interests.map(function(i){return i.name}).join('; ') : '';
+            var metaReach = metaDataCache[segId] ? metaDataCache[segId].formatted : '-';
+            var ttReach = platformDataCache.tiktok && platformDataCache.tiktok[segId] ? platformDataCache.tiktok[segId].formatted : '-';
+            if (s) csv += '"' + s.name + '","' + s.desc + '",' + metaReach + ',' + ttReach + ',"' + metaInterest + '","' + ttInterest + '"\n';
         });
         var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
         var a = document.createElement('a');
@@ -2656,7 +2737,8 @@ function goToQuadrant() {
         for (var i = 0; i < segments.length; i++) {
             var sub = segments[i].subs.find(function(s) { return s.id === segId; });
             if (sub) {
-                selectedData.push({ id: sub.id, name: sub.name, desc: sub.desc, reach: sub.reach * 100000, parent: segments[i].name });
+                var mReach = META_SEGMENT_MAP[sub.id] && META_SEGMENT_MAP[sub.id].audienceSize ? META_SEGMENT_MAP[sub.id].audienceSize : (metaDataCache[sub.id] && metaDataCache[sub.id].raw ? metaDataCache[sub.id].raw : sub.reach * 100000);
+                selectedData.push({ id: sub.id, name: sub.name, desc: sub.desc, reach: mReach, parent: segments[i].name });
                 break;
             }
         }
