@@ -886,6 +886,12 @@
                         <a href="po-segmentasyon.html" class="pre-segments-item po">
                             <span>🏪</span> Premium Market
                         </a>
+                        <a href="po-segmentasyon-automatic-filo.html" class="pre-segments-item po">
+                            <span>🚛</span> AutoMatic Filo
+                        </a>
+                        <a href="#" class="pre-segments-item po" onclick="loadPOFiloPreset(); return false;" style="background:rgba(227,30,36,0.08);font-weight:600;">
+                            <span>🎯</span> Filo Kitlesi Yükle
+                        </a>
                     </div>
                     <div class="pre-segments-group">
                         <div class="pre-segments-group-title">
@@ -1016,6 +1022,28 @@
             const arrow = document.getElementById('preSegmentsArrow');
             menu.classList.toggle('visible');
             arrow.classList.toggle('rotated');
+        }
+
+        function loadPOFiloPreset() {
+            const poFiloSegments = [
+                { id: 'pf-1', name: 'Lojistik & Dağıtım', desc: 'Şehirlerarası nakliye, son mil kurye, 3PL taşeron', reach: 8.4 },
+                { id: 'pf-2', name: 'İnşaat & Taahhüt', desc: 'Şantiye, beton, hafriyat, kamyon filoları', reach: 4.2 },
+                { id: 'pf-3', name: 'Teknik Servis', desc: 'Klima, beyaz eşya, IT altyapı, asansör bakım filoları', reach: 3.6 },
+                { id: 'pf-4', name: 'FMCG Saha', desc: 'Hızlı tüketim saha satış, merchandiser ve distribütör', reach: 3.8 },
+                { id: 'pf-5', name: 'OSB Üreticileri', desc: 'Organize sanayi, ara mal taşıma, tedarik zinciri', reach: 2.8 },
+                { id: 'pf-6', name: 'Mikro Filo Esnaf', desc: '1-5 araç, filo sistemi hiç kullanmamış esnaf', reach: 6.4 },
+                { id: 'dm-1', name: 'C-Level & Genel Müdürler', desc: 'CEO/CFO/COO, nihai bütçe onayı', reach: 0.3 },
+                { id: 'dm-2', name: 'İşletme Sahipleri & Patronlar', desc: 'KOBİ sahibi, hem operasyonel hem finansal karar', reach: 3.8 },
+                { id: 'dm-3', name: 'Kurumsal Filo Karar Vericileri', desc: 'Filo yatırım/kiralama/yakıt anlaşma kararı', reach: 1.5 },
+                { id: 'dm-5', name: 'Franchise & Zincir Sahipleri', desc: 'Çoklu şube/bayilik yöneten', reach: 1.4 },
+                { id: 'gk-1', name: 'Satın Alma & Tedarik Yöneticileri', desc: 'B2B tedarik zinciri, vendor seçimi', reach: 2.4 },
+                { id: 'gk-2', name: 'Operasyon & Lojistik Müdürleri', desc: 'Filo/depo/saha operasyonları yöneten', reach: 4.8 },
+                { id: 'gk-3', name: 'Finans & Muhasebe Yöneticileri', desc: 'Bütçe onayı, maliyet analizi', reach: 1.6 },
+                { id: 'gk-5', name: 'İK & Çalışan Deneyimi Yöneticileri', desc: 'Yan hak, çalışan memnuniyeti', reach: 3.5 },
+                { id: 'inf-4', name: 'KOBİ Sahipleri & Esnaf', desc: 'İşletme gider/enerji yönetimi odaklı', reach: 12.8 }
+            ];
+            localStorage.setItem('selectedSegments', JSON.stringify(poFiloSegments));
+            location.reload();
         }
         
         // Click outside to close dropdown
