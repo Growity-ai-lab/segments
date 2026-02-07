@@ -1431,6 +1431,15 @@ function renderSegments(filter, search) {
                 (function() {
                     var metaR = metaDataCache[sub.id] ? metaDataCache[sub.id].formatted : null;
                     var ttR = platformDataCache.tiktok && platformDataCache.tiktok[sub.id] ? platformDataCache.tiktok[sub.id].formatted : null;
+                    // Önerilen ama henüz kabul edilmemiş
+                    if (!metaR && typeof currentSuggestions !== 'undefined') {
+                        var sug = currentSuggestions.find(function(s) { return s.segmentId === sub.id && s.status === 'ready' && s.audienceSize; });
+                        if (sug) metaR = formatMetaNumber(sug.audienceSize);
+                    }
+                    if (!ttR && typeof currentTikTokSuggestions !== 'undefined') {
+                        var ttSug = currentTikTokSuggestions.find(function(s) { return s.segmentId === sub.id && s.status === 'ready' && s.audienceSize; });
+                        if (ttSug) ttR = formatMetaNumber(ttSug.audienceSize);
+                    }
                     if (metaR || ttR) {
                         var parts = [];
                         if (metaR) parts.push('<span class="meta-tag" style="background:rgba(24,119,242,0.15);color:#1877f2;font-size:9px">M:' + metaR + '</span>');
@@ -1582,22 +1591,48 @@ function updateUI() {
     var matchedSegCount = 0;
     
     selectedSegments.forEach(function(segId) {
-        // Meta reach
+        var metaFound = false;
+        var ttFound = false;
+        
+        // 1. Kabul edilmiş Meta reach
         var metaData = META_SEGMENT_MAP[segId];
         if (metaData && metaData.audienceSize) {
             metaReachTotal += metaData.audienceSize;
-            matchedSegCount++;
+            metaFound = true;
         } else if (metaDataCache[segId] && metaDataCache[segId].raw) {
             metaReachTotal += metaDataCache[segId].raw;
-            matchedSegCount++;
+            metaFound = true;
         }
-        // TikTok reach
+        
+        // 2. Henüz kabul edilmemiş ama önerilen Meta reach
+        if (!metaFound && typeof currentSuggestions !== 'undefined') {
+            var suggestion = currentSuggestions.find(function(s) { return s.segmentId === segId && s.status === 'ready'; });
+            if (suggestion && suggestion.audienceSize) {
+                metaReachTotal += suggestion.audienceSize;
+                metaFound = true;
+            }
+        }
+        
+        // 3. Kabul edilmiş TikTok reach
         var ttData = PLATFORM_SEGMENT_MAP.tiktok && PLATFORM_SEGMENT_MAP.tiktok[segId];
         if (ttData && ttData.audienceSize) {
             tiktokReachTotal += ttData.audienceSize;
+            ttFound = true;
         } else if (platformDataCache.tiktok && platformDataCache.tiktok[segId] && platformDataCache.tiktok[segId].raw) {
             tiktokReachTotal += platformDataCache.tiktok[segId].raw;
+            ttFound = true;
         }
+        
+        // 4. Henüz kabul edilmemiş ama önerilen TikTok reach
+        if (!ttFound && typeof currentTikTokSuggestions !== 'undefined') {
+            var ttSuggestion = currentTikTokSuggestions.find(function(s) { return s.segmentId === segId && s.status === 'ready'; });
+            if (ttSuggestion && ttSuggestion.audienceSize) {
+                tiktokReachTotal += ttSuggestion.audienceSize;
+                ttFound = true;
+            }
+        }
+        
+        if (metaFound || ttFound) matchedSegCount++;
     });
     
     // Overlap tahmini (%30 düş — aynı kişi iki platformda)
