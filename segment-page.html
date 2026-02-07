@@ -506,7 +506,7 @@
                     <div class="ai-suggestions-title">🤖 Akıllı Interest Önerileri <span id="suggestionCount" style="font-weight:400;color:var(--text-secondary);"></span></div>
                     <div class="ai-suggestions-actions">
                         <button class="meta-btn green" onclick="acceptAllSuggestions()">✓ Tümünü Kabul</button>
-                        <button class="meta-btn" onclick="fetchAllSuggestions()">🔄 Yeniden Öner</button>
+                        <button class="meta-btn" onclick="regenerateMetaSuggestions()">🔄 Yeniden Öner</button>
                         <button class="suggestion-btn skip" onclick="closeSuggestions()">✕ Kapat</button>
                     </div>
                 </div>
@@ -696,6 +696,80 @@ const segments = [
 
 ];
 
+const INTEREST_ALT_KEYWORDS = {
+    // PO Filo
+    'pf-1': ['trucking', 'shipping', 'cargo', 'delivery service'],
+    'pf-2': ['building', 'architecture', 'real estate development', 'contractor'],
+    'pf-3': ['repair', 'technician', 'field service', 'electronics repair'],
+    'pf-4': ['retail', 'consumer goods', 'supermarket', 'grocery'],
+    'pf-5': ['factory', 'production', 'industrial', 'engineering'],
+    'pf-6': ['small business', 'self employed', 'shop owner', 'trade'],
+    // B2B
+    'dm-1': ['management', 'leadership', 'executive', 'corporate'],
+    'dm-2': ['startup', 'SME', 'business owner', 'commerce'],
+    'dm-3': ['vehicle', 'fuel', 'transportation', 'automotive'],
+    'dm-5': ['chain store', 'retail management', 'multi-unit', 'restaurant chain'],
+    'gk-1': ['purchasing', 'vendor', 'B2B', 'wholesale'],
+    'gk-2': ['warehouse', 'distribution', 'transport', 'supply chain'],
+    'gk-3': ['bookkeeping', 'finance', 'budgeting', 'tax'],
+    'gk-5': ['recruitment', 'employee', 'workplace', 'talent'],
+    'inf-4': ['entrepreneur', 'sole trader', 'micro business', 'self-employed'],
+    // Consumer segments
+    'yt-1': ['innovation', 'gadget', 'smart home', 'wearable'],
+    'yt-2': ['professional', 'networking', 'LinkedIn', 'career growth'],
+    'yt-3': ['hiking', 'camping', 'nature', 'exploration'],
+    'yt-4': ['yoga', 'gym', 'health', 'workout'],
+    'yt-5': ['green energy', 'recycling', 'climate', 'organic'],
+    'yt-6': ['declutter', 'simple living', 'capsule wardrobe', 'zen'],
+    'tk-1': ['premium brand', 'designer', 'high-end', 'exclusive'],
+    'tk-2': ['e-commerce', 'marketplace', 'Trendyol', 'Amazon'],
+    'tk-3': ['clothing', 'apparel', 'style', 'wardrobe'],
+    'tk-4': ['brand', 'consumer', 'product review', 'recommendation'],
+    'tk-5': ['discount', 'sale', 'bargain', 'promotion'],
+    'dj-1': ['smartphone', 'laptop', 'tablet', 'tech review'],
+    'dj-2': ['Instagram', 'influencer', 'content creator', 'viral'],
+    'dj-3': ['digital shopping', 'online store', 'delivery app', 'marketplace'],
+    'dj-4': ['esports', 'PC gaming', 'mobile games', 'console'],
+    'dj-5': ['Netflix', 'YouTube', 'Disney Plus', 'streaming'],
+    'al-1': ['job', 'internship', 'networking', 'resume'],
+    'al-2': ['bride', 'engagement', 'ceremony', 'honeymoon'],
+    'al-3': ['baby', 'toddler', 'motherhood', 'nursery'],
+    'al-4': ['school', 'children', 'homework', 'playground'],
+    'al-5': ['retirement', 'senior', 'pension', 'golden age'],
+    'gl-1': ['wealth', 'affluent', 'upscale', 'VIP'],
+    'gl-2': ['stock market', 'portfolio', 'dividend', 'asset'],
+    'gl-3': ['mall', 'boutique', 'department store', 'retail therapy'],
+    'gl-4': ['budget', 'thrift', 'price comparison', 'value'],
+    'md-1': ['TV series', 'drama', 'sitcom', 'broadcast'],
+    'md-2': ['binge watching', 'on demand', 'series', 'movie'],
+    'md-3': ['audiobook', 'radio', 'Spotify', 'podcast'],
+    'md-4': ['short video', 'reels', 'viral content', 'creator'],
+    'md-5': ['journalism', 'newspaper', 'current events', 'press'],
+    'ot-1': ['sedan', 'sports car', 'BMW', 'Mercedes'],
+    'ot-2': ['SUV', '4x4', 'crossover', 'off-road'],
+    'ot-3': ['Tesla', 'hybrid', 'EV charging', 'green car'],
+    'sy-1': ['airline', 'airport', 'flight', 'miles'],
+    'sy-2': ['hotel', 'resort', 'beach', 'all inclusive'],
+    'sy-3': ['conference', 'meeting', 'corporate travel', 'airport lounge'],
+    'fn-1': ['crypto', 'Bitcoin', 'stock trading', 'forex'],
+    'fn-2': ['savings account', 'deposit', 'interest rate', 'money'],
+    'fn-3': ['loan', 'mortgage', 'credit score', 'bank'],
+    'fn-4': ['fintech', 'digital wallet', 'payment app', 'NFC'],
+    'fn-5': ['installment', 'afterpay', 'BNPL', 'deferred payment'],
+    'bs-1': ['vegan', 'health food', 'diet', 'nutrition'],
+    'bs-2': ['coffee shop', 'cafe', 'barista', 'latte'],
+    'bs-3': ['fast food', 'takeout', 'food delivery', 'burger'],
+    'kn-1': ['interior design', 'furniture', 'IKEA', 'decoration'],
+    'kn-2': ['apartment', 'house hunting', 'property', 'rent'],
+    'kn-3': ['mortgage', 'home loan', 'real estate agent', 'housing'],
+    'kn-4': ['home insurance', 'property investment', 'landlord', 'rental income'],
+    'inf-1': ['household', 'grocery', 'family budget', 'home appliance'],
+    'inf-2': ['app store', 'download', 'digital', 'subscription'],
+    'inf-3': ['mobile app', 'in-app', 'freemium', 'notification'],
+    'inf-5': ['coupon code', 'flash sale', 'clearance', 'outlet'],
+    'inf-6': ['review', 'unboxing', 'testimonial', 'UGC']
+};
+
 const INTEREST_RECOMMENDATIONS = {
     // Yaşam Tarzı
     'yt-1': { keyword: 'early adopter technology', name: 'Technology early adopters' },
@@ -785,10 +859,10 @@ const INTEREST_RECOMMENDATIONS = {
     // PO AutoMatic Filo — Sektörel Kırılım
     'pf-1': { keyword: 'Freight transport', name: 'Freight transport' },
     'pf-2': { keyword: 'Civil engineering', name: 'Civil engineering' },
-    'pf-3': { keyword: 'Heating, ventilation, and air conditioning', name: 'HVAC' },
+    'pf-3': { keyword: 'Appliances', name: 'Appliances' },
     'pf-4': { keyword: 'Fast-moving consumer goods', name: 'FMCG' },
     'pf-5': { keyword: 'Industry', name: 'Industry' },
-    'pf-6': { keyword: 'Small and medium-sized enterprises', name: 'SME' },
+    'pf-6': { keyword: 'Business', name: 'Business' },
 
 };
 
@@ -1604,9 +1678,11 @@ function renderSuggestions() {
                 var btnStyle = isSelected 
                     ? 'background:rgba(0,212,255,0.2);border:1px solid var(--accent-blue);color:var(--accent-blue)' 
                     : 'background:var(--bg-secondary);border:1px solid var(--border-color);color:var(--text-primary)';
-                optHtml += '<button style="padding:5px 10px;border-radius:6px;font-size:11px;cursor:pointer;white-space:nowrap;transition:all 0.2s;' + btnStyle + '" ' +
+                optHtml += '<span style="display:inline-flex;align-items:center;gap:2px;"><button style="padding:5px 10px;border-radius:6px 0 0 6px;font-size:11px;cursor:pointer;white-space:nowrap;transition:all 0.2s;' + btnStyle + '" ' +
                     'onclick="pickOption(' + idx + ',' + optIdx + ')">' +
-                    (isSelected ? '\u2713 ' : '') + opt.name + '<span style="color:var(--accent-green);font-size:9px;margin-left:4px;">' + sizeStr + '</span></button>';
+                    (isSelected ? '\u2713 ' : '') + opt.name + '<span style="color:var(--accent-green);font-size:9px;margin-left:4px;">' + sizeStr + '</span></button>' +
+                    '<button style="padding:5px 4px;border-radius:0 6px 6px 0;font-size:10px;cursor:pointer;background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#ef4444;border-left:0;" ' +
+                    'onclick="removeOption(' + idx + ',' + optIdx + ')" title="Kald\u0131r">\u00d7</button></span>';
             });
             optHtml += '</div>';
             statusHtml = optHtml;
@@ -1626,6 +1702,73 @@ function renderSuggestions() {
     list.innerHTML = html;
 }
 
+function regenerateMetaSuggestions() {
+    currentSuggestions.forEach(function(s) {
+        if (s.status !== 'accepted') {
+            // Daha önce görülen ID'leri kaydet
+            if (!s.excludedIds) s.excludedIds = [];
+            if (s.allOptions) {
+                s.allOptions.forEach(function(o) {
+                    if (s.excludedIds.indexOf(o.id) === -1) s.excludedIds.push(o.id);
+                });
+            }
+            
+            // Alternatif keyword'e geç
+            if (!s.altKeywordIndex) s.altKeywordIndex = 0;
+            var alts = INTEREST_ALT_KEYWORDS[s.segmentId];
+            if (alts && alts.length > 0) {
+                s.keyword = alts[s.altKeywordIndex % alts.length];
+                s.altKeywordIndex++;
+            }
+            
+            s.status = 'pending';
+            s.options = null;
+            s.allOptions = null;
+            s.selectedInterest = null;
+            s.selectedInterests = null;
+            s.audienceSize = null;
+        }
+    });
+    renderSuggestions();
+    fetchAllSuggestions();
+}
+
+function removeOption(sugIdx, optIdx) {
+    var s = currentSuggestions[sugIdx];
+    if (!s.options || s.options.length <= 1) return;
+    
+    var removed = s.options.splice(optIdx, 1)[0];
+    
+    // allOptions'tan da kaldır — bir daha geri gelmesin
+    if (s.allOptions) {
+        s.allOptions = s.allOptions.filter(function(ao) { return ao.id !== removed.id; });
+    }
+    
+    // Eğer kaldırılan seçiliyse, ilk seçeneği seç
+    if (s.selectedInterest && s.selectedInterest.id === removed.id) {
+        s.selectedInterest = { id: s.options[0].id, name: s.options[0].name };
+        s.audienceSize = s.options[0].audience_size;
+    }
+    if (s.selectedInterests) {
+        s.selectedInterests = s.selectedInterests.filter(function(si) { return si.id !== removed.id; });
+        if (s.selectedInterests.length === 0) {
+            s.selectedInterests = [{ id: s.options[0].id, name: s.options[0].name }];
+        }
+    }
+    
+    // Yedekteki seçeneği getir
+    if (s.allOptions) {
+        var nextOpt = s.allOptions.find(function(ao) {
+            return !s.options.some(function(o) { return o.id === ao.id; });
+        });
+        if (nextOpt) {
+            s.options.push(nextOpt);
+        }
+    }
+    
+    renderSuggestions();
+}
+
 function fetchAllSuggestions() {
     updateMetaStatus('loading', 'Öneriler hazırlanıyor...');
     
@@ -1637,7 +1780,7 @@ function fetchAllSuggestions() {
         
         return new Promise(function(resolve) {
             setTimeout(function() {
-                var url = 'https://graph.facebook.com/' + META_CONFIG.apiVersion + '/search?type=adinterest&q=' + encodeURIComponent(s.keyword) + '&limit=5&access_token=' + META_CONFIG.accessToken;
+                var url = 'https://graph.facebook.com/' + META_CONFIG.apiVersion + '/search?type=adinterest&q=' + encodeURIComponent(s.keyword) + '&limit=15&access_token=' + META_CONFIG.accessToken;
                 
                 var timeoutId = setTimeout(function() {
                     console.warn('Meta API timeout for:', s.segmentName);
@@ -1660,11 +1803,22 @@ function fetchAllSuggestions() {
                             return;
                         }
                         if (data.data && data.data.length > 0) {
-                            s.options = data.data.slice(0, 3).map(function(d) {
-                                return { id: d.id, name: d.name, audience_size: d.audience_size_upper_bound || d.audience_size || null };
-                            });
-                            // İlk seçeneği otomatik seç
+                            var excluded = s.excludedIds || [];
+                            var allOpts = data.data
+                                .filter(function(d) { return excluded.indexOf(d.id) === -1; })
+                                .map(function(d) {
+                                    return { id: d.id, name: d.name, audience_size: d.audience_size_upper_bound || d.audience_size || null };
+                                });
+                            if (allOpts.length === 0) {
+                                s.status = 'error';
+                                renderSuggestions();
+                                resolve();
+                                return;
+                            }
+                            s.allOptions = allOpts;
+                            s.options = allOpts.slice(0, 3);
                             s.selectedInterest = { id: s.options[0].id, name: s.options[0].name };
+                            s.selectedInterests = [s.selectedInterest];
                             s.audienceSize = s.options[0].audience_size;
                             s.status = 'ready';
                         } else {
