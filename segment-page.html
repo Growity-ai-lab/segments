@@ -94,13 +94,15 @@
         .step-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.5; }
         .step-check { position: absolute; top: 12px; right: 12px; width: 20px; height: 20px; background: var(--accent-green); border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 12px; }
         .step.completed .step-check { display: flex; }
-        .quick-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+        .quick-actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
         .quick-action { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.3s; text-align: center; }
         .quick-action:hover { border-color: var(--accent-blue); transform: translateY(-2px); }
         .quick-action-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin: 0 auto 12px; }
         .quick-action-icon.awareness { background: rgba(124,58,237,0.2); }
         .quick-action-icon.consideration { background: rgba(245,158,11,0.2); }
         .quick-action-icon.conversion { background: rgba(16,185,129,0.2); }
+        .quick-action-icon.po-filo { background: rgba(227,30,36,0.2); }
+        .quick-action.po-filo-active { border-color: #E31E24; background: rgba(227,30,36,0.1); }
         .quick-action-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
         .quick-action-count { font-size: 11px; color: var(--text-secondary); font-family: 'Space Mono', monospace; }
         .quick-action.active { border-color: var(--accent-green); background: rgba(16,185,129,0.1); }
@@ -281,7 +283,7 @@
         .empty-state { grid-column: 1 / -1; text-align: center; padding: 60px 20px; }
         .empty-state-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
         @media (max-width: 1200px) { .steps { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { .steps { grid-template-columns: 1fr; } .quick-actions { grid-template-columns: 1fr; } .stats-row { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .steps { grid-template-columns: 1fr; } .quick-actions { grid-template-columns: repeat(2, 1fr); } .stats-row { grid-template-columns: repeat(2, 1fr); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideIn { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
@@ -466,6 +468,7 @@
             <div class="quick-action" onclick="selectFunnel('awareness')" id="funnel-awareness" role="button" tabindex="0" aria-label="Awareness segmentlerini seç"><div class="quick-action-icon awareness"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#7c3aed" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div><div class="quick-action-title">Awareness</div><div class="quick-action-count">18 segment otomatik seç</div></div>
             <div class="quick-action" onclick="selectFunnel('consideration')" id="funnel-consideration" role="button" tabindex="0" aria-label="Consideration segmentlerini seç"><div class="quick-action-icon consideration"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#f59e0b" stroke-width="2"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M12 5v13"/></svg></div><div class="quick-action-title">Consideration</div><div class="quick-action-count">20 segment otomatik seç</div></div>
             <div class="quick-action" onclick="selectFunnel('conversion')" id="funnel-conversion" role="button" tabindex="0" aria-label="Conversion segmentlerini seç"><div class="quick-action-icon conversion"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#10b981" stroke-width="2"><circle cx="8" cy="8" r="6"/><path d="M18.09 10.37A6 6 0 1 1 10.34 18"/><path d="M7 6h1v4"/><path d="m16.71 13.88.7.71-2.82 2.82"/></svg></div><div class="quick-action-title">Conversion</div><div class="quick-action-count">16 segment otomatik seç</div></div>
+            <div class="quick-action" onclick="selectPOFilo()" id="funnel-po-filo" role="button" tabindex="0" aria-label="PO AutoMatic Filo segmentlerini seç"><div class="quick-action-icon po-filo"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#E31E24" stroke-width="2"><path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M5 17h-2v-6l2-5h9l4 5h1a2 2 0 0 1 2 2v4h-2m-4 0h-6m-6 -6h15m-6 0v-5"/></svg></div><div class="quick-action-title">PO AutoMatic Filo</div><div class="quick-action-count">6 sektörel + ilişkili segmentler</div></div>
         </section>
         <div class="meta-panel">
             <div class="meta-panel-header">
@@ -528,7 +531,7 @@
         </div>
         <div class="stats-row">
             <div class="stat-card"><div class="stat-icon blue">👥</div><div><div class="stat-value">68</div><div class="stat-label">Toplam Segment</div></div></div>
-            <div class="stat-card"><div class="stat-icon purple">📁</div><div><div class="stat-value">16</div><div class="stat-label">Ana Kategori</div></div></div>
+            <div class="stat-card"><div class="stat-icon purple">📁</div><div><div class="stat-value">12</div><div class="stat-label">Ana Kategori</div></div></div>
             <div class="stat-card"><div class="stat-icon green">✓</div><div><div class="stat-value" id="selectedCount">0</div><div class="stat-label">Seçili</div></div></div>
             <div class="stat-card"><div class="stat-icon orange">📈</div><div><div class="stat-value" id="totalReach">0%</div><div class="stat-label">Tahmini Reach</div></div></div>
         </div>
@@ -539,8 +542,6 @@
                 <button class="filter-btn" data-filter="lifestyle">🌟 Lifestyle</button>
                 <button class="filter-btn" data-filter="demografik">👤 Demografik</button>
                 <button class="filter-btn" data-filter="davranis">🛒 Davranış</button>
-                <button class="filter-btn" data-filter="b2c">⚡ B2C</button>
-                <button class="filter-btn" data-filter="b2b">🏢 B2B</button>
             </div>
             <button class="btn btn-secondary" onclick="toggleAllCategories()" id="toggleAllBtn" style="margin-left:auto;font-size:12px;padding:8px 14px;">
                 <span class="icon" style="margin-right:4px;">📂</span> Tümünü Aç
@@ -606,46 +607,58 @@ const segments = [
         { id: 'yt-3', name: 'Deneyim Avcıları', desc: 'Yeni deneyimler arayan maceraperestler', reach: 9.8 },
         { id: 'yt-4', name: 'Wellness Tutkunları', desc: 'Sağlık ve wellness odaklı yaşam', reach: 7.3 },
         { id: 'yt-5', name: 'Sürdürülebilir Yaşam', desc: 'Çevre dostu tercihler yapan', reach: 11.4 },
-        { id: 'yt-6', name: 'Minimalistler', desc: 'Az ve öz yaşamı tercih eden', reach: 5.8 }
+        { id: 'yt-6', name: 'Minimalistler', desc: 'Az ve öz yaşamı tercih eden', reach: 5.8 },
+        { id: 'gk-5', name: 'İK & Çalışan Deneyimi Yöneticileri', desc: 'B2B yan hak, çalışan memnuniyeti — LinkedIn: HR Manager, People & Culture', reach: 3.5 }
     ]},
     { id: 'tuketim', name: 'Tüketim Davranışı', icon: '🛒', category: 'davranis', subs: [
         { id: 'tk-1', name: 'Premium Tüketiciler', desc: 'Kaliteyi fiyatın önünde tutan', reach: 11.2 },
         { id: 'tk-2', name: 'Akıllı Alışverişçiler', desc: 'Araştırıp en iyiyi bulan', reach: 22.4 },
         { id: 'tk-3', name: 'Dürtüsel Alışverişçiler', desc: 'Anlık kararlarla alışveriş yapan', reach: 14.3 },
         { id: 'tk-4', name: 'Sadık Müşteriler', desc: 'Marka bağlılığı yüksek', reach: 18.6 },
-        { id: 'tk-5', name: 'Fırsat Avcıları', desc: 'İndirim ve kampanya takipçisi', reach: 26.8 }
+        { id: 'tk-5', name: 'Fırsat Avcıları', desc: 'İndirim ve kampanya takipçisi', reach: 26.8 },
+        { id: 'inf-5', name: 'Fiyat-Değer Araştırmacıları', desc: 'Fiyat karşılaştırma, indirim/kupon takibi — TikTok: Bargain Hunters, Price Comparison', reach: 52.1 },
+        { id: 'dm-5', name: 'Franchise & Zincir Sahipleri', desc: 'Çoklu şube/bayilik yöneten — Meta: Franchise Ownership, Multi-Location', reach: 1.4 }
     ]},
     { id: 'dijital', name: 'Dijital Davranış', icon: '📱', category: 'davranis', subs: [
         { id: 'dj-1', name: 'Dijital Yerliler', desc: 'Hayatı dijitalde yaşayan Z kuşağı', reach: 22.4 },
         { id: 'dj-2', name: 'Sosyal Medya Aktifi', desc: 'Tüm platformlarda aktif paylaşımcı', reach: 28.6 },
         { id: 'dj-3', name: 'E-Ticaret Uzmanı', desc: 'Online alışverişi tercih eden', reach: 19.2 },
         { id: 'dj-4', name: 'Gamers', desc: 'Mobil ve PC oyuncuları', reach: 16.8 },
-        { id: 'dj-5', name: 'İçerik Tüketicileri', desc: 'Video ve podcast takipçisi', reach: 31.2 }
+        { id: 'dj-5', name: 'İçerik Tüketicileri', desc: 'Video ve podcast takipçisi', reach: 31.2 },
+        { id: 'inf-2', name: 'Dijital-First Tüketiciler', desc: 'Online alışveriş ve dijital hizmet tercihi — Meta: Online Shopping, Digital Services', reach: 28.3 },
+        { id: 'inf-3', name: 'Mobil Uygulama Aktifi', desc: 'App üzerinden fatura/alışveriş/sipariş — TikTok: App Activity, In-App Purchasers', reach: 35.6 }
     ]},
     { id: 'aile', name: 'Aile & Yaşam Evresi', icon: '👨‍👩‍👧‍👦', category: 'demografik', subs: [
         { id: 'al-1', name: 'Genç Bekarlar', desc: 'Kariyer başlangıcı, bağımsız yaşam', reach: 14.2 },
         { id: 'al-2', name: 'Yeni Evliler', desc: 'Yuva kuran çiftler', reach: 8.6 },
         { id: 'al-3', name: 'Genç Aileler', desc: '0-6 yaş çocuklu aileler', reach: 16.8 },
         { id: 'al-4', name: 'Büyüyen Aileler', desc: 'Okul çağı çocuklu aileler', reach: 14.2 },
-        { id: 'al-5', name: 'Olgun Haneler', desc: 'Yetişkin çocuklu veya çocuksuz 45+ haneler', reach: 18.5 }
+        { id: 'al-5', name: 'Olgun Haneler', desc: 'Yetişkin çocuklu veya çocuksuz 45+ haneler', reach: 18.5 },
+        { id: 'inf-1', name: 'Aile İçi Karar Yönlendiriciler', desc: 'Ev harcamalarında söz sahibi, ürün araştıran — Meta: Household decision makers', reach: 42.5 }
     ]},
     { id: 'gelir', name: 'Sosyo-Ekonomik', icon: '💰', category: 'demografik', subs: [
         { id: 'gl-1', name: 'Premium (A+)', desc: 'En yüksek gelir ve harcama', reach: 5.2 },
         { id: 'gl-2', name: 'Üst Segment (A)', desc: 'Yüksek alım gücü', reach: 12.8 },
         { id: 'gl-3', name: 'Orta Üst (B+)', desc: 'Konforlu orta sınıf', reach: 18.4 },
-        { id: 'gl-4', name: 'Orta (B)', desc: 'Geniş orta segment', reach: 28.6 }
+        { id: 'gl-4', name: 'Orta (B)', desc: 'Geniş orta segment', reach: 28.6 },
+        { id: 'inf-4', name: 'KOBİ Sahipleri & Esnaf', desc: 'İşletme gider/enerji yönetimi odaklı — Meta: SMB Owners, Business Page Admins', reach: 12.8 },
+        { id: 'dm-1', name: 'C-Level & Genel Müdürler', desc: 'CEO/CFO/COO, nihai bütçe onayı — LinkedIn: C-Suite, Company Size 10-500', reach: 0.3 },
+        { id: 'dm-2', name: 'İşletme Sahipleri & Patronlar', desc: 'KOBİ sahibi, hem operasyonel hem finansal karar — Meta: SMB Owners, Entrepreneurship', reach: 3.8 }
     ]},
     { id: 'medya', name: 'Medya Tüketimi', icon: '📺', category: 'davranis', subs: [
         { id: 'md-1', name: 'TV Bağımlıları', desc: 'Geleneksel TV ağırlıklı', reach: 32.3 },
         { id: 'md-2', name: 'Streaming Nesli', desc: 'Netflix, YouTube Premium', reach: 28.5 },
         { id: 'md-3', name: 'Podcast Dinleyicileri', desc: 'Sesli içerik takipçisi', reach: 12.4 },
         { id: 'md-4', name: 'Sosyal Video', desc: 'TikTok, Reels, Shorts izleyicisi', reach: 34.8 },
-        { id: 'md-5', name: 'Haber Takipçileri', desc: 'Aktif haber okuyucusu', reach: 26.2 }
+        { id: 'md-5', name: 'Haber Takipçileri', desc: 'Aktif haber okuyucusu', reach: 26.2 },
+        { id: 'inf-6', name: 'Sosyal Kanıt Takipçileri', desc: 'Yorum/review/UGC üzerinden karar veren — TikTok: Content Engagers, Creators', reach: 48.2 }
     ]},
     { id: 'otomotiv', name: 'Otomotiv', icon: '🚗', category: 'davranis', subs: [
         { id: 'ot-1', name: 'Premium Araç Sahipleri', desc: 'Lüks segment tercih eden', reach: 8.4 },
         { id: 'ot-2', name: 'SUV & Crossover', desc: 'Geniş aile aracı seven', reach: 15.2 },
-        { id: 'ot-3', name: 'Elektrikli Araç İlgilileri', desc: 'EV ve hibrit meraklıları', reach: 9.8 }
+        { id: 'ot-3', name: 'Elektrikli Araç İlgilileri', desc: 'EV ve hibrit meraklıları', reach: 9.8 },
+        { id: 'gk-2', name: 'Operasyon & Lojistik Müdürleri', desc: 'B2B filo/depo/saha operasyonları yöneten — Meta: Fleet Management, Logistics', reach: 4.8 },
+        { id: 'dm-3', name: 'Kurumsal Filo Karar Vericileri', desc: 'B2B filo yatırım/kiralama/yakıt anlaşma kararı — TikTok: Fleet Business, B2B Auto', reach: 1.5 }
     ]},
     { id: 'seyahat', name: 'Seyahat', icon: '✈️', category: 'lifestyle', subs: [
         { id: 'sy-1', name: 'Sık Seyahat Edenler', desc: 'Yılda 4+ uçuş yapan', reach: 12.4 },
@@ -657,7 +670,9 @@ const segments = [
         { id: 'fn-2', name: 'Tasarrufçular', desc: 'Birikim ve güvenlik odaklı', reach: 22.8 },
         { id: 'fn-3', name: 'Kredi Kullanıcıları', desc: 'Taksit ve kredi aktif', reach: 31.4 },
         { id: 'fn-4', name: 'Dijital Bankacılık', desc: 'Mobile-first bankacılık', reach: 45.2 },
-        { id: 'fn-5', name: 'BNPL Kullanıcıları', desc: 'Şimdi al sonra öde tercih eden', reach: 18.6 }
+        { id: 'fn-5', name: 'BNPL Kullanıcıları', desc: 'Şimdi al sonra öde tercih eden', reach: 18.6 },
+        { id: 'gk-1', name: 'Satın Alma & Tedarik Yöneticileri', desc: 'B2B tedarik zinciri, vendor seçimi — LinkedIn: Procurement Manager, Supply Chain', reach: 2.4 },
+        { id: 'gk-3', name: 'Finans & Muhasebe Yöneticileri', desc: 'B2B bütçe onayı, maliyet analizi — Meta: Business Accounting, Finance Software', reach: 1.6 }
     ]},
     { id: 'beslenme', name: 'Yeme-İçme', icon: '🍽️', category: 'lifestyle', subs: [
         { id: 'bs-1', name: 'Sağlıklı Beslenme', desc: 'Organik ve doğal tercih eden', reach: 18.4 },
@@ -670,44 +685,15 @@ const segments = [
         { id: 'kn-3', name: 'Ev Arayanlar', desc: 'Aktif emlak araştıran', reach: 12.8 },
         { id: 'kn-4', name: 'Yatırımcı', desc: 'Emlak yatırımı yapan', reach: 6.4 }
     ]},
-    { id: 'influencers', name: 'B2C — Satın Alma Etkileyicileri', icon: '⚡', category: 'b2c', subs: [
-        { id: 'inf-1', name: 'Aile İçi Karar Yönlendiriciler', desc: 'Ev harcamalarında söz sahibi, ürün araştıran — Meta: Household decision makers', reach: 42.5 },
-        { id: 'inf-2', name: 'Dijital-First Tüketiciler', desc: 'Online alışveriş ve dijital hizmet tercihi — Meta: Online Shopping, Digital Services', reach: 28.3 },
-        { id: 'inf-3', name: 'Mobil Uygulama Aktifi', desc: 'App üzerinden fatura/alışveriş/sipariş — TikTok: App Activity, In-App Purchasers', reach: 35.6 },
-        { id: 'inf-4', name: 'KOBİ Sahipleri & Esnaf', desc: 'İşletme gider/enerji yönetimi odaklı — Meta: SMB Owners, Business Page Admins', reach: 12.8 },
-        { id: 'inf-5', name: 'Fiyat-Değer Araştırmacıları', desc: 'Fiyat karşılaştırma, indirim/kupon takibi — TikTok: Bargain Hunters, Price Comparison', reach: 52.1 },
-        { id: 'inf-6', name: 'Sosyal Kanıt Takipçileri', desc: 'Yorum/review/UGC üzerinden karar veren — TikTok: Content Engagers, Creators Community', reach: 48.2 }
+    { id: 'po-filo', name: 'PO AutoMatic Filo', icon: '🚛', category: 'davranis', subs: [
+        { id: 'pf-1', name: 'Lojistik & Dağıtım', desc: 'Şehirlerarası nakliye, son mil kurye, 3PL taşeron — Meta: Transportation, Trucking Industry, Last Mile', reach: 8.4 },
+        { id: 'pf-2', name: 'İnşaat & Taahhüt', desc: 'Şantiye, beton, hafriyat, kamyon filoları — Meta: Construction Industry, Heavy Equipment', reach: 4.2 },
+        { id: 'pf-3', name: 'Teknik Servis', desc: 'Klima, beyaz eşya, IT altyapı, asansör bakım filoları — Meta: HVAC Services, Field Service', reach: 3.6 },
+        { id: 'pf-4', name: 'FMCG Saha', desc: 'Hızlı tüketim saha satış, merchandiser ve distribütör filoları — Meta: FMCG Sales, Distribution', reach: 3.8 },
+        { id: 'pf-5', name: 'OSB Üreticileri', desc: 'Organize sanayi fabrika, ara mal taşıma, tedarik zinciri filoları — Meta: Manufacturing, Industrial Zone', reach: 2.8 },
+        { id: 'pf-6', name: 'Mikro Filo Esnaf', desc: '1-5 araç, filo sistemi hiç kullanmamış esnaf — TikTok: Small Business, Esnaf Content', reach: 6.4 }
     ]},
-    { id: 'gatekeeper', name: 'B2B — Operasyonel Filtreleyiciler', icon: '🏛️', category: 'b2b', subs: [
-        { id: 'gk-1', name: 'Satın Alma & Tedarik Yöneticileri', desc: 'Kurumsal tedarik zinciri, vendor seçimi — LinkedIn: Procurement Manager, Supply Chain', reach: 2.4 },
-        { id: 'gk-2', name: 'Operasyon & Lojistik Müdürleri', desc: 'Filo/depo/saha operasyonları yöneten — Meta: Fleet Management, Logistics Interest', reach: 4.8 },
-        { id: 'gk-3', name: 'Finans & Muhasebe Yöneticileri', desc: 'Bütçe onayı, maliyet analizi — Meta: Business Accounting, Finance Software', reach: 1.6 },
-        { id: 'gk-4', name: 'IT & Dijital Dönüşüm Liderleri', desc: 'Sistem entegrasyon, SaaS kararları — TikTok: Business Tech, SaaS Interest', reach: 0.8 },
-        { id: 'gk-5', name: 'İK & Çalışan Deneyimi Yöneticileri', desc: 'Yan hak, çalışan memnuniyeti — LinkedIn: HR Manager, People & Culture', reach: 3.5 },
-        { id: 'gk-6', name: 'Sektör Analistleri & Danışmanlar', desc: 'Enerji/otomotiv/lojistik uzmanları — Meta: Industry Analysts, Consulting', reach: 0.5 }
-    ]},
-    { id: 'decisionmaker', name: 'B2B — Stratejik Karar Vericiler', icon: '🎯', category: 'b2b', subs: [
-        { id: 'dm-1', name: 'C-Level & Genel Müdürler', desc: 'CEO/CFO/COO, nihai bütçe onayı — LinkedIn: C-Suite, Company Size 10-500', reach: 0.3 },
-        { id: 'dm-2', name: 'İşletme Sahipleri & Patronlar', desc: 'KOBİ sahibi, hem operasyonel hem finansal karar — Meta: SMB Owners, Entrepreneurship', reach: 3.8 },
-        { id: 'dm-3', name: 'Kurumsal Filo Karar Vericileri', desc: 'Filo yatırım/kiralama/yakıt anlaşma kararı — TikTok: Fleet Business, B2B Auto', reach: 1.5 },
-        { id: 'dm-4', name: 'Yatırımcı & Fon Yöneticileri', desc: 'ESG/sürdürülebilirlik odaklı fonlar — Meta: ESG Investing, Sustainable Business', reach: 0.8 },
-        { id: 'dm-5', name: 'Franchise & Zincir Sahipleri', desc: 'Çoklu şube/bayilik yöneten — Meta: Franchise Ownership, Multi-Location Business', reach: 1.4 }
-    ]},
-    { id: 'po-filo', name: 'PO AutoMatic Filo — B2B KOBİ', icon: '🚛', category: 'b2b', subs: [
-        { id: 'pf-1', name: 'S1 · Hızlı Ölçeklenen KOBİ', desc: '1-20 araç, büyüme eşiğinde, fiş kaosu — Meta: SMB Owners, Recently Started Business', reach: 8.6 },
-        { id: 'pf-2', name: 'S2 · Yaygın Filolu KOBİ', desc: '20-100+ araç, çok lokasyon, istasyon erişimi kritik — Meta: Fleet Management, Logistics', reach: 5.2 },
-        { id: 'pf-3', name: 'S3 · Rakiple Çalışan KOBİ', desc: 'Opet/Shell/BP kullanıyor, switching window açık — TikTok: Business Decision Makers', reach: 4.8 },
-        { id: 'pf-4', name: 'S4 · Çalışan Deneyimi KOBİ', desc: 'Sürücü memnuniyeti odaklı, ekosistem hizmetleri — LinkedIn: HR, Employee Benefits', reach: 3.2 },
-        { id: 'pf-5', name: 'S1-A · E-Ticaret Lojistik', desc: 'Kendi deposundan son mil dağıtım — TikTok: E-commerce Sellers, Logistics', reach: 2.8 },
-        { id: 'pf-6', name: 'S1-B · Franchise Zinciri', desc: 'Çoklu şube/nokta, merkezi kontrol eksik — Meta: Franchise, Multi-Location', reach: 2.1 },
-        { id: 'pf-7', name: 'S1-C · Mikro Filo Esnaf', desc: '1-5 araç, filo sistemi hiç kullanmamış — TikTok: Small Business, Esnaf Content', reach: 6.4 },
-        { id: 'pf-8', name: 'S2-A · Şehirlerarası Nakliye', desc: 'TIR/kamyon filoları, 500+ km/gün — Meta: Transportation, Trucking Industry', reach: 3.5 },
-        { id: 'pf-9', name: 'S2-B · Son Mil Kurye', desc: '3P lojistik, kargo taşeron — TikTok: Courier Life, Last Mile Delivery', reach: 2.4 },
-        { id: 'pf-10', name: 'S3-A · Opet Memnuniyetsiz', desc: 'Opet Otobil kullanıcısı, ekosistem yetersiz — Meta: Competitor Targeting, Fuel Card', reach: 2.2 },
-        { id: 'pf-11', name: 'S3-C · UTTS Geçiş Dönemi', desc: 'UTTS sonrası marka değiştirmeye açık — Meta: Fleet Services, B2B Fuel', reach: 1.8 },
-        { id: 'pf-12', name: 'S4-A · Kurye & Motokurye', desc: 'Yüksek turnover, sürücü motivasyonu — TikTok: Gig Economy, Courier Motivation', reach: 2.6 },
-        { id: 'pf-13', name: 'S4-D · Taksi & VTC', desc: 'Kooperatif/birlik üzerinden toplu anlaşma — Meta: Taxi Services, Ride-Hailing', reach: 1.8 }
-    ]}
+
 ];
 
 const INTEREST_RECOMMENDATIONS = {
@@ -781,43 +767,29 @@ const INTEREST_RECOMMENDATIONS = {
     'kn-3': { keyword: 'real estate property', name: 'Real estate' },
     'kn-4': { keyword: 'property investment', name: 'Real estate investing' },
     
-    // B2C — Satın Alma Etkileyicileri
+    // Distributed B2C/B2B subs (now inside parent segments)
     'inf-1': { keyword: 'household purchase decision', name: 'Family and relationships' },
     'inf-2': { keyword: 'online shopping digital services', name: 'Online shopping' },
     'inf-3': { keyword: 'mobile apps in-app purchase', name: 'Smartphones' },
     'inf-4': { keyword: 'small business owner entrepreneur', name: 'Small business' },
     'inf-5': { keyword: 'bargain deals price comparison', name: 'Coupons' },
     'inf-6': { keyword: 'product review ugc social proof', name: 'Social media' },
-    
-    // B2B — Operasyonel Filtreleyiciler
     'gk-1': { keyword: 'procurement supply chain vendor', name: 'Business and industry' },
     'gk-2': { keyword: 'fleet management logistics operations', name: 'Freight and package transportation' },
     'gk-3': { keyword: 'business accounting finance software', name: 'Accounting' },
-    'gk-4': { keyword: 'IT digital transformation SaaS', name: 'Computers (brand)' },
     'gk-5': { keyword: 'HR employee benefits engagement', name: 'Human resources' },
-    'gk-6': { keyword: 'energy automotive industry analyst', name: 'Energy industry' },
-    
-    // B2B — Stratejik Karar Vericiler
     'dm-1': { keyword: 'CEO CFO COO executive', name: 'Business and industry' },
     'dm-2': { keyword: 'small business owner SMB patron', name: 'Small business' },
     'dm-3': { keyword: 'fleet investment fuel management', name: 'Freight and package transportation' },
-    'dm-4': { keyword: 'esg investing sustainable fund', name: 'Investing' },
     'dm-5': { keyword: 'franchise multi-location chain owner', name: 'Franchising' },
-    
-    // PO AutoMatic Filo — B2B KOBİ
-    'pf-1': { keyword: 'small business fleet startup growth', name: 'Small business' },
-    'pf-2': { keyword: 'fleet management logistics multi-city', name: 'Freight and package transportation' },
-    'pf-3': { keyword: 'fuel card switching fleet services', name: 'Business and industry' },
-    'pf-4': { keyword: 'employee experience driver retention', name: 'Human resources' },
-    'pf-5': { keyword: 'e-commerce logistics last mile', name: 'Online shopping' },
-    'pf-6': { keyword: 'franchise multi-location fleet', name: 'Franchising' },
-    'pf-7': { keyword: 'esnaf small fleet micro business', name: 'Small business' },
-    'pf-8': { keyword: 'trucking transportation long haul', name: 'Freight and package transportation' },
-    'pf-9': { keyword: 'courier delivery last mile', name: 'Freight and package transportation' },
-    'pf-10': { keyword: 'fuel card competitor dissatisfied', name: 'Business and industry' },
-    'pf-11': { keyword: 'fuel card UTTS transition switching', name: 'Business and industry' },
-    'pf-12': { keyword: 'courier motocourier gig economy', name: 'Food delivery' },
-    'pf-13': { keyword: 'taxi ride-hailing VTC fleet', name: 'Taxi and ride-hailing services' }
+    // PO AutoMatic Filo — Sektörel Kırılım
+    'pf-1': { keyword: 'logistics distribution trucking courier', name: 'Freight and package transportation' },
+    'pf-2': { keyword: 'construction contractor heavy fleet', name: 'Construction' },
+    'pf-3': { keyword: 'HVAC field service technical fleet', name: 'Maintenance and repair services' },
+    'pf-4': { keyword: 'FMCG field sales distribution merchandiser', name: 'Fast-moving consumer goods' },
+    'pf-5': { keyword: 'manufacturing industrial zone supply chain', name: 'Manufacturing' },
+    'pf-6': { keyword: 'esnaf small fleet micro business', name: 'Small business' },
+
 };
 
 let selectedSegments = new Set();
@@ -827,9 +799,9 @@ let META_SEGMENT_MAP = {};
 let metaDataCache = {};
 
 const funnelSegments = {
-    awareness: ['yt-1','yt-3','yt-5','dj-2','dj-5','md-2','md-4','md-5','inf-1','inf-6','gk-1','gk-2','gk-3','gk-5','bs-2','sy-2','kn-1','pf-1','pf-7'],
-    consideration: ['yt-2','yt-4','tk-1','tk-2','dj-1','dj-3','dj-4','al-3','al-4','md-3','inf-2','inf-3','gk-4','gk-6','dm-2','dm-3','fn-1','fn-4','fn-5','ot-3','kn-3','pf-2','pf-3','pf-5','pf-8','pf-10','pf-11'],
-    conversion: ['tk-3','tk-4','tk-5','al-1','al-2','fn-2','fn-3','inf-4','inf-5','gk-1','dm-1','dm-4','dm-5','kn-2','kn-4','bs-1','bs-3','pf-4','pf-6','pf-9','pf-12','pf-13']
+    awareness: ['yt-1','yt-3','yt-5','dj-2','dj-5','md-2','md-4','md-5','inf-1','inf-6','gk-1','gk-2','gk-3','gk-5','bs-2','sy-2','kn-1','pf-1','pf-6'],
+    consideration: ['yt-2','yt-4','tk-1','tk-2','dj-1','dj-3','dj-4','al-3','al-4','md-3','inf-2','inf-3','dm-2','dm-3','fn-1','fn-4','fn-5','ot-3','kn-3','pf-2','pf-3','pf-4','pf-5'],
+    conversion: ['tk-3','tk-4','tk-5','al-1','al-2','fn-2','fn-3','inf-4','inf-5','gk-1','dm-1','dm-5','kn-2','kn-4','bs-1','bs-3',]
 };
 
 const META_CONFIG = { 
@@ -1422,7 +1394,7 @@ function selectAllInParent(parentId) {
 function selectFunnel(funnel) {
     var btn = document.getElementById('funnel-' + funnel);
     var wasActive = btn.classList.contains('active');
-    document.querySelectorAll('.quick-action').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.quick-action').forEach(function(b) { b.classList.remove('active'); b.classList.remove('po-filo-active'); });
     
     if (wasActive) {
         activeFunnel = null;
@@ -1443,10 +1415,39 @@ function selectFunnel(funnel) {
     }
 }
 
+function selectPOFilo() {
+    var btn = document.getElementById('funnel-po-filo');
+    var wasActive = btn.classList.contains('po-filo-active');
+    document.querySelectorAll('.quick-action').forEach(function(b) { b.classList.remove('active'); b.classList.remove('po-filo-active'); });
+    
+    if (wasActive) {
+        activeFunnel = null;
+        clearSelection();
+        closeSuggestions();
+    } else {
+        btn.classList.add('po-filo-active');
+        activeFunnel = 'po-filo';
+        selectedSegments.clear();
+        // PO Filo sektörel kırılım (12. ana segment)
+        var poCore = ['pf-1','pf-2','pf-3','pf-4','pf-5','pf-6'];
+        // Diğer segmentlerdeki PO brief'ine uygun kitleler
+        var poRelated = ['dm-1','dm-2','dm-3','dm-5','gk-1','gk-2','gk-3','gk-5','inf-4'];
+        var allPO = poCore.concat(poRelated);
+        allPO.forEach(function(segId) {
+            if (findSegment(segId)) { selectedSegments.add(segId); }
+        });
+        updateUI();
+        updateSteps();
+        document.querySelectorAll('.parent-card').forEach(function(card) { card.classList.add('expanded'); });
+        generateSuggestions();
+        showToast('🚛 PO AutoMatic Filo — ' + selectedSegments.size + ' segment seçildi (6 sektörel + ' + (selectedSegments.size - 6) + ' ilişkili)', 'info');
+    }
+}
+
 function clearSelection() {
     selectedSegments.clear();
     activeFunnel = null;
-    document.querySelectorAll('.quick-action').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.quick-action').forEach(function(b) { b.classList.remove('active'); b.classList.remove('po-filo-active'); });
     updateUI();
     updateSteps();
     closeSuggestions();
@@ -1577,6 +1578,9 @@ function renderSuggestions() {
             statusHtml = '<span class="suggestion-status">✓ Kabul Edildi</span>';
         } else if (s.status === 'skipped') {
             statusHtml = '<span style="color:var(--text-secondary)">Atlandı</span>';
+        } else if (s.status === 'error') {
+            statusHtml = '<span style="color:#ef4444">⚠ API bağlantı hatası</span>';
+            actionsHtml = '<button class="suggestion-btn skip" onclick="retrySuggestion(' + idx + ')">🔄 Tekrar</button>';
         } else if (s.selectedInterest) {
             var sizeText = s.audienceSize ? ' (' + formatMetaNumber(s.audienceSize) + ')' : '';
             statusHtml = '<span class="suggestion-interest">' + s.selectedInterest.name + '</span><span class="suggestion-size">' + sizeText + '</span>';
@@ -1607,9 +1611,26 @@ function fetchAllSuggestions() {
             setTimeout(function() {
                 var url = 'https://graph.facebook.com/' + META_CONFIG.apiVersion + '/search?type=adinterest&q=' + encodeURIComponent(s.keyword) + '&limit=1&access_token=' + META_CONFIG.accessToken;
                 
+                var timeoutId = setTimeout(function() {
+                    console.warn('Meta API timeout for:', s.segmentName);
+                    if (s.status === 'loading') {
+                        s.status = 'error';
+                        renderSuggestions();
+                    }
+                    resolve();
+                }, 8000);
+                
                 fetch(url)
                     .then(function(res) { return res.json(); })
                     .then(function(data) {
+                        clearTimeout(timeoutId);
+                        if (data.error) {
+                            console.error('Meta API error:', data.error.message);
+                            s.status = 'error';
+                            renderSuggestions();
+                            resolve();
+                            return;
+                        }
                         if (data.data && data.data.length > 0) {
                             var interest = data.data[0];
                             s.selectedInterest = { id: interest.id, name: interest.name };
@@ -1624,12 +1645,16 @@ function fetchAllSuggestions() {
                         }
                     })
                     .then(function() {
-                        s.status = 'ready';
+                        clearTimeout(timeoutId);
+                        if (s.status === 'loading') {
+                            s.status = s.selectedInterest ? 'ready' : 'error';
+                        }
                         renderSuggestions();
                         resolve();
                     })
                     .catch(function(err) {
-                        console.error('Error:', err);
+                        clearTimeout(timeoutId);
+                        console.error('Fetch error:', err);
                         s.status = 'error';
                         renderSuggestions();
                         resolve();
@@ -1665,6 +1690,26 @@ function acceptSuggestion(idx) {
 function skipSuggestion(idx) {
     currentSuggestions[idx].status = 'skipped';
     renderSuggestions();
+}
+
+function retrySuggestion(idx) {
+    var s = currentSuggestions[idx];
+    s.status = 'loading';
+    renderSuggestions();
+    var url = 'https://graph.facebook.com/' + META_CONFIG.apiVersion + '/search?type=adinterest&q=' + encodeURIComponent(s.keyword) + '&limit=1&access_token=' + META_CONFIG.accessToken;
+    fetch(url)
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            if (data.data && data.data.length > 0) {
+                var interest = data.data[0];
+                s.selectedInterest = { id: interest.id, name: interest.name };
+                return getMetaReachEstimate([{ id: interest.id, name: interest.name }])
+                    .then(function(sizeData) { s.audienceSize = sizeData.users_upper_bound; })
+                    .catch(function() { s.audienceSize = null; });
+            }
+        })
+        .then(function() { s.status = s.selectedInterest ? 'ready' : 'error'; renderSuggestions(); })
+        .catch(function() { s.status = 'error'; renderSuggestions(); });
 }
 
 function acceptAllSuggestions() {
